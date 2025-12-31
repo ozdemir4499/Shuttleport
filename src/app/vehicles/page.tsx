@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { MapPin, Calendar, Users, Clock, Navigation, Instagram, Globe, MessageCircle, User, ChevronDown, Menu, X } from 'lucide-react';
 
 export default function VehiclesPage() {
-    const [selectedCurrency, setSelectedCurrency] = useState('TRY');
+    const [selectedCurrencies, setSelectedCurrencies] = useState<Record<number, string>>({});
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
     // Mock reservation data (would come from query params or state)
@@ -322,14 +322,14 @@ export default function VehiclesPage() {
                                                 {Object.keys(vehicle.prices).map((currency) => (
                                                     <div key={currency} className="relative pb-3">
                                                         <button
-                                                            onClick={() => setSelectedCurrency(currency)}
-                                                            className={`w-full px-2 sm:px-3 py-2.5 rounded-lg border-2 transition-all ${selectedCurrency === currency
+                                                            onClick={() => setSelectedCurrencies(prev => ({ ...prev, [vehicle.id]: currency }))}
+                                                            className={`w-full px-2 sm:px-3 py-2.5 rounded-lg border-2 transition-all ${(selectedCurrencies[vehicle.id] || 'TRY') === currency
                                                                 ? 'border-green-500 bg-green-50'
                                                                 : 'border-gray-200 hover:border-gray-300'
                                                                 }`}
                                                         >
                                                             <div className="flex items-start gap-1">
-                                                                {selectedCurrency === currency && (
+                                                                {(selectedCurrencies[vehicle.id] || 'TRY') === currency && (
                                                                     <svg className="w-3 h-3 sm:w-4 sm:h-4 text-green-500 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                                                                         <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                                                                     </svg>
@@ -345,7 +345,7 @@ export default function VehiclesPage() {
                                                             </div>
                                                         </button>
                                                         {/* Discount badge - only show on selected currency */}
-                                                        {selectedCurrency === currency && (
+                                                        {(selectedCurrencies[vehicle.id] || 'TRY') === currency && (
                                                             <div className="absolute -bottom-0 left-1/2 -translate-x-1/2 bg-green-500 text-white text-[10px] font-bold px-2 py-0.5 rounded whitespace-nowrap">
                                                                 %20 indirim
                                                             </div>
