@@ -357,9 +357,12 @@ export default function VehiclesPage() {
                                             {/* Action Section */}
                                             <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 pt-2">
                                                 <span className="text-xs text-red-600 font-semibold text-center sm:text-left">Toplam araç fiyatıdır.</span>
-                                                <button className="bg-green-500 hover:bg-green-600 text-white px-6 sm:px-8 py-3 rounded-lg font-bold text-sm transition-colors shadow-md hover:shadow-lg whitespace-nowrap">
+                                                <Link
+                                                    href={`/checkout?vehicleId=${vehicle.id}&currency=${selectedCurrencies[vehicle.id] || 'TRY'}`}
+                                                    className="bg-green-500 hover:bg-green-600 text-white px-6 sm:px-8 py-3 rounded-lg font-bold text-sm transition-colors shadow-md hover:shadow-lg whitespace-nowrap text-center"
+                                                >
                                                     Rezervasyon Yap
-                                                </button>
+                                                </Link>
                                             </div>
                                         </div>
                                     </div>
