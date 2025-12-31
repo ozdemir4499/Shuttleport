@@ -1,8 +1,25 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 import Link from 'next/link';
-import { MapPin, Calendar, Users, Shield, Clock, Car, Globe, Menu, X, Instagram, MessageCircle, User, ChevronDown } from 'lucide-react';
+import { MapPin, Calendar, Users, Shield, Clock, Car, Globe, Menu, X, Instagram, MessageCircle, User, ChevronDown, Loader2 } from 'lucide-react';
+import { MapPickerModal, DistanceResult } from '@/features/maps/components';
+
+interface Location {
+    lat: number;
+    lng: number;
+    address: string;
+    name?: string;
+}
+
+interface DistanceData {
+    distance_km: number;
+    distance_text: string;
+    duration_minutes: number;
+    duration_text: string;
+    origin_address: string;
+    destination_address: string;
+}
 
 export default function Home() {
     const [isScrolled, setIsScrolled] = useState(false);
@@ -10,6 +27,14 @@ export default function Home() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [startDate, setStartDate] = useState<Date | null>(new Date());
     const [currentSlide, setCurrentSlide] = useState(0);
+
+    // Location states
+    const [originLocation, setOriginLocation] = useState<Location | null>(null);
+    const [destinationLocation, setDestinationLocation] = useState<Location | null>(null);
+    const [showOriginModal, setShowOriginModal] = useState(false);
+    const [showDestinationModal, setShowDestinationModal] = useState(false);
+    const [distanceData, setDistanceData] = useState<DistanceData | null>(null);
+    const [isCalculating, setIsCalculating] = useState(false);
 
     // Ref for Tours Slider
     const scrollContainerRef = useRef<HTMLDivElement>(null);
@@ -48,6 +73,54 @@ export default function Home() {
             scrollContainerRef.current.scrollBy({ left: 400, behavior: 'smooth' });
         }
     };
+
+    // Swap locations
+    const handleSwapLocations = useCallback(() => {
+        const temp = originLocation;
+        setOriginLocation(destinationLocation);
+        setDestinationLocation(temp);
+        setDistanceData(null);
+    }, [originLocation, destinationLocation]);
+
+    // Calculate distance when both locations are set
+    const calculateDistance = useCallback(async () => {
+        if (!originLocation || !destinationLocation) return;
+
+        setIsCalculating(true);
+        try {
+            const response = await fetch('http://localhost:8000/api/v1/calculate-distance', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    origin_lat: originLocation.lat,
+                    origin_lng: originLocation.lng,
+                    destination_lat: destinationLocation.lat,
+                    destination_lng: destinationLocation.lng,
+                }),
+            });
+
+            if (!response.ok) {
+                throw new Error('Mesafe hesaplanamadı');
+            }
+
+            const data = await response.json();
+            setDistanceData(data);
+        } catch (error) {
+            console.error('Mesafe hesaplama hatası:', error);
+            alert('Mesafe hesaplanırken bir hata oluştu');
+        } finally {
+            setIsCalculating(false);
+        }
+    }, [originLocation, destinationLocation]);
+
+    // Auto-calculate distance when both locations are set
+    useEffect(() => {
+        if (originLocation && destinationLocation) {
+            calculateDistance();
+        }
+    }, [originLocation, destinationLocation, calculateDistance]);
 
     return (
         <main className="min-h-screen bg-white overflow-x-hidden">
@@ -228,24 +301,33 @@ export default function Home() {
                             <div className="col-span-12 lg:col-span-6 relative">
                                 <div className="flex flex-col md:grid md:grid-cols-2 gap-4 relative">
                                     {/* NEREDEN Card */}
-                                    <div className="bg-white rounded-xl shadow-md p-1 border border-gray-100 relative h-[80px] md:h-[100px] flex items-center">
+                                    <button
+                                        onClick={() => setShowOriginModal(true)}
+                                        className="bg-white rounded-xl shadow-md p-1 border border-gray-100 relative h-[80px] md:h-[100px] flex items-center text-left hover:border-[#82C91E] hover:shadow-lg transition-all group"
+                                    >
                                         <div className="absolute left-4 z-10">
-                                            <div className="w-10 h-10 bg-white border-2 border-[#82C91E] rounded-full flex items-center justify-center">
-                                                <MapPin className="w-5 h-5 text-[#82C91E]" />
+                                            <div className="w-10 h-10 bg-white border-2 border-[#82C91E] rounded-full flex items-center justify-center group-hover:bg-[#82C91E] transition-colors">
+                                                <MapPin className="w-5 h-5 text-[#82C91E] group-hover:text-white transition-colors" />
                                             </div>
                                         </div>
-                                        <input
-                                            type="text"
-                                            className="w-full h-full pl-[70px] pr-4 rounded-lg outline-none text-sm font-bold placeholder-gray-400"
-                                            placeholder="NEREDEN"
-                                        />
-                                        <label className="absolute top-2 left-[70px] text-[10px] font-bold text-gray-800 uppercase">NEREDEN</label>
-                                        <span className="absolute bottom-2 left-[70px] text-[10px] text-gray-400 truncate w-4/5">Adres, Havalimanı, Otel...</span>
-                                    </div>
+                                        <div className="w-full h-full pl-[70px] pr-4 flex flex-col justify-center">
+                                            <label className="text-[10px] font-bold text-gray-800 uppercase">NEREDEN</label>
+                                            <span className={`text-sm font-bold truncate ${originLocation ? 'text-gray-900' : 'text-gray-400'}`}>
+                                                {originLocation?.name || 'Adres, Havalimanı, Otel...'}
+                                            </span>
+                                            {originLocation && (
+                                                <span className="text-[10px] text-gray-400 truncate">{originLocation.address}</span>
+                                            )}
+                                        </div>
+                                    </button>
 
                                     {/* Swap Button - Center Absolute for Mobile & Desktop */}
                                     <div className="absolute left-1/2 md:left-1/2 top-1/2 md:top-1/2 transform -translate-x-1/2 -translate-y-1/2 z-30">
-                                        <button className="w-10 h-10 bg-white border border-gray-200 rounded-full flex items-center justify-center shadow-lg hover:bg-gray-50 transition-colors rotate-90 md:rotate-0">
+                                        <button
+                                            onClick={handleSwapLocations}
+                                            disabled={!originLocation && !destinationLocation}
+                                            className="w-10 h-10 bg-white border border-gray-200 rounded-full flex items-center justify-center shadow-lg hover:bg-gray-50 hover:border-[#D32F2F] transition-colors rotate-90 md:rotate-0 disabled:opacity-50 disabled:cursor-not-allowed"
+                                        >
                                             <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" />
                                             </svg>
@@ -253,21 +335,49 @@ export default function Home() {
                                     </div>
 
                                     {/* NEREYE Card */}
-                                    <div className="bg-white rounded-xl shadow-md p-1 border border-gray-100 relative h-[80px] md:h-[100px] flex items-center">
+                                    <button
+                                        onClick={() => setShowDestinationModal(true)}
+                                        className="bg-white rounded-xl shadow-md p-1 border border-gray-100 relative h-[80px] md:h-[100px] flex items-center text-left hover:border-[#228BE6] hover:shadow-lg transition-all group"
+                                    >
                                         <div className="absolute left-4 z-10">
-                                            <div className="w-10 h-10 bg-white border-2 border-[#228BE6] rounded-full flex items-center justify-center">
-                                                <MapPin className="w-5 h-5 text-[#228BE6]" />
+                                            <div className="w-10 h-10 bg-white border-2 border-[#228BE6] rounded-full flex items-center justify-center group-hover:bg-[#228BE6] transition-colors">
+                                                <MapPin className="w-5 h-5 text-[#228BE6] group-hover:text-white transition-colors" />
                                             </div>
                                         </div>
-                                        <input
-                                            type="text"
-                                            className="w-full h-full pl-[70px] pr-4 rounded-lg outline-none text-sm font-bold placeholder-gray-400"
-                                            placeholder="NEREYE"
-                                        />
-                                        <label className="absolute top-2 left-[70px] text-[10px] font-bold text-gray-800 uppercase">NEREYE</label>
-                                        <span className="absolute bottom-2 left-[70px] text-[10px] text-gray-400 truncate w-4/5">Adres, Havalimanı, Otel...</span>
-                                    </div>
+                                        <div className="w-full h-full pl-[70px] pr-4 flex flex-col justify-center">
+                                            <label className="text-[10px] font-bold text-gray-800 uppercase">NEREYE</label>
+                                            <span className={`text-sm font-bold truncate ${destinationLocation ? 'text-gray-900' : 'text-gray-400'}`}>
+                                                {destinationLocation?.name || 'Adres, Havalimanı, Otel...'}
+                                            </span>
+                                            {destinationLocation && (
+                                                <span className="text-[10px] text-gray-400 truncate">{destinationLocation.address}</span>
+                                            )}
+                                        </div>
+                                    </button>
                                 </div>
+
+                                {/* Distance Result */}
+                                {(isCalculating || distanceData) && (
+                                    <div className="mt-4">
+                                        {isCalculating ? (
+                                            <div className="bg-white rounded-xl p-4 shadow-md flex items-center justify-center space-x-2">
+                                                <Loader2 className="w-5 h-5 animate-spin text-[#D32F2F]" />
+                                                <span className="text-gray-600">Mesafe hesaplanıyor...</span>
+                                            </div>
+                                        ) : distanceData && (
+                                            <DistanceResult
+                                                isVisible={true}
+                                                distanceKm={distanceData.distance_km}
+                                                distanceText={distanceData.distance_text}
+                                                durationMinutes={distanceData.duration_minutes}
+                                                durationText={distanceData.duration_text}
+                                                originAddress={distanceData.origin_address}
+                                                destinationAddress={distanceData.destination_address}
+                                                onClose={() => setDistanceData(null)}
+                                            />
+                                        )}
+                                    </div>
+                                )}
                             </div>
 
                             {/* Middle Section: TARİH */}
@@ -973,6 +1083,29 @@ export default function Home() {
                 <span className="absolute -top-1 -right-1 w-4 h-4 bg-red-500 rounded-full animate-ping"></span>
                 <span className="absolute -top-1 -right-1 w-4 h-4 bg-red-500 rounded-full"></span>
             </a>
+
+            {/* Map Picker Modals */}
+            <MapPickerModal
+                isOpen={showOriginModal}
+                onClose={() => setShowOriginModal(false)}
+                onSelectLocation={(location) => {
+                    setOriginLocation(location);
+                    setShowOriginModal(false);
+                }}
+                title="Nereden - Başlangıç Noktası Seçin"
+                initialLocation={originLocation ? { lat: originLocation.lat, lng: originLocation.lng } : undefined}
+            />
+
+            <MapPickerModal
+                isOpen={showDestinationModal}
+                onClose={() => setShowDestinationModal(false)}
+                onSelectLocation={(location) => {
+                    setDestinationLocation(location);
+                    setShowDestinationModal(false);
+                }}
+                title="Nereye - Varış Noktası Seçin"
+                initialLocation={destinationLocation ? { lat: destinationLocation.lat, lng: destinationLocation.lng } : undefined}
+            />
         </main>
     );
 }

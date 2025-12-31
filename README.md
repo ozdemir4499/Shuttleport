@@ -1,140 +1,92 @@
-# Shuttleport MVP - Transfer Rezervasyon Sistemi
+# Shuttleport Frontend
 
-Yatırımcı sunumu için hazırlanmış, Shuttleport benzeri bir transfer rezervasyon sistemi MVP'si.
+Next.js application for the Shuttleport transfer booking platform.
 
-## 🚀 Teknolojiler
-
-- **Next.js 14** (App Router)
-- **TypeScript**
-- **Tailwind CSS**
-- **React 18**
-
-## 📁 Proje Yapısı
+## Project Structure
 
 ```
-Anti/
-├── src/
-│   ├── app/
-│   │   ├── layout.tsx          # Root layout
-│   │   ├── page.tsx            # Ana sayfa
-│   │   └── globals.css         # Global stiller
-│   ├── types/
-│   │   └── index.ts            # TypeScript tipleri
-│   └── lib/
-│       └── data.ts             # Mock data ve yardımcı fonksiyonlar
-├── public/                     # Statik dosyalar
-├── package.json
-├── tsconfig.json
-├── tailwind.config.ts
-├── postcss.config.js
-└── next.config.js
+src/
+├── app/                    # Next.js App Router pages
+├── features/              # Feature modules
+│   ├── booking/          # Booking feature
+│   ├── maps/             # Maps & location feature
+│   ├── vehicles/         # Vehicle selection feature
+│   └── payment/          # Payment feature
+├── shared/               # Shared across features
+│   ├── components/       # Reusable UI components
+│   ├── hooks/           # Custom React hooks
+│   ├── lib/             # Utility functions
+│   ├── types/           # Global TypeScript types
+│   ├── constants/       # Application constants
+│   └── services/        # API clients
+├── styles/              # Global styles
+└── config/             # Application configuration
 ```
 
-## 🎯 Özellikler
+## Getting Started
 
-### Mevcut
-- ✅ Modern ve responsive tasarım
-- ✅ Transfer arama formu
-- ✅ Tek yön / Gidiş-dönüş seçenekleri
-- ✅ Lokasyon, tarih, saat ve yolcu seçimi
-- ✅ Özellikler bölümü
-- ✅ TypeScript tip tanımlamaları
-- ✅ Mock data (araçlar ve lokasyonlar)
+### Prerequisites
 
-### Gelecek Adımlar
-- [ ] Araç listeleme sayfası
-- [ ] Araç filtreleme ve sıralama
-- [ ] Rezervasyon detay sayfası
-- [ ] Ödeme entegrasyonu
-- [ ] Kullanıcı paneli
-- [ ] Admin paneli
-
-## 🛠️ Kurulum
-
-### Gereksinimler
 - Node.js 18+ 
-- npm veya yarn
+- npm or yarn
 
-### Adımlar
+### Installation
 
-1. Bağımlılıkları yükleyin:
 ```bash
 npm install
 ```
 
-2. Geliştirme sunucusunu başlatın:
+### Environment Setup
+
+Copy `.env.example` to `.env.local`:
+
+```bash
+cp .env.example .env.local
+```
+
+Update the environment variables:
+
+```env
+NEXT_PUBLIC_API_URL=http://localhost:8000
+```
+
+### Development
+
 ```bash
 npm run dev
 ```
 
-3. Tarayıcınızda açın:
+Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+### Build
+
+```bash
+npm run build
+npm start
 ```
-http://localhost:3000
-```
 
-## 📦 Komutlar
+## Architecture
 
-- `npm run dev` - Geliştirme sunucusunu başlatır
-- `npm run build` - Production build oluşturur
-- `npm run start` - Production sunucusunu başlatır
-- `npm run lint` - Kod kalitesini kontrol eder
+### Feature-Based Organization
 
-## 🎨 Tasarım Sistemi
+Each feature is self-contained with its own:
+- **components**: React components specific to the feature
+- **hooks**: Custom hooks for the feature
+- **services**: API calls and business logic
+- **types**: TypeScript definitions
+- **utils**: Helper functions
 
-### Renkler
-- **Primary**: Mavi tonları (#0ea5e9)
-- **Secondary**: Mor tonları (#d946ef)
-- **Gradients**: Modern gradient kombinasyonları
+### Shared Module
 
-### Bileşenler
-- `btn-primary`: Ana butonlar
-- `btn-secondary`: İkincil butonlar
-- `input-field`: Form inputları
-- `card`: Kart bileşenleri
+Common code used across features:
+- **components**: Reusable UI components
+- **lib**: Utility functions (date, price formatting)
+- **services**: API client
+- **constants**: Application-wide constants
 
-## 📝 Veri Modeli
+## Available Scripts
 
-### Vehicle (Araç)
-- id, name, type, capacity, luggage
-- pricePerKm, basePrice, image, features
-
-### Location (Lokasyon)
-- id, name, type (airport/hotel/address)
-- coordinates (lat, lng)
-
-### TransferSearch (Transfer Araması)
-- from, to, date, time, passengers
-- isRoundTrip, returnDate, returnTime
-
-### Reservation (Rezervasyon)
-- transferSearch, vehicle, totalPrice
-- distance, duration, passengerInfo, status
-
-## 🚗 Araç Tipleri
-
-- **Sedan**: 3 yolcu, 2 bagaj
-- **Van**: 6 yolcu, 4 bagaj
-- **Minibus**: 12 yolcu, 8 bagaj
-- **Bus**: 20+ yolcu
-
-## 📍 Örnek Lokasyonlar
-
-- İstanbul Havalimanı (IST)
-- Sabiha Gökçen Havalimanı (SAW)
-- Taksim
-- Sultanahmet
-- Beşiktaş
-
-## 💡 Notlar
-
-Bu proje MVP aşamasındadır ve yatırımcı sunumu için hazırlanmıştır. Gerçek bir üretim ortamında kullanılmadan önce:
-
-- Gerçek API entegrasyonları yapılmalı
-- Ödeme sistemi entegre edilmeli
-- Güvenlik önlemleri alınmalı
-- SEO optimizasyonları yapılmalı
-- Test coverage artırılmalı
-
-## 📄 Lisans
-
-Bu proje MVP amaçlı oluşturulmuştur.
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm start` - Start production server
+- `npm run lint` - Run ESLint
