@@ -714,173 +714,175 @@ export default function Home() {
 
             {/* TESTIMONIALS / CUSTOMER MOMENTS SECTION */}
             <section className="py-16 md:py-24 bg-gray-50 overflow-hidden">
-                <div className="flex flex-col lg:flex-row gap-12 items-center">
-                    {/* Left Side - Text Content (in container) */}
-                    <div className="px-4 lg:pl-[max(2rem,calc((100vw-1280px)/2+2rem))] lg:max-w-md lg:flex-shrink-0">
-                        <h2 className="text-3xl md:text-5xl font-bold text-gray-900 mb-6">
-                            Özel anlar, güzel birliktelikler.
-                        </h2>
-                        <p className="text-gray-600 leading-relaxed text-lg">
-                            İstanbul Shuttle Port ile bir çok VIP ve transfer hizmetlerimizi kullanmakta havalimanlara yardımcı olun itibarları gerek karşılamaya, gerek havaalanı transferi veya diğer hizmetlerimiz transferlerinizi gerçekleştirmekte güvenilir ve ekonomik araç ve özel şöför hizmetleri; jet, limuzin ve güvenlik hizmetlerimizi sizin sunuyoruz.
-                        </p>
-                    </div>
+                <div className="container-custom">
+                    <div className="flex flex-col lg:flex-row gap-12 items-center">
+                        {/* Left Side - Text Content */}
+                        <div className="lg:max-w-md lg:flex-shrink-0">
+                            <h2 className="text-3xl md:text-5xl font-bold text-gray-900 mb-6">
+                                Özel anlar, güzel birliktelikler.
+                            </h2>
+                            <p className="text-gray-600 leading-relaxed text-lg">
+                                İstanbul Shuttle Port ile bir çok VIP ve transfer hizmetlerimizi kullanmakta havalimanlara yardımcı olun itibarları gerek karşılamaya, gerek havaalanı transferi veya diğer hizmetlerimiz transferlerinizi gerçekleştirmekte güvenilir ve ekonomik araç ve özel şöför hizmetleri; jet, limuzin ve güvenlik hizmetlerimizi sizin sunuyoruz.
+                            </p>
+                        </div>
 
-                    {/* Right Side - Auto-Scrolling Photos Carousel (full width to edge) */}
-                    <div className="relative overflow-hidden flex-1 w-full lg:pr-0">
-                        {/* Photos Carousel - Auto-scrolling with infinite loop */}
-                        <div
-                            ref={(el) => {
-                                if (el && !el.dataset.initialized) {
-                                    el.dataset.initialized = 'true';
-                                    let scrollPosition = 0;
-                                    const scrollSpeed = 1;
-                                    const cardWidth = 272; // 256px + 16px gap
+                        {/* Right Side - Auto-Scrolling Photos Carousel (extends to edge) */}
+                        <div className="relative overflow-hidden flex-1 w-full lg:-mr-[max(1rem,calc((100vw-1280px)/2+1rem))]">
+                            {/* Photos Carousel - Auto-scrolling with infinite loop */}
+                            <div
+                                ref={(el) => {
+                                    if (el && !el.dataset.initialized) {
+                                        el.dataset.initialized = 'true';
+                                        let scrollPosition = 0;
+                                        const scrollSpeed = 1;
+                                        const cardWidth = 272; // 256px + 16px gap
 
-                                    const autoScroll = () => {
-                                        scrollPosition += scrollSpeed;
-                                        el.scrollLeft = scrollPosition;
+                                        const autoScroll = () => {
+                                            scrollPosition += scrollSpeed;
+                                            el.scrollLeft = scrollPosition;
 
-                                        // Reset to beginning when reaching halfway (original photos end)
-                                        if (scrollPosition >= el.scrollWidth / 2) {
-                                            scrollPosition = 0;
-                                            el.scrollLeft = 0;
-                                        }
-                                    };
+                                            // Reset to beginning when reaching halfway (original photos end)
+                                            if (scrollPosition >= el.scrollWidth / 2) {
+                                                scrollPosition = 0;
+                                                el.scrollLeft = 0;
+                                            }
+                                        };
 
-                                    const interval = setInterval(autoScroll, 30);
-                                    el.dataset.intervalId = interval.toString();
-                                }
-                            }}
-                            className="flex space-x-4 overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none']"
-                        >
-                            {/* Original Photos */}
-                            <div className="flex-shrink-0 w-64 h-48 rounded-2xl overflow-hidden shadow-lg">
-                                <img
-                                    src="https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?q=80&w=800"
-                                    alt="Customer moment 1"
-                                    className="w-full h-full object-cover"
-                                />
-                            </div>
+                                        const interval = setInterval(autoScroll, 30);
+                                        el.dataset.intervalId = interval.toString();
+                                    }
+                                }}
+                                className="flex space-x-4 overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none']"
+                            >
+                                {/* Original Photos */}
+                                <div className="flex-shrink-0 w-64 h-48 rounded-2xl overflow-hidden shadow-lg">
+                                    <img
+                                        src="https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?q=80&w=800"
+                                        alt="Customer moment 1"
+                                        className="w-full h-full object-cover"
+                                    />
+                                </div>
 
-                            <div className="flex-shrink-0 w-64 h-48 rounded-2xl overflow-hidden shadow-lg">
-                                <img
-                                    src="https://images.unsplash.com/photo-1464219789935-c2d9d9aba644?q=80&w=800"
-                                    alt="Customer moment 2"
-                                    className="w-full h-full object-cover"
-                                />
-                            </div>
+                                <div className="flex-shrink-0 w-64 h-48 rounded-2xl overflow-hidden shadow-lg">
+                                    <img
+                                        src="https://images.unsplash.com/photo-1464219789935-c2d9d9aba644?q=80&w=800"
+                                        alt="Customer moment 2"
+                                        className="w-full h-full object-cover"
+                                    />
+                                </div>
 
-                            <div className="flex-shrink-0 w-64 h-48 rounded-2xl overflow-hidden shadow-lg">
-                                <img
-                                    src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=800"
-                                    alt="Customer moment 3"
-                                    className="w-full h-full object-cover"
-                                />
-                            </div>
+                                <div className="flex-shrink-0 w-64 h-48 rounded-2xl overflow-hidden shadow-lg">
+                                    <img
+                                        src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=800"
+                                        alt="Customer moment 3"
+                                        className="w-full h-full object-cover"
+                                    />
+                                </div>
 
-                            <div className="flex-shrink-0 w-64 h-48 rounded-2xl overflow-hidden shadow-lg">
-                                <img
-                                    src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?q=80&w=800"
-                                    alt="Customer moment 4"
-                                    className="w-full h-full object-cover"
-                                />
-                            </div>
+                                <div className="flex-shrink-0 w-64 h-48 rounded-2xl overflow-hidden shadow-lg">
+                                    <img
+                                        src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?q=80&w=800"
+                                        alt="Customer moment 4"
+                                        className="w-full h-full object-cover"
+                                    />
+                                </div>
 
-                            <div className="flex-shrink-0 w-64 h-48 rounded-2xl overflow-hidden shadow-lg">
-                                <img
-                                    src="https://images.unsplash.com/photo-1527631746610-bca00a040d60?q=80&w=800"
-                                    alt="Customer moment 5"
-                                    className="w-full h-full object-cover"
-                                />
-                            </div>
+                                <div className="flex-shrink-0 w-64 h-48 rounded-2xl overflow-hidden shadow-lg">
+                                    <img
+                                        src="https://images.unsplash.com/photo-1527631746610-bca00a040d60?q=80&w=800"
+                                        alt="Customer moment 5"
+                                        className="w-full h-full object-cover"
+                                    />
+                                </div>
 
-                            <div className="flex-shrink-0 w-64 h-48 rounded-2xl overflow-hidden shadow-lg">
-                                <img
-                                    src="https://images.unsplash.com/photo-1502920917128-1aa500764cbd?q=80&w=800"
-                                    alt="Customer moment 6"
-                                    className="w-full h-full object-cover"
-                                />
-                            </div>
+                                <div className="flex-shrink-0 w-64 h-48 rounded-2xl overflow-hidden shadow-lg">
+                                    <img
+                                        src="https://images.unsplash.com/photo-1502920917128-1aa500764cbd?q=80&w=800"
+                                        alt="Customer moment 6"
+                                        className="w-full h-full object-cover"
+                                    />
+                                </div>
 
-                            <div className="flex-shrink-0 w-64 h-48 rounded-2xl overflow-hidden shadow-lg">
-                                <img
-                                    src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?q=80&w=800"
-                                    alt="Customer moment 7"
-                                    className="w-full h-full object-cover"
-                                />
-                            </div>
+                                <div className="flex-shrink-0 w-64 h-48 rounded-2xl overflow-hidden shadow-lg">
+                                    <img
+                                        src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?q=80&w=800"
+                                        alt="Customer moment 7"
+                                        className="w-full h-full object-cover"
+                                    />
+                                </div>
 
-                            <div className="flex-shrink-0 w-64 h-48 rounded-2xl overflow-hidden shadow-lg">
-                                <img
-                                    src="https://images.unsplash.com/photo-1530789253388-582c481c54b0?q=80&w=800"
-                                    alt="Customer moment 8"
-                                    className="w-full h-full object-cover"
-                                />
-                            </div>
+                                <div className="flex-shrink-0 w-64 h-48 rounded-2xl overflow-hidden shadow-lg">
+                                    <img
+                                        src="https://images.unsplash.com/photo-1530789253388-582c481c54b0?q=80&w=800"
+                                        alt="Customer moment 8"
+                                        className="w-full h-full object-cover"
+                                    />
+                                </div>
 
-                            {/* Duplicated Photos for Infinite Loop */}
-                            <div className="flex-shrink-0 w-64 h-48 rounded-2xl overflow-hidden shadow-lg">
-                                <img
-                                    src="https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?q=80&w=800"
-                                    alt="Customer moment 1"
-                                    className="w-full h-full object-cover"
-                                />
-                            </div>
+                                {/* Duplicated Photos for Infinite Loop */}
+                                <div className="flex-shrink-0 w-64 h-48 rounded-2xl overflow-hidden shadow-lg">
+                                    <img
+                                        src="https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?q=80&w=800"
+                                        alt="Customer moment 1"
+                                        className="w-full h-full object-cover"
+                                    />
+                                </div>
 
-                            <div className="flex-shrink-0 w-64 h-48 rounded-2xl overflow-hidden shadow-lg">
-                                <img
-                                    src="https://images.unsplash.com/photo-1464219789935-c2d9d9aba644?q=80&w=800"
-                                    alt="Customer moment 2"
-                                    className="w-full h-full object-cover"
-                                />
-                            </div>
+                                <div className="flex-shrink-0 w-64 h-48 rounded-2xl overflow-hidden shadow-lg">
+                                    <img
+                                        src="https://images.unsplash.com/photo-1464219789935-c2d9d9aba644?q=80&w=800"
+                                        alt="Customer moment 2"
+                                        className="w-full h-full object-cover"
+                                    />
+                                </div>
 
-                            <div className="flex-shrink-0 w-64 h-48 rounded-2xl overflow-hidden shadow-lg">
-                                <img
-                                    src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=800"
-                                    alt="Customer moment 3"
-                                    className="w-full h-full object-cover"
-                                />
-                            </div>
+                                <div className="flex-shrink-0 w-64 h-48 rounded-2xl overflow-hidden shadow-lg">
+                                    <img
+                                        src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=800"
+                                        alt="Customer moment 3"
+                                        className="w-full h-full object-cover"
+                                    />
+                                </div>
 
-                            <div className="flex-shrink-0 w-64 h-48 rounded-2xl overflow-hidden shadow-lg">
-                                <img
-                                    src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?q=80&w=800"
-                                    alt="Customer moment 4"
-                                    className="w-full h-full object-cover"
-                                />
-                            </div>
+                                <div className="flex-shrink-0 w-64 h-48 rounded-2xl overflow-hidden shadow-lg">
+                                    <img
+                                        src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?q=80&w=800"
+                                        alt="Customer moment 4"
+                                        className="w-full h-full object-cover"
+                                    />
+                                </div>
 
-                            <div className="flex-shrink-0 w-64 h-48 rounded-2xl overflow-hidden shadow-lg">
-                                <img
-                                    src="https://images.unsplash.com/photo-1527631746610-bca00a040d60?q=80&w=800"
-                                    alt="Customer moment 5"
-                                    className="w-full h-full object-cover"
-                                />
-                            </div>
+                                <div className="flex-shrink-0 w-64 h-48 rounded-2xl overflow-hidden shadow-lg">
+                                    <img
+                                        src="https://images.unsplash.com/photo-1527631746610-bca00a040d60?q=80&w=800"
+                                        alt="Customer moment 5"
+                                        className="w-full h-full object-cover"
+                                    />
+                                </div>
 
-                            <div className="flex-shrink-0 w-64 h-48 rounded-2xl overflow-hidden shadow-lg">
-                                <img
-                                    src="https://images.unsplash.com/photo-1502920917128-1aa500764cbd?q=80&w=800"
-                                    alt="Customer moment 6"
-                                    className="w-full h-full object-cover"
-                                />
-                            </div>
+                                <div className="flex-shrink-0 w-64 h-48 rounded-2xl overflow-hidden shadow-lg">
+                                    <img
+                                        src="https://images.unsplash.com/photo-1502920917128-1aa500764cbd?q=80&w=800"
+                                        alt="Customer moment 6"
+                                        className="w-full h-full object-cover"
+                                    />
+                                </div>
 
-                            <div className="flex-shrink-0 w-64 h-48 rounded-2xl overflow-hidden shadow-lg">
-                                <img
-                                    src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?q=80&w=800"
-                                    alt="Customer moment 7"
-                                    className="w-full h-full object-cover"
-                                />
-                            </div>
+                                <div className="flex-shrink-0 w-64 h-48 rounded-2xl overflow-hidden shadow-lg">
+                                    <img
+                                        src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?q=80&w=800"
+                                        alt="Customer moment 7"
+                                        className="w-full h-full object-cover"
+                                    />
+                                </div>
 
-                            <div className="flex-shrink-0 w-64 h-48 rounded-2xl overflow-hidden shadow-lg">
-                                <img
-                                    src="https://images.unsplash.com/photo-1530789253388-582c481c54b0?q=80&w=800"
-                                    alt="Customer moment 8"
-                                    className="w-full h-full object-cover"
-                                />
+                                <div className="flex-shrink-0 w-64 h-48 rounded-2xl overflow-hidden shadow-lg">
+                                    <img
+                                        src="https://images.unsplash.com/photo-1530789253388-582c481c54b0?q=80&w=800"
+                                        alt="Customer moment 8"
+                                        className="w-full h-full object-cover"
+                                    />
+                                </div>
                             </div>
                         </div>
                     </div>
