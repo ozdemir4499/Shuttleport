@@ -316,30 +316,29 @@ export default function VehiclesPage() {
                                         </p>
 
                                         {/* Pricing and Action */}
-                                        <div className="flex flex-col lg:flex-row items-start lg:items-end justify-between mt-auto gap-4">
-                                            {/* Currency Options */}
-                                            <div className="flex items-center gap-2">
-                                                {/* All currencies with dynamic discount badge */}
+                                        <div className="flex flex-col gap-4 mt-auto">
+                                            {/* Currency Options - Responsive Grid */}
+                                            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
                                                 {Object.keys(vehicle.prices).map((currency) => (
                                                     <div key={currency} className="relative pb-3">
                                                         <button
                                                             onClick={() => setSelectedCurrency(currency)}
-                                                            className={`px-3 py-2.5 rounded-lg border-2 transition-all ${selectedCurrency === currency
+                                                            className={`w-full px-2 sm:px-3 py-2.5 rounded-lg border-2 transition-all ${selectedCurrency === currency
                                                                 ? 'border-green-500 bg-green-50'
                                                                 : 'border-gray-200 hover:border-gray-300'
                                                                 }`}
                                                         >
                                                             <div className="flex items-start gap-1">
                                                                 {selectedCurrency === currency && (
-                                                                    <svg className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                                                    <svg className="w-3 h-3 sm:w-4 sm:h-4 text-green-500 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                                                                         <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                                                                     </svg>
                                                                 )}
-                                                                <div className="text-left">
-                                                                    <div className="text-base font-bold text-gray-900 whitespace-nowrap">
+                                                                <div className="text-left flex-1 min-w-0">
+                                                                    <div className="text-sm sm:text-base font-bold text-gray-900 truncate">
                                                                         {currencySymbols[currency as keyof typeof currencySymbols]} {vehicle.prices[currency as keyof typeof vehicle.prices]}
                                                                     </div>
-                                                                    <div className="text-[10px] text-gray-400 line-through whitespace-nowrap">
+                                                                    <div className="text-[10px] text-gray-400 line-through truncate">
                                                                         {currencySymbols[currency as keyof typeof currencySymbols]} {Math.round((vehicle.prices[currency as keyof typeof vehicle.prices] as number) * 1.25)}
                                                                     </div>
                                                                 </div>
@@ -355,10 +354,10 @@ export default function VehiclesPage() {
                                                 ))}
                                             </div>
 
-                                            {/* Action Buttons */}
-                                            <div className="flex flex-col items-end gap-2 flex-shrink-0">
-                                                <span className="text-xs text-red-600 font-semibold">Toplam araç fiyatıdır.</span>
-                                                <button className="bg-green-500 hover:bg-green-600 text-white px-8 py-3 rounded-lg font-bold text-sm transition-colors shadow-md hover:shadow-lg whitespace-nowrap">
+                                            {/* Action Section */}
+                                            <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 pt-2">
+                                                <span className="text-xs text-red-600 font-semibold text-center sm:text-left">Toplam araç fiyatıdır.</span>
+                                                <button className="bg-green-500 hover:bg-green-600 text-white px-6 sm:px-8 py-3 rounded-lg font-bold text-sm transition-colors shadow-md hover:shadow-lg whitespace-nowrap">
                                                     Rezervasyon Yap
                                                 </button>
                                             </div>
@@ -374,56 +373,66 @@ export default function VehiclesPage() {
                         <div className="bg-white rounded-xl shadow-md p-6 sticky top-8">
                             <div className="flex items-center justify-between mb-6">
                                 <h3 className="text-lg font-bold text-gray-900">Rezervasyon</h3>
-                                <button className="text-sm text-red-600 hover:text-red-700 font-semibold">
+                                <button className="flex items-center gap-1 text-sm text-red-600 hover:text-red-700 font-semibold">
+                                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                    </svg>
                                     Düzenle
                                 </button>
                             </div>
 
                             {/* Route Info */}
                             <div className="space-y-4 mb-6">
-                                <div className="flex items-start">
-                                    <MapPin className="w-5 h-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
-                                    <div className="text-sm text-gray-700">{reservation.from}</div>
+                                <div>
+                                    <div className="text-xs text-gray-500 uppercase mb-1">NEREDEN</div>
+                                    <div className="text-sm text-gray-900 font-medium">{reservation.from}</div>
                                 </div>
-                                <div className="flex items-start">
-                                    <Navigation className="w-5 h-5 text-red-500 mr-3 mt-0.5 flex-shrink-0" />
-                                    <div className="text-sm text-gray-700">{reservation.to}</div>
+                                <div>
+                                    <div className="text-xs text-gray-500 uppercase mb-1">NEREYE</div>
+                                    <div className="text-sm text-gray-900 font-medium">{reservation.to}</div>
                                 </div>
                             </div>
 
                             {/* Details */}
-                            <div className="space-y-3 pt-4 border-t">
-                                <div className="flex items-center justify-between text-sm">
-                                    <span className="text-gray-600 flex items-center">
-                                        <Calendar className="w-4 h-4 mr-2" />
-                                        Kalkış/Alış Tarihi
-                                    </span>
-                                    <span className="font-semibold text-gray-900">{reservation.date}</span>
+                            <div className="space-y-4 pt-4 border-t border-gray-200">
+                                <div className="flex items-center justify-between">
+                                    <div className="flex items-center gap-2 text-gray-500">
+                                        <Calendar className="w-4 h-4" />
+                                        <span className="text-xs">Başlangıç Tarihi</span>
+                                    </div>
+                                    <span className="text-sm font-semibold text-gray-900">{reservation.date}</span>
                                 </div>
-                                <div className="flex items-center justify-between text-sm">
-                                    <span className="text-gray-600 flex items-center">
-                                        <Navigation className="w-4 h-4 mr-2" />
-                                        Mesafe
-                                    </span>
-                                    <span className="font-semibold text-gray-900">{reservation.distance}</span>
+                                <div className="flex items-center justify-between">
+                                    <div className="flex items-center gap-2 text-gray-500">
+                                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
+                                        </svg>
+                                        <span className="text-xs">Mesafe</span>
+                                    </div>
+                                    <span className="text-sm font-semibold text-gray-900">{reservation.distance}</span>
                                 </div>
-                                <div className="flex items-center justify-between text-sm">
-                                    <span className="text-gray-600 flex items-center">
-                                        <Clock className="w-4 h-4 mr-2" />
-                                        Süre
-                                    </span>
-                                    <span className="font-semibold text-gray-900">{reservation.duration}</span>
+                                <div className="flex items-center justify-between">
+                                    <div className="flex items-center gap-2 text-gray-500">
+                                        <Clock className="w-4 h-4" />
+                                        <span className="text-xs">Süre</span>
+                                    </div>
+                                    <span className="text-sm font-semibold text-gray-900">{reservation.duration}</span>
                                 </div>
-                                <div className="flex items-center justify-between text-sm">
-                                    <span className="text-gray-600 flex items-center">
-                                        <Users className="w-4 h-4 mr-2" />
-                                        Kişi Sayısı
-                                    </span>
-                                    <span className="font-semibold text-gray-900">{reservation.passengers}</span>
+                                <div className="flex items-center justify-between">
+                                    <div className="flex items-center gap-2 text-gray-500">
+                                        <Users className="w-4 h-4" />
+                                        <span className="text-xs">Kişi Sayısı</span>
+                                    </div>
+                                    <span className="text-sm font-semibold text-gray-900">{reservation.passengers}</span>
                                 </div>
-                                <div className="flex items-center justify-between text-sm">
-                                    <span className="text-gray-600">Gidiş - Dönüş</span>
-                                    <span className="font-semibold text-gray-900">{reservation.tripType}</span>
+                                <div className="flex items-center justify-between">
+                                    <div className="flex items-center gap-2 text-gray-500">
+                                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
+                                        </svg>
+                                        <span className="text-xs">Gidiş - Dönüş</span>
+                                    </div>
+                                    <span className="text-sm font-semibold text-gray-900">{reservation.tripType}</span>
                                 </div>
                             </div>
                         </div>
