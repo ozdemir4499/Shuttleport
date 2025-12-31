@@ -255,15 +255,15 @@ export default function VehiclesPage() {
                                     {/* Vehicle Info - Right Side */}
                                     <div className="flex-1 p-6 flex flex-col">
                                         {/* Header with Title and Capacity */}
-                                        <div className="flex items-start justify-between mb-4">
-                                            <h3 className="text-xl md:text-2xl font-bold text-gray-900">{vehicle.name}</h3>
-                                            <div className="flex items-center gap-3 text-sm text-red-600 font-semibold flex-shrink-0">
-                                                <span className="flex items-center gap-1">
-                                                    <Users className="w-4 h-4" />
+                                        <div className="flex items-start justify-between gap-4 mb-4">
+                                            <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-900 flex-1 min-w-0 pr-2">{vehicle.name}</h3>
+                                            <div className="flex items-center gap-2 sm:gap-3 text-xs sm:text-sm text-red-600 font-semibold flex-shrink-0">
+                                                <span className="flex items-center gap-1 whitespace-nowrap">
+                                                    <Users className="w-3 h-3 sm:w-4 sm:h-4" />
                                                     {vehicle.capacity} Kişi
                                                 </span>
-                                                <span className="flex items-center gap-1">
-                                                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <span className="flex items-center gap-1 whitespace-nowrap">
+                                                    <svg className="w-3 h-3 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                         <rect x="3" y="8" width="18" height="12" rx="2" strokeWidth="2" />
                                                         <path d="M10 8V6a2 2 0 0 1 2-2h0a2 2 0 0 1 2 2v2" strokeWidth="2" />
                                                     </svg>
