@@ -4,6 +4,8 @@ import { useState, useRef, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import { MapPin, Calendar, Users, Shield, Clock, Car, Globe, Menu, X, Instagram, MessageCircle, User, ChevronDown, Loader2 } from 'lucide-react';
 import { MapPickerModal, DistanceResult } from '@/features/maps/components';
+import { ServiceTypeSelector } from '@/features/booking';
+import type { ServiceType } from '@/features/booking';
 
 interface Location {
     lat: number;
@@ -24,6 +26,7 @@ interface DistanceData {
 export default function Home() {
     const [isScrolled, setIsScrolled] = useState(false);
     const [tripType, setTripType] = useState<'oneway' | 'roundtrip'>('oneway');
+    const [serviceType, setServiceType] = useState<ServiceType>('transfer');
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [startDate, setStartDate] = useState<Date | null>(new Date());
     const [currentSlide, setCurrentSlide] = useState(0);
@@ -267,33 +270,11 @@ export default function Home() {
 
                     {/* BOOKING WIDGET - Main Reservation Form */}
                     <div className="max-w-7xl mx-auto bg-transparent md:bg-white rounded-2xl md:shadow-2xl md:p-8">
-                        {/* Tab Menu - White with shadow on Mobile */}
-                        <div className="flex justify-between md:justify-start space-x-2 md:space-x-8 mb-6 bg-white md:bg-transparent p-2 md:p-0 rounded-xl shadow-md md:shadow-none">
-                            <button
-                                onClick={() => setTripType('oneway')}
-                                className={`flex-1 md:flex-none flex items-center justify-center space-x-2 py-3 rounded-lg font-semibold transition-all duration-200 ${tripType === 'oneway'
-                                    ? 'bg-white md:bg-transparent text-gray-900 border-b-2 border-gray-900 shadow-sm md:shadow-none'
-                                    : 'text-gray-500 hover:text-gray-700'
-                                    }`}
-                            >
-                                <Car className="w-5 h-5" />
-                                <span>Transfer</span>
-                            </button>
-                            <button
-                                onClick={() => setTripType('roundtrip')}
-                                className={`flex-1 md:flex-none flex items-center justify-center space-x-2 py-3 rounded-lg font-semibold transition-all duration-200 ${tripType === 'roundtrip'
-                                    ? 'bg-white md:bg-transparent text-gray-900 border-b-2 border-gray-900 shadow-sm md:shadow-none'
-                                    : 'text-gray-500 hover:text-gray-700'
-                                    }`}
-                            >
-                                <Clock className="w-5 h-5" />
-                                <span className="text-sm md:text-base">Saatlik</span>
-                            </button>
-                            <button className="flex-1 md:flex-none flex items-center justify-center space-x-2 py-3 rounded-lg font-semibold text-gray-500 hover:text-gray-700">
-                                <MapPin className="w-5 h-5" />
-                                <span>Turlar</span>
-                            </button>
-                        </div>
+                        {/* Service Type Selector */}
+                        <ServiceTypeSelector
+                            defaultService={serviceType}
+                            onServiceChange={setServiceType}
+                        />
 
                         {/* Main Form Layout - Mobile Optimized Cards */}
                         <div className="grid grid-cols-1 md:grid-cols-12 gap-4">
