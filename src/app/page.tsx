@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import { MapPin, Calendar, Users, Shield, Clock, Car, Globe, Menu, X, Instagram, MessageCircle, User, ChevronDown } from 'lucide-react';
 
@@ -9,9 +9,25 @@ export default function Home() {
     const [tripType, setTripType] = useState<'oneway' | 'roundtrip'>('oneway');
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [startDate, setStartDate] = useState<Date | null>(new Date());
+    const [currentSlide, setCurrentSlide] = useState(0);
 
     // Ref for Tours Slider
     const scrollContainerRef = useRef<HTMLDivElement>(null);
+
+    // Hero carousel headlines
+    const heroHeadlines = [
+        "İstanbul'un En Konforlu\nVIP Transfer Hizmeti",
+        "7/24 Profesyonel\nHavalimanı Transfer Hizmeti",
+        "Güvenli ve Lüks\nŞehir İçi Transfer Çözümleri"
+    ];
+
+    // Auto-rotate hero carousel
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setCurrentSlide((prev) => (prev + 1) % heroHeadlines.length);
+        }, 4000);
+        return () => clearInterval(interval);
+    }, []);
 
     // Scroll effect for navbar
     if (typeof window !== 'undefined') {
@@ -144,7 +160,7 @@ export default function Home() {
                 <div
                     className="absolute inset-0 bg-cover bg-center bg-no-repeat"
                     style={{
-                        backgroundImage: 'url(https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?q=80&w=2070&auto=format&fit=crop)',
+                        backgroundImage: 'url(/hero_transfer_background_1767168320181.png)',
                     }}
                 >
                     <div className="absolute inset-0 bg-gradient-to-r from-gray-900/90 via-gray-900/70 to-gray-900/50"></div>
@@ -157,9 +173,24 @@ export default function Home() {
 
                     </div>
 
-                    <h1 className="text-3xl md:text-6xl lg:text-7xl font-bold text-white mb-6 text-center shadow-text">
-                        İstanbul'un En Konforlu<br />VIP Transfer Hizmeti
-                    </h1>
+                    {/* Auto-Scrolling Hero Carousel */}
+                    <div className="relative h-32 md:h-48 mb-6 overflow-hidden">
+                        <div
+                            className="absolute inset-0 transition-transform duration-700 ease-in-out"
+                            style={{ transform: `translateX(-${currentSlide * 100}%)` }}
+                        >
+                            <div className="flex h-full">
+                                {heroHeadlines.map((headline, index) => (
+                                    <h1
+                                        key={index}
+                                        className="min-w-full text-3xl md:text-6xl lg:text-7xl font-bold text-white text-center flex items-center justify-center whitespace-pre-line"
+                                    >
+                                        {headline}
+                                    </h1>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
 
                     {/* BOOKING WIDGET - Main Reservation Form */}
                     <div className="max-w-7xl mx-auto bg-transparent md:bg-white rounded-2xl md:shadow-2xl md:p-8">
@@ -467,6 +498,174 @@ export default function Home() {
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* POPULAR LOCATIONS SECTION */}
+            <section className="py-16 md:py-24 bg-white">
+                <div className="container-custom">
+                    {/* Section Header */}
+                    <div className="text-center mb-12">
+                        <h2 className="text-3xl md:text-5xl font-bold text-gray-900 mb-4">Popüler Lokasyonlar</h2>
+                        <p className="text-gray-600 max-w-3xl mx-auto leading-relaxed">
+                            İstanbul havalimanı transfer ve taksi hizmetlerinde misafirlerimizin en çok tercih ettiği lokasyonların sizler için listeledik. İstanbul havalimanı, sabiha gökçen havalimanı, istanbul otelleri veya alışveriş merkezlerine seyahat edebileceğiniz bir göz atın.
+                        </p>
+                    </div>
+
+                    {/* Category Tabs */}
+                    <div className="flex flex-wrap justify-center gap-3 mb-12">
+                        <button className="flex items-center space-x-2 px-6 py-3 bg-[#D32F2F] text-white rounded-lg font-bold hover:bg-[#B71C1C] transition-colors">
+                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
+                            <span>Havaalanı</span>
+                        </button>
+                        <button className="flex items-center space-x-2 px-6 py-3 bg-white border border-gray-200 text-gray-700 rounded-lg font-bold hover:border-[#D32F2F] hover:text-[#D32F2F] transition-colors">
+                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" /></svg>
+                            <span>Otel</span>
+                        </button>
+                        <button className="flex items-center space-x-2 px-6 py-3 bg-white border border-gray-200 text-gray-700 rounded-lg font-bold hover:border-[#D32F2F] hover:text-[#D32F2F] transition-colors">
+                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
+                            <span>Hastane</span>
+                        </button>
+                        <button className="flex items-center space-x-2 px-6 py-3 bg-white border border-gray-200 text-gray-700 rounded-lg font-bold hover:border-[#D32F2F] hover:text-[#D32F2F] transition-colors">
+                            <MapPin className="w-5 h-5" />
+                            <span>Lokasyon</span>
+                        </button>
+                        <button className="flex items-center space-x-2 px-6 py-3 bg-white border border-gray-200 text-gray-700 rounded-lg font-bold hover:border-[#D32F2F] hover:text-[#D32F2F] transition-colors">
+                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
+                            <span>Avm</span>
+                        </button>
+                    </div>
+
+                    {/* Transfer Routes Grid */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        {/* Route 1 */}
+                        <div className="bg-gray-50 rounded-xl p-6 hover:shadow-lg transition-shadow cursor-pointer group">
+                            <div className="flex items-center justify-between">
+                                <div className="flex items-center space-x-4 flex-1">
+                                    <span className="text-gray-900 font-semibold">İstanbul Havalimanı</span>
+                                    <svg className="w-5 h-5 text-gray-400 group-hover:text-[#D32F2F] transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+                                    <span className="text-gray-900 font-semibold">Sabiha Gökçen Havalimanı Transfer</span>
+                                </div>
+                                <div className="text-right ml-4">
+                                    <div className="text-2xl font-bold text-gray-900">34 €</div>
+                                    <div className="text-xs text-gray-500">den başlayan</div>
+                                </div>
+                                <svg className="w-6 h-6 text-[#D32F2F] ml-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
+                            </div>
+                        </div>
+
+                        {/* Route 2 */}
+                        <div className="bg-gray-50 rounded-xl p-6 hover:shadow-lg transition-shadow cursor-pointer group">
+                            <div className="flex items-center justify-between">
+                                <div className="flex items-center space-x-4 flex-1">
+                                    <span className="text-gray-900 font-semibold">Ortaköy</span>
+                                    <svg className="w-5 h-5 text-gray-400 group-hover:text-[#D32F2F] transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+                                    <span className="text-gray-900 font-semibold">İstanbul Havalimanı Transfer</span>
+                                </div>
+                                <div className="text-right ml-4">
+                                    <div className="text-2xl font-bold text-gray-900">32 €</div>
+                                    <div className="text-xs text-gray-500">den başlayan</div>
+                                </div>
+                                <svg className="w-6 h-6 text-[#D32F2F] ml-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
+                            </div>
+                        </div>
+
+                        {/* Route 3 */}
+                        <div className="bg-gray-50 rounded-xl p-6 hover:shadow-lg transition-shadow cursor-pointer group">
+                            <div className="flex items-center justify-between">
+                                <div className="flex items-center space-x-4 flex-1">
+                                    <span className="text-gray-900 font-semibold">Alanya</span>
+                                    <svg className="w-5 h-5 text-gray-400 group-hover:text-[#D32F2F] transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+                                    <span className="text-gray-900 font-semibold">Antalya Havalimanı Transfer</span>
+                                </div>
+                                <div className="text-right ml-4">
+                                    <div className="text-2xl font-bold text-gray-900">75 €</div>
+                                    <div className="text-xs text-gray-500">den başlayan</div>
+                                </div>
+                                <svg className="w-6 h-6 text-[#D32F2F] ml-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
+                            </div>
+                        </div>
+
+                        {/* Route 4 */}
+                        <div className="bg-gray-50 rounded-xl p-6 hover:shadow-lg transition-shadow cursor-pointer group">
+                            <div className="flex items-center justify-between">
+                                <div className="flex items-center space-x-4 flex-1">
+                                    <span className="text-gray-900 font-semibold">Ortaköy</span>
+                                    <svg className="w-5 h-5 text-gray-400 group-hover:text-[#D32F2F] transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+                                    <span className="text-gray-900 font-semibold">Sabiha Gökçen Havalimanı Transfer</span>
+                                </div>
+                                <div className="text-right ml-4">
+                                    <div className="text-2xl font-bold text-gray-900">34 €</div>
+                                    <div className="text-xs text-gray-500">den başlayan</div>
+                                </div>
+                                <svg className="w-6 h-6 text-[#D32F2F] ml-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
+                            </div>
+                        </div>
+
+                        {/* Route 5 */}
+                        <div className="bg-gray-50 rounded-xl p-6 hover:shadow-lg transition-shadow cursor-pointer group">
+                            <div className="flex items-center justify-between">
+                                <div className="flex items-center space-x-4 flex-1">
+                                    <span className="text-gray-900 font-semibold">Side</span>
+                                    <svg className="w-5 h-5 text-gray-400 group-hover:text-[#D32F2F] transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+                                    <span className="text-gray-900 font-semibold">Antalya Havalimanı Transfer</span>
+                                </div>
+                                <div className="text-right ml-4">
+                                    <div className="text-2xl font-bold text-gray-900">55 €</div>
+                                    <div className="text-xs text-gray-500">den başlayan</div>
+                                </div>
+                                <svg className="w-6 h-6 text-[#D32F2F] ml-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
+                            </div>
+                        </div>
+
+                        {/* Route 6 */}
+                        <div className="bg-gray-50 rounded-xl p-6 hover:shadow-lg transition-shadow cursor-pointer group">
+                            <div className="flex items-center justify-between">
+                                <div className="flex items-center space-x-4 flex-1">
+                                    <span className="text-gray-900 font-semibold">Karaköy</span>
+                                    <svg className="w-5 h-5 text-gray-400 group-hover:text-[#D32F2F] transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+                                    <span className="text-gray-900 font-semibold">İstanbul Havalimanı Transfer</span>
+                                </div>
+                                <div className="text-right ml-4">
+                                    <div className="text-2xl font-bold text-gray-900">32 €</div>
+                                    <div className="text-xs text-gray-500">den başlayan</div>
+                                </div>
+                                <svg className="w-6 h-6 text-[#D32F2F] ml-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
+                            </div>
+                        </div>
+
+                        {/* Route 7 */}
+                        <div className="bg-gray-50 rounded-xl p-6 hover:shadow-lg transition-shadow cursor-pointer group">
+                            <div className="flex items-center justify-between">
+                                <div className="flex items-center space-x-4 flex-1">
+                                    <span className="text-gray-900 font-semibold">Kemer</span>
+                                    <svg className="w-5 h-5 text-gray-400 group-hover:text-[#D32F2F] transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+                                    <span className="text-gray-900 font-semibold">Antalya Havalimanı Transfer</span>
+                                </div>
+                                <div className="text-right ml-4">
+                                    <div className="text-2xl font-bold text-gray-900">55 €</div>
+                                    <div className="text-xs text-gray-500">den başlayan</div>
+                                </div>
+                                <svg className="w-6 h-6 text-[#D32F2F] ml-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
+                            </div>
+                        </div>
+
+                        {/* Route 8 */}
+                        <div className="bg-gray-50 rounded-xl p-6 hover:shadow-lg transition-shadow cursor-pointer group">
+                            <div className="flex items-center justify-between">
+                                <div className="flex items-center space-x-4 flex-1">
+                                    <span className="text-gray-900 font-semibold">Karaköy</span>
+                                    <svg className="w-5 h-5 text-gray-400 group-hover:text-[#D32F2F] transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+                                    <span className="text-gray-900 font-semibold">Sabiha Gökçen Havalimanı Transfer</span>
+                                </div>
+                                <div className="text-right ml-4">
+                                    <div className="text-2xl font-bold text-gray-900">34 €</div>
+                                    <div className="text-xs text-gray-500">den başlayan</div>
+                                </div>
+                                <svg className="w-6 h-6 text-[#D32F2F] ml-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
                             </div>
                         </div>
                     </div>
