@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import Link from 'next/link';
 import { MapPin, Calendar, Users, Shield, Clock, Car, Globe, Menu, X } from 'lucide-react';
 
@@ -8,6 +8,10 @@ export default function Home() {
     const [isScrolled, setIsScrolled] = useState(false);
     const [tripType, setTripType] = useState<'oneway' | 'roundtrip'>('oneway');
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+    const [startDate, setStartDate] = useState<Date | null>(new Date());
+
+    // Ref for Tours Slider
+    const scrollContainerRef = useRef<HTMLDivElement>(null);
 
     // Scroll effect for navbar
     if (typeof window !== 'undefined') {
@@ -16,21 +20,51 @@ export default function Home() {
         });
     }
 
+    // Handlers for Slider Navigation
+    const scrollPrev = () => {
+        if (scrollContainerRef.current) {
+            scrollContainerRef.current.scrollBy({ left: -400, behavior: 'smooth' });
+        }
+    };
+
+    const scrollNext = () => {
+        if (scrollContainerRef.current) {
+            scrollContainerRef.current.scrollBy({ left: 400, behavior: 'smooth' });
+        }
+    };
+
     return (
-        <main className="min-h-screen bg-white">
+        <main className="min-h-screen bg-white overflow-x-hidden">
             {/* HEADER - Sticky Navigation */}
             <header
                 className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-white shadow-md' : 'bg-transparent'
                     }`}
             >
-                <nav className="container-custom py-4">
+                {/* Top Bar - Black Background */}
+                <div className="bg-black text-white text-xs py-2 px-4 hidden md:flex justify-between items-center">
+                    <div className="flex space-x-4">
+                        <span className="flex items-center space-x-1 cursor-pointer"><span className="text-lg">✉</span></span>
+                        <span className="flex items-center space-x-1 cursor-pointer"><span className="text-lg">💬</span></span>
+                    </div>
+                    <div className="flex items-center space-x-1 cursor-pointer">
+                        <div className="w-4 h-4 rounded-full bg-red-600 flex items-center justify-center text-[8px]">TR</div>
+                        <span>TR</span>
+                        <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
+                    </div>
+                    <div className="flex space-x-4">
+                        <span className="cursor-pointer hover:text-gray-300">Üye Ol</span>
+                        <span className="cursor-pointer hover:text-gray-300">Giriş</span>
+                    </div>
+                </div>
+
+                <nav className="container-custom py-3 md:py-4">
                     <div className="flex items-center justify-between">
                         {/* Logo */}
                         <Link href="/" className="flex items-center space-x-2">
                             <div className="w-10 h-10 bg-gradient-to-br from-orange-500 to-amber-600 rounded-lg flex items-center justify-center">
                                 <Car className="w-6 h-6 text-white" />
                             </div>
-                            <span className={`text-2xl font-bold transition-colors ${isScrolled ? 'text-gray-900' : 'text-white'
+                            <span className={`text-xl md:text-2xl font-bold transition-colors ${isScrolled ? 'text-gray-900' : 'text-white'
                                 }`}>
                                 ShuttlePort
                             </span>
@@ -38,87 +72,46 @@ export default function Home() {
 
                         {/* Desktop Menu */}
                         <div className="hidden md:flex items-center space-x-8">
-                            <Link
-                                href="#"
-                                className={`font-medium transition-colors ${isScrolled ? 'text-gray-700 hover:text-orange-600' : 'text-white hover:text-orange-300'
-                                    }`}
-                            >
-                                Anasayfa
-                            </Link>
-                            <Link
-                                href="#"
-                                className={`font-medium transition-colors ${isScrolled ? 'text-gray-700 hover:text-orange-600' : 'text-white hover:text-orange-300'
-                                    }`}
-                            >
-                                Transfer
-                            </Link>
-                            <Link
-                                href="#"
-                                className={`font-medium transition-colors ${isScrolled ? 'text-gray-700 hover:text-orange-600' : 'text-white hover:text-orange-300'
-                                    }`}
-                            >
-                                Turlar
-                            </Link>
-                            <Link
-                                href="#"
-                                className={`font-medium transition-colors ${isScrolled ? 'text-gray-700 hover:text-orange-600' : 'text-white hover:text-orange-300'
-                                    }`}
-                            >
-                                Filo
-                            </Link>
-                            <Link
-                                href="#"
-                                className={`font-medium transition-colors ${isScrolled ? 'text-gray-700 hover:text-orange-600' : 'text-white hover:text-orange-300'
-                                    }`}
-                            >
-                                İletişim
-                            </Link>
+                            <Link href="#" className={`font-medium ${isScrolled ? 'text-gray-700' : 'text-white'}`}>Anasayfa</Link>
+                            <Link href="#" className={`font-medium ${isScrolled ? 'text-gray-700' : 'text-white'}`}>Transfer</Link>
+                            <Link href="#" className={`font-medium ${isScrolled ? 'text-gray-700' : 'text-white'}`}>Turlar</Link>
+                            <Link href="#" className={`font-medium ${isScrolled ? 'text-gray-700' : 'text-white'}`}>Filo</Link>
+                            <Link href="#" className={`font-medium ${isScrolled ? 'text-gray-700' : 'text-white'}`}>İletişim</Link>
                         </div>
 
-                        {/* Right Side - Language & Login */}
-                        <div className="hidden md:flex items-center space-x-4">
-                            <button className={`flex items-center space-x-1 font-medium transition-colors ${isScrolled ? 'text-gray-700 hover:text-orange-600' : 'text-white hover:text-orange-300'
-                                }`}>
-                                <Globe className="w-4 h-4" />
-                                <span>TR</span>
-                            </button>
-                            <button className="bg-orange-500 hover:bg-orange-600 text-white font-semibold px-6 py-2 rounded-lg transition-all duration-200 shadow-lg hover:shadow-xl">
-                                Giriş Yap
-                            </button>
-                        </div>
-
-                        {/* Mobile Menu Button */}
+                        {/* Mobile Menu Button - Black on White Header */}
                         <button
                             className="md:hidden"
                             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                         >
                             {mobileMenuOpen ? (
-                                <X className={isScrolled ? 'text-gray-900' : 'text-white'} />
+                                <X className={`w-8 h-8 ${isScrolled ? 'text-gray-900' : 'text-white'}`} />
                             ) : (
-                                <Menu className={isScrolled ? 'text-gray-900' : 'text-white'} />
+                                <Menu className={`w-8 h-8 ${isScrolled ? 'text-gray-900' : 'text-white'}`} />
                             )}
                         </button>
                     </div>
 
-                    {/* Mobile Menu */}
+                    {/* Mobile Menu Dropdown */}
                     {mobileMenuOpen && (
-                        <div className="md:hidden mt-4 pb-4 space-y-3">
-                            <Link href="#" className="block text-gray-700 hover:text-orange-600 font-medium">Anasayfa</Link>
-                            <Link href="#" className="block text-gray-700 hover:text-orange-600 font-medium">Transfer</Link>
-                            <Link href="#" className="block text-gray-700 hover:text-orange-600 font-medium">Turlar</Link>
-                            <Link href="#" className="block text-gray-700 hover:text-orange-600 font-medium">Filo</Link>
-                            <Link href="#" className="block text-gray-700 hover:text-orange-600 font-medium">İletişim</Link>
-                            <button className="w-full bg-orange-500 text-white font-semibold px-6 py-2 rounded-lg">
-                                Giriş Yap
-                            </button>
+                        <div className="md:hidden mt-4 pb-4 space-y-3 bg-white p-4 rounded-lg shadow-xl absolute top-full left-0 right-0">
+                            <Link href="#" className="block text-gray-900 hover:text-orange-600 font-medium p-2">Anasayfa</Link>
+                            <Link href="#" className="block text-gray-900 hover:text-orange-600 font-medium p-2">Transfer</Link>
+                            <Link href="#" className="block text-gray-900 hover:text-orange-600 font-medium p-2">Turlar</Link>
+                            <Link href="#" className="block text-gray-900 hover:text-orange-600 font-medium p-2">Filo</Link>
+                            <Link href="#" className="block text-gray-900 hover:text-orange-600 font-medium p-2">İletişim</Link>
+                            <div className="border-t border-gray-100 pt-3 flex space-x-4">
+                                <span className="block text-gray-900 font-medium p-2">Giriş Yap</span>
+                                <span className="block text-orange-600 font-medium p-2">Üye Ol</span>
+                            </div>
                         </div>
                     )}
                 </nav>
             </header>
 
             {/* HERO SECTION with Background Image */}
-            <section className="relative h-screen flex items-center justify-center">
-                {/* Background Image with Overlay */}
+            <section className="relative min-h-screen md:h-screen flex items-center justify-center pt-24 md:pt-0">
+                {/* Background Image */}
                 <div
                     className="absolute inset-0 bg-cover bg-center bg-no-repeat"
                     style={{
@@ -129,23 +122,25 @@ export default function Home() {
                 </div>
 
                 {/* Hero Content */}
-                <div className="relative z-10 container-custom text-center px-4">
-                    <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 animate-fade-in">
+                <div className="relative z-10 container-custom px-4 w-full">
+                    {/* Mobile Banner Image (Simulated) */}
+                    <div className="md:hidden mb-6 bg-white rounded-lg overflow-hidden shadow-lg mx-auto max-w-sm">
+
+                    </div>
+
+                    <h1 className="text-3xl md:text-6xl lg:text-7xl font-bold text-white mb-6 text-center shadow-text">
                         İstanbul'un En Konforlu<br />VIP Transfer Hizmeti
                     </h1>
-                    <p className="text-xl md:text-2xl text-gray-200 mb-12 max-w-3xl mx-auto">
-                        Havalimanı ve Şehir İçi Transferlerde 7/24 Yanınızdayız
-                    </p>
 
                     {/* BOOKING WIDGET - Main Reservation Form */}
-                    <div className="max-w-7xl mx-auto bg-white rounded-2xl shadow-2xl p-8 animate-slide-up">
-                        {/* Tab Menu - Transfer / Saatlik Kirala / Turlar */}
-                        <div className="flex space-x-8 mb-8 border-b border-gray-200">
+                    <div className="max-w-7xl mx-auto bg-transparent md:bg-white rounded-2xl md:shadow-2xl md:p-8">
+                        {/* Tab Menu - White with shadow on Mobile */}
+                        <div className="flex justify-between md:justify-start space-x-2 md:space-x-8 mb-6 bg-white md:bg-transparent p-2 md:p-0 rounded-xl shadow-md md:shadow-none">
                             <button
                                 onClick={() => setTripType('oneway')}
-                                className={`flex items-center space-x-2 pb-4 font-semibold transition-all duration-200 border-b-2 ${tripType === 'oneway'
-                                    ? 'border-gray-900 text-gray-900'
-                                    : 'border-transparent text-gray-500 hover:text-gray-700'
+                                className={`flex-1 md:flex-none flex items-center justify-center space-x-2 py-3 rounded-lg font-semibold transition-all duration-200 ${tripType === 'oneway'
+                                    ? 'bg-white md:bg-transparent text-gray-900 border-b-2 border-gray-900 shadow-sm md:shadow-none'
+                                    : 'text-gray-500 hover:text-gray-700'
                                     }`}
                             >
                                 <Car className="w-5 h-5" />
@@ -153,166 +148,116 @@ export default function Home() {
                             </button>
                             <button
                                 onClick={() => setTripType('roundtrip')}
-                                className={`flex items-center space-x-2 pb-4 font-semibold transition-all duration-200 border-b-2 ${tripType === 'roundtrip'
-                                    ? 'border-gray-900 text-gray-900'
-                                    : 'border-transparent text-gray-500 hover:text-gray-700'
+                                className={`flex-1 md:flex-none flex items-center justify-center space-x-2 py-3 rounded-lg font-semibold transition-all duration-200 ${tripType === 'roundtrip'
+                                    ? 'bg-white md:bg-transparent text-gray-900 border-b-2 border-gray-900 shadow-sm md:shadow-none'
+                                    : 'text-gray-500 hover:text-gray-700'
                                     }`}
                             >
                                 <Clock className="w-5 h-5" />
-                                <span>Saatlik Kirala</span>
+                                <span className="text-sm md:text-base">Saatlik</span>
                             </button>
-                            <button
-                                className="flex items-center space-x-2 pb-4 font-semibold transition-all duration-200 border-b-2 border-transparent text-gray-500 hover:text-gray-700"
-                            >
+                            <button className="flex-1 md:flex-none flex items-center justify-center space-x-2 py-3 rounded-lg font-semibold text-gray-500 hover:text-gray-700">
                                 <MapPin className="w-5 h-5" />
                                 <span>Turlar</span>
                             </button>
                         </div>
 
-                        {/* Main Form Layout - Exactly as in reference image */}
-                        <div className="grid grid-cols-12 gap-4">
-                            {/* Left Section: NEREDEN and NEREYE (side by side) */}
-                            <div className="col-span-12 lg:col-span-5">
-                                <div className="grid grid-cols-2 gap-4 relative">
-                                    {/* NEREDEN */}
-                                    <div className="relative h-[100px] w-full group cursor-pointer">
-                                        {/* Pin Icon - Positioned Absolutely */}
-                                        <div className="absolute left-[15px] top-1/2 -translate-y-1/2 z-10">
-                                            <div className="w-10 h-10 bg-[#27ae60] rounded-full flex items-center justify-center shadow-sm">
-                                                <MapPin className="w-5 h-5 text-white" />
+                        {/* Main Form Layout - Mobile Optimized Cards */}
+                        <div className="grid grid-cols-1 md:grid-cols-12 gap-4">
+                            {/* Left Section: NEREDEN and NEREYE */}
+                            <div className="col-span-12 lg:col-span-6 relative">
+                                <div className="flex flex-col md:grid md:grid-cols-2 gap-4 relative">
+                                    {/* NEREDEN Card */}
+                                    <div className="bg-white rounded-xl shadow-md p-1 border border-gray-100 relative h-[80px] md:h-[100px] flex items-center">
+                                        <div className="absolute left-4 z-10">
+                                            <div className="w-10 h-10 bg-white border-2 border-[#82C91E] rounded-full flex items-center justify-center">
+                                                <MapPin className="w-5 h-5 text-[#82C91E]" />
                                             </div>
                                         </div>
-
-                                        {/* Input Field */}
                                         <input
-                                            id="aNoktasi"
                                             type="text"
-                                            title="NEREDEN"
-                                            required
-                                            autoComplete="off"
-                                            className="peer h-full w-full rounded-[10px] border-2 border-[#F2F2F2] bg-white pt-[35px] pr-[35px] pb-[10px] pl-[65px] text-[14px] font-semibold text-black outline-none transition-all focus:border-orange-500 placeholder-transparent"
+                                            className="w-full h-full pl-[70px] pr-4 rounded-lg outline-none text-sm font-bold placeholder-gray-400"
                                             placeholder="NEREDEN"
                                         />
-
-                                        {/* Floating Labels */}
-                                        <label
-                                            htmlFor="aNoktasi"
-                                            className="pointer-events-none absolute left-0 top-0 pt-[28px] pl-[65px] text-[13px] font-bold uppercase text-black transition-all peer-placeholder-shown:pt-[33px]"
-                                        >
-                                            NEREDEN
-                                        </label>
-                                        <span className="pointer-events-none absolute left-0 top-0 pt-[50px] pl-[65px] text-[11px] font-normal text-[#999999] transition-all">
-                                            Adres, Havalimanı, Otel, Hastane...
-                                        </span>
+                                        <label className="absolute top-2 left-[70px] text-[10px] font-bold text-gray-800 uppercase">NEREDEN</label>
+                                        <span className="absolute bottom-2 left-[70px] text-[10px] text-gray-400 truncate w-4/5">Adres, Havalimanı, Otel...</span>
                                     </div>
 
-                                    {/* Swap Button */}
-                                    <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20">
-                                        <button className="w-10 h-10 bg-white border border-gray-200 rounded-full flex items-center justify-center hover:bg-gray-50 transition-colors shadow-md group">
-                                            <svg className="w-4 h-4 text-gray-400 group-hover:text-orange-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
+                                    {/* Swap Button - Center Absolute for Mobile & Desktop */}
+                                    <div className="absolute left-1/2 md:left-1/2 top-1/2 md:top-1/2 transform -translate-x-1/2 -translate-y-1/2 z-30">
+                                        <button className="w-10 h-10 bg-white border border-gray-200 rounded-full flex items-center justify-center shadow-lg hover:bg-gray-50 transition-colors rotate-90 md:rotate-0">
+                                            <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" />
                                             </svg>
                                         </button>
                                     </div>
 
-                                    {/* NEREYE */}
-                                    <div className="relative h-[100px] w-full group cursor-pointer">
-                                        {/* Pin Icon */}
-                                        <div className="absolute left-[15px] top-1/2 -translate-y-1/2 z-10">
-                                            <div className="w-10 h-10 bg-[#2f80ed] rounded-full flex items-center justify-center shadow-sm">
-                                                <MapPin className="w-5 h-5 text-white" />
+                                    {/* NEREYE Card */}
+                                    <div className="bg-white rounded-xl shadow-md p-1 border border-gray-100 relative h-[80px] md:h-[100px] flex items-center">
+                                        <div className="absolute left-4 z-10">
+                                            <div className="w-10 h-10 bg-white border-2 border-[#228BE6] rounded-full flex items-center justify-center">
+                                                <MapPin className="w-5 h-5 text-[#228BE6]" />
                                             </div>
                                         </div>
-
-                                        {/* Input Field */}
                                         <input
-                                            id="bNoktasi"
                                             type="text"
-                                            title="NEREYE"
-                                            required
-                                            autoComplete="off"
-                                            className="peer h-full w-full rounded-[10px] border-2 border-[#F2F2F2] bg-white pt-[35px] pr-[35px] pb-[10px] pl-[65px] text-[14px] font-semibold text-black outline-none transition-all focus:border-orange-500 placeholder-transparent"
+                                            className="w-full h-full pl-[70px] pr-4 rounded-lg outline-none text-sm font-bold placeholder-gray-400"
                                             placeholder="NEREYE"
                                         />
-
-                                        {/* Floating Labels */}
-                                        <label
-                                            htmlFor="bNoktasi"
-                                            className="pointer-events-none absolute left-0 top-0 pt-[28px] pl-[65px] text-[13px] font-bold uppercase text-black transition-all peer-placeholder-shown:pt-[33px]"
-                                        >
-                                            NEREYE
-                                        </label>
-                                        <span className="pointer-events-none absolute left-0 top-0 pt-[50px] pl-[65px] text-[11px] font-normal text-[#999999] transition-all">
-                                            Adres, Havalimanı, Otel, Hastane...
-                                        </span>
+                                        <label className="absolute top-2 left-[70px] text-[10px] font-bold text-gray-800 uppercase">NEREYE</label>
+                                        <span className="absolute bottom-2 left-[70px] text-[10px] text-gray-400 truncate w-4/5">Adres, Havalimanı, Otel...</span>
                                     </div>
                                 </div>
                             </div>
 
-                            {/* Middle Section: TARİH & SAAT */}
-                            <div className="col-span-12 lg:col-span-3">
-                                <div className="relative h-[100px] w-full group cursor-pointer">
-                                    {/* Calendar Icon */}
-                                    <div className="absolute left-[15px] top-1/2 -translate-y-1/2 z-10">
-                                        <div className="w-10 h-10 bg-[#f3f4f6] rounded-full flex items-center justify-center shadow-sm">
+                            {/* Middle Section: TARİH */}
+                            <div className="col-span-12 lg:col-span-2">
+                                <div className="bg-white rounded-xl shadow-md p-1 border border-gray-100 relative h-[80px] md:h-[100px] flex items-center group cursor-pointer">
+                                    <div className="absolute left-4 z-10">
+                                        <div className="w-10 h-10 bg-white border-2 border-gray-200 rounded-full flex items-center justify-center">
                                             <Calendar className="w-5 h-5 text-gray-600" />
                                         </div>
                                     </div>
-
-                                    {/* Input Field */}
                                     <input
                                         type="text"
                                         required
-                                        autoComplete="off"
-                                        className="peer h-full w-full rounded-[10px] border-2 border-[#F2F2F2] bg-white pt-[35px] pr-[35px] pb-[10px] pl-[65px] text-[14px] font-semibold text-black outline-none transition-all focus:border-orange-500 placeholder-transparent"
-                                        placeholder="Başlangıç Tarihi"
+                                        onFocus={(e) => (e.target.type = "date")}
+                                        onBlur={(e) => (e.target.type = "text")}
+                                        className="w-full h-full pl-[70px] pr-4 rounded-lg outline-none text-sm font-bold placeholder-gray-400"
+                                        placeholder="Tarih Seçiniz"
                                     />
-
-                                    {/* Floating Labels */}
-                                    <label className="pointer-events-none absolute left-0 top-0 pt-[28px] pl-[65px] text-[13px] font-bold uppercase text-black transition-all peer-placeholder-shown:pt-[33px]">
-                                        TARİH & SAAT
-                                    </label>
-                                    <span className="pointer-events-none absolute left-0 top-0 pt-[50px] pl-[65px] text-[11px] font-normal text-[#999999] transition-all">
-                                        Başlangıç Tarihi
-                                    </span>
+                                    <label className="absolute top-2 left-[70px] text-[10px] font-bold text-gray-800 uppercase">TARİH & SAAT</label>
+                                    <span className="absolute bottom-2 left-[70px] text-[10px] text-gray-400">Başlangıç Tarihi</span>
                                 </div>
                             </div>
 
-                            {/* Right Section: GİDİŞ-DÖNÜŞ, KİŞİ SAYISI, and Ara Button */}
+                            {/* Right Section: Controls (3 Column Grid on Mobile) */}
                             <div className="col-span-12 lg:col-span-4">
-                                <div className="grid grid-cols-12 gap-3 h-[100px]">
-                                    {/* GİDİŞ-DÖNÜŞ Toggle */}
-                                    <div className="col-span-4 bg-white border-2 border-[#F2F2F2] rounded-[10px] h-full flex flex-col items-center justify-center p-2 relative group hover:border-gray-300 transition-colors">
-                                        <span className="text-[11px] font-bold text-gray-900 mb-2 text-center uppercase">GİDİŞ-DÖNÜŞ</span>
-                                        <label className="relative inline-flex items-center cursor-pointer">
+                                <div className="grid grid-cols-3 md:grid-cols-12 gap-3 md:h-[100px]">
+                                    {/* Toggle */}
+                                    <div className="col-span-1 md:col-span-4 bg-white rounded-xl shadow-md border border-gray-100 h-[80px] md:h-full flex flex-col items-center justify-center p-2">
+                                        <span className="text-[9px] font-bold text-gray-800 mb-1">GİDİŞ-DÖNÜŞ</span>
+                                        <div className="relative inline-flex items-center cursor-pointer scale-75">
                                             <input type="checkbox" className="sr-only peer" />
-                                            <div className="w-10 h-5 bg-gray-300 rounded-full peer peer-checked:bg-orange-500 transition-colors"></div>
-                                            <div className="absolute left-1 top-1 w-3 h-3 bg-white rounded-full transition-transform peer-checked:translate-x-5 shadow-sm"></div>
-                                        </label>
-                                    </div>
-
-                                    {/* KİŞİ SAYISI Dropdown */}
-                                    <div className="col-span-4 bg-white border-2 border-[#F2F2F2] rounded-[10px] h-full flex flex-col items-center justify-center p-2 relative group hover:border-gray-300 transition-colors">
-                                        <span className="text-[11px] font-bold text-gray-900 mb-1 text-center uppercase">KİŞİ SAYISI</span>
-                                        <select className="bg-transparent text-[13px] font-semibold text-gray-900 outline-none cursor-pointer text-center w-full appearance-none">
-                                            <option>1 Kişi</option>
-                                            <option>2 Kişi</option>
-                                            <option>3 Kişi</option>
-                                            <option>4 Kişi</option>
-                                            <option>5+ Kişi</option>
-                                        </select>
-                                        <div className="text-gray-400 absolute bottom-3 right-3 pointer-events-none">
-                                            <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
+                                            <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-orange-600"></div>
                                         </div>
                                     </div>
 
-                                    {/* Ara Button - Matches height and positioned in grid */}
-                                    <div className="col-span-4 h-full">
-                                        <button className="w-full h-full bg-[#D0142D] hover:bg-[#b01126] text-white font-bold text-lg rounded-[10px] transition-all duration-200 shadow-md flex flex-col items-center justify-center space-y-1">
-                                            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                                            </svg>
-                                            <span className="text-sm">Ara</span>
+                                    {/* Kişi */}
+                                    <div className="col-span-1 md:col-span-4 bg-white rounded-xl shadow-md border border-gray-100 h-[80px] md:h-full flex flex-col items-center justify-center p-2">
+                                        <span className="text-[9px] font-bold text-gray-800 mb-1">KİŞİ SAYISI</span>
+                                        <select className="bg-transparent text-sm font-bold text-gray-900 outline-none cursor-pointer">
+                                            <option>1 Kişi</option>
+                                            <option>2 Kişi</option>
+                                            <option>3 Kişi</option>
+                                        </select>
+                                    </div>
+
+                                    {/* Ara Button */}
+                                    <div className="col-span-1 md:col-span-4 h-[80px] md:h-full">
+                                        <button className="w-full h-full bg-[#D0142D] hover:bg-[#b01126] text-white rounded-xl shadow-md flex flex-col items-center justify-center p-2">
+                                            <svg className="w-6 h-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+                                            <span className="text-xs font-bold">Ara</span>
                                         </button>
                                     </div>
                                 </div>
@@ -322,8 +267,185 @@ export default function Home() {
                 </div>
             </section>
 
+            {/* TOURS SECTION */}
+            <section className="py-10 md:py-20 bg-gray-50">
+                <div className="container-custom px-4">
+                    <div className="grid grid-cols-12 gap-8 md:gap-12 items-center">
+                        {/* Left Content */}
+                        <div className="col-span-12 lg:col-span-4 space-y-6 md:space-y-8">
+                            <h2 className="text-2xl md:text-4xl font-bold text-gray-900 leading-tight">
+                                Harika bir tur gezisine<br />ne dersiniz?
+                            </h2>
+                            <p className="text-gray-500 text-lg">
+                                Eşsiz rotalar ve kişiye özel maceralarla dolu turlarımızla unutulmaz anılar yaratmaya hazır olun!
+                            </p>
+
+                            <button className="bg-black hover:bg-gray-800 text-white font-semibold px-8 py-3 rounded-lg transition-colors">
+                                Daha Fazla Tur
+                            </button>
+
+                            {/* Navigation Buttons */}
+                            <div className="flex space-x-4 pt-4">
+                                <button
+                                    onClick={scrollPrev}
+                                    className="w-12 h-12 rounded-full border border-gray-300 flex items-center justify-center text-gray-400 hover:border-orange-500 hover:text-orange-500 transition-colors"
+                                >
+                                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
+                                </button>
+                                <button
+                                    onClick={scrollNext}
+                                    className="w-12 h-12 rounded-full border border-gray-300 flex items-center justify-center text-gray-900 hover:border-orange-500 hover:text-orange-500 transition-colors"
+                                >
+                                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
+                                </button>
+                            </div>
+                        </div>
+
+                        {/* Right Content - Slider */}
+                        <div className="col-span-12 lg:col-span-8 lg:-mr-[50vw] lg:pr-[10vw]">
+                            <div
+                                ref={scrollContainerRef}
+                                className="flex space-x-6 overflow-x-auto pb-8 scrollbar-hide [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none']"
+                            >
+                                {/* Tour Card 1 */}
+                                <div className="w-[300px] md:w-[350px] bg-white rounded-2xl shadow-sm hover:shadow-md transition-shadow group cursor-pointer flex-shrink-0 flex flex-col h-full border border-gray-100">
+                                    <div className="h-[200px] overflow-hidden rounded-t-2xl relative">
+                                        <img src="https://images.unsplash.com/photo-1516281717304-184375a5765c?q=80&w=800" alt="New Year" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                                        <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-gray-900">
+                                            Özel Fırsat
+                                        </div>
+                                    </div>
+                                    <div className="p-6 space-y-4 flex flex-col flex-grow">
+                                        <h3 className="text-gray-900 font-semibold leading-snug min-h-[48px]">
+                                            Havai Fişekler Eşliğinde Boğaz'da Yılbaşı Kutlaması - Sınırsız Alkollü İçecek
+                                        </h3>
+                                        <div className="w-10 h-1 bg-gray-200">
+                                            <div className="w-5 h-full bg-red-500"></div>
+                                        </div>
+                                        <div className="flex items-center justify-between pt-2 mt-auto">
+                                            <span className="text-2xl font-bold text-gray-900">10.108₺</span>
+                                            <div className="w-10 h-10 rounded-full border border-red-500 flex items-center justify-center text-red-500 group-hover:bg-red-500 group-hover:text-white transition-all">
+                                                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* Tour Card 2 */}
+                                <div className="w-[300px] md:w-[350px] bg-white rounded-2xl shadow-sm hover:shadow-md transition-shadow group cursor-pointer flex-shrink-0 flex flex-col h-full border border-gray-100">
+                                    <div className="h-[200px] overflow-hidden rounded-t-2xl relative">
+                                        <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=800" alt="Meyhane" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                                    </div>
+                                    <div className="p-6 space-y-4 flex flex-col flex-grow">
+                                        <h3 className="text-gray-900 font-semibold leading-snug min-h-[48px]">
+                                            Geleneksel Türk Meyhanesinde Yılbaşı Paketi - Araç Tahsisi Dahil
+                                        </h3>
+                                        <div className="w-10 h-1 bg-gray-200">
+                                            <div className="w-5 h-full bg-red-500"></div>
+                                        </div>
+                                        <div className="flex items-center justify-between pt-2 mt-auto">
+                                            <span className="text-2xl font-bold text-gray-900">20.216₺</span>
+                                            <div className="w-10 h-10 rounded-full border border-red-500 flex items-center justify-center text-red-500 group-hover:bg-red-500 group-hover:text-white transition-all">
+                                                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* Tour Card 3 */}
+                                <div className="w-[300px] md:w-[350px] bg-white rounded-2xl shadow-sm hover:shadow-md transition-shadow group cursor-pointer flex-shrink-0 flex flex-col h-full border border-gray-100">
+                                    <div className="h-[200px] overflow-hidden rounded-t-2xl relative">
+                                        <img src="https://images.unsplash.com/photo-1541432901042-2d8bd64b4a9b?q=80&w=800" alt="Istanbul" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                                    </div>
+                                    <div className="p-6 space-y-4 flex flex-col flex-grow">
+                                        <h3 className="text-gray-900 font-semibold leading-snug min-h-[48px]">
+                                            8 Saatlik Şoförlü İstanbul Turu - Her Şey Dahil Fiyat
+                                        </h3>
+                                        <div className="w-10 h-1 bg-gray-200">
+                                            <div className="w-5 h-full bg-red-500"></div>
+                                        </div>
+                                        <div className="flex items-center justify-between pt-2 mt-auto">
+                                            <span className="text-2xl font-bold text-gray-900">7.581₺</span>
+                                            <div className="w-10 h-10 rounded-full border border-red-500 flex items-center justify-center text-red-500 group-hover:bg-red-500 group-hover:text-white transition-all">
+                                                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* Tour Card 4 */}
+                                <div className="w-[300px] md:w-[350px] bg-white rounded-2xl shadow-sm hover:shadow-md transition-shadow group cursor-pointer flex-shrink-0 flex flex-col h-full border border-gray-100">
+                                    <div className="h-[200px] overflow-hidden rounded-t-2xl relative">
+                                        <img src="https://images.unsplash.com/photo-1516281717304-184375a5765c?q=80&w=800" alt="Special Offer" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                                        <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-gray-900">
+                                            Özel Fırsat
+                                        </div>
+                                    </div>
+                                    <div className="p-6 space-y-4 flex flex-col flex-grow">
+                                        <h3 className="text-gray-900 font-semibold leading-snug min-h-[48px]">
+                                            Sapanca Gölü ve Doğa Yürüyüşü Turu
+                                        </h3>
+                                        <div className="w-10 h-1 bg-gray-200">
+                                            <div className="w-5 h-full bg-red-500"></div>
+                                        </div>
+                                        <div className="flex items-center justify-between pt-2 mt-auto">
+                                            <span className="text-2xl font-bold text-gray-900">5.500₺</span>
+                                            <div className="w-10 h-10 rounded-full border border-red-500 flex items-center justify-center text-red-500 group-hover:bg-red-500 group-hover:text-white transition-all">
+                                                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* Tour Card 5 */}
+                                <div className="w-[300px] md:w-[350px] bg-white rounded-2xl shadow-sm hover:shadow-md transition-shadow group cursor-pointer flex-shrink-0 flex flex-col h-full border border-gray-100">
+                                    <div className="h-[200px] overflow-hidden rounded-t-2xl relative">
+                                        <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=800" alt="Ski Tour" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                                    </div>
+                                    <div className="p-6 space-y-4 flex flex-col flex-grow">
+                                        <h3 className="text-gray-900 font-semibold leading-snug min-h-[48px]">
+                                            Bursa Uludağ Kayak Turu - Günübirlik
+                                        </h3>
+                                        <div className="w-10 h-1 bg-gray-200">
+                                            <div className="w-5 h-full bg-red-500"></div>
+                                        </div>
+                                        <div className="flex items-center justify-between pt-2 mt-auto">
+                                            <span className="text-2xl font-bold text-gray-900">9.000₺</span>
+                                            <div className="w-10 h-10 rounded-full border border-red-500 flex items-center justify-center text-red-500 group-hover:bg-red-500 group-hover:text-white transition-all">
+                                                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* Tour Card 6 */}
+                                <div className="w-[300px] md:w-[350px] bg-white rounded-2xl shadow-sm hover:shadow-md transition-shadow group cursor-pointer flex-shrink-0 flex flex-col h-full border border-gray-100">
+                                    <div className="h-[200px] overflow-hidden rounded-t-2xl relative">
+                                        <img src="https://images.unsplash.com/photo-1541432901042-2d8bd64b4a9b?q=80&w=800" alt="Balloons" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                                    </div>
+                                    <div className="p-6 space-y-4 flex flex-col flex-grow">
+                                        <h3 className="text-gray-900 font-semibold leading-snug min-h-[48px]">
+                                            Kapadokya Balon Turu - 2 Gece 3 Gün
+                                        </h3>
+                                        <div className="w-10 h-1 bg-gray-200">
+                                            <div className="w-5 h-full bg-red-500"></div>
+                                        </div>
+                                        <div className="flex items-center justify-between pt-2 mt-auto">
+                                            <span className="text-2xl font-bold text-gray-900">15.000₺</span>
+                                            <div className="w-10 h-10 rounded-full border border-red-500 flex items-center justify-center text-red-500 group-hover:bg-red-500 group-hover:text-white transition-all">
+                                                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             {/* FEATURES SECTION - Below Fold */}
-            <section className="py-20 bg-gray-50">
+            <section className="py-10 md:py-20 bg-gray-50">
                 <div className="container-custom">
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                         {/* Güvenli Ödeme */}
