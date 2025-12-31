@@ -2,7 +2,7 @@
 
 import { useState, useRef } from 'react';
 import Link from 'next/link';
-import { MapPin, Calendar, Users, Shield, Clock, Car, Globe, Menu, X } from 'lucide-react';
+import { MapPin, Calendar, Users, Shield, Clock, Car, Globe, Menu, X, Instagram, MessageCircle, User, ChevronDown } from 'lucide-react';
 
 export default function Home() {
     const [isScrolled, setIsScrolled] = useState(false);
@@ -36,77 +36,106 @@ export default function Home() {
     return (
         <main className="min-h-screen bg-white overflow-x-hidden">
             {/* HEADER - Sticky Navigation */}
-            <header
-                className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-white shadow-md' : 'bg-transparent'
-                    }`}
-            >
-                {/* Top Bar - Black Background */}
-                <div className="bg-black text-white text-xs py-2 px-4 hidden md:flex justify-between items-center">
-                    <div className="flex space-x-4">
-                        <span className="flex items-center space-x-1 cursor-pointer"><span className="text-lg">✉</span></span>
-                        <span className="flex items-center space-x-1 cursor-pointer"><span className="text-lg">💬</span></span>
+            <header className="absolute top-0 left-0 right-0 z-50 bg-white shadow-sm h-20 md:h-24">
+                <div className="container-custom h-full flex items-center justify-between px-4">
+                    {/* LOGO */}
+                    <Link href="/" className="flex items-center space-x-3 md:space-x-4">
+                        <div className="text-[#D32F2F]">
+                            <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-8 h-8 md:w-10 md:h-10">
+                                <path d="M20 0C18.5 10 10 18.5 0 20C10 21.5 18.5 30 20 40C21.5 30 30 21.5 40 20C30 18.5 21.5 10 20 0Z" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+                                <circle cx="20" cy="20" r="4" fill="currentColor" />
+                            </svg>
+                        </div>
+                        <div className="flex flex-col justify-center">
+                            <span className="text-[10px] md:text-xs font-bold tracking-[0.2em] text-gray-900 leading-tight">SHUTTLE</span>
+                            <span className="text-lg md:text-2xl font-black italic text-gray-900 leading-none tracking-tighter">TRANSFER</span>
+                        </div>
+                    </Link>
+
+                    {/* DESKTOP NAV */}
+                    <nav className="hidden xl:flex items-center space-x-6 text-[13px] font-bold text-gray-800">
+                        <Link href="#" className="hover:text-[#D32F2F] transition-colors">Turlar</Link>
+                        <Link href="#" className="hover:text-[#D32F2F] transition-colors">Kurumsal</Link>
+                        <Link href="#" className="hover:text-[#D32F2F] transition-colors">İşveren Olun</Link>
+                        <Link href="#" className="hover:text-[#D32F2F] transition-colors">Taşıyıcı Olun</Link>
+                        <Link href="#" className="hover:text-[#D32F2F] transition-colors">İletişim</Link>
+                        <Link href="#" className="hover:text-[#D32F2F] transition-colors">S.S.S</Link>
+                    </nav>
+
+                    {/* RIGHT ACTIONS */}
+                    <div className="hidden lg:flex items-center space-x-4">
+                        {/* Social Icons */}
+                        <div className="flex items-center space-x-4 border-r border-gray-200 pr-5">
+                            <Link href="#" className="text-gray-900 hover:text-[#D32F2F]"><Instagram className="w-5 h-5 stroke-2" /></Link>
+                            <Link href="#" className="text-gray-900 hover:text-[#D32F2F]"><Globe className="w-5 h-5 stroke-2" /></Link>
+                            <Link href="#" className="text-gray-900 hover:text-green-600"><MessageCircle className="w-5 h-5 stroke-2" /></Link>
+                        </div>
+
+                        {/* Language */}
+                        <div className="flex items-center space-x-2 cursor-pointer group">
+                            <div className="w-6 h-6 rounded-full bg-[#D32F2F] flex items-center justify-center text-[9px] text-white font-bold ring-2 ring-transparent group-hover:ring-red-100 transition-all">TR</div>
+                            <span className="text-sm font-bold text-gray-900">TR</span>
+                            <ChevronDown className="w-4 h-4 text-gray-500" />
+                        </div>
+
+                        {/* Auth */}
+                        <div className="flex items-center space-x-4 ml-2">
+                            <Link href="#" className="text-sm font-bold text-gray-900 hover:text-[#D32F2F]">Üye Ol</Link>
+                            <Link href="#" className="flex items-center space-x-2 border border-black rounded-lg px-4 py-2 hover:bg-black hover:text-white transition-all group">
+                                <User className="w-4 h-4 group-hover:text-white" />
+                                <span className="text-sm font-bold">Giriş</span>
+                            </Link>
+                        </div>
                     </div>
-                    <div className="flex items-center space-x-1 cursor-pointer">
-                        <div className="w-4 h-4 rounded-full bg-red-600 flex items-center justify-center text-[8px]">TR</div>
-                        <span>TR</span>
-                        <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
-                    </div>
-                    <div className="flex space-x-4">
-                        <span className="cursor-pointer hover:text-gray-300">Üye Ol</span>
-                        <span className="cursor-pointer hover:text-gray-300">Giriş</span>
-                    </div>
+
+                    {/* Mobile Menu Button */}
+                    <button
+                        className="lg:hidden"
+                        onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                    >
+                        {mobileMenuOpen ? (
+                            <X className="w-8 h-8 text-gray-900" />
+                        ) : (
+                            <Menu className="w-8 h-8 text-gray-900" />
+                        )}
+                    </button>
                 </div>
 
-                <nav className="container-custom py-3 md:py-4">
-                    <div className="flex items-center justify-between">
-                        {/* Logo */}
-                        <Link href="/" className="flex items-center space-x-2">
-                            <div className="w-10 h-10 bg-gradient-to-br from-orange-500 to-amber-600 rounded-lg flex items-center justify-center">
-                                <Car className="w-6 h-6 text-white" />
+                {/* Mobile Menu Dropdown */}
+                {mobileMenuOpen && (
+                    <div className="lg:hidden bg-white border-t border-gray-100 absolute top-full left-0 right-0 shadow-xl overflow-hidden animate-in slide-in-from-top-2">
+                        <div className="container-custom py-4 space-y-2">
+                            <Link href="#" className="block text-gray-900 font-bold hover:text-[#D32F2F] p-2 rounded-lg hover:bg-red-50">Turlar</Link>
+                            <Link href="#" className="block text-gray-900 font-bold hover:text-[#D32F2F] p-2 rounded-lg hover:bg-red-50">Kurumsal</Link>
+                            <Link href="#" className="block text-gray-900 font-bold hover:text-[#D32F2F] p-2 rounded-lg hover:bg-red-50">İşveren Olun</Link>
+                            <Link href="#" className="block text-gray-900 font-bold hover:text-[#D32F2F] p-2 rounded-lg hover:bg-red-50">Taşıyıcı Olun</Link>
+                            <Link href="#" className="block text-gray-900 font-bold hover:text-[#D32F2F] p-2 rounded-lg hover:bg-red-50">İletişim</Link>
+                            <Link href="#" className="block text-gray-900 font-bold hover:text-[#D32F2F] p-2 rounded-lg hover:bg-red-50">S.S.S</Link>
+
+                            <div className="border-t border-gray-100 my-2 pt-2"></div>
+
+                            <div className="flex items-center justify-between p-2">
+                                <div className="flex space-x-4">
+                                    <Instagram className="w-5 h-5 text-gray-600" />
+                                    <Globe className="w-5 h-5 text-gray-600" />
+                                    <MessageCircle className="w-5 h-5 text-gray-600" />
+                                </div>
+                                <div className="flex items-center space-x-2">
+                                    <div className="w-6 h-6 rounded-full bg-[#D32F2F] flex items-center justify-center text-[9px] text-white font-bold">TR</div>
+                                    <span className="font-bold">TR</span>
+                                </div>
                             </div>
-                            <span className={`text-xl md:text-2xl font-bold transition-colors ${isScrolled ? 'text-gray-900' : 'text-white'
-                                }`}>
-                                ShuttlePort
-                            </span>
-                        </Link>
 
-                        {/* Desktop Menu */}
-                        <div className="hidden md:flex items-center space-x-8">
-                            <Link href="#" className={`font-medium ${isScrolled ? 'text-gray-700' : 'text-white'}`}>Anasayfa</Link>
-                            <Link href="#" className={`font-medium ${isScrolled ? 'text-gray-700' : 'text-white'}`}>Transfer</Link>
-                            <Link href="#" className={`font-medium ${isScrolled ? 'text-gray-700' : 'text-white'}`}>Turlar</Link>
-                            <Link href="#" className={`font-medium ${isScrolled ? 'text-gray-700' : 'text-white'}`}>Filo</Link>
-                            <Link href="#" className={`font-medium ${isScrolled ? 'text-gray-700' : 'text-white'}`}>İletişim</Link>
+                            <div className="grid grid-cols-2 gap-4 mt-2">
+                                <Link href="#" className="flex justify-center items-center py-3 text-gray-900 font-bold border border-gray-200 rounded-lg">Üye Ol</Link>
+                                <Link href="#" className="flex justify-center items-center py-3 bg-black text-white font-bold rounded-lg space-x-2">
+                                    <User className="w-4 h-4" />
+                                    <span>Giriş</span>
+                                </Link>
+                            </div>
                         </div>
-
-                        {/* Mobile Menu Button - Black on White Header */}
-                        <button
-                            className="md:hidden"
-                            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                        >
-                            {mobileMenuOpen ? (
-                                <X className={`w-8 h-8 ${isScrolled ? 'text-gray-900' : 'text-white'}`} />
-                            ) : (
-                                <Menu className={`w-8 h-8 ${isScrolled ? 'text-gray-900' : 'text-white'}`} />
-                            )}
-                        </button>
                     </div>
-
-                    {/* Mobile Menu Dropdown */}
-                    {mobileMenuOpen && (
-                        <div className="md:hidden mt-4 pb-4 space-y-3 bg-white p-4 rounded-lg shadow-xl absolute top-full left-0 right-0">
-                            <Link href="#" className="block text-gray-900 hover:text-orange-600 font-medium p-2">Anasayfa</Link>
-                            <Link href="#" className="block text-gray-900 hover:text-orange-600 font-medium p-2">Transfer</Link>
-                            <Link href="#" className="block text-gray-900 hover:text-orange-600 font-medium p-2">Turlar</Link>
-                            <Link href="#" className="block text-gray-900 hover:text-orange-600 font-medium p-2">Filo</Link>
-                            <Link href="#" className="block text-gray-900 hover:text-orange-600 font-medium p-2">İletişim</Link>
-                            <div className="border-t border-gray-100 pt-3 flex space-x-4">
-                                <span className="block text-gray-900 font-medium p-2">Giriş Yap</span>
-                                <span className="block text-orange-600 font-medium p-2">Üye Ol</span>
-                            </div>
-                        </div>
-                    )}
-                </nav>
+                )}
             </header>
 
             {/* HERO SECTION with Background Image */}
