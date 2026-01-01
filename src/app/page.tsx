@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { MapPin, Calendar, Users, Shield, Clock, Car, Globe, Menu, X, Instagram, MessageCircle, User, ChevronDown, Loader2 } from 'lucide-react';
 import { MapPickerModal, DistanceResult } from '@/features/maps';
 import { ServiceTypeSelector } from '@/features/booking/components/ServiceTypeSelector';
+import { DateTimePicker } from '@/features/booking/components/DateTimePicker';
 
 interface Location {
     lat: number;
@@ -34,6 +35,7 @@ export default function Home() {
     const [destinationLocation, setDestinationLocation] = useState<Location | null>(null);
     const [showOriginModal, setShowOriginModal] = useState(false);
     const [showDestinationModal, setShowDestinationModal] = useState(false);
+    const [showDatePicker, setShowDatePicker] = useState(false);
     const [distanceData, setDistanceData] = useState<DistanceData | null>(null);
     const [isCalculating, setIsCalculating] = useState(false);
 
@@ -358,23 +360,29 @@ export default function Home() {
 
                             {/* Middle Section: TARİH */}
                             <div className="col-span-12 lg:col-span-2">
-                                <div className="bg-white rounded-xl shadow-md p-1 border border-gray-100 relative h-[80px] md:h-[100px] flex items-center group cursor-pointer">
+                                <button
+                                    onClick={() => setShowDatePicker(true)}
+                                    className="w-full bg-white rounded-xl shadow-md p-1 border border-gray-100 relative h-[80px] md:h-[100px] flex items-center hover:border-[#D32F2F] hover:shadow-lg transition-all group text-left"
+                                >
                                     <div className="absolute left-4 z-10">
-                                        <div className="w-10 h-10 bg-white border-2 border-gray-200 rounded-full flex items-center justify-center">
-                                            <Calendar className="w-5 h-5 text-gray-600" />
+                                        <div className="w-10 h-10 bg-white border-2 border-gray-200 rounded-full flex items-center justify-center group-hover:bg-[#D32F2F] transition-colors">
+                                            <Calendar className="w-5 h-5 text-gray-600 group-hover:text-white transition-colors" />
                                         </div>
                                     </div>
-                                    <input
-                                        type="text"
-                                        required
-                                        onFocus={(e) => (e.target.type = "date")}
-                                        onBlur={(e) => (e.target.type = "text")}
-                                        className="w-full h-full pl-[70px] pr-4 rounded-lg outline-none text-sm font-bold placeholder-gray-400"
-                                        placeholder="Tarih Seçiniz"
-                                    />
-                                    <label className="absolute top-2 left-[70px] text-[10px] font-bold text-gray-800 uppercase">TARİH & SAAT</label>
-                                    <span className="absolute bottom-2 left-[70px] text-[10px] text-gray-400">Başlangıç Tarihi</span>
-                                </div>
+                                    <div className="w-full h-full pl-[70px] pr-4 flex flex-col justify-center">
+                                        <label className="text-[10px] font-bold text-gray-800 uppercase">TARİH & SAAT</label>
+                                        <span className={`text-sm font-bold ${startDate ? 'text-gray-900' : 'text-gray-400'}`}>
+                                            {startDate
+                                                ? `${startDate.getDate().toString().padStart(2, '0')}.${(startDate.getMonth() + 1).toString().padStart(2, '0')}.${startDate.getFullYear()}`
+                                                : 'Tarih Seçiniz'}
+                                        </span>
+                                        {startDate && (
+                                            <span className="text-[10px] text-gray-400">
+                                                {startDate.getHours().toString().padStart(2, '0')}:{startDate.getMinutes().toString().padStart(2, '0')}
+                                            </span>
+                                        )}
+                                    </div>
+                                </button>
                             </div>
 
                             {/* Right Section: Controls (3 Column Grid on Mobile) */}
@@ -1081,6 +1089,17 @@ export default function Home() {
                 }}
                 title="Nereye - Varış Noktası Seçin"
                 initialLocation={destinationLocation ? { lat: destinationLocation.lat, lng: destinationLocation.lng } : undefined}
+            />
+
+            {/* Date Time Picker Modal */}
+            <DateTimePicker
+                isOpen={showDatePicker}
+                onClose={() => setShowDatePicker(false)}
+                onSelectDateTime={(date) => {
+                    setStartDate(date);
+                    setShowDatePicker(false);
+                }}
+                initialDate={startDate || undefined}
             />
         </main>
     );
