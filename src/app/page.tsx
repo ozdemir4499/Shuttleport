@@ -38,6 +38,8 @@ export default function Home() {
     const [showDatePicker, setShowDatePicker] = useState(false);
     const [distanceData, setDistanceData] = useState<DistanceData | null>(null);
     const [isCalculating, setIsCalculating] = useState(false);
+    const [isRoundTrip, setIsRoundTrip] = useState(false);
+    const [passengerCount, setPassengerCount] = useState(1);
 
     // Ref for Tours Slider
     const scrollContainerRef = useRef<HTMLDivElement>(null);
@@ -124,6 +126,38 @@ export default function Home() {
             calculateDistance();
         }
     }, [originLocation, destinationLocation, calculateDistance]);
+
+    // Handle search button click with validation
+    const handleSearch = () => {
+        // Validate required fields
+        if (!originLocation) {
+            alert('Lütfen nereden konumunu seçiniz.');
+            return;
+        }
+
+        if (!destinationLocation) {
+            alert('Lütfen nereye konumunu seçiniz.');
+            return;
+        }
+
+        if (!startDate) {
+            alert('Lütfen tarih ve saat seçiniz.');
+            return;
+        }
+
+        // All required fields are filled, proceed to next step
+        // TODO: Navigate to the next page or perform the search
+        console.log('Arama yapılıyor...', {
+            from: originLocation,
+            to: destinationLocation,
+            date: startDate,
+            passengers: passengerCount,
+            isRoundTrip
+        });
+
+        // You can navigate to results page or show results here
+        alert('Arama başarılı! Sonuçlar yükleniyor...');
+    };
 
     return (
         <main className="min-h-screen bg-white overflow-x-hidden">
@@ -304,10 +338,10 @@ export default function Home() {
                                         <button
                                             onClick={handleSwapLocations}
                                             disabled={!originLocation && !destinationLocation}
-                                            className="w-10 h-10 bg-white border border-gray-200 rounded-full flex items-center justify-center shadow-lg hover:bg-gray-50 hover:border-[#D32F2F] transition-colors rotate-90 md:rotate-0 disabled:opacity-50 disabled:cursor-not-allowed"
+                                            className="w-12 h-12 bg-white border-2 border-gray-300 rounded-full flex items-center justify-center shadow-xl hover:bg-[#D32F2F] hover:border-[#D32F2F] hover:scale-110 transition-all rotate-90 md:rotate-0 disabled:opacity-40 disabled:cursor-not-allowed group"
                                         >
-                                            <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" />
+                                            <svg className="w-5 h-5 text-gray-600 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" />
                                             </svg>
                                         </button>
                                     </div>
@@ -389,27 +423,56 @@ export default function Home() {
                             <div className="col-span-12 lg:col-span-4">
                                 <div className="grid grid-cols-3 md:grid-cols-12 gap-3 md:h-[100px]">
                                     {/* Toggle */}
-                                    <div className="col-span-1 md:col-span-4 bg-white rounded-xl shadow-md border border-gray-100 h-[80px] md:h-full flex flex-col items-center justify-center p-2">
+                                    <button
+                                        onClick={() => setIsRoundTrip(!isRoundTrip)}
+                                        className="col-span-1 md:col-span-4 bg-white rounded-xl shadow-md border border-gray-100 h-[80px] md:h-full flex flex-col items-center justify-center p-2 hover:border-orange-500 transition-colors"
+                                    >
                                         <span className="text-[9px] font-bold text-gray-800 mb-1">GİDİŞ-DÖNÜŞ</span>
                                         <div className="relative inline-flex items-center cursor-pointer scale-75">
-                                            <input type="checkbox" className="sr-only peer" />
+                                            <input
+                                                type="checkbox"
+                                                checked={isRoundTrip}
+                                                onChange={() => setIsRoundTrip(!isRoundTrip)}
+                                                className="sr-only peer"
+                                            />
                                             <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-orange-600"></div>
                                         </div>
-                                    </div>
+                                    </button>
 
-                                    {/* Kişi */}
-                                    <div className="col-span-1 md:col-span-4 bg-white rounded-xl shadow-md border border-gray-100 h-[80px] md:h-full flex flex-col items-center justify-center p-2">
+                                    {/* Kişi Counter */}
+                                    <div className="col-span-1 md:col-span-4 bg-white rounded-xl shadow-md border border-gray-100 h-[80px] md:h-full flex flex-col items-center justify-center p-2 hover:border-blue-500 transition-colors">
                                         <span className="text-[9px] font-bold text-gray-800 mb-1">KİŞİ SAYISI</span>
-                                        <select className="bg-transparent text-sm font-bold text-gray-900 outline-none cursor-pointer">
-                                            <option>1 Kişi</option>
-                                            <option>2 Kişi</option>
-                                            <option>3 Kişi</option>
-                                        </select>
+                                        <div className="flex items-center space-x-2">
+                                            <button
+                                                onClick={() => setPassengerCount(Math.max(1, passengerCount - 1))}
+                                                disabled={passengerCount <= 1}
+                                                className="w-7 h-7 rounded-full bg-gray-100 hover:bg-blue-500 hover:text-white text-gray-700 font-bold flex items-center justify-center transition-all disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-gray-100 disabled:hover:text-gray-700"
+                                            >
+                                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M20 12H4" />
+                                                </svg>
+                                            </button>
+                                            <span className="text-lg font-bold text-gray-900 min-w-[2.5rem] text-center">
+                                                {passengerCount}
+                                            </span>
+                                            <button
+                                                onClick={() => setPassengerCount(Math.min(8, passengerCount + 1))}
+                                                disabled={passengerCount >= 8}
+                                                className="w-7 h-7 rounded-full bg-gray-100 hover:bg-blue-500 hover:text-white text-gray-700 font-bold flex items-center justify-center transition-all disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-gray-100 disabled:hover:text-gray-700"
+                                            >
+                                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 4v16m8-8H4" />
+                                                </svg>
+                                            </button>
+                                        </div>
                                     </div>
 
                                     {/* Ara Button */}
                                     <div className="col-span-1 md:col-span-4 h-[80px] md:h-full">
-                                        <button className="w-full h-full bg-[#D0142D] hover:bg-[#b01126] text-white rounded-xl shadow-md flex flex-col items-center justify-center p-2">
+                                        <button
+                                            onClick={handleSearch}
+                                            className="w-full h-full bg-[#D0142D] hover:bg-[#b01126] text-white rounded-xl shadow-md flex flex-col items-center justify-center p-2"
+                                        >
                                             <svg className="w-6 h-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
                                             <span className="text-xs font-bold">Ara</span>
                                         </button>
