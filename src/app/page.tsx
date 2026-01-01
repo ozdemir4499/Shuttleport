@@ -3,9 +3,8 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import { MapPin, Calendar, Users, Shield, Clock, Car, Globe, Menu, X, Instagram, MessageCircle, User, ChevronDown, Loader2 } from 'lucide-react';
-import { MapPickerModal, DistanceResult } from '@/features/maps/components';
-import { ServiceTypeSelector } from '@/features/booking';
-import type { ServiceType } from '@/features/booking';
+import { MapPickerModal, DistanceResult } from '@/features/maps';
+import { ServiceTypeSelector } from '@/features/booking/components/ServiceTypeSelector';
 
 interface Location {
     lat: number;
@@ -25,8 +24,7 @@ interface DistanceData {
 
 export default function Home() {
     const [isScrolled, setIsScrolled] = useState(false);
-    const [tripType, setTripType] = useState<'oneway' | 'roundtrip'>('oneway');
-    const [serviceType, setServiceType] = useState<ServiceType>('transfer');
+    const [serviceType, setServiceType] = useState<'transfer' | 'hourly' | 'tour'>('transfer');
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [startDate, setStartDate] = useState<Date | null>(new Date());
     const [currentSlide, setCurrentSlide] = useState(0);
@@ -270,11 +268,8 @@ export default function Home() {
 
                     {/* BOOKING WIDGET - Main Reservation Form */}
                     <div className="max-w-7xl mx-auto bg-transparent md:bg-white rounded-2xl md:shadow-2xl md:p-8">
-                        {/* Service Type Selector */}
-                        <ServiceTypeSelector
-                            defaultService={serviceType}
-                            onServiceChange={setServiceType}
-                        />
+                        {/* Tab Menu - White with shadow on Mobile */}
+                        <ServiceTypeSelector activeType={serviceType} onChange={setServiceType} />
 
                         {/* Main Form Layout - Mobile Optimized Cards */}
                         <div className="grid grid-cols-1 md:grid-cols-12 gap-4">

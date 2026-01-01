@@ -28,7 +28,7 @@ declare global {
 // Default location outside component to prevent recreation
 const DEFAULT_LOCATION = { lat: 41.0082, lng: 28.9784 };
 
-export default function MapPickerModal({
+export function MapPickerModal({
     isOpen,
     onClose,
     onSelectLocation,
@@ -315,7 +315,7 @@ export default function MapPickerModal({
     if (!isOpen) return null;
 
     return (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
+        <div className="fixed inset-0 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm" style={{ zIndex: 9999 }}>
             <div className="bg-white rounded-2xl shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-hidden flex flex-col">
                 {/* Header */}
                 <div className="flex items-center justify-between p-4 border-b border-gray-100">
@@ -329,7 +329,7 @@ export default function MapPickerModal({
                 </div>
 
                 {/* Search Bar */}
-                <div className="p-4 border-b border-gray-100 relative">
+                <div className="p-4 border-b border-gray-100 relative z-50">
                     <div className="relative">
                         <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
                         <input
@@ -344,6 +344,7 @@ export default function MapPickerModal({
                             onClick={getCurrentLocation}
                             disabled={isLoading}
                             className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-lg bg-[#D32F2F] hover:bg-[#b01126] flex items-center justify-center transition-colors disabled:opacity-50"
+                            style={{ left: 'auto', right: '8px' }}
                             title="Konumumu bul"
                         >
                             {isLoading ? (

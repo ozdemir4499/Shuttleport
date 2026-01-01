@@ -1,125 +1,51 @@
-'use client';
+import React from 'react';
+import { Car, Clock, MapPin } from 'lucide-react';
 
-import { useState } from 'react';
-
-export type ServiceType = 'transfer' | 'hourly' | 'tours';
+export type ServiceType = 'transfer' | 'hourly' | 'tour';
 
 interface ServiceTypeSelectorProps {
-    defaultService?: ServiceType;
-    onServiceChange?: (service: ServiceType) => void;
+    activeType: ServiceType;
+    onChange: (type: ServiceType) => void;
 }
 
-const serviceTypes = [
-    {
-        id: 'transfer' as ServiceType,
-        label: 'Transfer',
-        icon: '🚗',
-    },
-    {
-        id: 'hourly' as ServiceType,
-        label: 'Saatlik',
-        icon: '⏱️',
-    },
-    {
-        id: 'tours' as ServiceType,
-        label: 'Turlar',
-        icon: '🌍',
-    },
-];
-
-export default function ServiceTypeSelector({
-    defaultService = 'transfer',
-    onServiceChange,
-}: ServiceTypeSelectorProps) {
-    const [activeService, setActiveService] = useState<ServiceType>(defaultService);
-
-    const handleServiceChange = (service: ServiceType) => {
-        setActiveService(service);
-        onServiceChange?.(service);
-    };
-
+export const ServiceTypeSelector: React.FC<ServiceTypeSelectorProps> = ({
+    activeType,
+    onChange,
+}) => {
     return (
-        <div className="service-type-selector">
-            <div className="tabs">
-                {serviceTypes.map((service) => (
-                    <button
-                        key={service.id}
-                        className={`tab ${activeService === service.id ? 'active' : ''}`}
-                        onClick={() => handleServiceChange(service.id)}
-                        type="button"
-                    >
-                        <span className="tab-icon">{service.icon}</span>
-                        <span className="tab-label">{service.label}</span>
-                    </button>
-                ))}
-            </div>
+        <div className="flex justify-center md:justify-start space-x-4 md:space-x-8 mb-8 border-b border-gray-100 pb-2">
+            <button
+                onClick={() => onChange('transfer')}
+                className={`flex items-center space-x-2 pb-2 text-sm md:text-base font-bold transition-all duration-200 border-b-2 ${activeType === 'transfer'
+                    ? 'text-gray-900 border-gray-900'
+                    : 'text-gray-400 border-transparent hover:text-gray-600'
+                    }`}
+            >
+                <Car className="w-5 h-5" />
+                <span>Transfer</span>
+            </button>
 
-            <style jsx>{`
-        .service-type-selector {
-          margin-bottom: var(--spacing-lg);
-        }
+            <button
+                onClick={() => onChange('hourly')}
+                className={`flex items-center space-x-2 pb-2 text-sm md:text-base font-bold transition-all duration-200 border-b-2 ${activeType === 'hourly'
+                    ? 'text-gray-900 border-gray-900'
+                    : 'text-gray-400 border-transparent hover:text-gray-600'
+                    }`}
+            >
+                <Clock className="w-5 h-5" />
+                <span>Saatlik Kirala</span>
+            </button>
 
-        .tabs {
-          display: flex;
-          gap: 0;
-          border-bottom: 1px solid var(--color-border-gray);
-          background-color: var(--color-bg-secondary);
-          border-radius: var(--border-radius-lg) var(--border-radius-lg) 0 0;
-          overflow: hidden;
-        }
-
-        .tab {
-          flex: 1;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          gap: var(--spacing-sm);
-          padding: var(--spacing-md) var(--spacing-lg);
-          font-size: var(--font-size-body);
-          font-weight: var(--font-weight-medium);
-          color: var(--color-text-secondary);
-          background-color: transparent;
-          border: none;
-          border-bottom: 3px solid transparent;
-          cursor: pointer;
-          transition: all var(--transition-fast);
-        }
-
-        .tab:hover {
-          color: var(--color-text-primary);
-          background-color: rgba(255, 255, 255, 0.5);
-        }
-
-        .tab.active {
-          color: var(--color-text-primary);
-          background-color: var(--color-bg-primary);
-          border-bottom-color: var(--color-text-primary);
-        }
-
-        .tab-icon {
-          font-size: 20px;
-        }
-
-        .tab-label {
-          font-size: var(--font-size-button);
-        }
-
-        @media (max-width: 768px) {
-          .tab {
-            flex-direction: column;
-            gap: 4px;
-            padding: var(--spacing-sm) var(--spacing-md);
-          }
-
-          .tab-icon {
-            font-size: 18px;
-          }
-
-          .tab-label {
-            font-size: 12px;
-          }
-        }
-      `}</style>
+            <button
+                onClick={() => onChange('tour')}
+                className={`flex items-center space-x-2 pb-2 text-sm md:text-base font-bold transition-all duration-200 border-b-2 ${activeType === 'tour'
+                    ? 'text-gray-900 border-gray-900'
+                    : 'text-gray-400 border-transparent hover:text-gray-600'
+                    }`}
+            >
+                <MapPin className="w-5 h-5" />
+                <span>Turlar</span>
+            </button>
         </div>
     );
-}
+};

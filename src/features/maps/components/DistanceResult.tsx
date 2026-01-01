@@ -13,7 +13,7 @@ interface DistanceResultProps {
     onClose: () => void;
 }
 
-export default function DistanceResult({
+export function DistanceResult({
     isVisible,
     distanceKm,
     distanceText,
