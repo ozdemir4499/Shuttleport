@@ -20,9 +20,10 @@ interface MapPickerModalProps {
 
 declare global {
     interface Window {
-        google: typeof google;
+        google: any;
         initMap: () => void;
     }
+    var google: any;
 }
 
 // Default location outside component to prevent recreation
@@ -38,8 +39,8 @@ export function MapPickerModal({
     const mapRef = useRef<HTMLDivElement>(null);
     const inputRef = useRef<HTMLInputElement>(null);
     const mapInitializedRef = useRef(false);
-    const [map, setMap] = useState<google.maps.Map | null>(null);
-    const [marker, setMarker] = useState<google.maps.Marker | null>(null);
+    const [map, setMap] = useState<any | null>(null);
+    const [marker, setMarker] = useState<any | null>(null);
     const [searchQuery, setSearchQuery] = useState('');
     const [searchResults, setSearchResults] = useState<any[]>([]);
     const [selectedLocation, setSelectedLocation] = useState<Location | null>(null);
@@ -56,7 +57,7 @@ export function MapPickerModal({
     useEffect(() => {
         if (!isOpen) return;
 
-        const loadGoogleMaps = () => {
+        const loadGoogleMaps = async () => {
             if (typeof window !== 'undefined' && window.google?.maps) {
                 setIsMapLoaded(true);
                 return;
@@ -72,26 +73,36 @@ export function MapPickerModal({
                 return;
             }
 
-            const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
-            if (!apiKey) {
-                setMapError('Google Maps API key bulunamadı');
-                return;
+            try {
+                // Fetch API Key from backend
+                const response = await fetch('http://localhost:8000/api/maps-key');
+                if (!response.ok) throw new Error('API key fetch failed');
+                const data = await response.json();
+                const apiKey = data.api_key;
+
+                if (!apiKey) {
+                    setMapError('Google Maps API key bulunamadı');
+                    return;
+                }
+
+                const script = document.createElement('script');
+                script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&libraries=places&language=tr&callback=initMap`;
+                script.async = true;
+                script.defer = true;
+
+                window.initMap = () => {
+                    setIsMapLoaded(true);
+                };
+
+                script.onerror = () => {
+                    setMapError('Google Maps yüklenemedi. API ayarlarını kontrol edin.');
+                };
+
+                document.head.appendChild(script);
+            } catch (err) {
+                console.error('Error loading maps:', err);
+                setMapError('Harita servisine bağlanılamadı.');
             }
-
-            const script = document.createElement('script');
-            script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&libraries=places&language=tr&callback=initMap`;
-            script.async = true;
-            script.defer = true;
-
-            window.initMap = () => {
-                setIsMapLoaded(true);
-            };
-
-            script.onerror = () => {
-                setMapError('Google Maps yüklenemedi. API ayarlarını kontrol edin.');
-            };
-
-            document.head.appendChild(script);
         };
 
         loadGoogleMaps();
@@ -105,7 +116,7 @@ export function MapPickerModal({
             const geocoder = new window.google.maps.Geocoder();
             geocoder.geocode(
                 { location: { lat, lng } },
-                (results: google.maps.GeocoderResult[] | null, status: google.maps.GeocoderStatus) => {
+                (results: any[] | null, status: any) => {
                     if (status === 'OK' && results && results[0]) {
                         setSelectedLocation({
                             lat,
@@ -154,7 +165,7 @@ export function MapPickerModal({
             });
 
             // Haritaya tıklama
-            mapInstance.addListener('click', (e: google.maps.MapMouseEvent) => {
+            mapInstance.addListener('click', (e: any) => {
                 if (e.latLng) {
                     markerInstance.setPosition(e.latLng);
                     reverseGeocode(e.latLng.lat(), e.latLng.lng());
@@ -181,7 +192,7 @@ export function MapPickerModal({
         }
 
         try {
-            const response = await fetch('http://localhost:8000/api/v1/search-places', {
+            const response = await fetch('http://localhost:8000/api/search-places', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ query })
@@ -201,7 +212,7 @@ export function MapPickerModal({
                         input: query,
                         componentRestrictions: { country: 'tr' }
                     },
-                    (predictions, status) => {
+                    (predictions: any[], status: any) => {
                         if (status === 'OK' && predictions) {
                             setSearchResults(predictions.map(p => ({
                                 place_id: p.place_id,
@@ -240,7 +251,7 @@ export function MapPickerModal({
             const placesService = new window.google.maps.places.PlacesService(map);
             placesService.getDetails(
                 { placeId: result.place_id, fields: ['geometry', 'formatted_address', 'name'] },
-                (place, status) => {
+                (place: any, status: any) => {
                     if (status === 'OK' && place?.geometry?.location) {
                         const lat = place.geometry.location.lat();
                         const lng = place.geometry.location.lng();

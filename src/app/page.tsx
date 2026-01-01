@@ -2,8 +2,8 @@
 
 import { useState, useRef, useEffect, useCallback } from 'react';
 import Link from 'next/link';
-import { MapPin, Calendar, Users, Shield, Clock, Car, Globe, Menu, X, Instagram, MessageCircle, User, ChevronDown, Loader2 } from 'lucide-react';
-import { MapPickerModal, DistanceResult } from '@/features/maps';
+import { MapPin, Calendar, Users, Shield, Clock, Car, Globe, Menu, X, Instagram, MessageCircle, User, ChevronDown } from 'lucide-react';
+import { LocationAutocomplete } from '@/features/maps';
 import { ServiceTypeSelector } from '@/features/booking/components/ServiceTypeSelector';
 import { DateTimePicker } from '@/features/booking/components/DateTimePicker';
 
@@ -14,14 +14,7 @@ interface Location {
     name?: string;
 }
 
-interface DistanceData {
-    distance_km: number;
-    distance_text: string;
-    duration_minutes: number;
-    duration_text: string;
-    origin_address: string;
-    destination_address: string;
-}
+
 
 export default function Home() {
     const [isScrolled, setIsScrolled] = useState(false);
@@ -33,16 +26,15 @@ export default function Home() {
     // Location states
     const [originLocation, setOriginLocation] = useState<Location | null>(null);
     const [destinationLocation, setDestinationLocation] = useState<Location | null>(null);
-    const [showOriginModal, setShowOriginModal] = useState(false);
-    const [showDestinationModal, setShowDestinationModal] = useState(false);
+    const [activeLocationInput, setActiveLocationInput] = useState<'origin' | 'destination' | null>(null);
     const [showDatePicker, setShowDatePicker] = useState(false);
-    const [distanceData, setDistanceData] = useState<DistanceData | null>(null);
-    const [isCalculating, setIsCalculating] = useState(false);
     const [isRoundTrip, setIsRoundTrip] = useState(false);
     const [passengerCount, setPassengerCount] = useState(1);
 
     // Ref for Tours Slider
     const scrollContainerRef = useRef<HTMLDivElement>(null);
+    // Ref for dropdown portal container (spans NEREDEN + NEREYE)
+    const dropdownContainerRef = useRef<HTMLDivElement>(null);
 
     // Hero carousel headlines
     const heroHeadlines = [
@@ -84,48 +76,7 @@ export default function Home() {
         const temp = originLocation;
         setOriginLocation(destinationLocation);
         setDestinationLocation(temp);
-        setDistanceData(null);
     }, [originLocation, destinationLocation]);
-
-    // Calculate distance when both locations are set
-    const calculateDistance = useCallback(async () => {
-        if (!originLocation || !destinationLocation) return;
-
-        setIsCalculating(true);
-        try {
-            const response = await fetch('http://localhost:8000/api/v1/calculate-distance', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    origin_lat: originLocation.lat,
-                    origin_lng: originLocation.lng,
-                    destination_lat: destinationLocation.lat,
-                    destination_lng: destinationLocation.lng,
-                }),
-            });
-
-            if (!response.ok) {
-                throw new Error('Mesafe hesaplanamadı');
-            }
-
-            const data = await response.json();
-            setDistanceData(data);
-        } catch (error) {
-            console.error('Mesafe hesaplama hatası:', error);
-            alert('Mesafe hesaplanırken bir hata oluştu');
-        } finally {
-            setIsCalculating(false);
-        }
-    }, [originLocation, destinationLocation]);
-
-    // Auto-calculate distance when both locations are set
-    useEffect(() => {
-        if (originLocation && destinationLocation) {
-            calculateDistance();
-        }
-    }, [originLocation, destinationLocation, calculateDistance]);
 
     // Handle search button click with validation
     const handleSearch = () => {
@@ -311,27 +262,19 @@ export default function Home() {
                         <div className="grid grid-cols-1 md:grid-cols-12 gap-4">
                             {/* Left Section: NEREDEN and NEREYE */}
                             <div className="col-span-12 lg:col-span-6 relative">
-                                <div className="flex flex-col md:grid md:grid-cols-2 gap-4 relative">
+                                <div ref={dropdownContainerRef} className="flex flex-col md:grid md:grid-cols-2 gap-4 relative">
                                     {/* NEREDEN Card */}
-                                    <button
-                                        onClick={() => setShowOriginModal(true)}
-                                        className="bg-white rounded-xl shadow-md p-1 border border-gray-100 relative h-[80px] md:h-[100px] flex items-center text-left hover:border-[#82C91E] hover:shadow-lg transition-all group"
-                                    >
-                                        <div className="absolute left-4 z-10">
-                                            <div className="w-10 h-10 bg-white border-2 border-[#82C91E] rounded-full flex items-center justify-center group-hover:bg-[#82C91E] transition-colors">
-                                                <MapPin className="w-5 h-5 text-[#82C91E] group-hover:text-white transition-colors" />
-                                            </div>
-                                        </div>
-                                        <div className="w-full h-full pl-[70px] pr-4 flex flex-col justify-center">
-                                            <label className="text-[10px] font-bold text-gray-800 uppercase">NEREDEN</label>
-                                            <span className={`text-sm font-bold truncate ${originLocation ? 'text-gray-900' : 'text-gray-400'}`}>
-                                                {originLocation?.name || 'Adres, Havalimanı, Otel...'}
-                                            </span>
-                                            {originLocation && (
-                                                <span className="text-[10px] text-gray-400 truncate">{originLocation.address}</span>
-                                            )}
-                                        </div>
-                                    </button>
+                                    <LocationAutocomplete
+                                        type="origin"
+                                        label="NEREDEN"
+                                        placeholder="Adres, Havalimanı, Otel, Hastane..."
+                                        value={originLocation}
+                                        onChange={setOriginLocation}
+                                        isActive={activeLocationInput === 'origin'}
+                                        onActivate={() => setActiveLocationInput('origin')}
+                                        onDeactivate={() => setActiveLocationInput(null)}
+                                        dropdownPortalRef={dropdownContainerRef}
+                                    />
 
                                     {/* Swap Button - Center Absolute for Mobile & Desktop */}
                                     <div className="absolute left-1/2 md:left-1/2 top-1/2 md:top-1/2 transform -translate-x-1/2 -translate-y-1/2 z-30">
@@ -347,49 +290,20 @@ export default function Home() {
                                     </div>
 
                                     {/* NEREYE Card */}
-                                    <button
-                                        onClick={() => setShowDestinationModal(true)}
-                                        className="bg-white rounded-xl shadow-md p-1 border border-gray-100 relative h-[80px] md:h-[100px] flex items-center text-left hover:border-[#228BE6] hover:shadow-lg transition-all group"
-                                    >
-                                        <div className="absolute left-4 z-10">
-                                            <div className="w-10 h-10 bg-white border-2 border-[#228BE6] rounded-full flex items-center justify-center group-hover:bg-[#228BE6] transition-colors">
-                                                <MapPin className="w-5 h-5 text-[#228BE6] group-hover:text-white transition-colors" />
-                                            </div>
-                                        </div>
-                                        <div className="w-full h-full pl-[70px] pr-4 flex flex-col justify-center">
-                                            <label className="text-[10px] font-bold text-gray-800 uppercase">NEREYE</label>
-                                            <span className={`text-sm font-bold truncate ${destinationLocation ? 'text-gray-900' : 'text-gray-400'}`}>
-                                                {destinationLocation?.name || 'Adres, Havalimanı, Otel...'}
-                                            </span>
-                                            {destinationLocation && (
-                                                <span className="text-[10px] text-gray-400 truncate">{destinationLocation.address}</span>
-                                            )}
-                                        </div>
-                                    </button>
+                                    <LocationAutocomplete
+                                        type="destination"
+                                        label="NEREYE"
+                                        placeholder="Adres, Havalimanı, Otel, Hastane..."
+                                        value={destinationLocation}
+                                        onChange={setDestinationLocation}
+                                        isActive={activeLocationInput === 'destination'}
+                                        onActivate={() => setActiveLocationInput('destination')}
+                                        onDeactivate={() => setActiveLocationInput(null)}
+                                        dropdownPortalRef={dropdownContainerRef}
+                                    />
                                 </div>
 
-                                {/* Distance Result */}
-                                {(isCalculating || distanceData) && (
-                                    <div className="mt-4">
-                                        {isCalculating ? (
-                                            <div className="bg-white rounded-xl p-4 shadow-md flex items-center justify-center space-x-2">
-                                                <Loader2 className="w-5 h-5 animate-spin text-[#D32F2F]" />
-                                                <span className="text-gray-600">Mesafe hesaplanıyor...</span>
-                                            </div>
-                                        ) : distanceData && (
-                                            <DistanceResult
-                                                isVisible={true}
-                                                distanceKm={distanceData.distance_km}
-                                                distanceText={distanceData.distance_text}
-                                                durationMinutes={distanceData.duration_minutes}
-                                                durationText={distanceData.duration_text}
-                                                originAddress={distanceData.origin_address}
-                                                destinationAddress={distanceData.destination_address}
-                                                onClose={() => setDistanceData(null)}
-                                            />
-                                        )}
-                                    </div>
-                                )}
+
                             </div>
 
                             {/* Middle Section: TARİH */}
@@ -1131,28 +1045,7 @@ export default function Home() {
                 <span className="absolute -top-1 -right-1 w-4 h-4 bg-red-500 rounded-full"></span>
             </a>
 
-            {/* Map Picker Modals */}
-            <MapPickerModal
-                isOpen={showOriginModal}
-                onClose={() => setShowOriginModal(false)}
-                onSelectLocation={(location) => {
-                    setOriginLocation(location);
-                    setShowOriginModal(false);
-                }}
-                title="Nereden - Başlangıç Noktası Seçin"
-                initialLocation={originLocation ? { lat: originLocation.lat, lng: originLocation.lng } : undefined}
-            />
 
-            <MapPickerModal
-                isOpen={showDestinationModal}
-                onClose={() => setShowDestinationModal(false)}
-                onSelectLocation={(location) => {
-                    setDestinationLocation(location);
-                    setShowDestinationModal(false);
-                }}
-                title="Nereye - Varış Noktası Seçin"
-                initialLocation={destinationLocation ? { lat: destinationLocation.lat, lng: destinationLocation.lng } : undefined}
-            />
 
             {/* Date Time Picker Modal */}
             <DateTimePicker
