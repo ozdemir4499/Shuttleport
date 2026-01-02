@@ -1,9 +1,20 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
-import { MapPin, Calendar, Users, Clock, Navigation, Instagram, Globe, MessageCircle, User, ChevronDown, Menu, X } from 'lucide-react';
-import { useSearchParams } from 'next/navigation';
+import { MapPin, Calendar, Users, Clock, Navigation, Instagram, Globe, MessageCircle, User, ChevronDown, Menu, X, ArrowLeftRight, Search, Edit2, RotateCcw } from 'lucide-react';
+import { useSearchParams, useRouter } from 'next/navigation';
+import { LocationAutocomplete } from '@/features/maps';
+import { mapsService } from '@/features/maps/services/maps-service';
+import { InlineDateTimePicker } from '@/features/booking/components/InlineDateTimePicker';
+import { InlinePassengerSelector } from '@/features/booking/components/InlinePassengerSelector';
+
+interface Location {
+    lat: number;
+    lng: number;
+    address: string;
+    name?: string;
+}
 
 // Image Slider Component
 function VehicleImageSlider({ images, name }: { images: string[], name: string }) {
@@ -58,9 +69,105 @@ function VehicleImageSlider({ images, name }: { images: string[], name: string }
 }
 
 export default function VehiclesPage() {
+    const router = useRouter();
     const searchParams = useSearchParams();
     const [selectedCurrencies, setSelectedCurrencies] = useState<Record<number, string>>({});
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+    // --- Search & Edit States ---
+    const [isEditing, setIsEditing] = useState(false);
+    const [isSearching, setIsSearching] = useState(false);
+
+    const [originLocation, setOriginLocation] = useState<Location | null>(null);
+    const [destinationLocation, setDestinationLocation] = useState<Location | null>(null);
+    const [startDate, setStartDate] = useState<Date | null>(null);
+    const [passengerCount, setPassengerCount] = useState(1);
+    const [isRoundTrip, setIsRoundTrip] = useState(false);
+
+    // UI Helper States
+    const [activeLocationInput, setActiveLocationInput] = useState<'origin' | 'destination' | null>(null);
+    const [showDatePicker, setShowDatePicker] = useState(false);
+    const [showPassengerSelector, setShowPassengerSelector] = useState(false);
+
+    const dropdownContainerRef = useRef<HTMLDivElement>(null);
+
+    // Initialize states from URL parameters
+    useEffect(() => {
+        const fromLat = searchParams.get('fromLat');
+        const fromLng = searchParams.get('fromLng');
+        const fromAddress = searchParams.get('fromAddress') || searchParams.get('from');
+
+        const toLat = searchParams.get('toLat');
+        const toLng = searchParams.get('toLng');
+        const toAddress = searchParams.get('toAddress') || searchParams.get('to');
+
+        const dateParam = searchParams.get('date');
+        const passengersParam = searchParams.get('passengers');
+        const roundTripParam = searchParams.get('isRoundTrip');
+
+        if (fromAddress) {
+            setOriginLocation({
+                address: fromAddress,
+                lat: fromLat ? parseFloat(fromLat) : 0,
+                lng: fromLng ? parseFloat(fromLng) : 0
+            });
+        }
+
+        if (toAddress) {
+            setDestinationLocation({
+                address: toAddress,
+                lat: toLat ? parseFloat(toLat) : 0,
+                lng: toLng ? parseFloat(toLng) : 0
+            });
+        }
+
+        if (dateParam) {
+            setStartDate(new Date(dateParam));
+        }
+
+        if (passengersParam) {
+            setPassengerCount(parseInt(passengersParam, 10));
+        }
+
+        if (roundTripParam === 'true') {
+            setIsRoundTrip(true);
+        }
+    }, [searchParams]);
+
+    const handleUpdateSearch = async () => {
+        if (!originLocation || !destinationLocation || !startDate) {
+            alert('Lütfen tüm alanları doldurunuz.');
+            return;
+        }
+
+        setIsSearching(true);
+        try {
+            // Recalculate distance
+            const distanceData = await mapsService.calculateDistance(originLocation, destinationLocation);
+
+            const queryParams = new URLSearchParams({
+                fromLat: originLocation.lat.toString(),
+                fromLng: originLocation.lng.toString(),
+                fromAddress: originLocation.address,
+                toLat: destinationLocation.lat.toString(),
+                toLng: destinationLocation.lng.toString(),
+                toAddress: destinationLocation.address,
+                date: startDate.toISOString(),
+                passengers: passengerCount.toString(),
+                isRoundTrip: isRoundTrip.toString(),
+                distance: distanceData.distance_text,
+                duration: distanceData.duration_text
+            });
+
+            router.push(`/vehicles?${queryParams.toString()}`);
+            setIsEditing(false); // Exit edit mode
+        } catch (error) {
+            console.error('Update failed:', error);
+            alert('Güncelleme sırasında bir hata oluştu.');
+        } finally {
+            setIsSearching(false);
+        }
+    };
 
     // Format date for display
     const formatDate = (dateString: string | null) => {
@@ -453,68 +560,189 @@ export default function VehiclesPage() {
                         <div className="bg-white rounded-xl shadow-md p-6 sticky top-8">
                             <div className="flex items-center justify-between mb-6">
                                 <h3 className="text-lg font-bold text-gray-900">Rezervasyon</h3>
-                                <button className="flex items-center gap-1 text-sm text-red-600 hover:text-red-700 font-semibold">
-                                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                                    </svg>
-                                    Düzenle
-                                </button>
+                                {!isEditing ? (
+                                    <button
+                                        onClick={() => setIsEditing(true)}
+                                        className="flex items-center gap-1 text-sm text-red-600 hover:text-red-700 font-semibold transition-colors group"
+                                    >
+                                        <Edit2 className="w-4 h-4 group-hover:scale-110 transition-transform" />
+                                        Düzenle
+                                    </button>
+                                ) : (
+                                    <button
+                                        onClick={() => setIsEditing(false)}
+                                        className="flex items-center gap-1 text-sm text-red-600 hover:text-red-700 font-semibold transition-colors group"
+                                    >
+                                        <X className="w-4 h-4 group-hover:scale-110 transition-transform" />
+                                        İptal
+                                    </button>
+                                )}
                             </div>
 
-                            {/* Route Info */}
-                            <div className="space-y-4 mb-6">
-                                <div>
-                                    <div className="text-xs text-gray-500 uppercase mb-1">NEREDEN</div>
-                                    <div className="text-sm text-gray-900 font-medium">{reservation.from}</div>
-                                </div>
-                                <div>
-                                    <div className="text-xs text-gray-500 uppercase mb-1">NEREYE</div>
-                                    <div className="text-sm text-gray-900 font-medium">{reservation.to}</div>
-                                </div>
-                            </div>
+                            {isEditing ? (
+                                /* --- EDIT FORM --- */
+                                <div className="space-y-4" ref={dropdownContainerRef}>
+                                    {/* Konumlar */}
+                                    <div className="relative space-y-3">
+                                        <div className="relative z-[30]">
+                                            <LocationAutocomplete
+                                                type="origin"
+                                                label="NEREDEN"
+                                                placeholder="Nereden?"
+                                                value={originLocation}
+                                                onChange={setOriginLocation}
+                                                isActive={activeLocationInput === 'origin'}
+                                                onActivate={() => setActiveLocationInput('origin')}
+                                                onDeactivate={() => setActiveLocationInput(null)}
+                                                dropdownPortalRef={dropdownContainerRef}
+                                            />
+                                        </div>
 
-                            {/* Details */}
-                            <div className="space-y-4 pt-4 border-t border-gray-200">
-                                <div className="flex items-center justify-between">
-                                    <div className="flex items-center gap-2 text-gray-500">
-                                        <Calendar className="w-4 h-4" />
-                                        <span className="text-xs">Başlangıç Tarihi</span>
+                                        <div className="relative z-[20]">
+                                            <LocationAutocomplete
+                                                type="destination"
+                                                label="NEREYE"
+                                                placeholder="Nereye?"
+                                                value={destinationLocation}
+                                                onChange={setDestinationLocation}
+                                                isActive={activeLocationInput === 'destination'}
+                                                onActivate={() => setActiveLocationInput('destination')}
+                                                onDeactivate={() => setActiveLocationInput(null)}
+                                                dropdownPortalRef={dropdownContainerRef}
+                                            />
+                                        </div>
                                     </div>
-                                    <span className="text-sm font-semibold text-gray-900">{reservation.date}</span>
-                                </div>
-                                <div className="flex items-center justify-between">
-                                    <div className="flex items-center gap-2 text-gray-500">
-                                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
-                                        </svg>
-                                        <span className="text-xs">Mesafe</span>
+
+                                    {/* Tarih */}
+                                    <div className="relative z-[10]">
+                                        <button
+                                            onClick={() => setShowDatePicker(!showDatePicker)}
+                                            className="w-full bg-white rounded-xl p-3 border border-gray-200 text-left flex items-center gap-3 hover:border-red-500 transition-colors shadow-sm"
+                                        >
+                                            <Calendar className="w-5 h-5 text-gray-500" />
+                                            <div>
+                                                <div className="text-[10px] text-gray-500 font-bold uppercase">TARİH & SAAT</div>
+                                                <div className="text-sm font-bold text-gray-900">
+                                                    {startDate ? new Intl.DateTimeFormat('tr-TR', { day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit' }).format(startDate) : 'Seçiniz'}
+                                                </div>
+                                            </div>
+                                        </button>
+                                        <InlineDateTimePicker
+                                            isOpen={showDatePicker}
+                                            onClose={() => setShowDatePicker(false)}
+                                            onSelectDateTime={(d) => { setStartDate(d); setShowDatePicker(false); }}
+                                            initialDate={startDate || undefined}
+                                            position="right"
+                                        />
                                     </div>
-                                    <span className="text-sm font-semibold text-gray-900">{reservation.distance}</span>
-                                </div>
-                                <div className="flex items-center justify-between">
-                                    <div className="flex items-center gap-2 text-gray-500">
-                                        <Clock className="w-4 h-4" />
-                                        <span className="text-xs">Süre</span>
+
+                                    {/* Kişi Sayısı & Gidiş Dönüş */}
+                                    <div className="grid grid-cols-2 gap-3">
+                                        <div className="relative z-[10]">
+                                            <button
+                                                onClick={() => setShowPassengerSelector(!showPassengerSelector)}
+                                                className="w-full bg-white rounded-xl p-3 border border-gray-200 text-left hover:border-red-500 transition-colors shadow-sm"
+                                            >
+                                                <div className="text-[10px] text-gray-500 font-bold uppercase mb-1">KİŞİ SAYISI</div>
+                                                <div className="flex items-center justify-between">
+                                                    <span className="text-sm font-bold text-gray-900">{passengerCount} Kişi</span>
+                                                    <ChevronDown className="w-4 h-4 text-gray-500" />
+                                                </div>
+                                            </button>
+                                            <InlinePassengerSelector
+                                                isOpen={showPassengerSelector}
+                                                onClose={() => setShowPassengerSelector(false)}
+                                                value={passengerCount}
+                                                onChange={setPassengerCount}
+                                            />
+                                        </div>
+
+                                        <button
+                                            onClick={() => setIsRoundTrip(!isRoundTrip)}
+                                            className={`w-full rounded-xl p-2 border transition-all flex flex-col items-center justify-center shadow-sm ${isRoundTrip ? 'bg-red-50 border-red-200' : 'bg-white border-gray-200 hover:border-gray-300'}`}
+                                        >
+                                            <div className="text-[10px] font-bold text-gray-500 uppercase mb-1">GİDİŞ - DÖNÜŞ</div>
+                                            <div className="flex items-center gap-2">
+                                                <span className={`text-xs font-bold ${isRoundTrip ? 'text-red-600' : 'text-gray-400'}`}>{isRoundTrip ? 'EVET' : 'HAYIR'}</span>
+                                                <div className={`w-8 h-4 rounded-full relative transition-colors ${isRoundTrip ? 'bg-red-500' : 'bg-gray-300'}`}>
+                                                    <div className={`absolute top-0.5 w-3 h-3 bg-white rounded-full transition-all shadow-sm ${isRoundTrip ? 'left-4.5' : 'left-0.5'}`} style={{ left: isRoundTrip ? '18px' : '2px' }} />
+                                                </div>
+                                            </div>
+                                        </button>
                                     </div>
-                                    <span className="text-sm font-semibold text-gray-900">{reservation.duration}</span>
+
+                                    {/* SEARCH BUTTON */}
+                                    <button
+                                        onClick={handleUpdateSearch}
+                                        disabled={isSearching}
+                                        className="w-full bg-[#D0142D] hover:bg-[#b01126] text-white py-3.5 rounded-xl font-bold shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2 group mt-4"
+                                    >
+                                        {isSearching ? (
+                                            <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                                        ) : (
+                                            <Search className="w-5 h-5 group-hover:scale-110 transition-transform" />
+                                        )}
+                                        {isSearching ? 'Güncelleniyor...' : ''}
+                                        {/* Icon only on search state is redundant if text is there, removing empty text check */}
+                                    </button>
                                 </div>
-                                <div className="flex items-center justify-between">
-                                    <div className="flex items-center gap-2 text-gray-500">
-                                        <Users className="w-4 h-4" />
-                                        <span className="text-xs">Kişi Sayısı</span>
+                            ) : (
+                                /* --- READ ONLY --- */
+                                <>
+                                    {/* Route Info */}
+                                    <div className="space-y-4 mb-6">
+                                        <div>
+                                            <div className="text-xs text-gray-500 uppercase mb-1">NEREDEN</div>
+                                            <div className="text-sm text-gray-900 font-medium">{reservation.from}</div>
+                                        </div>
+                                        <div>
+                                            <div className="text-xs text-gray-500 uppercase mb-1">NEREYE</div>
+                                            <div className="text-sm text-gray-900 font-medium">{reservation.to}</div>
+                                        </div>
                                     </div>
-                                    <span className="text-sm font-semibold text-gray-900">{reservation.passengers}</span>
-                                </div>
-                                <div className="flex items-center justify-between">
-                                    <div className="flex items-center gap-2 text-gray-500">
-                                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
-                                        </svg>
-                                        <span className="text-xs">Gidiş - Dönüş</span>
+
+                                    {/* Details */}
+                                    <div className="space-y-4 pt-4 border-t border-gray-200">
+                                        <div className="flex items-center justify-between">
+                                            <div className="flex items-center gap-2 text-gray-500">
+                                                <Calendar className="w-4 h-4" />
+                                                <span className="text-xs">Başlangıç Tarihi</span>
+                                            </div>
+                                            <span className="text-sm font-semibold text-gray-900">{reservation.date}</span>
+                                        </div>
+                                        <div className="flex items-center justify-between">
+                                            <div className="flex items-center gap-2 text-gray-500">
+                                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
+                                                </svg>
+                                                <span className="text-xs">Mesafe</span>
+                                            </div>
+                                            <span className="text-sm font-semibold text-gray-900">{reservation.distance}</span>
+                                        </div>
+                                        <div className="flex items-center justify-between">
+                                            <div className="flex items-center gap-2 text-gray-500">
+                                                <Clock className="w-4 h-4" />
+                                                <span className="text-xs">Süre</span>
+                                            </div>
+                                            <span className="text-sm font-semibold text-gray-900">{reservation.duration}</span>
+                                        </div>
+                                        <div className="flex items-center justify-between">
+                                            <div className="flex items-center gap-2 text-gray-500">
+                                                <Users className="w-4 h-4" />
+                                                <span className="text-xs">Kişi Sayısı</span>
+                                            </div>
+                                            <span className="text-sm font-semibold text-gray-900">{reservation.passengers}</span>
+                                        </div>
+                                        <div className="flex items-center justify-between">
+                                            <div className="flex items-center gap-2 text-gray-500">
+                                                <ArrowLeftRight className="w-4 h-4" />
+                                                <span className="text-xs">Gidiş - Dönüş</span>
+                                            </div>
+                                            <span className="text-sm font-semibold text-gray-900">{reservation.tripType}</span>
+                                        </div>
                                     </div>
-                                    <span className="text-sm font-semibold text-gray-900">{reservation.tripType}</span>
-                                </div>
-                            </div>
+                                </>
+                            )}
                         </div>
                     </div>
                 </div >

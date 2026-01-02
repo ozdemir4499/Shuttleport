@@ -9,6 +9,8 @@ export const metadata: Metadata = {
     description: 'Havalimanı ve şehir içi transfer hizmetleri için online rezervasyon platformu',
 };
 
+import Footer from '@/components/layout/Footer';
+
 export default function RootLayout({
     children,
 }: {
@@ -16,7 +18,10 @@ export default function RootLayout({
 }) {
     return (
         <html lang="tr">
-            <body className={inter.className}>{children}</body>
+            <body className={inter.className}>
+                {children}
+                <Footer />
+            </body>
         </html>
     );
 }
