@@ -1,9 +1,61 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { MapPin, Calendar, Users, Clock, Navigation, Instagram, Globe, MessageCircle, User, ChevronDown, Menu, X } from 'lucide-react';
 import { useSearchParams } from 'next/navigation';
+
+// Image Slider Component
+function VehicleImageSlider({ images, name }: { images: string[], name: string }) {
+    const [currentIndex, setCurrentIndex] = useState(0);
+
+    useEffect(() => {
+        if (images.length <= 1) return;
+
+        const interval = setInterval(() => {
+            setCurrentIndex((prev) => (prev + 1) % images.length);
+        }, 3000); // 3 saniyede bir geçiş
+
+        return () => clearInterval(interval);
+    }, [images.length]);
+
+    return (
+        <div className="w-full h-full relative overflow-hidden group bg-gray-100">
+            {/* Slider Track */}
+            <div
+                className="flex h-full transition-transform duration-700 ease-in-out"
+                style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+            >
+                {images.map((img, idx) => (
+                    <div key={idx} className="w-full h-full flex-shrink-0">
+                        <img
+                            src={img}
+                            alt={`${name} - ${idx + 1}`}
+                            className="w-full h-full object-cover min-h-[200px] md:min-h-[260px]"
+                        />
+                    </div>
+                ))}
+            </div>
+
+            {/* Dots Indicators (Only if multiple images) */}
+            {images.length > 1 && (
+                <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex space-x-2 z-10">
+                    {images.map((_, idx) => (
+                        <button
+                            key={idx}
+                            onClick={(e) => {
+                                e.preventDefault(); // Link tıklamasını engelle
+                                setCurrentIndex(idx);
+                            }}
+                            className={`w-2 h-2 rounded-full transition-all duration-300 ${idx === currentIndex ? 'bg-white w-4' : 'bg-white/50 hover:bg-white/80'}`}
+                            aria-label={`Go to slide ${idx + 1}`}
+                        />
+                    ))}
+                </div>
+            )}
+        </div>
+    );
+}
 
 export default function VehiclesPage() {
     const searchParams = useSearchParams();
@@ -43,7 +95,7 @@ export default function VehiclesPage() {
         {
             id: 1,
             name: 'Sedan Private',
-            image: 'https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?q=80&w=800',
+            images: ['https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?q=80&w=800'],
             capacity: '1-3',
             baggage: '1 - 3',
             features: [
@@ -61,7 +113,14 @@ export default function VehiclesPage() {
         {
             id: 2,
             name: 'Mercedes Vito & VW Private',
-            image: 'https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?q=80&w=800',
+            images: [
+                '/images/mercedes-vito.jpg',
+                '/images/mercedes-vito-front-new.jpg',
+                '/images/mercedes-vito-int-green.jpg',
+                '/images/mercedes-vito-int-white.jpg',
+                '/images/mercedes-vito-int-tv.jpg',
+                '/images/mercedes-vito-int-red.jpg'
+            ],
             capacity: '1-6',
             baggage: '1 - 6',
             features: [
@@ -79,7 +138,10 @@ export default function VehiclesPage() {
         {
             id: 3,
             name: 'Mercedes Sprinter Private',
-            image: 'https://images.unsplash.com/photo-1570125909232-eb263c188f7e?q=80&w=800',
+            images: [
+                '/images/mercedes-sprinter-trees.jpg',
+                '/images/mercedes-sprinter-front-2.jpg'
+            ],
             capacity: '1-14',
             baggage: '1 - 14',
             features: [
@@ -262,13 +324,9 @@ export default function VehiclesPage() {
                         {vehicles.map((vehicle) => (
                             <div key={vehicle.id} className="bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-lg transition-shadow border border-gray-100">
                                 <div className="flex flex-col md:flex-row">
-                                    {/* Vehicle Image - Left Side */}
+                                    {/* Vehicle Images Slider - Left Side */}
                                     <div className="md:w-60 lg:w-72 flex-shrink-0">
-                                        <img
-                                            src={vehicle.image}
-                                            alt={vehicle.name}
-                                            className="w-full h-full object-cover min-h-[200px] md:min-h-[260px]"
-                                        />
+                                        <VehicleImageSlider images={vehicle.images} name={vehicle.name} />
                                     </div>
 
                                     {/* Vehicle Info - Right Side */}
@@ -459,8 +517,8 @@ export default function VehiclesPage() {
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
+                </div >
+            </div >
+        </div >
     );
 }
