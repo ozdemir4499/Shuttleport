@@ -5,7 +5,8 @@ import Link from 'next/link';
 import { MapPin, Calendar, Users, Shield, Clock, Car, Globe, Menu, X, Instagram, MessageCircle, User, ChevronDown } from 'lucide-react';
 import { LocationAutocomplete } from '@/features/maps';
 import { ServiceTypeSelector } from '@/features/booking/components/ServiceTypeSelector';
-import { DateTimePicker } from '@/features/booking/components/DateTimePicker';
+import { InlineDateTimePicker } from '@/features/booking/components/InlineDateTimePicker';
+import { InlinePassengerSelector } from '@/features/booking/components/InlinePassengerSelector';
 
 interface Location {
     lat: number;
@@ -21,13 +22,16 @@ export default function Home() {
     const [serviceType, setServiceType] = useState<'transfer' | 'hourly' | 'tour'>('transfer');
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [startDate, setStartDate] = useState<Date | null>(new Date());
+    const [returnDate, setReturnDate] = useState<Date | null>(null);
     const [currentSlide, setCurrentSlide] = useState(0);
+    const [datePickerType, setDatePickerType] = useState<'departure' | 'return'>('departure');
 
     // Location states
     const [originLocation, setOriginLocation] = useState<Location | null>(null);
     const [destinationLocation, setDestinationLocation] = useState<Location | null>(null);
     const [activeLocationInput, setActiveLocationInput] = useState<'origin' | 'destination' | null>(null);
     const [showDatePicker, setShowDatePicker] = useState(false);
+    const [showPassengerSelector, setShowPassengerSelector] = useState(false);
     const [isRoundTrip, setIsRoundTrip] = useState(false);
     const [passengerCount, setPassengerCount] = useState(1);
 
@@ -306,31 +310,120 @@ export default function Home() {
 
                             </div>
 
+
                             {/* Middle Section: TARİH */}
-                            <div className="col-span-12 lg:col-span-2">
-                                <button
-                                    onClick={() => setShowDatePicker(true)}
-                                    className="w-full bg-white rounded-xl shadow-md p-1 border border-gray-100 relative h-[80px] md:h-[100px] flex items-center hover:border-[#D32F2F] hover:shadow-lg transition-all group text-left"
-                                >
-                                    <div className="absolute left-4 z-10">
-                                        <div className="w-10 h-10 bg-white border-2 border-gray-200 rounded-full flex items-center justify-center group-hover:bg-[#D32F2F] transition-colors">
-                                            <Calendar className="w-5 h-5 text-gray-600 group-hover:text-white transition-colors" />
+                            <div className="col-span-12 lg:col-span-2 relative">
+                                {!isRoundTrip ? (
+                                    <div className="relative">
+                                        <button
+                                            onClick={() => {
+                                                setDatePickerType('departure');
+                                                setShowDatePicker(!showDatePicker || datePickerType !== 'departure');
+                                            }}
+                                            className="w-full bg-white rounded-xl shadow-md p-1 border border-gray-100 relative h-[80px] md:h-[100px] flex items-center hover:border-[#D32F2F] hover:shadow-lg transition-all group text-left"
+                                        >
+                                            <div className="absolute left-4 z-10">
+                                                <div className="w-10 h-10 bg-white border-2 border-gray-200 rounded-full flex items-center justify-center group-hover:bg-[#D32F2F] transition-colors">
+                                                    <Calendar className="w-5 h-5 text-gray-600 group-hover:text-white transition-colors" />
+                                                </div>
+                                            </div>
+                                            <div className="w-full h-full pl-[70px] pr-4 flex flex-col justify-center">
+                                                <label className="text-[10px] font-bold text-gray-800 uppercase">TARİH & SAAT</label>
+                                                <span className={`text-sm font-bold ${startDate ? 'text-gray-900' : 'text-gray-400'}`}>
+                                                    {startDate
+                                                        ? `${startDate.getDate().toString().padStart(2, '0')} ${['OCAK', 'ŞUBAT', 'MART', 'NİSAN', 'MAYIS', 'HAZİRAN', 'TEMMUZ', 'AĞUSTOS', 'EYLÜL', 'EKİM', 'KASIM', 'ARALIK'][startDate.getMonth()]}, ${['PAZ', 'PZT', 'SAL', 'ÇAR', 'PER', 'CUM', 'CMT'][startDate.getDay()]}`
+                                                        : 'Tarih Seçiniz'}
+                                                </span>
+                                                {startDate && (
+                                                    <span className="text-[10px] text-[#D32F2F] font-bold">
+                                                        {startDate.getHours().toString().padStart(2, '0')}:{startDate.getMinutes().toString().padStart(2, '0')}
+                                                    </span>
+                                                )}
+                                            </div>
+                                        </button>
+
+                                        <InlineDateTimePicker
+                                            isOpen={showDatePicker && datePickerType === 'departure'}
+                                            onClose={() => setShowDatePicker(false)}
+                                            onSelectDateTime={(date) => {
+                                                setStartDate(date);
+                                                setShowDatePicker(false);
+                                            }}
+                                            initialDate={startDate || undefined}
+                                            position="left"
+                                        />
+                                    </div>
+                                ) : (
+                                    <div className="grid grid-cols-2 gap-2 h-[80px] md:h-[100px]">
+                                        {/* Gidiş */}
+                                        <div className="relative">
+                                            <button
+                                                onClick={() => {
+                                                    setDatePickerType('departure');
+                                                    setShowDatePicker(!showDatePicker || datePickerType !== 'departure');
+                                                }}
+                                                className="w-full bg-white rounded-xl shadow-md border border-gray-100 p-2 hover:border-[#D32F2F] hover:shadow-lg transition-all group text-left flex flex-col justify-center h-full"
+                                            >
+                                                <label className="text-[9px] font-bold text-gray-800 uppercase mb-1">GİDİŞ</label>
+                                                <span className={`text-xs font-bold ${startDate ? 'text-gray-900' : 'text-gray-400'}`}>
+                                                    {startDate
+                                                        ? `${startDate.getDate().toString().padStart(2, '0')} ${['OCA', 'ŞUB', 'MAR', 'NİS', 'MAY', 'HAZ', 'TEM', 'AĞU', 'EYL', 'EKİ', 'KAS', 'ARA'][startDate.getMonth()]}`
+                                                        : 'Seçiniz'}
+                                                </span>
+                                                {startDate && (
+                                                    <span className="text-[9px] text-gray-400">
+                                                        {startDate.getHours().toString().padStart(2, '0')}:{startDate.getMinutes().toString().padStart(2, '0')}
+                                                    </span>
+                                                )}
+                                            </button>
+
+                                            <InlineDateTimePicker
+                                                isOpen={showDatePicker && datePickerType === 'departure'}
+                                                onClose={() => setShowDatePicker(false)}
+                                                onSelectDateTime={(date) => {
+                                                    setStartDate(date);
+                                                    setShowDatePicker(false);
+                                                }}
+                                                initialDate={startDate || undefined}
+                                                position="left"
+                                            />
+                                        </div>
+
+                                        {/* Dönüş */}
+                                        <div className="relative">
+                                            <button
+                                                onClick={() => {
+                                                    setDatePickerType('return');
+                                                    setShowDatePicker(!showDatePicker || datePickerType !== 'return');
+                                                }}
+                                                className="w-full bg-white rounded-xl shadow-md border border-gray-100 p-2 hover:border-[#D32F2F] hover:shadow-lg transition-all group text-left flex flex-col justify-center h-full"
+                                            >
+                                                <label className="text-[9px] font-bold text-gray-800 uppercase mb-1">DÖNÜŞ</label>
+                                                <span className={`text-xs font-bold ${returnDate ? 'text-gray-900' : 'text-gray-400'}`}>
+                                                    {returnDate
+                                                        ? `${returnDate.getDate().toString().padStart(2, '0')} ${['OCA', 'ŞUB', 'MAR', 'NİS', 'MAY', 'HAZ', 'TEM', 'AĞU', 'EYL', 'EKİ', 'KAS', 'ARA'][returnDate.getMonth()]}`
+                                                        : 'Seçiniz'}
+                                                </span>
+                                                {returnDate && (
+                                                    <span className="text-[9px] text-gray-400">
+                                                        {returnDate.getHours().toString().padStart(2, '0')}:{returnDate.getMinutes().toString().padStart(2, '0')}
+                                                    </span>
+                                                )}
+                                            </button>
+
+                                            <InlineDateTimePicker
+                                                isOpen={showDatePicker && datePickerType === 'return'}
+                                                onClose={() => setShowDatePicker(false)}
+                                                onSelectDateTime={(date) => {
+                                                    setReturnDate(date);
+                                                    setShowDatePicker(false);
+                                                }}
+                                                initialDate={returnDate || undefined}
+                                                position="right"
+                                            />
                                         </div>
                                     </div>
-                                    <div className="w-full h-full pl-[70px] pr-4 flex flex-col justify-center">
-                                        <label className="text-[10px] font-bold text-gray-800 uppercase">TARİH & SAAT</label>
-                                        <span className={`text-sm font-bold ${startDate ? 'text-gray-900' : 'text-gray-400'}`}>
-                                            {startDate
-                                                ? `${startDate.getDate().toString().padStart(2, '0')}.${(startDate.getMonth() + 1).toString().padStart(2, '0')}.${startDate.getFullYear()}`
-                                                : 'Tarih Seçiniz'}
-                                        </span>
-                                        {startDate && (
-                                            <span className="text-[10px] text-gray-400">
-                                                {startDate.getHours().toString().padStart(2, '0')}:{startDate.getMinutes().toString().padStart(2, '0')}
-                                            </span>
-                                        )}
-                                    </div>
-                                </button>
+                                )}
                             </div>
 
                             {/* Right Section: Controls (3 Column Grid on Mobile) */}
@@ -354,31 +447,26 @@ export default function Home() {
                                     </button>
 
                                     {/* Kişi Counter */}
-                                    <div className="col-span-1 md:col-span-4 bg-white rounded-xl shadow-md border border-gray-100 h-[80px] md:h-full flex flex-col items-center justify-center p-2 hover:border-blue-500 transition-colors">
-                                        <span className="text-[9px] font-bold text-gray-800 mb-1">KİŞİ SAYISI</span>
-                                        <div className="flex items-center space-x-2">
-                                            <button
-                                                onClick={() => setPassengerCount(Math.max(1, passengerCount - 1))}
-                                                disabled={passengerCount <= 1}
-                                                className="w-7 h-7 rounded-full bg-gray-100 hover:bg-blue-500 hover:text-white text-gray-700 font-bold flex items-center justify-center transition-all disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-gray-100 disabled:hover:text-gray-700"
-                                            >
-                                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M20 12H4" />
-                                                </svg>
-                                            </button>
-                                            <span className="text-lg font-bold text-gray-900 min-w-[2.5rem] text-center">
-                                                {passengerCount}
-                                            </span>
-                                            <button
-                                                onClick={() => setPassengerCount(Math.min(8, passengerCount + 1))}
-                                                disabled={passengerCount >= 8}
-                                                className="w-7 h-7 rounded-full bg-gray-100 hover:bg-blue-500 hover:text-white text-gray-700 font-bold flex items-center justify-center transition-all disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-gray-100 disabled:hover:text-gray-700"
-                                            >
-                                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 4v16m8-8H4" />
-                                                </svg>
-                                            </button>
-                                        </div>
+                                    <div className="col-span-1 md:col-span-4 relative bg-white rounded-xl shadow-md border border-gray-100 h-[80px] md:h-full">
+                                        <button
+                                            onClick={() => setShowPassengerSelector(!showPassengerSelector)}
+                                            className="w-full h-full flex flex-col items-center justify-center p-2 hover:border-blue-500 transition-colors rounded-xl"
+                                        >
+                                            <span className="text-[9px] font-bold text-gray-800 mb-1">KİŞİ SAYISI</span>
+                                            <div className="flex items-center space-x-2">
+                                                <span className="text-lg font-bold text-gray-900">
+                                                    {passengerCount} Kişi
+                                                </span>
+                                                <ChevronDown className={`w-4 h-4 text-gray-500 transition-transform ${showPassengerSelector ? 'rotate-180' : ''}`} />
+                                            </div>
+                                        </button>
+
+                                        <InlinePassengerSelector
+                                            isOpen={showPassengerSelector}
+                                            onClose={() => setShowPassengerSelector(false)}
+                                            value={passengerCount}
+                                            onChange={setPassengerCount}
+                                        />
                                     </div>
 
                                     {/* Ara Button */}
@@ -1047,16 +1135,6 @@ export default function Home() {
 
 
 
-            {/* Date Time Picker Modal */}
-            <DateTimePicker
-                isOpen={showDatePicker}
-                onClose={() => setShowDatePicker(false)}
-                onSelectDateTime={(date) => {
-                    setStartDate(date);
-                    setShowDatePicker(false);
-                }}
-                initialDate={startDate || undefined}
-            />
-        </main>
+        </main >
     );
 }
