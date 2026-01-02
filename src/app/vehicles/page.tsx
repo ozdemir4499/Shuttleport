@@ -3,20 +3,39 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { MapPin, Calendar, Users, Clock, Navigation, Instagram, Globe, MessageCircle, User, ChevronDown, Menu, X } from 'lucide-react';
+import { useSearchParams } from 'next/navigation';
 
 export default function VehiclesPage() {
+    const searchParams = useSearchParams();
     const [selectedCurrencies, setSelectedCurrencies] = useState<Record<number, string>>({});
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-    // Mock reservation data (would come from query params or state)
+    // Format date for display
+    const formatDate = (dateString: string | null) => {
+        if (!dateString) return '-';
+        try {
+            const date = new Date(dateString);
+            return new Intl.DateTimeFormat('tr-TR', {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            }).format(date);
+        } catch (e) {
+            return dateString;
+        }
+    };
+
+    // Get reservation data from URL params
     const reservation = {
-        from: 'Sabiha Gökçen Havalimanı (SAW)',
-        to: 'Fatih, İstanbul',
-        date: '01/01/2026 - 12:45',
-        distance: '44 KM',
-        duration: '47 dk',
-        passengers: 1,
-        tripType: 'HAVL'
+        from: searchParams.get('fromAddress') || searchParams.get('from') || 'Seçilmedi',
+        to: searchParams.get('toAddress') || searchParams.get('to') || 'Seçilmedi',
+        date: formatDate(searchParams.get('date')),
+        distance: searchParams.get('distance') || '-', // Will be passed from homepage eventually
+        duration: searchParams.get('duration') || '-',
+        passengers: searchParams.get('passengers') || 1,
+        tripType: searchParams.get('isRoundTrip') === 'true' ? 'Gidiş-Dönüş' : 'Tek Yön'
     };
 
     // Mock vehicle data

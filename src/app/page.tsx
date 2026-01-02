@@ -2,8 +2,10 @@
 
 import { useState, useRef, useEffect, useCallback } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { MapPin, Calendar, Users, Shield, Clock, Car, Globe, Menu, X, Instagram, MessageCircle, User, ChevronDown } from 'lucide-react';
 import { LocationAutocomplete } from '@/features/maps';
+import { mapsService } from '@/features/maps/services/maps-service';
 import { ServiceTypeSelector } from '@/features/booking/components/ServiceTypeSelector';
 import { InlineDateTimePicker } from '@/features/booking/components/InlineDateTimePicker';
 import { InlinePassengerSelector } from '@/features/booking/components/InlinePassengerSelector';
@@ -18,6 +20,8 @@ interface Location {
 
 
 export default function Home() {
+    const router = useRouter();
+    const [isSearching, setIsSearching] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
     const [serviceType, setServiceType] = useState<'transfer' | 'hourly' | 'tour'>('transfer');
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -83,7 +87,7 @@ export default function Home() {
     }, [originLocation, destinationLocation]);
 
     // Handle search button click with validation
-    const handleSearch = () => {
+    const handleSearch = async () => {
         // Validate required fields
         if (!originLocation) {
             alert('Lütfen nereden konumunu seçiniz.');
@@ -100,18 +104,57 @@ export default function Home() {
             return;
         }
 
-        // All required fields are filled, proceed to next step
-        // TODO: Navigate to the next page or perform the search
-        console.log('Arama yapılıyor...', {
-            from: originLocation,
-            to: destinationLocation,
-            date: startDate,
-            passengers: passengerCount,
-            isRoundTrip
-        });
+        setIsSearching(true);
 
-        // You can navigate to results page or show results here
-        alert('Arama başarılı! Sonuçlar yükleniyor...');
+        try {
+            // Calculate distance and duration
+            const distanceData = await mapsService.calculateDistance(originLocation, destinationLocation);
+
+            // Create query parameters
+            const queryParams = new URLSearchParams({
+                fromLat: originLocation.lat.toString(),
+                fromLng: originLocation.lng.toString(),
+                fromAddress: originLocation.address,
+                toLat: destinationLocation.lat.toString(),
+                toLng: destinationLocation.lng.toString(),
+                toAddress: destinationLocation.address,
+                date: startDate.toISOString(),
+                passengers: passengerCount.toString(),
+                serviceType,
+                isRoundTrip: isRoundTrip.toString(),
+                distance: distanceData.distance_text,
+                duration: distanceData.duration_text
+            });
+
+            if (isRoundTrip && returnDate) {
+                queryParams.append('returnDate', returnDate.toISOString());
+            }
+
+            router.push(`/vehicles?${queryParams.toString()}`);
+        } catch (error) {
+            console.error('Mesafe hesaplanırken hata oluştu:', error);
+            // Hata olsa bile devam edelim, mesafe bilgisi boş gider
+            const queryParams = new URLSearchParams({
+                fromLat: originLocation.lat.toString(),
+                fromLng: originLocation.lng.toString(),
+                fromAddress: originLocation.address,
+                toLat: destinationLocation.lat.toString(),
+                toLng: destinationLocation.lng.toString(),
+                toAddress: destinationLocation.address,
+                date: startDate.toISOString(),
+                passengers: passengerCount.toString(),
+                serviceType,
+                isRoundTrip: isRoundTrip.toString()
+            });
+
+            if (isRoundTrip && returnDate) {
+                queryParams.append('returnDate', returnDate.toISOString());
+            }
+
+            router.push(`/vehicles?${queryParams.toString()}`);
+        } finally {
+            setIsSearching(false);
+        }
     };
 
     return (
@@ -473,10 +516,15 @@ export default function Home() {
                                     <div className="col-span-1 md:col-span-4 h-[80px] md:h-full">
                                         <button
                                             onClick={handleSearch}
-                                            className="w-full h-full bg-[#D0142D] hover:bg-[#b01126] text-white rounded-xl shadow-md flex flex-col items-center justify-center p-2"
+                                            disabled={isSearching}
+                                            className="w-full h-full bg-[#D0142D] hover:bg-[#b01126] disabled:bg-gray-400 text-white rounded-xl shadow-md flex flex-col items-center justify-center p-2 transition-colors"
                                         >
-                                            <svg className="w-6 h-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
-                                            <span className="text-xs font-bold">Ara</span>
+                                            {isSearching ? (
+                                                <div className="w-6 h-6 mb-1 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                                            ) : (
+                                                <svg className="w-6 h-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+                                            )}
+                                            <span className="text-xs font-bold">{isSearching ? 'Aranıyor...' : 'Ara'}</span>
                                         </button>
                                     </div>
                                 </div>

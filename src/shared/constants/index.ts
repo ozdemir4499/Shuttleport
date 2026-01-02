@@ -8,8 +8,8 @@ export const APP_VERSION = '0.1.0';
 // API endpoints
 export const API_ENDPOINTS = {
     MAPS_KEY: '/api/maps-key',
-    CALCULATE_DISTANCE: '/api/v1/calculate-distance',
-    SEARCH_PLACES: '/api/v1/search-places',
+    CALCULATE_DISTANCE: '/api/calculate-distance',
+    SEARCH_PLACES: '/api/search-places',
 } as const;
 
 // Routes
