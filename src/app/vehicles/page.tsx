@@ -197,7 +197,7 @@ export default function VehiclesPage() {
         tripType: searchParams.get('isRoundTrip') === 'true' ? 'Gidiş-Dönüş' : 'Tek Yön'
     };
 
-    // Mock vehicle data
+    // Mock vehicle data - TODO: Fetch from backend API
     const vehicles = [
         {
             id: 1,
@@ -211,10 +211,10 @@ export default function VehiclesPage() {
                 { icon: '❌', text: 'Ücretsiz İptal' }
             ],
             prices: {
-                TRY: 234,
-                EUR: 58,
-                USD: 88,
-                GBP: 50
+                TRY: 2000,  // Updated to match backend (Luxury Sedan)
+                EUR: 50,
+                USD: 60,
+                GBP: 40
             }
         },
         {
@@ -236,10 +236,10 @@ export default function VehiclesPage() {
                 { icon: '❌', text: 'Ücretsiz İptal' }
             ],
             prices: {
-                TRY: 286,
-                EUR: 61,
-                USD: 72,
-                GBP: 53
+                TRY: 2086,  // Updated to match backend (Vito)
+                EUR: 52,
+                USD: 62,
+                GBP: 42
             }
         },
         {
@@ -257,10 +257,10 @@ export default function VehiclesPage() {
                 { icon: '❌', text: 'Ücretsiz İptal' }
             ],
             prices: {
-                TRY: 450,
-                EUR: 95,
-                USD: 115,
-                GBP: 85
+                TRY: 2898,  // Updated to match backend (Sprinter)
+                EUR: 72,
+                USD: 87,
+                GBP: 58
             }
         }
     ];
