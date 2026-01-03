@@ -16,6 +16,15 @@ interface Location {
     name?: string;
 }
 
+interface VehiclePricing {
+    vehicle_type: string;
+    vehicle_name: string;
+    final_price: number;
+    price_breakdown: {
+        minimum_applied: number;
+    };
+}
+
 // Image Slider Component
 function VehicleImageSlider({ images, name }: { images: string[], name: string }) {
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -73,6 +82,10 @@ export default function VehiclesPage() {
     const searchParams = useSearchParams();
     const [selectedCurrencies, setSelectedCurrencies] = useState<Record<number, string>>({});
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+    // API Pricing State
+    const [vehiclePricing, setVehiclePricing] = useState<VehiclePricing[]>([]);
+    const [isLoadingPrices, setIsLoadingPrices] = useState(true);
 
     // --- Search & Edit States ---
     const [isEditing, setIsEditing] = useState(false);
@@ -132,6 +145,55 @@ export default function VehiclesPage() {
         if (roundTripParam === 'true') {
             setIsRoundTrip(true);
         }
+    }, [searchParams]);
+
+    // Fetch prices from backend API
+    useEffect(() => {
+        const fetchPrices = async () => {
+            const fromLat = searchParams.get('fromLat');
+            const fromLng = searchParams.get('fromLng');
+            const fromAddress = searchParams.get('fromAddress') || searchParams.get('from');
+            const toLat = searchParams.get('toLat');
+            const toLng = searchParams.get('toLng');
+            const toAddress = searchParams.get('toAddress') || searchParams.get('to');
+            const distance = searchParams.get('distance');
+
+            if (!fromLat || !toLat || !fromAddress || !toAddress) {
+                setIsLoadingPrices(false);
+                return;
+            }
+
+            try {
+                const distanceKm = distance ? parseFloat(distance.replace(' km', '').replace(',', '.')) : 50;
+
+                const response = await fetch('http://localhost:8000/api/pricing/calculate', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        origin_lat: parseFloat(fromLat),
+                        origin_lng: parseFloat(fromLng),
+                        origin_name: fromAddress,
+                        destination_lat: parseFloat(toLat),
+                        destination_lng: parseFloat(toLng),
+                        destination_name: toAddress,
+                        distance_km: distanceKm,
+                        duration_minutes: 40,
+                        passenger_count: parseInt(searchParams.get('passengers') || '1'),
+                        is_round_trip: searchParams.get('isRoundTrip') === 'true',
+                        is_airport_transfer: fromAddress.toLowerCase().includes('airport') || toAddress.toLowerCase().includes('airport')
+                    })
+                });
+
+                const data = await response.json();
+                setVehiclePricing(data.vehicles || []);
+            } catch (error) {
+                console.error('Failed to fetch prices:', error);
+            } finally {
+                setIsLoadingPrices(false);
+            }
+        };
+
+        fetchPrices();
     }, [searchParams]);
 
     const handleUpdateSearch = async () => {
@@ -197,28 +259,19 @@ export default function VehiclesPage() {
         tripType: searchParams.get('isRoundTrip') === 'true' ? 'Gidiş-Dönüş' : 'Tek Yön'
     };
 
-    // Mock vehicle data - TODO: Fetch from backend API
+    // Vehicle display info (static data)
     const vehicles = [
         {
             id: 1,
+            type: 'luxury_sedan',
             name: 'Sedan Private',
             images: ['https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?q=80&w=800'],
             capacity: '1-3',
-            baggage: '1 - 3',
-            features: [
-                { icon: '🧊', text: 'Soğuk İçecek' },
-                { icon: '✈️', text: 'Havalimanı Karşılama' },
-                { icon: '❌', text: 'Ücretsiz İptal' }
-            ],
-            prices: {
-                TRY: 2000,  // Updated to match backend (Luxury Sedan)
-                EUR: 50,
-                USD: 60,
-                GBP: 40
-            }
+            baggage: '1 - 3'
         },
         {
             id: 2,
+            type: 'vito',
             name: 'Mercedes Vito & VW Private',
             images: [
                 '/images/mercedes-vito.jpg',
@@ -229,39 +282,18 @@ export default function VehiclesPage() {
                 '/images/mercedes-vito-int-red.jpg'
             ],
             capacity: '1-6',
-            baggage: '1 - 6',
-            features: [
-                { icon: '🧊', text: 'Soğuk İçecek' },
-                { icon: '✈️', text: 'Havalimanı Karşılama' },
-                { icon: '❌', text: 'Ücretsiz İptal' }
-            ],
-            prices: {
-                TRY: 2086,  // Updated to match backend (Vito)
-                EUR: 52,
-                USD: 62,
-                GBP: 42
-            }
+            baggage: '1 - 6'
         },
         {
             id: 3,
+            type: 'sprinter',
             name: 'Mercedes Sprinter Private',
             images: [
                 '/images/mercedes-sprinter-trees.jpg',
                 '/images/mercedes-sprinter-front-2.jpg'
             ],
             capacity: '1-14',
-            baggage: '1 - 14',
-            features: [
-                { icon: '🧊', text: 'Soğuk İçecek' },
-                { icon: '✈️', text: 'Havalimanı Karşılama' },
-                { icon: '❌', text: 'Ücretsiz İptal' }
-            ],
-            prices: {
-                TRY: 2898,  // Updated to match backend (Sprinter)
-                EUR: 72,
-                USD: 87,
-                GBP: 58
-            }
+            baggage: '1 - 14'
         }
     ];
 
