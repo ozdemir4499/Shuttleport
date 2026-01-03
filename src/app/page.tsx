@@ -165,24 +165,26 @@ export default function Home() {
                     {/* LOGO */}
                     <Link href="/" className="flex items-center space-x-3 md:space-x-4">
                         <div className="text-[#D32F2F]">
-                            <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-8 h-8 md:w-10 md:h-10">
-                                <path d="M20 0C18.5 10 10 18.5 0 20C10 21.5 18.5 30 20 40C21.5 30 30 21.5 40 20C30 18.5 21.5 10 20 0Z" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
-                                <circle cx="20" cy="20" r="4" fill="currentColor" />
+                            <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-10 h-10 md:w-12 md:h-12">
+                                {/* Star/compass shape */}
+                                <path d="M25 2L31 19H49L35 30L40 48L25 37L10 48L15 30L1 19H19L25 2Z" fill="currentColor" />
+                                {/* Inner airplane silhouette */}
+                                <path d="M25 12L28 22H38L30 28L33 38L25 32L17 38L20 28L12 22H22L25 12Z" fill="white" />
                             </svg>
                         </div>
                         <div className="flex flex-col justify-center">
-                            <span className="text-[10px] md:text-xs font-bold tracking-[0.2em] text-gray-900 leading-tight">SHUTTLE</span>
-                            <span className="text-lg md:text-2xl font-black italic text-gray-900 leading-none tracking-tighter">TRANSFER</span>
+                            <span className="text-[8px] md:text-[10px] font-bold tracking-[0.15em] text-[#D32F2F] leading-tight">LUXE</span>
+                            <span className="text-base md:text-xl font-black text-gray-900 leading-none tracking-tight">TRANSFER</span>
                         </div>
                     </Link>
 
                     {/* DESKTOP NAV */}
                     <nav className="hidden xl:flex items-center space-x-6 text-[13px] font-bold text-gray-800">
-                        <Link href="#" className="hover:text-[#D32F2F] transition-colors">Turlar</Link>
-                        <Link href="#" className="hover:text-[#D32F2F] transition-colors">Kurumsal</Link>
+                        <Link href="/turlar" className="hover:text-[#D32F2F] transition-colors">Turlar</Link>
+                        <Link href="/hakkimizda" className="hover:text-[#D32F2F] transition-colors">Hakkımızda</Link>
                         <Link href="#" className="hover:text-[#D32F2F] transition-colors">İşveren Olun</Link>
                         <Link href="#" className="hover:text-[#D32F2F] transition-colors">Taşıyıcı Olun</Link>
-                        <Link href="#" className="hover:text-[#D32F2F] transition-colors">İletişim</Link>
+                        <Link href="/iletisim" className="hover:text-[#D32F2F] transition-colors">İletişim</Link>
                         <Link href="#" className="hover:text-[#D32F2F] transition-colors">S.S.S</Link>
                     </nav>
 
@@ -229,11 +231,11 @@ export default function Home() {
                 {mobileMenuOpen && (
                     <div className="lg:hidden bg-white border-t border-gray-100 absolute top-full left-0 right-0 shadow-xl overflow-hidden animate-in slide-in-from-top-2">
                         <div className="container-custom py-4 space-y-2">
-                            <Link href="#" className="block text-gray-900 font-bold hover:text-[#D32F2F] p-2 rounded-lg hover:bg-red-50">Turlar</Link>
-                            <Link href="#" className="block text-gray-900 font-bold hover:text-[#D32F2F] p-2 rounded-lg hover:bg-red-50">Kurumsal</Link>
+                            <Link href="/turlar" className="block text-gray-900 font-bold hover:text-[#D32F2F] p-2 rounded-lg hover:bg-red-50">Turlar</Link>
+                            <Link href="/hakkimizda" className="block text-gray-900 font-bold hover:text-[#D32F2F] p-2 rounded-lg hover:bg-red-50">Hakkımızda</Link>
                             <Link href="#" className="block text-gray-900 font-bold hover:text-[#D32F2F] p-2 rounded-lg hover:bg-red-50">İşveren Olun</Link>
                             <Link href="#" className="block text-gray-900 font-bold hover:text-[#D32F2F] p-2 rounded-lg hover:bg-red-50">Taşıyıcı Olun</Link>
-                            <Link href="#" className="block text-gray-900 font-bold hover:text-[#D32F2F] p-2 rounded-lg hover:bg-red-50">İletişim</Link>
+                            <Link href="/iletisim" className="block text-gray-900 font-bold hover:text-[#D32F2F] p-2 rounded-lg hover:bg-red-50">İletişim</Link>
                             <Link href="#" className="block text-gray-900 font-bold hover:text-[#D32F2F] p-2 rounded-lg hover:bg-red-50">S.S.S</Link>
 
                             <div className="border-t border-gray-100 my-2 pt-2"></div>
@@ -879,45 +881,7 @@ export default function Home() {
                 </div>
             </section>
 
-            {/* FEATURES SECTION - Below Fold */}
-            <section className="py-10 md:py-20 bg-gray-50">
-                <div className="container-custom">
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        {/* Güvenli Ödeme */}
-                        <div className="bg-white rounded-xl p-8 text-center shadow-lg hover:shadow-xl transition-all duration-300 group">
-                            <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
-                                <Shield className="w-10 h-10 text-white" />
-                            </div>
-                            <h3 className="text-2xl font-bold text-gray-900 mb-3">Güvenli Ödeme</h3>
-                            <p className="text-gray-600 leading-relaxed">
-                                256-bit SSL sertifikası ile korunan ödeme sistemi. Kredi kartı bilgileriniz güvende.
-                            </p>
-                        </div>
 
-                        {/* 7/24 Destek */}
-                        <div className="bg-white rounded-xl p-8 text-center shadow-lg hover:shadow-xl transition-all duration-300 group">
-                            <div className="w-20 h-20 bg-gradient-to-br from-orange-500 to-amber-600 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
-                                <Clock className="w-10 h-10 text-white" />
-                            </div>
-                            <h3 className="text-2xl font-bold text-gray-900 mb-3">7/24 Destek</h3>
-                            <p className="text-gray-600 leading-relaxed">
-                                Günün her saati müşteri hizmetlerimiz sizin için hazır. Anında destek alın.
-                            </p>
-                        </div>
-
-                        {/* Son Model Araçlar */}
-                        <div className="bg-white rounded-xl p-8 text-center shadow-lg hover:shadow-xl transition-all duration-300 group">
-                            <div className="w-20 h-20 bg-gradient-to-br from-gray-700 to-gray-900 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
-                                <Car className="w-10 h-10 text-white" />
-                            </div>
-                            <h3 className="text-2xl font-bold text-gray-900 mb-3">Son Model Araçlar</h3>
-                            <p className="text-gray-600 leading-relaxed">
-                                Mercedes Vito, Sprinter ve VIP araçlarla konforlu yolculuk deneyimi.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </section>
 
             {/* TESTIMONIALS / CUSTOMER MOMENTS SECTION */}
             <section className="py-16 md:py-24 bg-gray-50 overflow-hidden">

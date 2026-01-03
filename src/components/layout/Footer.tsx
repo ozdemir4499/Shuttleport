@@ -14,7 +14,7 @@ export default function Footer() {
                             <MessageCircle className="w-6 h-6 text-white" />
                         </div>
                         <div>
-                            <div className="font-bold text-lg mb-1">+90 (542) 825 64 54</div>
+                            <div className="font-bold text-lg mb-1">+90 (532) 417 89 63</div>
                             <div className="text-sm text-gray-400">Whatsapp & Telefon</div>
                         </div>
                     </div>
@@ -25,7 +25,7 @@ export default function Footer() {
                             <Mail className="w-6 h-6 text-white" />
                         </div>
                         <div>
-                            <div className="font-bold text-lg mb-1">info@istanbulshuttleport.com</div>
+                            <div className="font-bold text-lg mb-1">info@luxetransfer.com</div>
                             <div className="text-sm text-gray-400">E-Posta</div>
                         </div>
                     </div>
@@ -36,9 +36,9 @@ export default function Footer() {
                             <MapPin className="w-6 h-6 text-white" />
                         </div>
                         <div>
-                            <div className="font-bold text-lg mb-1">İstanbul Havaalanı</div>
+                            <div className="font-bold text-lg mb-1">Maslak, Şişli</div>
                             <div className="text-sm text-gray-400 leading-relaxed">
-                                Tayakadın Mah. Terminal Binası Gelen Yolcu Katı
+                                Eski Büyükdere Cad. No:48 Kat:3
                             </div>
                         </div>
                     </div>
@@ -51,11 +51,21 @@ export default function Footer() {
                     <div className="md:col-span-3">
                         <h3 className="text-lg font-bold mb-6 text-white">Kurumsal</h3>
                         <ul className="space-y-3">
-                            {['Turlar', 'Hakkımızda', 'Hizmetlerimiz', 'İşveren Olun', 'Taşıyıcı Olun', 'Buluşma Noktaları', 'Araçlarımız', 'İletişim', 'S.S.S'].map((item) => (
-                                <li key={item}>
-                                    <Link href="#" className="flex items-center text-gray-400 hover:text-white transition-colors text-sm group">
+                            {[
+                                { name: 'Turlar', href: '/turlar' },
+                                { name: 'Hakkımızda', href: '/hakkimizda' },
+                                { name: 'Hizmetlerimiz', href: '#' },
+                                { name: 'İşveren Olun', href: '#' },
+                                { name: 'Taşıyıcı Olun', href: '#' },
+                                { name: 'Buluşma Noktaları', href: '#' },
+                                { name: 'Araçlarımız', href: '#' },
+                                { name: 'İletişim', href: '/iletisim' },
+                                { name: 'S.S.S', href: '#' }
+                            ].map((item) => (
+                                <li key={item.name}>
+                                    <Link href={item.href} className="flex items-center text-gray-400 hover:text-white transition-colors text-sm group">
                                         <ChevronRight className="w-4 h-4 mr-2 text-gray-600 group-hover:text-white transition-colors" />
-                                        {item}
+                                        {item.name}
                                     </Link>
                                 </li>
                             ))}
@@ -86,7 +96,7 @@ export default function Footer() {
                 {/* BOTTOM COPYRIGHT */}
                 <div className="pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-gray-500">
                     <div className="mb-4 md:mb-0">
-                        &copy; 2024 Shuttleport. Tüm hakları saklıdır.
+                        &copy; 2024 Luxe Transfer. Tüm hakları saklıdır.
                     </div>
                     <div className="flex flex-wrap justify-center gap-4 md:gap-8">
                         <Link href="#" className="hover:text-white transition-colors">Gizlilik ve Güvenlik</Link>
@@ -104,7 +114,7 @@ export default function Footer() {
 
             {/* Sticky Whatsapp Button (Optional based on image hint) */}
             <a
-                href="https://wa.me/905428256454"
+                href="https://wa.me/905324178963"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="fixed bottom-6 right-6 bg-[#25D366] hover:bg-[#128C7E] text-white px-4 py-3 rounded-full shadow-lg flex items-center space-x-2 z-50 transition-all hover:scale-105"

@@ -81,11 +81,11 @@ export default function ConfirmationContent() {
 
                     {/* DESKTOP NAV */}
                     <nav className="hidden xl:flex items-center space-x-6 text-[13px] font-bold text-gray-800">
-                        <Link href="/" className="hover:text-[#D32F2F] transition-colors">Turlar</Link>
-                        <Link href="#" className="hover:text-[#D32F2F] transition-colors">Kurumsal</Link>
+                        <Link href="/turlar" className="hover:text-[#D32F2F] transition-colors">Turlar</Link>
+                        <Link href="/hakkimizda" className="hover:text-[#D32F2F] transition-colors">Hakkımızda</Link>
                         <Link href="#" className="hover:text-[#D32F2F] transition-colors">İşveren Olun</Link>
                         <Link href="#" className="hover:text-[#D32F2F] transition-colors">Taşıyıcı Olun</Link>
-                        <Link href="#" className="hover:text-[#D32F2F] transition-colors">İletişim</Link>
+                        <Link href="/iletisim" className="hover:text-[#D32F2F] transition-colors">İletişim</Link>
                         <Link href="#" className="hover:text-[#D32F2F] transition-colors">S.S.S</Link>
                     </nav>
 
@@ -132,11 +132,11 @@ export default function ConfirmationContent() {
                 {mobileMenuOpen && (
                     <div className="lg:hidden bg-white border-t border-gray-100 absolute top-full left-0 right-0 shadow-xl overflow-hidden animate-in slide-in-from-top-2">
                         <div className="container-custom py-4 space-y-2">
-                            <Link href="/" className="block text-gray-900 font-bold hover:text-[#D32F2F] p-2 rounded-lg hover:bg-red-50">Turlar</Link>
-                            <Link href="#" className="block text-gray-900 font-bold hover:text-[#D32F2F] p-2 rounded-lg hover:bg-red-50">Kurumsal</Link>
+                            <Link href="/turlar" className="block text-gray-900 font-bold hover:text-[#D32F2F] p-2 rounded-lg hover:bg-red-50">Turlar</Link>
+                            <Link href="/hakkimizda" className="block text-gray-900 font-bold hover:text-[#D32F2F] p-2 rounded-lg hover:bg-red-50">Hakkımızda</Link>
                             <Link href="#" className="block text-gray-900 font-bold hover:text-[#D32F2F] p-2 rounded-lg hover:bg-red-50">İşveren Olun</Link>
                             <Link href="#" className="block text-gray-900 font-bold hover:text-[#D32F2F] p-2 rounded-lg hover:bg-red-50">Taşıyıcı Olun</Link>
-                            <Link href="#" className="block text-gray-900 font-bold hover:text-[#D32F2F] p-2 rounded-lg hover:bg-red-50">İletişim</Link>
+                            <Link href="/iletisim" className="block text-gray-900 font-bold hover:text-[#D32F2F] p-2 rounded-lg hover:bg-red-50">İletişim</Link>
                             <Link href="#" className="block text-gray-900 font-bold hover:text-[#D32F2F] p-2 rounded-lg hover:bg-red-50">S.S.S</Link>
 
                             <div className="flex items-center space-x-2 pt-4 border-t border-gray-100">

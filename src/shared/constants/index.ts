@@ -2,7 +2,7 @@
  * Application-wide constants
  */
 
-export const APP_NAME = 'Shuttleport';
+export const APP_NAME = 'Luxe Transfer';
 export const APP_VERSION = '0.1.0';
 
 // API endpoints

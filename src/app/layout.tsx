@@ -5,7 +5,7 @@ import './globals.css';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-    title: 'Shuttleport - Transfer Rezervasyon Sistemi',
+    title: 'Luxe Transfer - VIP Transfer Hizmetleri',
     description: 'Havalimanı ve şehir içi transfer hizmetleri için online rezervasyon platformu',
 };
 
