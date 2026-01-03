@@ -9,6 +9,7 @@ import { mapsService } from '@/features/maps/services/maps-service';
 import { ServiceTypeSelector } from '@/features/booking/components/ServiceTypeSelector';
 import { InlineDateTimePicker } from '@/features/booking/components/InlineDateTimePicker';
 import { InlinePassengerSelector } from '@/features/booking/components/InlinePassengerSelector';
+import { tours } from '@/data/tours';
 
 interface Location {
     lat: number;
@@ -549,9 +550,9 @@ export default function Home() {
                                 Eşsiz rotalar ve kişiye özel maceralarla dolu turlarımızla unutulmaz anılar yaratmaya hazır olun!
                             </p>
 
-                            <button className="bg-black hover:bg-gray-800 text-white font-semibold px-8 py-3 rounded-lg transition-colors">
+                            <Link href="/turlar" className="inline-block bg-black hover:bg-gray-800 text-white font-semibold px-8 py-3 rounded-lg transition-colors">
                                 Daha Fazla Tur
-                            </button>
+                            </Link>
 
                             {/* Navigation Buttons */}
                             <div className="flex space-x-4 pt-4">
@@ -576,137 +577,36 @@ export default function Home() {
                                 ref={scrollContainerRef}
                                 className="flex space-x-6 overflow-x-auto pb-8 scrollbar-hide [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none']"
                             >
-                                {/* Tour Card 1 */}
-                                <div className="w-[300px] md:w-[350px] bg-white rounded-2xl shadow-sm hover:shadow-md transition-shadow group cursor-pointer flex-shrink-0 flex flex-col h-full border border-gray-100">
-                                    <div className="h-[200px] overflow-hidden rounded-t-2xl relative">
-                                        <img src="https://images.unsplash.com/photo-1516281717304-184375a5765c?q=80&w=800" alt="New Year" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-                                        <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-gray-900">
-                                            Özel Fırsat
+                                {tours.map((tour) => (
+                                    <Link
+                                        key={tour.id}
+                                        href={`/turlar/${tour.slug}`}
+                                        className="w-[300px] md:w-[350px] bg-white rounded-2xl shadow-sm hover:shadow-md transition-shadow group cursor-pointer flex-shrink-0 flex flex-col h-full border border-gray-100"
+                                    >
+                                        <div className="h-[200px] overflow-hidden rounded-t-2xl relative">
+                                            <img src={tour.image} alt={tour.shortTitle} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                                            {tour.badge && (
+                                                <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-gray-900">
+                                                    {tour.badge}
+                                                </div>
+                                            )}
                                         </div>
-                                    </div>
-                                    <div className="p-6 space-y-4 flex flex-col flex-grow">
-                                        <h3 className="text-gray-900 font-semibold leading-snug min-h-[48px]">
-                                            Havai Fişekler Eşliğinde Boğaz'da Yılbaşı Kutlaması - Sınırsız Alkollü İçecek
-                                        </h3>
-                                        <div className="w-10 h-1 bg-gray-200">
-                                            <div className="w-5 h-full bg-red-500"></div>
-                                        </div>
-                                        <div className="flex items-center justify-between pt-2 mt-auto">
-                                            <span className="text-2xl font-bold text-gray-900">10.108₺</span>
-                                            <div className="w-10 h-10 rounded-full border border-red-500 flex items-center justify-center text-red-500 group-hover:bg-red-500 group-hover:text-white transition-all">
-                                                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+                                        <div className="p-6 space-y-4 flex flex-col flex-grow">
+                                            <h3 className="text-gray-900 font-semibold leading-snug min-h-[48px] line-clamp-2">
+                                                {tour.title}
+                                            </h3>
+                                            <div className="w-10 h-1 bg-gray-200">
+                                                <div className="w-5 h-full bg-red-500"></div>
+                                            </div>
+                                            <div className="flex items-center justify-between pt-2 mt-auto">
+                                                <span className="text-2xl font-bold text-gray-900">{tour.prices.adult.try.toLocaleString('tr-TR')}₺</span>
+                                                <div className="w-10 h-10 rounded-full border border-red-500 flex items-center justify-center text-red-500 group-hover:bg-red-500 group-hover:text-white transition-all">
+                                                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-
-                                {/* Tour Card 2 */}
-                                <div className="w-[300px] md:w-[350px] bg-white rounded-2xl shadow-sm hover:shadow-md transition-shadow group cursor-pointer flex-shrink-0 flex flex-col h-full border border-gray-100">
-                                    <div className="h-[200px] overflow-hidden rounded-t-2xl relative">
-                                        <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=800" alt="Meyhane" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-                                    </div>
-                                    <div className="p-6 space-y-4 flex flex-col flex-grow">
-                                        <h3 className="text-gray-900 font-semibold leading-snug min-h-[48px]">
-                                            Geleneksel Türk Meyhanesinde Yılbaşı Paketi - Araç Tahsisi Dahil
-                                        </h3>
-                                        <div className="w-10 h-1 bg-gray-200">
-                                            <div className="w-5 h-full bg-red-500"></div>
-                                        </div>
-                                        <div className="flex items-center justify-between pt-2 mt-auto">
-                                            <span className="text-2xl font-bold text-gray-900">20.216₺</span>
-                                            <div className="w-10 h-10 rounded-full border border-red-500 flex items-center justify-center text-red-500 group-hover:bg-red-500 group-hover:text-white transition-all">
-                                                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                {/* Tour Card 3 */}
-                                <div className="w-[300px] md:w-[350px] bg-white rounded-2xl shadow-sm hover:shadow-md transition-shadow group cursor-pointer flex-shrink-0 flex flex-col h-full border border-gray-100">
-                                    <div className="h-[200px] overflow-hidden rounded-t-2xl relative">
-                                        <img src="https://images.unsplash.com/photo-1541432901042-2d8bd64b4a9b?q=80&w=800" alt="Istanbul" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-                                    </div>
-                                    <div className="p-6 space-y-4 flex flex-col flex-grow">
-                                        <h3 className="text-gray-900 font-semibold leading-snug min-h-[48px]">
-                                            8 Saatlik Şoförlü İstanbul Turu - Her Şey Dahil Fiyat
-                                        </h3>
-                                        <div className="w-10 h-1 bg-gray-200">
-                                            <div className="w-5 h-full bg-red-500"></div>
-                                        </div>
-                                        <div className="flex items-center justify-between pt-2 mt-auto">
-                                            <span className="text-2xl font-bold text-gray-900">7.581₺</span>
-                                            <div className="w-10 h-10 rounded-full border border-red-500 flex items-center justify-center text-red-500 group-hover:bg-red-500 group-hover:text-white transition-all">
-                                                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                {/* Tour Card 4 */}
-                                <div className="w-[300px] md:w-[350px] bg-white rounded-2xl shadow-sm hover:shadow-md transition-shadow group cursor-pointer flex-shrink-0 flex flex-col h-full border border-gray-100">
-                                    <div className="h-[200px] overflow-hidden rounded-t-2xl relative">
-                                        <img src="https://images.unsplash.com/photo-1516281717304-184375a5765c?q=80&w=800" alt="Special Offer" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-                                        <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-gray-900">
-                                            Özel Fırsat
-                                        </div>
-                                    </div>
-                                    <div className="p-6 space-y-4 flex flex-col flex-grow">
-                                        <h3 className="text-gray-900 font-semibold leading-snug min-h-[48px]">
-                                            Sapanca Gölü ve Doğa Yürüyüşü Turu
-                                        </h3>
-                                        <div className="w-10 h-1 bg-gray-200">
-                                            <div className="w-5 h-full bg-red-500"></div>
-                                        </div>
-                                        <div className="flex items-center justify-between pt-2 mt-auto">
-                                            <span className="text-2xl font-bold text-gray-900">5.500₺</span>
-                                            <div className="w-10 h-10 rounded-full border border-red-500 flex items-center justify-center text-red-500 group-hover:bg-red-500 group-hover:text-white transition-all">
-                                                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                {/* Tour Card 5 */}
-                                <div className="w-[300px] md:w-[350px] bg-white rounded-2xl shadow-sm hover:shadow-md transition-shadow group cursor-pointer flex-shrink-0 flex flex-col h-full border border-gray-100">
-                                    <div className="h-[200px] overflow-hidden rounded-t-2xl relative">
-                                        <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=800" alt="Ski Tour" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-                                    </div>
-                                    <div className="p-6 space-y-4 flex flex-col flex-grow">
-                                        <h3 className="text-gray-900 font-semibold leading-snug min-h-[48px]">
-                                            Bursa Uludağ Kayak Turu - Günübirlik
-                                        </h3>
-                                        <div className="w-10 h-1 bg-gray-200">
-                                            <div className="w-5 h-full bg-red-500"></div>
-                                        </div>
-                                        <div className="flex items-center justify-between pt-2 mt-auto">
-                                            <span className="text-2xl font-bold text-gray-900">9.000₺</span>
-                                            <div className="w-10 h-10 rounded-full border border-red-500 flex items-center justify-center text-red-500 group-hover:bg-red-500 group-hover:text-white transition-all">
-                                                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                {/* Tour Card 6 */}
-                                <div className="w-[300px] md:w-[350px] bg-white rounded-2xl shadow-sm hover:shadow-md transition-shadow group cursor-pointer flex-shrink-0 flex flex-col h-full border border-gray-100">
-                                    <div className="h-[200px] overflow-hidden rounded-t-2xl relative">
-                                        <img src="https://images.unsplash.com/photo-1541432901042-2d8bd64b4a9b?q=80&w=800" alt="Balloons" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-                                    </div>
-                                    <div className="p-6 space-y-4 flex flex-col flex-grow">
-                                        <h3 className="text-gray-900 font-semibold leading-snug min-h-[48px]">
-                                            Kapadokya Balon Turu - 2 Gece 3 Gün
-                                        </h3>
-                                        <div className="w-10 h-1 bg-gray-200">
-                                            <div className="w-5 h-full bg-red-500"></div>
-                                        </div>
-                                        <div className="flex items-center justify-between pt-2 mt-auto">
-                                            <span className="text-2xl font-bold text-gray-900">15.000₺</span>
-                                            <div className="w-10 h-10 rounded-full border border-red-500 flex items-center justify-center text-red-500 group-hover:bg-red-500 group-hover:text-white transition-all">
-                                                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                    </Link>
+                                ))}
                             </div>
                         </div>
                     </div>

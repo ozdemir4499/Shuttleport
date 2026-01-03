@@ -271,12 +271,12 @@ export const tours: Tour[] = [
         slug: 'princes-adalari-turu',
         title: 'Prens Adaları Günübirlik Tur - Büyükada & Heybeliada',
         shortTitle: 'Prens Adaları Turu',
-        image: 'https://images.unsplash.com/photo-1568781269748-89644f299266?q=80&w=800',
+        image: 'https://images.unsplash.com/photo-1502481851512-e9e2529bfbf9?q=80&w=800',
         gallery: [
-            'https://images.unsplash.com/photo-1568781269748-89644f299266?q=80&w=800',
-            'https://images.unsplash.com/photo-1597220869819-b2bb09dd4a79?q=80&w=800',
-            'https://images.unsplash.com/photo-1590608579360-ea6f8a7d8f6d?q=80&w=800',
-            'https://images.unsplash.com/photo-1555993539-1732b0258235?q=80&w=800',
+            'https://images.unsplash.com/photo-1502481851512-e9e2529bfbf9?q=80&w=800',
+            'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=800',
+            'https://images.unsplash.com/photo-1519046904884-53103b34b206?q=80&w=800',
+            'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?q=80&w=800',
         ],
         badge: 'Günübirlik',
         prices: {
