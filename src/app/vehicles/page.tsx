@@ -20,6 +20,8 @@ interface VehiclePricing {
     vehicle_type: string;
     vehicle_name: string;
     final_price: number;
+    image_url?: string;
+    images?: string[];
     price_breakdown: {
         minimum_applied: number;
     };
@@ -209,21 +211,28 @@ export default function VehiclesPage() {
             try {
                 const distanceKm = distance ? parseFloat(distance.replace(' km', '').replace(',', '.')) : 50;
 
+                const originLatVal = fromLat ? parseFloat(fromLat) : 0;
+                const originLngVal = fromLng ? parseFloat(fromLng) : 0;
+                const destLatVal = toLat ? parseFloat(toLat) : 0;
+                const destLngVal = toLng ? parseFloat(toLng) : 0;
+                const fromAddrSafe = fromAddress || '';
+                const toAddrSafe = toAddress || '';
+
                 const response = await fetch('http://localhost:8000/api/pricing/calculate', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
-                        origin_lat: parseFloat(fromLat),
-                        origin_lng: parseFloat(fromLng),
-                        origin_name: fromAddress,
-                        destination_lat: parseFloat(toLat),
-                        destination_lng: parseFloat(toLng),
-                        destination_name: toAddress,
+                        origin_lat: originLatVal,
+                        origin_lng: originLngVal,
+                        origin_name: fromAddrSafe,
+                        destination_lat: destLatVal,
+                        destination_lng: destLngVal,
+                        destination_name: toAddrSafe,
                         distance_km: distanceKm,
                         duration_minutes: 40,
                         passenger_count: parseInt(searchParams.get('passengers') || '1'),
                         is_round_trip: searchParams.get('isRoundTrip') === 'true',
-                        is_airport_transfer: fromAddress.toLowerCase().includes('airport') || toAddress.toLowerCase().includes('airport')
+                        is_airport_transfer: fromAddrSafe.toLowerCase().includes('airport') || toAddrSafe.toLowerCase().includes('airport')
                     })
                 });
 
@@ -343,8 +352,19 @@ export default function VehiclesPage() {
     // Merge API pricing with display info
     const vehicles = vehicleDisplayInfo.map(displayVehicle => {
         const apiPricing = vehiclePricing.find(p => p.vehicle_type === displayVehicle.type);
+
+        // Use dynamic images if available from API (Multi-image support)
+        let displayImages = displayVehicle.images;
+
+        if (apiPricing?.images && apiPricing.images.length > 0) {
+            displayImages = apiPricing.images;
+        } else if (apiPricing?.image_url) {
+            displayImages = [apiPricing.image_url];
+        }
+
         return {
             ...displayVehicle,
+            images: displayImages,
             apiPricing: apiPricing || null
         };
     });
