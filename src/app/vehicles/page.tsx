@@ -25,6 +25,27 @@ interface VehiclePricing {
     };
 }
 
+// Exchange rates state (fetched from API)
+interface ExchangeRates {
+    TRY: number;
+    EUR: number;
+    USD: number;
+    GBP: number;
+}
+
+// Fallback rates (used if API fails)
+const FALLBACK_RATES: ExchangeRates = {
+    TRY: 1,
+    EUR: 0.029,
+    USD: 0.031,
+    GBP: 0.025
+};
+
+// Helper to convert price from TRY to other currencies
+const convertPrice = (tryPrice: number, currency: keyof ExchangeRates, rates: ExchangeRates): number => {
+    return Math.round(tryPrice * rates[currency]);
+};
+
 // Image Slider Component
 function VehicleImageSlider({ images, name }: { images: string[], name: string }) {
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -86,6 +107,28 @@ export default function VehiclesPage() {
     // API Pricing State
     const [vehiclePricing, setVehiclePricing] = useState<VehiclePricing[]>([]);
     const [isLoadingPrices, setIsLoadingPrices] = useState(true);
+
+    // Exchange rates state
+    const [exchangeRates, setExchangeRates] = useState<ExchangeRates>(FALLBACK_RATES);
+
+    // Fetch exchange rates from backend
+    useEffect(() => {
+        const fetchExchangeRates = async () => {
+            try {
+                const response = await fetch('http://localhost:8000/api/exchange-rates');
+                const data = await response.json();
+                if (data.rates) {
+                    setExchangeRates(data.rates);
+                    console.log('Exchange rates loaded:', data.cached ? '(cached)' : '(fresh)');
+                }
+            } catch (error) {
+                console.error('Failed to fetch exchange rates, using fallback:', error);
+                setExchangeRates(FALLBACK_RATES);
+            }
+        };
+
+        fetchExchangeRates();
+    }, []);
 
     // --- Search & Edit States ---
     const [isEditing, setIsEditing] = useState(false);
@@ -259,8 +302,8 @@ export default function VehiclesPage() {
         tripType: searchParams.get('isRoundTrip') === 'true' ? 'Gidiş-Dönüş' : 'Tek Yön'
     };
 
-    // Vehicle display info (static data)
-    const vehicles = [
+    // Vehicle display info (static UI data only - prices come from API)
+    const vehicleDisplayInfo = [
         {
             id: 1,
             type: 'luxury_sedan',
@@ -296,6 +339,15 @@ export default function VehiclesPage() {
             baggage: '1 - 14'
         }
     ];
+
+    // Merge API pricing with display info
+    const vehicles = vehicleDisplayInfo.map(displayVehicle => {
+        const apiPricing = vehiclePricing.find(p => p.vehicle_type === displayVehicle.type);
+        return {
+            ...displayVehicle,
+            apiPricing: apiPricing || null
+        };
+    });
 
     const currencySymbols = {
         TRY: '₺',
@@ -533,53 +585,72 @@ export default function VehiclesPage() {
 
                                         {/* Pricing and Action */}
                                         <div className="flex flex-col gap-4 mt-auto">
-                                            {/* Currency Options - Responsive Grid */}
-                                            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
-                                                {Object.keys(vehicle.prices).map((currency) => (
-                                                    <div key={currency} className="relative pb-3">
-                                                        <button
-                                                            onClick={() => setSelectedCurrencies(prev => ({ ...prev, [vehicle.id]: currency }))}
-                                                            className={`w-full px-2 sm:px-3 py-2.5 rounded-lg border-2 transition-all ${(selectedCurrencies[vehicle.id] || 'TRY') === currency
-                                                                ? 'border-green-500 bg-green-50'
-                                                                : 'border-gray-200 hover:border-gray-300'
-                                                                }`}
-                                                        >
-                                                            <div className="flex items-start gap-1">
-                                                                {(selectedCurrencies[vehicle.id] || 'TRY') === currency && (
-                                                                    <svg className="w-3 h-3 sm:w-4 sm:h-4 text-green-500 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                                                                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                                                                    </svg>
-                                                                )}
-                                                                <div className="text-left flex-1 min-w-0">
-                                                                    <div className="text-sm sm:text-base font-bold text-gray-900 truncate">
-                                                                        {currencySymbols[currency as keyof typeof currencySymbols]} {vehicle.prices[currency as keyof typeof vehicle.prices]}
-                                                                    </div>
-                                                                    <div className="text-[10px] text-gray-400 line-through truncate">
-                                                                        {currencySymbols[currency as keyof typeof currencySymbols]} {Math.round((vehicle.prices[currency as keyof typeof vehicle.prices] as number) * 1.25)}
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </button>
-                                                        {/* Discount badge - only show on selected currency */}
-                                                        {(selectedCurrencies[vehicle.id] || 'TRY') === currency && (
-                                                            <div className="absolute -bottom-0 left-1/2 -translate-x-1/2 bg-green-500 text-white text-[10px] font-bold px-2 py-0.5 rounded whitespace-nowrap">
-                                                                %20 indirim
-                                                            </div>
-                                                        )}
-                                                    </div>
-                                                ))}
-                                            </div>
+                                            {isLoadingPrices ? (
+                                                <div className="text-center py-8">
+                                                    <div className="w-8 h-8 border-2 border-gray-300 border-t-green-500 rounded-full animate-spin mx-auto mb-2"></div>
+                                                    <p className="text-sm text-gray-500">Fiyatlar yükleniyor...</p>
+                                                </div>
+                                            ) : !vehicle.apiPricing ? (
+                                                <div className="text-center py-8">
+                                                    <p className="text-sm text-red-500">Bu araç için fiyat bilgisi bulunamadı</p>
+                                                </div>
+                                            ) : (
+                                                <>
+                                                    {/* Currency Options - Responsive Grid */}
+                                                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                                                        {Object.keys(currencySymbols).map((currency) => {
+                                                            const currencyKey = currency as keyof ExchangeRates;
+                                                            const convertedPrice = convertPrice(vehicle.apiPricing!.final_price, currencyKey, exchangeRates);
+                                                            const originalPrice = Math.round(convertedPrice * 1.25);
 
-                                            {/* Action Section */}
-                                            <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 pt-2">
-                                                <span className="text-xs text-red-600 font-semibold text-center sm:text-left">Toplam araç fiyatıdır.</span>
-                                                <Link
-                                                    href={`/checkout?vehicleId=${vehicle.id}&currency=${selectedCurrencies[vehicle.id] || 'TRY'}`}
-                                                    className="bg-green-500 hover:bg-green-600 text-white px-6 sm:px-8 py-3 rounded-lg font-bold text-sm transition-colors shadow-md hover:shadow-lg whitespace-nowrap text-center"
-                                                >
-                                                    Rezervasyon Yap
-                                                </Link>
-                                            </div>
+                                                            return (
+                                                                <div key={currency} className="relative pb-3">
+                                                                    <button
+                                                                        onClick={() => setSelectedCurrencies(prev => ({ ...prev, [vehicle.id]: currency }))}
+                                                                        className={`w-full px-2 sm:px-3 py-2.5 rounded-lg border-2 transition-all ${(selectedCurrencies[vehicle.id] || 'TRY') === currency
+                                                                            ? 'border-green-500 bg-green-50'
+                                                                            : 'border-gray-200 hover:border-gray-300'
+                                                                            }`}
+                                                                    >
+                                                                        <div className="flex items-start gap-1">
+                                                                            {(selectedCurrencies[vehicle.id] || 'TRY') === currency && (
+                                                                                <svg className="w-3 h-3 sm:w-4 sm:h-4 text-green-500 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                                                                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                                                                                </svg>
+                                                                            )}
+                                                                            <div className="text-left flex-1 min-w-0">
+                                                                                <div className="text-sm sm:text-base font-bold text-gray-900 truncate">
+                                                                                    {currencySymbols[currencyKey]} {convertedPrice}
+                                                                                </div>
+                                                                                <div className="text-[10px] text-gray-400 line-through truncate">
+                                                                                    {currencySymbols[currencyKey]} {originalPrice}
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </button>
+                                                                    {/* Discount badge - only show on selected currency */}
+                                                                    {(selectedCurrencies[vehicle.id] || 'TRY') === currency && (
+                                                                        <div className="absolute -bottom-0 left-1/2 -translate-x-1/2 bg-green-500 text-white text-[10px] font-bold px-2 py-0.5 rounded whitespace-nowrap">
+                                                                            %20 indirim
+                                                                        </div>
+                                                                    )}
+                                                                </div>
+                                                            );
+                                                        })}
+                                                    </div>
+
+                                                    {/* Action Section */}
+                                                    <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 pt-2">
+                                                        <span className="text-xs text-red-600 font-semibold text-center sm:text-left">Toplam araç fiyatıdır.</span>
+                                                        <Link
+                                                            href={`/checkout?vehicleId=${vehicle.id}&currency=${selectedCurrencies[vehicle.id] || 'TRY'}`}
+                                                            className="bg-green-500 hover:bg-green-600 text-white px-6 sm:px-8 py-3 rounded-lg font-bold text-sm transition-colors shadow-md hover:shadow-lg whitespace-nowrap text-center"
+                                                        >
+                                                            Rezervasyon Yap
+                                                        </Link>
+                                                    </div>
+                                                </>
+                                            )}
                                         </div>
                                     </div>
                                 </div>
