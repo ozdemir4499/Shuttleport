@@ -20,10 +20,10 @@ export default function Header() {
     const navLinks = [
         { name: 'Turlar', href: '/turlar' },
         { name: 'Hakkımızda', href: '/hakkimizda' },
-        { name: 'İşveren Olun', href: '#' },
+        { name: 'İş Ortağı Ol', href: '/is-ortagi-ol' },
         { name: 'Taşıyıcı Olun', href: '#' },
         { name: 'İletişim', href: '/iletisim' },
-        { name: 'S.S.S', href: '#' },
+        { name: 'S.S.S', href: '/sss' },
     ];
 
     const isActive = (href: string) => {
