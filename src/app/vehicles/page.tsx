@@ -8,6 +8,7 @@ import { LocationAutocomplete } from '@/features/maps';
 import { mapsService } from '@/features/maps/services/maps-service';
 import { InlineDateTimePicker } from '@/features/booking/components/InlineDateTimePicker';
 import { InlinePassengerSelector } from '@/features/booking/components/InlinePassengerSelector';
+import { pricingService, type VehiclePricing, type VehicleInfo } from '@/shared/services/pricing-service';
 
 interface Location {
     lat: number;
@@ -89,6 +90,12 @@ export default function VehiclesPage() {
     const [showDatePicker, setShowDatePicker] = useState(false);
     const [showPassengerSelector, setShowPassengerSelector] = useState(false);
 
+    // Pricing data from backend
+    const [vehiclePricing, setVehiclePricing] = useState<VehiclePricing[]>([]);
+    const [vehicleInfo, setVehicleInfo] = useState<VehicleInfo[]>([]);
+    const [isLoadingPricing, setIsLoadingPricing] = useState(true);
+    const [pricingError, setPricingError] = useState<string | null>(null);
+
     const dropdownContainerRef = useRef<HTMLDivElement>(null);
 
     // Initialize states from URL parameters
@@ -132,6 +139,75 @@ export default function VehiclesPage() {
         if (roundTripParam === 'true') {
             setIsRoundTrip(true);
         }
+    }, [searchParams]);
+
+    // Fetch pricing data when page loads or search params change
+    useEffect(() => {
+        const fetchPricing = async () => {
+            const fromLat = searchParams.get('fromLat');
+            const fromLng = searchParams.get('fromLng');
+            const fromAddress = searchParams.get('fromAddress') || searchParams.get('from');
+            const toLat = searchParams.get('toLat');
+            const toLng = searchParams.get('toLng');
+            const toAddress = searchParams.get('toAddress') || searchParams.get('to');
+            const distanceText = searchParams.get('distance');
+            const durationText = searchParams.get('duration');
+            const passengersParam = searchParams.get('passengers');
+            const roundTripParam = searchParams.get('isRoundTrip');
+
+            // Check if we have required data
+            if (!fromLat || !fromLng || !fromAddress || !toLat || !toLng || !toAddress) {
+                setIsLoadingPricing(false);
+                return;
+            }
+
+            setIsLoadingPricing(true);
+            setPricingError(null);
+
+            try {
+                // Parse distance and duration
+                const distanceKm = distanceText ? parseFloat(distanceText.replace(/[^\d.]/g, '')) : 0;
+                const durationMin = durationText ? parseInt(durationText.replace(/[^\d]/g, '')) : 0;
+
+                // Check if origin or destination contains airport keywords
+                const isAirportTransfer =
+                    fromAddress.toLowerCase().includes('airport') ||
+                    fromAddress.toLowerCase().includes('havalimanı') ||
+                    fromAddress.toLowerCase().includes('havalimani') ||
+                    toAddress.toLowerCase().includes('airport') ||
+                    toAddress.toLowerCase().includes('havalimanı') ||
+                    toAddress.toLowerCase().includes('havalimani');
+
+                // Call pricing API
+                const pricingResponse = await pricingService.calculatePricing({
+                    origin_lat: parseFloat(fromLat),
+                    origin_lng: parseFloat(fromLng),
+                    origin_name: fromAddress,
+                    destination_lat: parseFloat(toLat),
+                    destination_lng: parseFloat(toLng),
+                    destination_name: toAddress,
+                    distance_km: distanceKm,
+                    duration_minutes: durationMin,
+                    passenger_count: passengersParam ? parseInt(passengersParam) : 1,
+                    is_round_trip: roundTripParam === 'true',
+                    is_airport_transfer: isAirportTransfer
+                });
+
+                setVehiclePricing(pricingResponse.vehicles);
+
+                // Also fetch vehicle info for images and features
+                const vehicles = await pricingService.getVehicles();
+                setVehicleInfo(vehicles);
+
+            } catch (error) {
+                console.error('Failed to fetch pricing:', error);
+                setPricingError('Fiyatlar yüklenirken bir hata oluştu. Lütfen tekrar deneyin.');
+            } finally {
+                setIsLoadingPricing(false);
+            }
+        };
+
+        fetchPricing();
     }, [searchParams]);
 
     const handleUpdateSearch = async () => {
@@ -191,79 +267,42 @@ export default function VehiclesPage() {
         from: searchParams.get('fromAddress') || searchParams.get('from') || 'Seçilmedi',
         to: searchParams.get('toAddress') || searchParams.get('to') || 'Seçilmedi',
         date: formatDate(searchParams.get('date')),
-        distance: searchParams.get('distance') || '-', // Will be passed from homepage eventually
+        distance: searchParams.get('distance') || '-',
         duration: searchParams.get('duration') || '-',
         passengers: searchParams.get('passengers') || 1,
         tripType: searchParams.get('isRoundTrip') === 'true' ? 'Gidiş-Dönüş' : 'Tek Yön'
     };
 
-    // Mock vehicle data
-    const vehicles = [
-        {
-            id: 1,
-            name: 'Sedan Private',
-            images: ['https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?q=80&w=800'],
-            capacity: '1-3',
-            baggage: '1 - 3',
-            features: [
-                { icon: '🧊', text: 'Soğuk İçecek' },
-                { icon: '✈️', text: 'Havalimanı Karşılama' },
-                { icon: '❌', text: 'Ücretsiz İptal' }
-            ],
-            prices: {
-                TRY: 234,
-                EUR: 58,
-                USD: 88,
-                GBP: 50
-            }
-        },
-        {
-            id: 2,
-            name: 'Mercedes Vito & VW Private',
-            images: [
-                '/images/mercedes-vito.jpg',
-                '/images/mercedes-vito-front-new.jpg',
-                '/images/mercedes-vito-int-green.jpg',
-                '/images/mercedes-vito-int-white.jpg',
-                '/images/mercedes-vito-int-tv.jpg',
-                '/images/mercedes-vito-int-red.jpg'
-            ],
-            capacity: '1-6',
-            baggage: '1 - 6',
-            features: [
-                { icon: '🧊', text: 'Soğuk İçecek' },
-                { icon: '✈️', text: 'Havalimanı Karşılama' },
-                { icon: '❌', text: 'Ücretsiz İptal' }
-            ],
-            prices: {
-                TRY: 286,
-                EUR: 61,
-                USD: 72,
-                GBP: 53
-            }
-        },
-        {
-            id: 3,
-            name: 'Mercedes Sprinter Private',
-            images: [
-                '/images/mercedes-sprinter-trees.jpg',
-                '/images/mercedes-sprinter-front-2.jpg'
-            ],
-            capacity: '1-14',
-            baggage: '1 - 14',
-            features: [
-                { icon: '🧊', text: 'Soğuk İçecek' },
-                { icon: '✈️', text: 'Havalimanı Karşılama' },
-                { icon: '❌', text: 'Ücretsiz İptal' }
-            ],
-            prices: {
-                TRY: 450,
-                EUR: 95,
-                USD: 115,
-                GBP: 85
-            }
-        }
-    ];
+    // Map vehicle type to images
+    const vehicleImages: Record<string, string[]> = {
+        'luxury_sedan': ['https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?q=80&w=800'],
+        'vito': [
+            '/images/mercedes-vito.jpg',
+            '/images/mercedes-vito-front-new.jpg',
+            '/images/mercedes-vito-int-green.jpg',
+            '/images/mercedes-vito-int-white.jpg',
+            '/images/mercedes-vito-int-tv.jpg',
+            '/images/mercedes-vito-int-red.jpg'
+        ],
+        'sprinter': [
+            '/images/mercedes-sprinter-trees.jpg',
+            '/images/mercedes-sprinter-front-2.jpg'
+        ]
+    };
+
+    // Combine pricing with vehicle info
+    const vehicles = vehiclePricing.map((pricing, index) => {
+        const info = vehicleInfo.find(v => v.type === pricing.vehicle_type);
+        return {
+            id: index + 1,
+            name: pricing.vehicle_name_tr || pricing.vehicle_name,
+            images: vehicleImages[pricing.vehicle_type] || ['/images/default-vehicle.jpg'],
+            capacity: `1-${pricing.capacity}`,
+            baggage: `1 - ${pricing.capacity}`,
+            features: info?.features || [],
+            pricing: pricing
+        };
+    });
 
     const currencySymbols = {
         TRY: '₺',
@@ -428,7 +467,36 @@ export default function VehiclesPage() {
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                     {/* Left Side - Vehicle List */}
                     <div className="lg:col-span-2 space-y-6">
-                        {vehicles.map((vehicle) => (
+                        {/* Loading State */}
+                        {isLoadingPricing && (
+                            <div className="bg-white rounded-2xl shadow-md p-12 text-center">
+                                <div className="w-16 h-16 border-4 border-[#D32F2F] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+                                <p className="text-gray-600 font-semibold">Fiyatlar hesaplanıyor...</p>
+                            </div>
+                        )}
+
+                        {/* Error State */}
+                        {pricingError && !isLoadingPricing && (
+                            <div className="bg-red-50 border border-red-200 rounded-2xl p-6 text-center">
+                                <div className="text-red-600 text-lg font-semibold mb-2">Hata</div>
+                                <p className="text-red-700">{pricingError}</p>
+                                <button
+                                    onClick={() => window.location.reload()}
+                                    className="mt-4 bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded-lg font-semibold transition-colors"
+                                >
+                                    Tekrar Dene
+                                </button>
+                            </div>
+                        )}
+
+                        {/* Vehicle List */}
+                        {!isLoadingPricing && !pricingError && vehicles.length === 0 && (
+                            <div className="bg-white rounded-2xl shadow-md p-12 text-center">
+                                <p className="text-gray-600 font-semibold">Araç bulunamadı. Lütfen arama kriterlerinizi değiştirin.</p>
+                            </div>
+                        )}
+
+                        {!isLoadingPricing && !pricingError && vehicles.map((vehicle) => (
                             <div key={vehicle.id} className="bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-lg transition-shadow border border-gray-100">
                                 <div className="flex flex-col md:flex-row">
                                     {/* Vehicle Images Slider - Left Side */}
@@ -501,41 +569,42 @@ export default function VehiclesPage() {
 
                                         {/* Pricing and Action */}
                                         <div className="flex flex-col gap-4 mt-auto">
-                                            {/* Currency Options - Responsive Grid */}
-                                            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
-                                                {Object.keys(vehicle.prices).map((currency) => (
-                                                    <div key={currency} className="relative pb-3">
-                                                        <button
-                                                            onClick={() => setSelectedCurrencies(prev => ({ ...prev, [vehicle.id]: currency }))}
-                                                            className={`w-full px-2 sm:px-3 py-2.5 rounded-lg border-2 transition-all ${(selectedCurrencies[vehicle.id] || 'TRY') === currency
-                                                                ? 'border-green-500 bg-green-50'
-                                                                : 'border-gray-200 hover:border-gray-300'
-                                                                }`}
-                                                        >
-                                                            <div className="flex items-start gap-1">
-                                                                {(selectedCurrencies[vehicle.id] || 'TRY') === currency && (
-                                                                    <svg className="w-3 h-3 sm:w-4 sm:h-4 text-green-500 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                                                                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                                                                    </svg>
-                                                                )}
-                                                                <div className="text-left flex-1 min-w-0">
-                                                                    <div className="text-sm sm:text-base font-bold text-gray-900 truncate">
-                                                                        {currencySymbols[currency as keyof typeof currencySymbols]} {vehicle.prices[currency as keyof typeof vehicle.prices]}
-                                                                    </div>
-                                                                    <div className="text-[10px] text-gray-400 line-through truncate">
-                                                                        {currencySymbols[currency as keyof typeof currencySymbols]} {Math.round((vehicle.prices[currency as keyof typeof vehicle.prices] as number) * 1.25)}
-                                                                    </div>
-                                                                </div>
+                                            {/* Price Display - Single TRY Price from Backend */}
+                                            <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
+                                                <div className="flex items-baseline justify-between">
+                                                    <div>
+                                                        <div className="text-xs text-gray-500 mb-1">Toplam Fiyat</div>
+                                                        <div className="text-3xl font-bold text-gray-900">
+                                                            ₺{vehicle.pricing.final_price.toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                                                        </div>
+                                                    </div>
+                                                    {vehicle.pricing.round_trip_discount > 0 && (
+                                                        <div className="text-right">
+                                                            <div className="text-xs text-gray-500">İndirim</div>
+                                                            <div className="text-sm font-semibold text-green-600">
+                                                                -₺{vehicle.pricing.round_trip_discount.toLocaleString('tr-TR', { minimumFractionDigits: 2 })}
                                                             </div>
-                                                        </button>
-                                                        {/* Discount badge - only show on selected currency */}
-                                                        {(selectedCurrencies[vehicle.id] || 'TRY') === currency && (
-                                                            <div className="absolute -bottom-0 left-1/2 -translate-x-1/2 bg-green-500 text-white text-[10px] font-bold px-2 py-0.5 rounded whitespace-nowrap">
-                                                                %20 indirim
+                                                        </div>
+                                                    )}
+                                                </div>
+                                                {vehicle.pricing.price_breakdown && (
+                                                    <div className="mt-3 pt-3 border-t border-gray-200 space-y-1 text-xs text-gray-600">
+                                                        <div className="flex justify-between">
+                                                            <span>Başlangıç Ücreti:</span>
+                                                            <span>₺{vehicle.pricing.base_price.toFixed(2)}</span>
+                                                        </div>
+                                                        <div className="flex justify-between">
+                                                            <span>Mesafe Ücreti:</span>
+                                                            <span>₺{vehicle.pricing.distance_price.toFixed(2)}</span>
+                                                        </div>
+                                                        {vehicle.pricing.airport_fee > 0 && (
+                                                            <div className="flex justify-between">
+                                                                <span>Havalimanı Ücreti:</span>
+                                                                <span>₺{vehicle.pricing.airport_fee.toFixed(2)}</span>
                                                             </div>
                                                         )}
                                                     </div>
-                                                ))}
+                                                )}
                                             </div>
 
                                             {/* Action Section */}
