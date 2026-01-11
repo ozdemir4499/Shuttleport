@@ -39,11 +39,11 @@ function VehicleImageSlider({ images, name }: { images: string[], name: string }
                 style={{ transform: `translateX(-${currentIndex * 100}%)` }}
             >
                 {images.map((img, idx) => (
-                    <div key={idx} className="w-full h-full flex-shrink-0">
+                    <div key={idx} className="w-full h-full flex-shrink-0 bg-gray-100">
                         <img
                             src={img}
                             alt={`${name} - ${idx + 1}`}
-                            className="w-full h-full object-cover min-h-[200px] md:min-h-[260px]"
+                            className="w-full aspect-[4/3] sm:h-64 md:h-full object-cover object-center"
                         />
                     </div>
                 ))}
@@ -51,15 +51,15 @@ function VehicleImageSlider({ images, name }: { images: string[], name: string }
 
             {/* Dots Indicators (Only if multiple images) */}
             {images.length > 1 && (
-                <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex space-x-2 z-10">
+                <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex space-x-1.5 z-20">
                     {images.map((_, idx) => (
                         <button
                             key={idx}
                             onClick={(e) => {
-                                e.preventDefault(); // Link tıklamasını engelle
+                                e.preventDefault();
                                 setCurrentIndex(idx);
                             }}
-                            className={`w-2 h-2 rounded-full transition-all duration-300 ${idx === currentIndex ? 'bg-white w-4' : 'bg-white/50 hover:bg-white/80'}`}
+                            className={`h-1.5 rounded-full transition-all duration-300 ${idx === currentIndex ? 'bg-white w-6' : 'bg-white/40 hover:bg-white/80 w-1.5'}`}
                             aria-label={`Go to slide ${idx + 1}`}
                         />
                     ))}
@@ -95,6 +95,14 @@ export default function VehiclesPage() {
     const [vehicleInfo, setVehicleInfo] = useState<VehicleInfo[]>([]);
     const [isLoadingPricing, setIsLoadingPricing] = useState(true);
     const [pricingError, setPricingError] = useState<string | null>(null);
+
+    // Exchange rates
+    const [exchangeRates, setExchangeRates] = useState({
+        TRY: 1,
+        EUR: 0.029,
+        USD: 0.031,
+        GBP: 0.025
+    });
 
     const dropdownContainerRef = useRef<HTMLDivElement>(null);
 
@@ -140,6 +148,22 @@ export default function VehiclesPage() {
             setIsRoundTrip(true);
         }
     }, [searchParams]);
+
+    // Fetch exchange rates
+    useEffect(() => {
+        const fetchExchangeRates = async () => {
+            try {
+                const response = await fetch('http://localhost:8000/api/exchange-rates');
+                if (response.ok) {
+                    const data = await response.json();
+                    setExchangeRates(data.rates);
+                }
+            } catch (error) {
+                console.error('Failed to fetch exchange rates:', error);
+            }
+        };
+        fetchExchangeRates();
+    }, []);
 
     // Fetch pricing data when page loads or search params change
     useEffect(() => {
@@ -505,9 +529,9 @@ export default function VehiclesPage() {
                                     </div>
 
                                     {/* Vehicle Info - Right Side */}
-                                    <div className="flex-1 p-6 flex flex-col">
+                                    <div className="flex-1 p-4 md:p-6 flex flex-col">
                                         {/* Header with Title and Capacity */}
-                                        <div className="flex items-start justify-between gap-4 mb-4">
+                                        <div className="flex items-start justify-between gap-4 mb-2">
                                             <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-900 flex-1 min-w-0 pr-2">{vehicle.name}</h3>
                                             <div className="flex items-center gap-2 sm:gap-3 text-xs sm:text-sm text-red-600 font-semibold flex-shrink-0">
                                                 <span className="flex items-center gap-1 whitespace-nowrap">
@@ -524,98 +548,161 @@ export default function VehiclesPage() {
                                             </div>
                                         </div>
 
-                                        <div className="border-b border-gray-200 mb-4"></div>
+                                        {/* Red accent line */}
+                                        <div className="h-0.5 bg-red-600 w-12 mb-3"></div>
 
-                                        {/* Features - Horizontal Icons */}
-                                        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-5">
-                                            <div className="flex flex-col items-center text-center">
-                                                <div className="w-10 h-10 rounded-lg bg-gray-50 flex items-center justify-center mb-1.5">
-                                                    <svg className="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1" />
-                                                    </svg>
-                                                </div>
-                                                <span className="text-[11px] text-gray-600 font-medium leading-tight">Sabit<br />Fiyat</span>
+                                        {/* Features - Horizontal inline */}
+                                        <div className="flex items-center gap-3 md:gap-4 mb-3 flex-wrap text-gray-600">
+                                            <div className="flex items-center gap-1">
+                                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                                                </svg>
+                                                <span className="text-xs">Sabit Fiyat</span>
                                             </div>
-                                            <div className="flex flex-col items-center text-center">
-                                                <div className="w-10 h-10 rounded-lg bg-gray-50 flex items-center justify-center mb-1.5">
-                                                    <svg className="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
-                                                    </svg>
-                                                </div>
-                                                <span className="text-[11px] text-gray-600 font-medium leading-tight">Uçuş<br />Takibi</span>
+                                            <div className="flex items-center gap-1">
+                                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                                                </svg>
+                                                <span className="text-xs">Uçuş Takibi</span>
                                             </div>
-                                            <div className="flex flex-col items-center text-center">
-                                                <div className="w-10 h-10 rounded-lg bg-gray-50 flex items-center justify-center mb-1.5">
-                                                    <svg className="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
-                                                    </svg>
-                                                </div>
-                                                <span className="text-[11px] text-gray-600 font-medium leading-tight">Havalimanı<br />Karşılama</span>
+                                            <div className="flex items-center gap-1">
+                                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                                </svg>
+                                                <span className="text-xs">Havalimanı Karşılama</span>
                                             </div>
-                                            <div className="flex flex-col items-center text-center">
-                                                <div className="w-10 h-10 rounded-lg bg-gray-50 flex items-center justify-center mb-1.5">
-                                                    <svg className="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                                    </svg>
-                                                </div>
-                                                <span className="text-[11px] text-gray-600 font-medium leading-tight">Ücretsiz<br />İptal</span>
+                                            <div className="flex items-center gap-1">
+                                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                                                </svg>
+                                                <span className="text-xs">Ücretsiz İptal</span>
                                             </div>
                                         </div>
 
-                                        {/* Warning Text */}
-                                        <p className="text-xs text-gray-500 mb-4">
+                                        {/* Currency selection text */}
+                                        <p className="text-xs text-gray-500 mb-3">
                                             Lütfen ödeme yapmak istediğiniz para birimi seçiniz
                                         </p>
 
-                                        {/* Pricing and Action */}
-                                        <div className="flex flex-col gap-4 mt-auto">
-                                            {/* Price Display - Single TRY Price from Backend */}
-                                            <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
-                                                <div className="flex items-baseline justify-between">
-                                                    <div>
-                                                        <div className="text-xs text-gray-500 mb-1">Toplam Fiyat</div>
-                                                        <div className="text-3xl font-bold text-gray-900">
-                                                            ₺{vehicle.pricing.final_price.toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-                                                        </div>
-                                                    </div>
-                                                    {vehicle.pricing.round_trip_discount > 0 && (
-                                                        <div className="text-right">
-                                                            <div className="text-xs text-gray-500">İndirim</div>
-                                                            <div className="text-sm font-semibold text-green-600">
-                                                                -₺{vehicle.pricing.round_trip_discount.toLocaleString('tr-TR', { minimumFractionDigits: 2 })}
-                                                            </div>
-                                                        </div>
-                                                    )}
-                                                </div>
-                                                {vehicle.pricing.price_breakdown && (
-                                                    <div className="mt-3 pt-3 border-t border-gray-200 space-y-1 text-xs text-gray-600">
-                                                        <div className="flex justify-between">
-                                                            <span>Başlangıç Ücreti:</span>
-                                                            <span>₺{vehicle.pricing.base_price.toFixed(2)}</span>
-                                                        </div>
-                                                        <div className="flex justify-between">
-                                                            <span>Mesafe Ücreti:</span>
-                                                            <span>₺{vehicle.pricing.distance_price.toFixed(2)}</span>
-                                                        </div>
-                                                        {vehicle.pricing.airport_fee > 0 && (
-                                                            <div className="flex justify-between">
-                                                                <span>Havalimanı Ücreti:</span>
-                                                                <span>₺{vehicle.pricing.airport_fee.toFixed(2)}</span>
-                                                            </div>
-                                                        )}
-                                                    </div>
-                                                )}
+                                        {/* Pricing and Action - Side by side */}
+                                        {/* Pricing and Action - Side by side */}
+                                        <div className="flex flex-col sm:flex-row items-stretch sm:items-end justify-between gap-3 mt-auto">
+                                            {/* Currency buttons */}
+                                            <div className="flex gap-1.5 flex-wrap sm:flex-nowrap">
+                                                {(() => {
+                                                    const selectedCurrency = selectedCurrencies[vehicle.id] || 'TRY';
+                                                    const hasDiscount = vehicle.pricing.round_trip_discount > 0;
+                                                    const originalPrice = hasDiscount ? vehicle.pricing.final_price + vehicle.pricing.round_trip_discount : 0;
+                                                    const discountPercentage = hasDiscount ? Math.round((vehicle.pricing.round_trip_discount / originalPrice) * 100) : 0;
+
+                                                    return (
+                                                        <>
+                                                            {/* TRY Button */}
+                                                            <button
+                                                                onClick={() => setSelectedCurrencies(prev => ({ ...prev, [vehicle.id]: 'TRY' }))}
+                                                                className={`relative min-w-[70px] px-2 py-2 rounded-lg transition-all ${selectedCurrency === 'TRY'
+                                                                    ? 'bg-white border-2 border-green-500 shadow-sm'
+                                                                    : 'bg-gray-100 border-2 border-transparent hover:bg-gray-200'
+                                                                    }`}
+                                                            >
+                                                                {selectedCurrency === 'TRY' && hasDiscount && (
+                                                                    <div className="absolute -top-2 -left-2 bg-green-500 text-white text-[9px] font-bold px-1 py-0.5 rounded flex items-center gap-0.5 whitespace-nowrap z-10">
+                                                                        <svg className="w-2.5 h-2.5" fill="currentColor" viewBox="0 0 20 20">
+                                                                            <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                                                                        </svg>
+                                                                        {discountPercentage}% İndirim
+                                                                    </div>
+                                                                )}
+                                                                <div className="flex flex-col items-center">
+                                                                    <div className="flex items-center gap-0.5 text-sm font-bold text-gray-900">
+                                                                        <span>{Math.round(vehicle.pricing.final_price)}</span>
+                                                                        <span>₺</span>
+                                                                    </div>
+                                                                    {hasDiscount && (
+                                                                        <div className="text-[10px] text-gray-400 line-through">
+                                                                            {Math.round(originalPrice)} ₺
+                                                                        </div>
+                                                                    )}
+                                                                </div>
+                                                            </button>
+
+                                                            {/* EUR Button */}
+                                                            <button
+                                                                onClick={() => setSelectedCurrencies(prev => ({ ...prev, [vehicle.id]: 'EUR' }))}
+                                                                className={`min-w-[70px] px-2 py-2 rounded-lg transition-all ${selectedCurrency === 'EUR'
+                                                                    ? 'bg-white border-2 border-green-500 shadow-sm'
+                                                                    : 'bg-gray-100 border-2 border-transparent hover:bg-gray-200'
+                                                                    }`}
+                                                            >
+                                                                <div className="flex flex-col items-center">
+                                                                    <div className="flex items-center gap-0.5 text-sm font-bold text-gray-900">
+                                                                        <span>€</span>
+                                                                        <span>{Math.round(vehicle.pricing.final_price * exchangeRates.EUR)}</span>
+                                                                    </div>
+                                                                    {hasDiscount && (
+                                                                        <div className="text-[10px] text-gray-400 line-through">
+                                                                            € {Math.round(originalPrice * exchangeRates.EUR)}
+                                                                        </div>
+                                                                    )}
+                                                                </div>
+                                                            </button>
+
+                                                            {/* USD Button */}
+                                                            <button
+                                                                onClick={() => setSelectedCurrencies(prev => ({ ...prev, [vehicle.id]: 'USD' }))}
+                                                                className={`min-w-[70px] px-2 py-2 rounded-lg transition-all ${selectedCurrency === 'USD'
+                                                                    ? 'bg-white border-2 border-green-500 shadow-sm'
+                                                                    : 'bg-gray-100 border-2 border-transparent hover:bg-gray-200'
+                                                                    }`}
+                                                            >
+                                                                <div className="flex flex-col items-center">
+                                                                    <div className="flex items-center gap-0.5 text-sm font-bold text-gray-900">
+                                                                        <span>$</span>
+                                                                        <span>{Math.round(vehicle.pricing.final_price * exchangeRates.USD)}</span>
+                                                                    </div>
+                                                                    {hasDiscount && (
+                                                                        <div className="text-[10px] text-gray-400 line-through">
+                                                                            $ {Math.round(originalPrice * exchangeRates.USD)}
+                                                                        </div>
+                                                                    )}
+                                                                </div>
+                                                            </button>
+
+                                                            {/* GBP Button */}
+                                                            <button
+                                                                onClick={() => setSelectedCurrencies(prev => ({ ...prev, [vehicle.id]: 'GBP' }))}
+                                                                className={`min-w-[70px] px-2 py-2 rounded-lg transition-all ${selectedCurrency === 'GBP'
+                                                                    ? 'bg-white border-2 border-green-500 shadow-sm'
+                                                                    : 'bg-gray-100 border-2 border-transparent hover:bg-gray-200'
+                                                                    }`}
+                                                            >
+                                                                <div className="flex flex-col items-center">
+                                                                    <div className="flex items-center gap-0.5 text-sm font-bold text-gray-900">
+                                                                        <span>£</span>
+                                                                        <span>{Math.round(vehicle.pricing.final_price * exchangeRates.GBP)}</span>
+                                                                    </div>
+                                                                    {hasDiscount && (
+                                                                        <div className="text-[10px] text-gray-400 line-through">
+                                                                            £ {Math.round(originalPrice * exchangeRates.GBP)}
+                                                                        </div>
+                                                                    )}
+                                                                </div>
+                                                            </button>
+                                                        </>
+                                                    );
+                                                })()}
                                             </div>
 
-                                            {/* Action Section */}
-                                            <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 pt-2">
-                                                <span className="text-xs text-red-600 font-semibold text-center sm:text-left">Toplam araç fiyatıdır.</span>
+                                            {/* Right side - Warning and button */}
+                                            <div className="flex flex-col items-center sm:items-end gap-1 flex-shrink-0 sm:ml-auto w-full sm:w-auto mt-2 sm:mt-0">
+                                                <span className="text-[10px] text-red-600 font-semibold text-center sm:text-right hidden sm:block">Toplam araç fiyatıdır.</span>
                                                 <Link
                                                     href={`/checkout?vehicleId=${vehicle.id}&currency=${selectedCurrencies[vehicle.id] || 'TRY'}`}
-                                                    className="bg-green-500 hover:bg-green-600 text-white px-6 sm:px-8 py-3 rounded-lg font-bold text-sm transition-colors shadow-md hover:shadow-lg whitespace-nowrap text-center"
+                                                    className="w-full sm:w-auto bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-lg font-bold text-sm transition-colors shadow-md hover:shadow-lg whitespace-nowrap text-center flex items-center justify-center h-12 sm:h-[38px]"
                                                 >
                                                     Rezervasyon Yap
                                                 </Link>
+                                                <span className="text-[10px] text-red-600 font-semibold text-center sm:text-right sm:hidden mt-1">Toplam araç fiyatıdır.</span>
                                             </div>
                                         </div>
                                     </div>
