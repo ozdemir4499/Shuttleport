@@ -23,7 +23,7 @@ declare global {
         google: any;
         initMap: () => void;
     }
-    var google: any;
+    // var google: any;
 }
 
 // Default location outside component to prevent recreation
