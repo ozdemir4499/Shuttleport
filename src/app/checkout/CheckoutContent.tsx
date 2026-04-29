@@ -12,8 +12,9 @@ export default function CheckoutContent() {
     const vehicleId = searchParams.get('vehicleId');
     const currency = searchParams.get('currency') || 'TRY';
 
-    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [paymentMethod, setPaymentMethod] = useState('credit-card');
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [errorMsg, setErrorMsg] = useState<string | null>(null);
     const [additionalServices, setAdditionalServices] = useState({
         welcomeSign: false,
         jetValet: false,
@@ -112,6 +113,8 @@ export default function CheckoutContent() {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        setIsSubmitting(true);
+        setErrorMsg(null);
 
         try {
             const bookingPayload = {
@@ -149,11 +152,13 @@ export default function CheckoutContent() {
                 localStorage.removeItem('pendingBooking'); // clear pending
                 router.push(`/confirmation?id=${data.id}`);
             } else {
-                alert('Rezervasyon oluşturulurken bir hata oluştu.');
+                setErrorMsg('Rezervasyon oluşturulurken bir hata oluştu. Lütfen tekrar deneyin.');
             }
         } catch (error) {
             console.error('Submit error:', error);
-            alert('Ağ hatası oluştu.');
+            setErrorMsg('Sunucuya bağlanılamadı. Lütfen internet bağlantınızı kontrol edin.');
+        } finally {
+            setIsSubmitting(false);
         }
     };
 
@@ -559,11 +564,17 @@ export default function CheckoutContent() {
                                 </button>
                             </div>
 
+                            {errorMsg && (
+                                <div className="mt-6 bg-red-50 text-red-600 p-4 rounded-lg text-sm border border-red-200">
+                                    {errorMsg}
+                                </div>
+                            )}
                             <button
                                 onClick={handleSubmit}
-                                className="w-full mt-6 bg-green-500 hover:bg-green-600 text-white px-8 py-4 rounded-lg font-bold text-lg transition-colors shadow-md hover:shadow-lg"
+                                disabled={isSubmitting}
+                                className={`w-full mt-6 text-white px-8 py-4 rounded-lg font-bold text-lg transition-colors shadow-md hover:shadow-lg ${isSubmitting ? 'bg-gray-400 cursor-not-allowed' : 'bg-green-500 hover:bg-green-600'}`}
                             >
-                                Ödemeyi Tamamla
+                                {isSubmitting ? 'İşleniyor...' : 'Ödemeyi Tamamla'}
                             </button>
                         </div>
                     </div>
