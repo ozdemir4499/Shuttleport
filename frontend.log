@@ -6,60 +6,36 @@
  ⚠ Port 3001 is in use, trying 3002 instead.
  ⚠ Port 3002 is in use, trying 3003 instead.
   ▲ Next.js 14.2.35
-  - Local:        http://localhost:3003
+  - Local:        http://localho ⚠ Found a change in next.config.js. Restarting the server to apply the changes...
+ ⚠ Port 3000 is in use, trying 3001 instead.
+ ⚠ Port 3001 is in use, trying 3002 instead.
+  ▲ Next.js 14.2.35
+  - Local:        http://localhost:3002
 
  ✓ Starting...
- ✓ Ready in 1130ms
- ○ Compiling / ...
- ✓ Compiled / in 2.4s (618 modules)
- ✓ Compiled in 243ms (309 modules)
- GET / 200 in 2732ms
- HEAD / 200 in 39ms
- GET / 200 in 30ms
- ✓ Compiled in 446ms (609 modules)
- ⚠ Fast Refresh had to perform a full reload due to a runtime error.
- GET / 200 in 129ms
- ✓ Compiled /turlar/[slug] in 316ms (617 modules)
- ✓ Compiled /hakkimizda in 368ms (633 modules)
- ✓ Compiled /is-ortagi-ol in 286ms (657 modules)
- ✓ Compiled /iletisim in 162ms (667 modules)
- ✓ Compiled /sss in 150ms (677 modules)
- ✓ Compiled /turlar in 471ms (662 modules)
- ✓ Compiled in 291ms (348 modules)
- ✓ Compiled in 150ms (348 modules)
- ✓ Compiled /_not-found in 189ms (665 modules)
- GET /turlar 200 in 68ms
- ✓ Compiled in 571ms (679 modules)
- ✓ Compiled /admin/pricing-rules in 417ms (669 modules)
- GET /admin/pricing-rules 200 in 517ms
- ✓ Compiled /admin in 123ms (671 modules)
- ✓ Compiled /_not-found in 98ms (674 modules)
- GET /admin/routes 404 in 49ms
- GET /admin 200 in 29ms
- GET /admin/routes 404 in 21ms
- GET /admin 200 in 22ms
- GET /admin/vehicles 404 in 21ms
- GET /admin/pricing-rules 200 in 23ms
- ✓ Compiled in 604ms (665 modules)
- ✓ Compiled in 265ms (679 modules)
- GET /admin 200 in 62ms
- ✓ Compiled /_not-found in 102ms (668 modules)
- GET /admin/routes 404 in 69ms
- GET /admin/routes 404 in 22ms
- GET /admin 200 in 25ms
- GET /admin/vehicles 404 in 18ms
- GET /admin 200 in 36ms
- GET /admin/routes 404 in 24ms
- GET /admin 200 in 25ms
- ✓ Compiled in 292ms (354 modules)
- ✓ Compiled in 301ms (684 modules)
- ✓ Compiled in 336ms (681 modules)
- ✓ Compiled in 231ms (681 modules)
- GET /admin/pricing-rules 200 in 65ms
- ✓ Compiled /_not-found in 186ms (670 modules)
- GET /admin/vehicles 404 in 61ms
- GET /admin/pricing-rules 200 in 29ms
- ✓ Compiled in 188ms (355 modules)
+Error: 
+[next-intl] Could not locate request configuration module.
+
+This path is supported by default: ./(src/)i18n/request.{js,jsx,ts,tsx}
+
+Alternatively, you can specify a custom location in your Next.js config:
+
+const withNextIntl = createNextIntlPlugin(
+  './path/to/i18n/request.tsx'
+);
+
+    at throwError (/home/bedir/Documents/code/Shuttleport_Front/node_modules/next-intl/dist/cjs/development/plugin-Har7Ebj3.cjs:21:9)
+    at resolveI18nPath (/home/bedir/Documents/code/Shuttleport_Front/node_modules/next-intl/dist/cjs/development/plugin-Har7Ebj3.cjs:1221:7)
+    at Object.webpack (/home/bedir/Documents/code/Shuttleport_Front/node_modules/next-intl/dist/cjs/development/plugin-Har7Ebj3.cjs:1393:96)
+    at getBaseWebpackConfig (/home/bedir/Documents/code/Shuttleport_Front/node_modules/next/dist/build/webpack-config.js:1838:32)
+    at async Promise.all (index 1)
+    at async Span.traceAsyncFn (/home/bedir/Documents/code/Shuttleport_Front/node_modules/next/dist/trace/trace.js:154:20)
+    at async Span.traceAsyncFn (/home/bedir/Documents/code/Shuttleport_Front/node_modules/next/dist/trace/trace.js:154:20)
+    at async HotReloaderWebpack.start (/home/bedir/Documents/code/Shuttleport_Front/node_modules/next/dist/server/dev/hot-reloader-webpack.js:621:37)
+    at async startWatcher (/home/bedir/Documents/code/Shuttleport_Front/node_modules/next/dist/server/lib/router-utils/setup-dev-bundler.js:156:5)
+    at async setupDevBundler (/home/bedir/Documents/code/Shuttleport_Front/node_modules/next/dist/server/lib/router-utils/setup-dev-bundler.js:775:20)
+[?25h
+ed in 188ms (355 modules)
  ✓ Compiled in 379ms (670 modules)
  GET / 200 in 88ms
  GET /admin/pricing-rules 200 in 87ms
@@ -208,3 +184,34 @@ Import trace for requested module:
  ✓ Compiled in 193ms (552 modules)
  ✓ Compiled in 211ms (552 modules)
  ✓ Compiled in 309ms (552 modules)
+ ✓ Compiled in 321ms (892 modules)
+ ⚠ Found a change in next.config.js. Restarting the server to apply the changes...
+ ⚠ Port 3000 is in use, trying 3001 instead.
+ ⚠ Port 3001 is in use, trying 3002 instead.
+ ⚠ Port 3002 is in use, trying 3003 instead.
+  ▲ Next.js 14.2.35
+  - Local:        http://localhost:3003
+
+ ✓ Starting...
+Error: 
+[next-intl] Could not locate request configuration module.
+
+This path is supported by default: ./(src/)i18n/request.{js,jsx,ts,tsx}
+
+Alternatively, you can specify a custom location in your Next.js config:
+
+const withNextIntl = createNextIntlPlugin(
+  './path/to/i18n/request.tsx'
+);
+
+    at throwError (/home/bedir/Documents/code/Shuttleport_Front/node_modules/next-intl/dist/cjs/development/plugin-Har7Ebj3.cjs:21:9)
+    at resolveI18nPath (/home/bedir/Documents/code/Shuttleport_Front/node_modules/next-intl/dist/cjs/development/plugin-Har7Ebj3.cjs:1221:7)
+    at Object.webpack (/home/bedir/Documents/code/Shuttleport_Front/node_modules/next-intl/dist/cjs/development/plugin-Har7Ebj3.cjs:1393:96)
+    at getBaseWebpackConfig (/home/bedir/Documents/code/Shuttleport_Front/node_modules/next/dist/build/webpack-config.js:1838:32)
+    at async Promise.all (index 1)
+    at async Span.traceAsyncFn (/home/bedir/Documents/code/Shuttleport_Front/node_modules/next/dist/trace/trace.js:154:20)
+    at async Span.traceAsyncFn (/home/bedir/Documents/code/Shuttleport_Front/node_modules/next/dist/trace/trace.js:154:20)
+    at async HotReloaderWebpack.start (/home/bedir/Documents/code/Shuttleport_Front/node_modules/next/dist/server/dev/hot-reloader-webpack.js:621:37)
+    at async startWatcher (/home/bedir/Documents/code/Shuttleport_Front/node_modules/next/dist/server/lib/router-utils/setup-dev-bundler.js:156:5)
+    at async setupDevBundler (/home/bedir/Documents/code/Shuttleport_Front/node_modules/next/dist/server/lib/router-utils/setup-dev-bundler.js:775:20)
+[?25h

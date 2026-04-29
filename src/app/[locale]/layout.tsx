@@ -1,4 +1,6 @@
 import type { Metadata } from 'next';
+import {NextIntlClientProvider} from 'next-intl';
+import {getMessages} from 'next-intl/server';
 import { Inter } from 'next/font/google';
 import './globals.css';
 
@@ -11,16 +13,21 @@ export const metadata: Metadata = {
 
 import ConditionalFooter from '@/components/layout/ConditionalFooter';
 
-export default function RootLayout({
+export default async function RootLayout({
     children,
+    params: {locale}
 }: {
     children: React.ReactNode;
+    params: {locale: string};
 }) {
+    const messages = await getMessages();
     return (
-        <html lang="tr">
+        <html lang={locale}>
             <body className={inter.className}>
-                {children}
-                <ConditionalFooter />
+                <NextIntlClientProvider messages={messages}>
+                    {children}
+                    <ConditionalFooter />
+                </NextIntlClientProvider>
             </body>
         </html>
     );
