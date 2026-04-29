@@ -150,7 +150,13 @@ export default function CheckoutContent() {
                 };
                 localStorage.setItem('reservationData', JSON.stringify(reservationData));
                 localStorage.removeItem('pendingBooking'); // clear pending
-                router.push(`/confirmation?id=${data.id}`);
+                
+                // Eğer backend bir ödeme linki (Stripe/Iyzico) döndürdüyse, oraya yönlendir
+                if (data.payment_url && !data.payment_url.includes('mock')) {
+                    window.location.href = data.payment_url;
+                } else {
+                    router.push(`/confirmation?id=${data.id}`);
+                }
             } else {
                 setErrorMsg('Rezervasyon oluşturulurken bir hata oluştu. Lütfen tekrar deneyin.');
             }
