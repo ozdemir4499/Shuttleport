@@ -12,6 +12,7 @@ export const metadata: Metadata = {
 };
 
 import ConditionalFooter from '@/components/layout/ConditionalFooter';
+import CookieBanner from '@/components/common/CookieBanner';
 
 export default async function RootLayout({
     children,
@@ -49,6 +50,7 @@ export default async function RootLayout({
             <body className={inter.className}>
                 <NextIntlClientProvider messages={messages}>
                     {children}
+                    <CookieBanner />
                     <ConditionalFooter />
                 </NextIntlClientProvider>
             </body>
