@@ -696,12 +696,31 @@ export default function VehiclesPage() {
                                             {/* Right side - Warning and button */}
                                             <div className="flex flex-col items-center sm:items-end gap-1 flex-shrink-0 sm:ml-auto w-full sm:w-auto mt-2 sm:mt-0">
                                                 <span className="text-[10px] text-red-600 font-semibold text-center sm:text-right hidden sm:block">Toplam araç fiyatıdır.</span>
-                                                <Link
-                                                    href={`/checkout?vehicleId=${vehicle.id}&currency=${selectedCurrencies[vehicle.id] || 'TRY'}`}
+                                                <button
+                                                    onClick={() => {
+                                                        const selectedCurrency = selectedCurrencies[vehicle.id] || 'TRY';
+                                                        const pendingBooking = {
+                                                            vehicle_type: vehicle.pricing.vehicle_type,
+                                                            vehicle_name: vehicle.name,
+                                                            basePrice: vehicle.pricing.final_price,
+                                                            currency: selectedCurrency,
+                                                            from: reservation.from,
+                                                            to: reservation.to,
+                                                            date: reservation.date,
+                                                            distance: reservation.distance,
+                                                            duration: reservation.duration,
+                                                            passengers: reservation.passengers,
+                                                            tripType: reservation.tripType,
+                                                            rawDate: searchParams.get('date'),
+                                                            exchangeRate: exchangeRates[selectedCurrency as keyof typeof exchangeRates] || 1
+                                                        };
+                                                        localStorage.setItem('pendingBooking', JSON.stringify(pendingBooking));
+                                                        router.push(`/checkout`);
+                                                    }}
                                                     className="w-full sm:w-auto bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-lg font-bold text-sm transition-colors shadow-md hover:shadow-lg whitespace-nowrap text-center flex items-center justify-center h-12 sm:h-[38px]"
                                                 >
                                                     Rezervasyon Yap
-                                                </Link>
+                                                </button>
                                                 <span className="text-[10px] text-red-600 font-semibold text-center sm:text-right sm:hidden mt-1">Toplam araç fiyatıdır.</span>
                                             </div>
                                         </div>

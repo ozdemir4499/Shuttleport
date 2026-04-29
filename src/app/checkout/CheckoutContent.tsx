@@ -37,21 +37,35 @@ export default function CheckoutContent() {
         flightNumber: ''
     });
 
-    // Mock data - gerçek uygulamada bu veriler state/context'ten gelecek
+    // Load pending booking from vehicles page
+    const [pendingBooking, setPendingBooking] = useState<any>(null);
+
+    useEffect(() => {
+        const stored = localStorage.getItem('pendingBooking');
+        if (stored) {
+            setPendingBooking(JSON.parse(stored));
+        } else {
+            // Optional: redirect to home if no booking data
+            // router.push('/');
+        }
+    }, [router]);
+
     const reservation = {
-        from: 'Sabiha Gökçen Havalimanı (SAW), Sanayi, Pendik, İstanbul, Türkiye',
-        to: 'Fatih, İstanbul, Türkiye',
-        date: '01/01/2026 - 12:45',
-        distance: '44 KM',
-        duration: '47 Dk',
-        passengers: 1,
-        luggage: 6,
-        tripType: 'HAYIR'
+        from: pendingBooking?.from || 'Seçilmedi',
+        to: pendingBooking?.to || 'Seçilmedi',
+        date: pendingBooking?.date || '',
+        distance: pendingBooking?.distance || '',
+        duration: pendingBooking?.duration || '',
+        passengers: pendingBooking?.passengers || 1,
+        luggage: pendingBooking?.passengers || 1,
+        tripType: pendingBooking?.tripType || 'Tek Yön',
+        rawDate: pendingBooking?.rawDate || new Date().toISOString()
     };
 
     const vehicle = {
-        name: 'Mercedes Vito & VW Özel',
-        basePrice: 3086
+        name: pendingBooking?.vehicle_name || 'Araç',
+        basePrice: pendingBooking?.basePrice ? Math.round(pendingBooking.basePrice * (pendingBooking.exchangeRate || 1)) : 0,
+        currency: pendingBooking?.currency || 'TRY'
     };
 
     const services = [
@@ -96,46 +110,51 @@ export default function CheckoutContent() {
         }));
     };
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
-        // Generate reservation ID
-        const reservationId = Math.floor(100000 + Math.random() * 900000).toString();
+        try {
+            const bookingPayload = {
+                customer_name: `${formData.firstName} ${formData.lastName}`,
+                customer_email: formData.email,
+                customer_phone: formData.phone,
+                origin: reservation.from,
+                destination: reservation.to,
+                transfer_datetime: reservation.rawDate,
+                flight_number: formData.flightNumber || null,
+                passengers: parseInt(String(reservation.passengers)) || 1,
+                vehicle_type: vehicle.name,
+                total_price: calculateTotal(),
+                currency: vehicle.currency,
+                notes: formData.notes || null
+            };
 
-        // Collect selected services
-        const selectedServices = services.filter(
-            service => additionalServices[service.id as keyof typeof additionalServices]
-        );
+            const res = await fetch('http://localhost:8000/api/bookings', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(bookingPayload)
+            });
 
-        // Prepare reservation data
-        const reservationData = {
-            id: reservationId,
-            passengerName: `${formData.firstName} ${formData.lastName}`,
-            email: formData.email,
-            phone: formData.phone,
-            flightNumber: formData.flightNumber,
-            from: reservation.from,
-            to: reservation.to,
-            date: reservation.date,
-            vehicle: vehicle.name,
-            distance: reservation.distance,
-            duration: reservation.duration,
-            passengers: reservation.passengers,
-            tripType: reservation.tripType,
-            basePrice: vehicle.basePrice,
-            additionalServices: selectedServices,
-            total: calculateTotal(),
-            paymentMethod: paymentMethod === 'credit-card'
-                ? 'Kredi Kartı ile Ödeme'
-                : 'Seyahat Günü, Araçta Nakit Ödeme',
-            notes: formData.notes
-        };
-
-        // Save to localStorage
-        localStorage.setItem('reservationData', JSON.stringify(reservationData));
-
-        // Navigate to confirmation page
-        router.push(`/confirmation?id=${reservationId}`);
+            if (res.ok) {
+                const data = await res.json();
+                const reservationData = {
+                    ...bookingPayload,
+                    id: data.id,
+                    paymentMethod: paymentMethod === 'credit-card' ? 'Kredi Kartı ile Ödeme' : 'Seyahat Günü Nakit',
+                    date: reservation.date,
+                    distance: reservation.distance,
+                    duration: reservation.duration
+                };
+                localStorage.setItem('reservationData', JSON.stringify(reservationData));
+                localStorage.removeItem('pendingBooking'); // clear pending
+                router.push(`/confirmation?id=${data.id}`);
+            } else {
+                alert('Rezervasyon oluşturulurken bir hata oluştu.');
+            }
+        } catch (error) {
+            console.error('Submit error:', error);
+            alert('Ağ hatası oluştu.');
+        }
     };
 
     return (
@@ -453,7 +472,7 @@ export default function CheckoutContent() {
                                         <div className="flex items-start justify-between mb-2">
                                             <div className="flex-1">
                                                 <div className="text-sm font-semibold text-gray-900 mb-1">{service.name}</div>
-                                                <div className="text-lg font-bold text-gray-900">{service.price}₺</div>
+                                                <div className="text-lg font-bold text-gray-900">{service.price}{currencySymbols[vehicle.currency as keyof typeof currencySymbols] || '₺'}</div>
                                             </div>
                                             {additionalServices[service.id as keyof typeof additionalServices] && (
                                                 <Check className="w-5 h-5 text-green-500 flex-shrink-0" />
@@ -498,9 +517,9 @@ export default function CheckoutContent() {
                                                     <div className="text-sm text-gray-500">Tamamını kredi kartı ile güvenli olarak ödeyin.</div>
                                                 </div>
                                                 <div className="text-right ml-4">
-                                                    <div className="text-2xl font-bold text-gray-900">{Math.round(calculateTotal() * 1.04)}₺</div>
+                                                    <div className="text-2xl font-bold text-gray-900">{Math.round(calculateTotal() * 1.04)}{currencySymbols[vehicle.currency as keyof typeof currencySymbols] || '₺'}</div>
                                                     <div className="text-xs text-red-600 mt-1">
-                                                        ({calculateTotal()}₺ + %4 Kart Ücreti {Math.round(calculateTotal() * 0.04)}₺)
+                                                        ({calculateTotal()}{currencySymbols[vehicle.currency as keyof typeof currencySymbols] || '₺'} + %4 Kart Ücreti {Math.round(calculateTotal() * 0.04)}{currencySymbols[vehicle.currency as keyof typeof currencySymbols] || '₺'})
                                                     </div>
                                                 </div>
                                             </div>
@@ -532,7 +551,7 @@ export default function CheckoutContent() {
                                                     <div className="text-sm text-gray-500">Ödemenizin tamamını yolculuk günü ödeyin.</div>
                                                 </div>
                                                 <div className="text-right ml-4">
-                                                    <div className="text-2xl font-bold text-gray-900">{calculateTotal()}₺</div>
+                                                    <div className="text-2xl font-bold text-gray-900">{calculateTotal()}{currencySymbols[vehicle.currency as keyof typeof currencySymbols] || '₺'}</div>
                                                 </div>
                                             </div>
                                         </div>
@@ -624,20 +643,20 @@ export default function CheckoutContent() {
                                 <div className="space-y-3">
                                     <div className="flex items-center justify-between text-sm">
                                         <span className="text-gray-600">{vehicle.name}</span>
-                                        <span className="font-semibold text-gray-900">{vehicle.basePrice}₺</span>
+                                        <span className="font-semibold text-gray-900">{vehicle.basePrice}{currencySymbols[vehicle.currency as keyof typeof currencySymbols] || '₺'}</span>
                                     </div>
                                     {services.map((service) => (
                                         additionalServices[service.id as keyof typeof additionalServices] && (
                                             <div key={service.id} className="flex items-center justify-between text-sm">
                                                 <span className="text-gray-600">{service.name}</span>
-                                                <span className="font-semibold text-gray-900">{service.price}₺</span>
+                                                <span className="font-semibold text-gray-900">{service.price}{currencySymbols[vehicle.currency as keyof typeof currencySymbols] || '₺'}</span>
                                             </div>
                                         )
                                     ))}
                                     <div className="pt-3 border-t border-gray-200">
                                         <div className="flex items-center justify-between">
                                             <span className="text-base font-bold text-gray-900">Genel Toplam</span>
-                                            <span className="text-xl font-bold text-gray-900">{calculateTotal()}₺</span>
+                                            <span className="text-xl font-bold text-gray-900">{calculateTotal()}{currencySymbols[vehicle.currency as keyof typeof currencySymbols] || '₺'}</span>
                                         </div>
                                     </div>
                                 </div>

@@ -1,0 +1,206 @@
+
+> shuttleport-mvp@0.1.0 dev
+> next dev
+
+ ⚠ Port 3000 is in use, trying 3001 instead.
+ ⚠ Port 3001 is in use, trying 3002 instead.
+ ⚠ Port 3002 is in use, trying 3003 instead.
+  ▲ Next.js 14.2.35
+  - Local:        http://localhost:3003
+
+ ✓ Starting...
+ ✓ Ready in 1130ms
+ ○ Compiling / ...
+ ✓ Compiled / in 2.4s (618 modules)
+ ✓ Compiled in 243ms (309 modules)
+ GET / 200 in 2732ms
+ HEAD / 200 in 39ms
+ GET / 200 in 30ms
+ ✓ Compiled in 446ms (609 modules)
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ GET / 200 in 129ms
+ ✓ Compiled /turlar/[slug] in 316ms (617 modules)
+ ✓ Compiled /hakkimizda in 368ms (633 modules)
+ ✓ Compiled /is-ortagi-ol in 286ms (657 modules)
+ ✓ Compiled /iletisim in 162ms (667 modules)
+ ✓ Compiled /sss in 150ms (677 modules)
+ ✓ Compiled /turlar in 471ms (662 modules)
+ ✓ Compiled in 291ms (348 modules)
+ ✓ Compiled in 150ms (348 modules)
+ ✓ Compiled /_not-found in 189ms (665 modules)
+ GET /turlar 200 in 68ms
+ ✓ Compiled in 571ms (679 modules)
+ ✓ Compiled /admin/pricing-rules in 417ms (669 modules)
+ GET /admin/pricing-rules 200 in 517ms
+ ✓ Compiled /admin in 123ms (671 modules)
+ ✓ Compiled /_not-found in 98ms (674 modules)
+ GET /admin/routes 404 in 49ms
+ GET /admin 200 in 29ms
+ GET /admin/routes 404 in 21ms
+ GET /admin 200 in 22ms
+ GET /admin/vehicles 404 in 21ms
+ GET /admin/pricing-rules 200 in 23ms
+ ✓ Compiled in 604ms (665 modules)
+ ✓ Compiled in 265ms (679 modules)
+ GET /admin 200 in 62ms
+ ✓ Compiled /_not-found in 102ms (668 modules)
+ GET /admin/routes 404 in 69ms
+ GET /admin/routes 404 in 22ms
+ GET /admin 200 in 25ms
+ GET /admin/vehicles 404 in 18ms
+ GET /admin 200 in 36ms
+ GET /admin/routes 404 in 24ms
+ GET /admin 200 in 25ms
+ ✓ Compiled in 292ms (354 modules)
+ ✓ Compiled in 301ms (684 modules)
+ ✓ Compiled in 336ms (681 modules)
+ ✓ Compiled in 231ms (681 modules)
+ GET /admin/pricing-rules 200 in 65ms
+ ✓ Compiled /_not-found in 186ms (670 modules)
+ GET /admin/vehicles 404 in 61ms
+ GET /admin/pricing-rules 200 in 29ms
+ ✓ Compiled in 188ms (355 modules)
+ ✓ Compiled in 379ms (670 modules)
+ GET / 200 in 88ms
+ GET /admin/pricing-rules 200 in 87ms
+ ✓ Compiled /admin/routes in 255ms (676 modules)
+ ✓ Compiled in 167ms (357 modules)
+ ✓ Compiled in 272ms (683 modules)
+ GET /admin/vehicles 404 in 62ms
+ GET /admin/vehicles 404 in 23ms
+ GET /admin/vehicles 404 in 20ms
+ GET /admin/vehicles 404 in 25ms
+ GET /admin/vehicles 404 in 22ms
+ GET /admin/vehicles 404 in 20ms
+ GET /admin/routes 200 in 33ms
+ ✓ Compiled in 599ms (683 modules)
+ ✓ Compiled /admin/vehicles in 184ms (675 modules)
+ ✓ Compiled in 431ms (677 modules)
+ ✓ Compiled in 188ms (358 modules)
+ ✓ Compiled /_not-found in 310ms (666 modules)
+ GET /admin/vehicles 200 in 59ms
+ GET /admin/vehicles 200 in 31ms
+ ✓ Compiled /admin/bookings in 254ms (669 modules)
+ ✓ Compiled in 280ms (360 modules)
+ ✓ Compiled in 219ms (360 modules)
+ ✓ Compiled in 695ms (678 modules)
+ ⨯ ./src/app/admin/layout.tsx
+Error: 
+  [31mx[0m You're importing a component that needs useRouter. It only works in a Client Component but none of its parents are marked with "use client", so they're Server Components by default.
+  [31m|[0m Learn more: https://nextjs.org/docs/getting-started/react-essentials
+  [31m|[0m 
+  [31m|[0m 
+   ,-[[36;1;4m/home/bedir/Documents/code/Shuttleport_Front/src/app/admin/layout.tsx[0m:1:1]
+ [2m1[0m | import React from 'react';
+ [2m2[0m | import Link from 'next/link';
+ [2m3[0m | import { useRouter } from 'next/navigation';
+   : [31;1m         ^^^^^^^^^[0m
+ [2m4[0m | import { useEffect, useState } from 'react';
+ [2m5[0m | 
+ [2m6[0m | export default function AdminLayout({ children }: { children: React.ReactNode }) {
+   `----
+
+  [31mx[0m You're importing a component that needs useEffect. It only works in a Client Component but none of its parents are marked with "use client", so they're Server Components by default.
+  [31m|[0m Learn more: https://nextjs.org/docs/getting-started/react-essentials
+  [31m|[0m 
+  [31m|[0m 
+   ,-[[36;1;4m/home/bedir/Documents/code/Shuttleport_Front/src/app/admin/layout.tsx[0m:1:1]
+ [2m1[0m | import React from 'react';
+ [2m2[0m | import Link from 'next/link';
+ [2m3[0m | import { useRouter } from 'next/navigation';
+ [2m4[0m | import { useEffect, useState } from 'react';
+   : [31;1m         ^^^^^^^^^[0m
+ [2m5[0m | 
+ [2m6[0m | export default function AdminLayout({ children }: { children: React.ReactNode }) {
+ [2m7[0m |   const router = useRouter();
+   `----
+
+  [31mx[0m You're importing a component that needs useState. It only works in a Client Component but none of its parents are marked with "use client", so they're Server Components by default.
+  [31m|[0m Learn more: https://nextjs.org/docs/getting-started/react-essentials
+  [31m|[0m 
+  [31m|[0m 
+   ,-[[36;1;4m/home/bedir/Documents/code/Shuttleport_Front/src/app/admin/layout.tsx[0m:1:1]
+ [2m1[0m | import React from 'react';
+ [2m2[0m | import Link from 'next/link';
+ [2m3[0m | import { useRouter } from 'next/navigation';
+ [2m4[0m | import { useEffect, useState } from 'react';
+   : [31;1m                    ^^^^^^^^[0m
+ [2m5[0m | 
+ [2m6[0m | export default function AdminLayout({ children }: { children: React.ReactNode }) {
+ [2m7[0m |   const router = useRouter();
+   `----
+
+Import trace for requested module:
+./src/app/admin/layout.tsx
+ ○ Compiling /_error ...
+ ⨯ ./src/app/admin/layout.tsx
+Error: 
+  [31mx[0m You're importing a component that needs useRouter. It only works in a Client Component but none of its parents are marked with "use client", so they're Server Components by default.
+  [31m|[0m Learn more: https://nextjs.org/docs/getting-started/react-essentials
+  [31m|[0m 
+  [31m|[0m 
+   ,-[[36;1;4m/home/bedir/Documents/code/Shuttleport_Front/src/app/admin/layout.tsx[0m:1:1]
+ [2m1[0m | import React from 'react';
+ [2m2[0m | import Link from 'next/link';
+ [2m3[0m | import { useRouter } from 'next/navigation';
+   : [31;1m         ^^^^^^^^^[0m
+ [2m4[0m | import { useEffect, useState } from 'react';
+ [2m5[0m | 
+ [2m6[0m | export default function AdminLayout({ children }: { children: React.ReactNode }) {
+   `----
+
+  [31mx[0m You're importing a component that needs useEffect. It only works in a Client Component but none of its parents are marked with "use client", so they're Server Components by default.
+  [31m|[0m Learn more: https://nextjs.org/docs/getting-started/react-essentials
+  [31m|[0m 
+  [31m|[0m 
+   ,-[[36;1;4m/home/bedir/Documents/code/Shuttleport_Front/src/app/admin/layout.tsx[0m:1:1]
+ [2m1[0m | import React from 'react';
+ [2m2[0m | import Link from 'next/link';
+ [2m3[0m | import { useRouter } from 'next/navigation';
+ [2m4[0m | import { useEffect, useState } from 'react';
+   : [31;1m         ^^^^^^^^^[0m
+ [2m5[0m | 
+ [2m6[0m | export default function AdminLayout({ children }: { children: React.ReactNode }) {
+ [2m7[0m |   const router = useRouter();
+   `----
+
+  [31mx[0m You're importing a component that needs useState. It only works in a Client Component but none of its parents are marked with "use client", so they're Server Components by default.
+  [31m|[0m Learn more: https://nextjs.org/docs/getting-started/react-essentials
+  [31m|[0m 
+  [31m|[0m 
+   ,-[[36;1;4m/home/bedir/Documents/code/Shuttleport_Front/src/app/admin/layout.tsx[0m:1:1]
+ [2m1[0m | import React from 'react';
+ [2m2[0m | import Link from 'next/link';
+ [2m3[0m | import { useRouter } from 'next/navigation';
+ [2m4[0m | import { useEffect, useState } from 'react';
+   : [31;1m                    ^^^^^^^^[0m
+ [2m5[0m | 
+ [2m6[0m | export default function AdminLayout({ children }: { children: React.ReactNode }) {
+ [2m7[0m |   const router = useRouter();
+   `----
+
+Import trace for requested module:
+./src/app/admin/layout.tsx
+ GET / 500 in 29ms
+ GET /admin/bookings 500 in 48ms
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, rename '/home/bedir/Documents/code/Shuttleport_Front/.next/cache/webpack/client-development-fallback/0.pack.gz_' -> '/home/bedir/Documents/code/Shuttleport_Front/.next/cache/webpack/client-development-fallback/0.pack.gz'
+ ✓ Compiled /_not-found in 655ms (896 modules)
+ GET /_next/static/webpack/643ce56b4c17ee6c.webpack.hot-update.json 404 in 876ms
+ GET / 200 in 239ms
+ GET /admin/bookings 200 in 240ms
+ ✓ Compiled /admin/login in 191ms (902 modules)
+ ✓ Compiled in 357ms (913 modules)
+ ✓ Compiled in 264ms (551 modules)
+ ✓ Compiled in 337ms (911 modules)
+ ✓ Compiled in 347ms (911 modules)
+ ✓ Compiled /admin in 108ms (363 modules)
+ GET /admin 200 in 205ms
+ ✓ Compiled in 357ms (911 modules)
+ ✓ Compiled /admin/pricing-rules in 170ms (368 modules)
+ ✓ Compiled in 262ms (548 modules)
+ ✓ Compiled in 666ms (914 modules)
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ GET / 200 in 234ms
+ GET /admin 200 in 236ms
+ GET / 200 in 25ms
