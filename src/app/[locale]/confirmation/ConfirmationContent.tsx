@@ -6,12 +6,42 @@ import { useSearchParams } from 'next/navigation';
 import { MapPin, Calendar, Users, Clock, Instagram, Globe, MessageCircle, User, ChevronDown, Menu, X, Check, Printer, Phone } from 'lucide-react';
 
 
+interface ReservationData {
+    id?: string | number;
+    customer_name?: string;
+    passengerName?: string;
+    customer_email?: string;
+    email?: string;
+    customer_phone?: string;
+    phone?: string;
+    paymentMethod?: string;
+    basePrice?: number;
+    total?: number;
+    total_price?: number;
+    currency?: string;
+    from?: string;
+    to?: string;
+    origin?: string;
+    destination?: string;
+    date?: string;
+    distance?: string;
+    duration?: string;
+    passengers?: number;
+    vehicle_type?: string;
+    vehicle?: string;
+    tripType?: string;
+    flightNumber?: string;
+    flight_number?: string;
+    notes?: string;
+    additionalServices?: Array<{name: string, price: number}>;
+}
+
 export default function ConfirmationContent() {
     const searchParams = useSearchParams();
     const reservationId = searchParams.get('id') || '1452134';
 
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-    const [reservation, setReservation] = useState<any>(null);
+    const [reservation, setReservation] = useState<ReservationData | null>(null);
 
     useEffect(() => {
         // Read reservation data from localStorage
@@ -343,7 +373,7 @@ export default function ConfirmationContent() {
                                 {reservation.additionalServices && reservation.additionalServices.length > 0 && (
                                     <>
                                         <div className="text-xs text-gray-500 uppercase font-medium">EK HİZMETLER</div>
-                                        {reservation.additionalServices.map((service: any, index: number) => (
+                                        {(reservation.additionalServices || []).map((service, index: number) => (
                                             <div key={index} className="flex items-start gap-2 text-sm">
                                                 <Check className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
                                                 <div className="flex-1 flex items-center justify-between">

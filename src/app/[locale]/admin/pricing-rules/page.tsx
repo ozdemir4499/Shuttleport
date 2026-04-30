@@ -74,7 +74,7 @@ export default function PricingRulesPage() {
     }
   };
 
-  const handleSaveRule = async (ruleData: any) => {
+  const handleSaveRule = async (ruleData: Record<string, unknown>) => {
     try {
       const token = localStorage.getItem('adminToken');
       const res = await fetch(`http://localhost:8000/api/admin/rules`, {
@@ -92,9 +92,9 @@ export default function PricingRulesPage() {
         alert("Kaydetme hatası: " + errText);
         throw new Error(errText);
       }
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error("Error creating rule:", error);
-      alert("Ağ hatası: " + error.message);
+      alert("Ağ hatası: " + (error as Error).message);
       throw error;
     }
   };

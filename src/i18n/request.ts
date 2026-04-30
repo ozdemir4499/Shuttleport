@@ -8,7 +8,7 @@ export default getRequestConfig(async ({locale}) => {
   const currentLocale = locale || 'tr';
   
   // Validate that the incoming `locale` parameter is valid
-  if (!locales.includes(currentLocale as any)) notFound();
+  if (!locales.includes(currentLocale as string)) notFound();
 
   return {
     locale: currentLocale,

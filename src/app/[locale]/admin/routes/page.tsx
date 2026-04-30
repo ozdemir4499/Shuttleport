@@ -58,7 +58,7 @@ export default function RoutesPage() {
     }
   };
 
-  const handleSaveRoute = async (routeData: any) => {
+  const handleSaveRoute = async (routeData: Record<string, unknown>) => {
     try {
       const token = localStorage.getItem('adminToken');
       const res = await fetch(`http://localhost:8000/api/admin/routes`, {
@@ -76,9 +76,9 @@ export default function RoutesPage() {
         alert("Kaydetme hatası: " + errText);
         throw new Error(errText);
       }
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error("Error creating route:", error);
-      alert("Ağ hatası: " + error.message);
+      alert("Ağ hatası: " + (error as Error).message);
       throw error;
     }
   };

@@ -41,7 +41,7 @@ export default function CheckoutContent() {
     });
 
     // Load pending booking from vehicles page
-    const [pendingBooking, setPendingBooking] = useState<any>(null);
+    const [pendingBooking, setPendingBooking] = useState<Record<string, unknown> | null>(null);
     const [passengerNames, setPassengerNames] = useState<Array<{fullName: string}>>([]);
 
     useEffect(() => {
@@ -61,21 +61,21 @@ export default function CheckoutContent() {
     }, [router]);
 
     const reservation = {
-        from: pendingBooking?.from || 'Seçilmedi',
-        to: pendingBooking?.to || 'Seçilmedi',
-        date: pendingBooking?.date || '',
-        distance: pendingBooking?.distance || '',
-        duration: pendingBooking?.duration || '',
-        passengers: pendingBooking?.passengers || 1,
-        luggage: pendingBooking?.passengers || 1,
-        tripType: pendingBooking?.tripType || 'Tek Yön',
-        rawDate: pendingBooking?.rawDate || new Date().toISOString()
+        from: (pendingBooking?.from as string) || 'Seçilmedi',
+        to: (pendingBooking?.to as string) || 'Seçilmedi',
+        date: (pendingBooking?.date as string) || '',
+        distance: (pendingBooking?.distance as string) || '',
+        duration: (pendingBooking?.duration as string) || '',
+        passengers: Number(pendingBooking?.passengers) || 1,
+        luggage: Number(pendingBooking?.passengers) || 1,
+        tripType: (pendingBooking?.tripType as string) || 'Tek Yön',
+        rawDate: (pendingBooking?.rawDate as string) || new Date().toISOString()
     };
 
     const vehicle = {
-        name: pendingBooking?.vehicle_name || 'Araç',
-        basePrice: pendingBooking?.basePrice ? Math.round(pendingBooking.basePrice * (pendingBooking.exchangeRate || 1)) : 0,
-        currency: pendingBooking?.currency || 'TRY'
+        name: (pendingBooking?.vehicle_name as string) || 'Araç',
+        basePrice: pendingBooking?.basePrice ? Math.round(Number(pendingBooking.basePrice) * Number(pendingBooking.exchangeRate || 1)) : 0,
+        currency: (pendingBooking?.currency as string) || 'TRY'
     };
 
     const services = [
