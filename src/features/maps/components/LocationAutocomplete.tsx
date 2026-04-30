@@ -20,6 +20,7 @@ interface LocationAutocompleteProps {
     onActivate: () => void;
     onDeactivate: () => void;
     dropdownPortalRef?: React.RefObject<HTMLDivElement | null>;
+    dropdownPosition?: 'bottom' | 'right';
 }
 
 // İkon seçici - konum tipine göre
@@ -44,6 +45,7 @@ export function LocationAutocomplete({
     onActivate,
     onDeactivate,
     dropdownPortalRef,
+    dropdownPosition = 'bottom',
 }: LocationAutocompleteProps) {
     interface SearchResult { place_id?: string; description?: string; structured_formatting?: { main_text: string; secondary_text: string }; lat: number; lng: number; address: string; name: string; [key: string]: unknown; }
     const [searchQuery, setSearchQuery] = useState('');
@@ -245,7 +247,11 @@ export function LocationAutocomplete({
                 dropdownPortalRef?.current ? (
                     // Portal: Render dropdown inside parent container
                     require('react-dom').createPortal(
-                        <div className="absolute left-0 right-0 top-full mt-2 bg-white rounded-xl shadow-2xl border border-gray-100 max-h-80 overflow-y-auto z-50">
+                        <div className={`absolute z-50 bg-white rounded-xl shadow-2xl border border-gray-100 max-h-80 overflow-y-auto ${
+                            dropdownPosition === 'right' 
+                                ? 'left-full top-0 ml-4 w-80' 
+                                : 'left-0 right-0 top-full mt-2'
+                        }`}>
                             {isLoading ? (
                                 <div className="px-4 py-6 text-center text-gray-500">
                                     <div className="flex items-center justify-center space-x-2">
@@ -282,7 +288,11 @@ export function LocationAutocomplete({
                     )
                 ) : (
                     // Inline: Render dropdown inside component
-                    <div className="absolute left-0 right-0 mt-2 bg-white rounded-xl shadow-2xl border border-gray-100 max-h-80 overflow-y-auto z-50">
+                    <div className={`absolute z-50 bg-white rounded-xl shadow-2xl border border-gray-100 max-h-80 overflow-y-auto ${
+                        dropdownPosition === 'right' 
+                            ? 'left-full top-0 ml-4 w-80' 
+                            : 'left-0 right-0 top-full mt-2'
+                    }`}>
                         {isLoading ? (
                             <div className="px-4 py-6 text-center text-gray-500">
                                 <div className="flex items-center justify-center space-x-2">
@@ -322,7 +332,11 @@ export function LocationAutocomplete({
             {isActive && searchQuery.length === 0 && searchResults.length === 0 && !isLoading && (
                 dropdownPortalRef?.current ? (
                     require('react-dom').createPortal(
-                        <div className="absolute left-0 right-0 top-full mt-2 bg-white rounded-xl shadow-2xl border border-gray-100 p-4 z-50">
+                        <div className={`absolute z-50 bg-white rounded-xl shadow-2xl border border-gray-100 p-4 ${
+                            dropdownPosition === 'right' 
+                                ? 'left-full top-0 ml-4 w-80' 
+                                : 'left-0 right-0 top-full mt-2'
+                        }`}>
                             <div className="text-sm text-gray-500 text-center">
                                 Adres, havalimanı, otel veya hastane arayın...
                             </div>
@@ -330,7 +344,11 @@ export function LocationAutocomplete({
                         dropdownPortalRef.current
                     )
                 ) : (
-                    <div className="absolute left-0 right-0 mt-2 bg-white rounded-xl shadow-2xl border border-gray-100 p-4 z-50">
+                    <div className={`absolute z-50 bg-white rounded-xl shadow-2xl border border-gray-100 p-4 ${
+                        dropdownPosition === 'right' 
+                            ? 'left-full top-0 ml-4 w-80' 
+                            : 'left-0 right-0 top-full mt-2'
+                    }`}>
                         <div className="text-sm text-gray-500 text-center">
                             Adres, havalimanı, otel veya hastane arayın...
                         </div>

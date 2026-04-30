@@ -3,6 +3,8 @@ import React, { useEffect, useState } from 'react';
 import DatePicker, { registerLocale } from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { tr } from 'date-fns/locale';
+import OperationMapModal from './OperationMapModal';
+import { LocationAutocomplete } from '@/features/maps/components/LocationAutocomplete';
 
 registerLocale('tr', tr);
 
@@ -32,8 +34,11 @@ export default function BookingsPage() {
   const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
   const [editingBookingId, setEditingBookingId] = useState<number | null>(null);
   const [filterDate, setFilterDate] = useState<Date | null>(null);
+  const [isMapModalOpen, setIsMapModalOpen] = useState(false);
+  const [mapBooking, setMapBooking] = useState<Booking | null>(null);
   const [selectedBooking, setSelectedBooking] = useState<Booking | null>(null);
   const [isCopied, setIsCopied] = useState(false);
+  const [activeInput, setActiveInput] = useState<'origin' | 'destination' | null>(null);
   const [formData, setFormData] = useState({
     customer_name: '',
     phone_code: '+90',
@@ -296,6 +301,11 @@ export default function BookingsPage() {
   const openDetailModal = (booking: Booking) => {
     setSelectedBooking(booking);
     setIsDetailModalOpen(true);
+  };
+
+  const openMapModal = (booking: Booking) => {
+    setMapBooking(booking);
+    setIsMapModalOpen(true);
   };
 
   const handleCopyDetails = (booking: Booking) => {
@@ -599,7 +609,12 @@ Misafir Bilgisi:
               {filteredBookings.map((b) => (
                 <tr key={b.id} className="hover:bg-indigo-50/40 transition-all duration-300 group relative">
                   <td className="px-3 py-4 whitespace-nowrap">
-                    <span className="inline-flex items-center justify-center px-3 py-1.5 rounded-lg bg-gradient-to-br from-gray-50 to-gray-100 text-gray-600 text-xs font-bold border border-gray-200/60 shadow-sm group-hover:border-indigo-200 group-hover:text-indigo-600 transition-colors">#{b.id}</span>
+                    <div className="flex items-center gap-2">
+                      <button onClick={() => openMapModal(b)} className="w-8 h-8 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center shadow-sm border border-indigo-100 hover:bg-indigo-600 hover:text-white transition-all duration-300 group/map" title="Canlı Operasyon Haritası">
+                        <svg className="w-4 h-4 transition-transform group-hover/map:scale-110" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" /></svg>
+                      </button>
+                      <span className="inline-flex items-center justify-center px-3 py-1.5 rounded-lg bg-gradient-to-br from-gray-50 to-gray-100 text-gray-600 text-xs font-bold border border-gray-200/60 shadow-sm group-hover:border-indigo-200 group-hover:text-indigo-600 transition-colors">#{b.id}</span>
+                    </div>
                   </td>
                   <td className="px-3 py-4 whitespace-nowrap">
                     <div className="flex items-center gap-3">
@@ -864,31 +879,45 @@ Misafir Bilgisi:
               </div>
 
               {/* Bölüm 2: Rota & Uçuş */}
-              <div className="bg-white rounded-2xl p-5 md:p-6 shadow-sm border border-slate-200/60 relative overflow-hidden group/section">
-                <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-50/50 rounded-full blur-3xl -mr-10 -mt-10 transition-transform group-hover/section:scale-150 duration-700"></div>
+              <div className="bg-white rounded-2xl p-5 md:p-6 shadow-sm border border-slate-200/60 relative overflow-visible group/section z-50">
+                <div className="absolute inset-0 overflow-hidden rounded-2xl pointer-events-none">
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-50/50 rounded-full blur-3xl -mr-10 -mt-10 transition-transform group-hover/section:scale-150 duration-700"></div>
+                </div>
                 <h4 className="text-sm font-bold text-slate-800 mb-5 flex items-center gap-3 relative z-10">
                   <div className="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center shadow-sm">
                     <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" /></svg>
                   </div>
                   Rota & Uçuş Detayları
                 </h4>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5 relative z-10">
-                  <div className="relative group/input">
-                    <label className="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-1.5 ml-1">Nereden (Alış) <span className="text-rose-500">*</span></label>
-                    <div className="absolute inset-y-0 left-0 flex items-center pl-4 pt-6 pointer-events-none text-slate-400 group-focus-within/input:text-indigo-500 transition-colors">
-                      <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
-                    </div>
-                    <input type="text" ref={originInputRef} required value={formData.origin} onChange={e => setFormData({...formData, origin: e.target.value})} className="w-full bg-slate-50/50 hover:bg-slate-50 border border-slate-200 text-slate-900 text-sm rounded-xl focus:bg-white focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500 block px-4 py-3 pl-11 transition-all" placeholder="Alış Noktası" />
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5 relative z-50">
+                  <div className="relative z-50">
+                    <LocationAutocomplete 
+                      type="origin"
+                      label="Nereden (Alış)"
+                      placeholder="Alış Noktası"
+                      value={formData.origin ? { lat: 0, lng: 0, address: formData.origin, name: formData.origin } : null}
+                      onChange={(loc) => setFormData({...formData, origin: loc ? (loc.name || loc.address) : ''})}
+                      isActive={activeInput === 'origin'}
+                      onActivate={() => setActiveInput('origin')}
+                      onDeactivate={() => setActiveInput(null)}
+                      dropdownPosition="bottom"
+                    />
                   </div>
-                  <div className="relative group/input">
-                    <label className="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-1.5 ml-1">Nereye (Varış) <span className="text-rose-500">*</span></label>
-                    <div className="absolute inset-y-0 left-0 flex items-center pl-4 pt-6 pointer-events-none text-slate-400 group-focus-within/input:text-emerald-500 transition-colors">
-                      <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
-                    </div>
-                    <input type="text" ref={destinationInputRef} required value={formData.destination} onChange={e => setFormData({...formData, destination: e.target.value})} className="w-full bg-slate-50/50 hover:bg-slate-50 border border-slate-200 text-slate-900 text-sm rounded-xl focus:bg-white focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-500 block px-4 py-3 pl-11 transition-all" placeholder="Varış Noktası" />
+                  <div className="relative z-10">
+                    <LocationAutocomplete 
+                      type="destination"
+                      label="Nereye (Varış)"
+                      placeholder="Varış Noktası"
+                      value={formData.destination ? { lat: 0, lng: 0, address: formData.destination, name: formData.destination } : null}
+                      onChange={(loc) => setFormData({...formData, destination: loc ? (loc.name || loc.address) : ''})}
+                      isActive={activeInput === 'destination'}
+                      onActivate={() => setActiveInput('destination')}
+                      onDeactivate={() => setActiveInput(null)}
+                      dropdownPosition="bottom"
+                    />
                   </div>
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-5 relative z-10">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-5 relative z-0">
                   <div className="relative">
                     <label className="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-1.5 ml-1">Tarih ve Saat <span className="text-rose-500">*</span></label>
                     <input type="datetime-local" required value={formData.transfer_datetime} onChange={e => setFormData({...formData, transfer_datetime: e.target.value})} className="w-full bg-slate-50/50 hover:bg-slate-50 border border-slate-200 text-slate-900 text-sm rounded-xl focus:bg-white focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500 block px-4 py-3 transition-all cursor-pointer" />
@@ -1177,6 +1206,13 @@ Misafir Bilgisi:
           </div>
         </div>
       )}
+
+      {/* Live Map Analysis Modal */}
+      <OperationMapModal 
+        isOpen={isMapModalOpen}
+        onClose={() => setIsMapModalOpen(false)}
+        booking={mapBooking}
+      />
     </>
   );
 }

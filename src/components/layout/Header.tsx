@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
+import { useLocale, useTranslations } from 'next-intl';
 import {
     Menu,
     X,
@@ -16,6 +17,22 @@ import {
 export default function Header() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const pathname = usePathname();
+    const locale = useLocale();
+    const t = useTranslations('Index'); // Fallback if we need to translate nav
+
+    const toggleLanguage = () => {
+        const nextLocale = locale === 'tr' ? 'en' : 'tr';
+        // Setting cookie and redirecting to the root of the new locale or reloading
+        document.cookie = `NEXT_LOCALE=${nextLocale}; path=/; max-age=31536000`;
+        // Quick path replace logic
+        let newPath = pathname;
+        if (pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`) {
+            newPath = pathname.replace(`/${locale}`, `/${nextLocale}`);
+        } else {
+            newPath = `/${nextLocale}${pathname === '/' ? '' : pathname}`;
+        }
+        window.location.href = newPath;
+    };
 
     const navLinks = [
         { name: 'Turlar', href: '/turlar' },
@@ -72,10 +89,11 @@ export default function Header() {
                     </div>
 
                     {/* Language */}
-                    <div className="flex items-center space-x-2 cursor-pointer group">
-                        <div className="w-6 h-6 rounded-full bg-[#D32F2F] flex items-center justify-center text-[9px] text-white font-bold ring-2 ring-transparent group-hover:ring-red-100 transition-all">TR</div>
-                        <span className="text-sm font-bold text-gray-900">TR</span>
-                        <ChevronDown className="w-4 h-4 text-gray-500" />
+                    <div onClick={toggleLanguage} className="flex items-center space-x-2 cursor-pointer group">
+                        <div className="w-6 h-6 rounded-full bg-[#D32F2F] flex items-center justify-center text-[9px] text-white font-bold ring-2 ring-transparent group-hover:ring-red-100 transition-all">
+                            {locale.toUpperCase()}
+                        </div>
+                        <span className="text-sm font-bold text-gray-900">{locale.toUpperCase()}</span>
                     </div>
 
                     {/* Auth */}
@@ -124,9 +142,11 @@ export default function Header() {
                                 <Globe className="w-5 h-5 text-gray-600" />
                                 <MessageCircle className="w-5 h-5 text-gray-600" />
                             </div>
-                            <div className="flex items-center space-x-2">
-                                <div className="w-6 h-6 rounded-full bg-[#D32F2F] flex items-center justify-center text-[9px] text-white font-bold">TR</div>
-                                <span className="font-bold">TR</span>
+                            <div onClick={toggleLanguage} className="flex items-center space-x-2 cursor-pointer">
+                                <div className="w-6 h-6 rounded-full bg-[#D32F2F] flex items-center justify-center text-[9px] text-white font-bold">
+                                    {locale.toUpperCase()}
+                                </div>
+                                <span className="font-bold">{locale.toUpperCase()}</span>
                             </div>
                         </div>
 

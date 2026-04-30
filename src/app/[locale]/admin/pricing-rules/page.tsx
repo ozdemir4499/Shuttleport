@@ -17,6 +17,7 @@ export default function PricingRulesPage() {
   const [rules, setRules] = useState<PricingRule[]>([]);
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [editingRule, setEditingRule] = useState<PricingRule | null>(null);
 
   useEffect(() => {
     fetchRules();
@@ -77,8 +78,13 @@ export default function PricingRulesPage() {
   const handleSaveRule = async (ruleData: Record<string, unknown>) => {
     try {
       const token = localStorage.getItem('adminToken');
-      const res = await fetch(`http://localhost:8000/api/admin/rules`, {
-        method: 'POST',
+      const method = editingRule ? 'PUT' : 'POST';
+      const url = editingRule 
+        ? `http://localhost:8000/api/admin/rules/${editingRule.id}` 
+        : `http://localhost:8000/api/admin/rules`;
+        
+      const res = await fetch(url, {
+        method,
         headers: { 
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`
@@ -106,7 +112,10 @@ export default function PricingRulesPage() {
       <div className="flex justify-between items-center">
         <h2 className="text-2xl font-bold text-gray-800">Fiyatlandırma & Kural Motoru</h2>
         <button 
-          onClick={() => setIsModalOpen(true)}
+          onClick={() => {
+            setEditingRule(null);
+            setIsModalOpen(true);
+          }}
           className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded shadow text-sm font-medium"
         >
           + Yeni Kural Ekle
@@ -155,7 +164,7 @@ export default function PricingRulesPage() {
                   </button>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-3">
-                  <button className="text-indigo-600 hover:text-indigo-900">Düzenle</button>
+                  <button onClick={() => { setEditingRule(rule); setIsModalOpen(true); }} className="text-indigo-600 hover:text-indigo-900">Düzenle</button>
                   <button onClick={() => deleteRule(rule.id)} className="text-red-600 hover:text-red-900">Sil</button>
                 </td>
               </tr>
@@ -173,8 +182,9 @@ export default function PricingRulesPage() {
 
       <RuleModal 
         isOpen={isModalOpen} 
-        onClose={() => setIsModalOpen(false)} 
-        onSave={handleSaveRule} 
+        onClose={() => { setIsModalOpen(false); setEditingRule(null); }} 
+        onSave={handleSaveRule}
+        initialData={editingRule}
       />
     </div>
   );

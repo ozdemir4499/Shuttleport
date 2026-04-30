@@ -8,7 +8,6 @@ type Vehicle = {
   name_tr: string;
   capacity_max: number;
   baggage_capacity: number;
-  quantity: number;
   active: boolean;
   image_path?: string | null;
 };
@@ -27,7 +26,6 @@ export default function VehiclesPage() {
     capacity_min: 1,
     capacity_max: 4,
     baggage_capacity: 4,
-    quantity: 1,
     active: true
   };
   
@@ -76,7 +74,6 @@ export default function VehiclesPage() {
       capacity_min: 1,
       capacity_max: vehicle.capacity_max,
       baggage_capacity: vehicle.baggage_capacity,
-      quantity: vehicle.quantity || 1,
       active: vehicle.active
     });
     setIsModalOpen(true);
@@ -213,9 +210,6 @@ export default function VehiclesPage() {
                 }`}>
                   {vehicle.active ? 'Aktif' : 'Pasif'}
                 </span>
-                <span className="px-2 py-1 text-xs font-semibold rounded-full shadow-sm bg-blue-100 text-blue-800">
-                  Stok: {vehicle.quantity || 1}
-                </span>
               </div>
             </div>
             <div className="p-5">
@@ -231,11 +225,6 @@ export default function VehiclesPage() {
                 <div className="text-center">
                   <span className="block text-xs text-gray-500 uppercase font-semibold">Bagaj</span>
                   <span className="text-lg font-bold text-gray-800">{vehicle.baggage_capacity}</span>
-                </div>
-                <div className="w-px h-8 bg-gray-200"></div>
-                <div className="text-center">
-                  <span className="block text-xs text-gray-500 uppercase font-semibold">Adet</span>
-                  <span className="text-lg font-bold text-indigo-600">{vehicle.quantity || 1}</span>
                 </div>
               </div>
 
@@ -290,7 +279,7 @@ export default function VehiclesPage() {
                   <input type="text" required value={formData.name_en} onChange={e => setFormData({...formData, name_en: e.target.value})} className="mt-1 w-full p-2 border rounded" />
                 </div>
               </div>
-              <div className="grid grid-cols-3 gap-4">
+              <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700">Yolcu</label>
                   <input type="number" required min="1" value={formData.capacity_max} onChange={e => setFormData({...formData, capacity_max: e.target.value ? parseInt(e.target.value) : 0})} className="mt-1 w-full p-2 border rounded" />
@@ -298,10 +287,6 @@ export default function VehiclesPage() {
                 <div>
                   <label className="block text-sm font-medium text-gray-700">Bagaj</label>
                   <input type="number" required min="0" value={formData.baggage_capacity} onChange={e => setFormData({...formData, baggage_capacity: e.target.value ? parseInt(e.target.value) : 0})} className="mt-1 w-full p-2 border rounded" />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700">Adet (Stok)</label>
-                  <input type="number" required min="1" value={formData.quantity} onChange={e => setFormData({...formData, quantity: e.target.value ? parseInt(e.target.value) : 0})} className="mt-1 w-full p-2 border rounded bg-indigo-50 border-indigo-200" />
                 </div>
               </div>
               <div>

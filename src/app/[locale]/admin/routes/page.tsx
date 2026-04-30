@@ -17,6 +17,7 @@ export default function RoutesPage() {
   const [routes, setRoutes] = useState<FixedRoute[]>([]);
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [editingRoute, setEditingRoute] = useState<FixedRoute | null>(null);
 
   useEffect(() => {
     fetchRoutes();
@@ -58,11 +59,33 @@ export default function RoutesPage() {
     }
   };
 
+  const toggleActive = async (route: FixedRoute) => {
+    try {
+      const token = localStorage.getItem('adminToken');
+      const res = await fetch(`http://localhost:8000/api/admin/routes/${route.id}/status`, {
+        method: 'PUT',
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      if (res.ok) {
+        fetchRoutes();
+      } else {
+        alert("Durum güncellenemedi.");
+      }
+    } catch (error) {
+      console.error("Error toggling status:", error);
+    }
+  };
+
   const handleSaveRoute = async (routeData: Record<string, unknown>) => {
     try {
       const token = localStorage.getItem('adminToken');
-      const res = await fetch(`http://localhost:8000/api/admin/routes`, {
-        method: 'POST',
+      const method = editingRoute ? 'PUT' : 'POST';
+      const url = editingRoute
+        ? `http://localhost:8000/api/admin/routes/${editingRoute.id}`
+        : `http://localhost:8000/api/admin/routes`;
+
+      const res = await fetch(url, {
+        method,
         headers: { 
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`
@@ -93,7 +116,10 @@ export default function RoutesPage() {
           <p className="text-sm text-gray-500 mt-1">Havalimanı - Otel gibi noktadan noktaya sabit fiyatlı rotalar</p>
         </div>
         <button 
-          onClick={() => setIsModalOpen(true)}
+          onClick={() => {
+            setEditingRoute(null);
+            setIsModalOpen(true);
+          }}
           className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded shadow text-sm font-medium"
         >
           + Yeni Rota Ekle
@@ -126,13 +152,16 @@ export default function RoutesPage() {
                   ) : '-'}
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                  <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
-                    route.active ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'
+                  <button 
+                    onClick={() => toggleActive(route)}
+                    className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full cursor-pointer ${
+                    route.active ? 'bg-green-100 text-green-800 hover:bg-green-200' : 'bg-gray-100 text-gray-800 hover:bg-gray-200'
                   }`}>
                     {route.active ? 'Aktif' : 'Pasif'}
-                  </span>
+                  </button>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-3">
+                  <button onClick={() => { setEditingRoute(route); setIsModalOpen(true); }} className="text-indigo-600 hover:text-indigo-900">Düzenle</button>
                   <button onClick={() => deleteRoute(route.id)} className="text-red-600 hover:text-red-900">Sil</button>
                 </td>
               </tr>
@@ -150,8 +179,9 @@ export default function RoutesPage() {
 
       <RouteModal 
         isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
+        onClose={() => { setIsModalOpen(false); setEditingRoute(null); }}
         onSave={handleSaveRoute}
+        initialData={editingRoute}
       />
     </div>
   );
