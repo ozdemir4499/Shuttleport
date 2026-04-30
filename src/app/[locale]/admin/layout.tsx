@@ -9,7 +9,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (pathname === '/admin/login') {
+    if (pathname.endsWith('/admin/login') || pathname.includes('/admin/login')) {
       setLoading(false);
       return;
     }
@@ -34,7 +34,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     </div>
   );
 
-  if (pathname === '/admin/login') {
+  if (pathname.endsWith('/admin/login') || pathname.includes('/admin/login')) {
     return <>{children}</>;
   }
 
