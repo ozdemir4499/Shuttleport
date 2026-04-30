@@ -149,11 +149,11 @@ export default function VehiclesPage() {
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700">Yolcu Kapasitesi</label>
-                  <input type="number" required value={formData.capacity_max} onChange={e => setFormData({...formData, capacity_max: parseInt(e.target.value)})} className="mt-1 w-full p-2 border rounded" />
+                  <input type="number" required min="1" value={formData.capacity_max} onChange={e => setFormData({...formData, capacity_max: e.target.value ? parseInt(e.target.value) : 0})} className="mt-1 w-full p-2 border rounded" />
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700">Bagaj Kapasitesi</label>
-                  <input type="number" required value={formData.baggage_capacity} onChange={e => setFormData({...formData, baggage_capacity: parseInt(e.target.value)})} className="mt-1 w-full p-2 border rounded" />
+                  <input type="number" required min="0" value={formData.baggage_capacity} onChange={e => setFormData({...formData, baggage_capacity: e.target.value ? parseInt(e.target.value) : 0})} className="mt-1 w-full p-2 border rounded" />
                 </div>
               </div>
               <div className="flex justify-end space-x-3 mt-6">
