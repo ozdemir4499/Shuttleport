@@ -57,7 +57,16 @@ export default function Home() {
     const [passengerCount, setPassengerCount] = useState(1);
 
     // Fixed routes state (for popular locations section)
-    const [fixedRoutes, setFixedRoutes] = useState<any[]>([]);
+    interface FixedRouteData {
+        id?: number | string;
+        title?: string;
+        origin?: string;
+        destination?: string;
+        prices?: Record<string, number>;
+        imageUrl?: string;
+        [key: string]: unknown;
+    }
+    const [fixedRoutes, setFixedRoutes] = useState<FixedRouteData[]>([]);
     const [isLoadingRoutes, setIsLoadingRoutes] = useState(true);
 
     // Exchange rates state
@@ -953,7 +962,7 @@ export default function Home() {
                             fixedRoutes.slice(0, 8).map((route, index) => {
                                 // Get the minimum price across all vehicle types
                                 const minPrice = route.prices && Object.keys(route.prices).length > 0
-                                    ? Math.min(...Object.values(route.prices).map((p: any) => p))
+                                    ? Math.min(...Object.values(route.prices).map((p) => Number(p)))
                                     : 0;
 
                                 // Convert from TRY to EUR using real-time rates

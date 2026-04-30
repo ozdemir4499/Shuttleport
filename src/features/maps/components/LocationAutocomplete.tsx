@@ -45,8 +45,9 @@ export function LocationAutocomplete({
     onDeactivate,
     dropdownPortalRef,
 }: LocationAutocompleteProps) {
+    interface SearchResult { place_id?: string; description?: string; structured_formatting?: { main_text: string; secondary_text: string }; lat: number; lng: number; address: string; name: string; [key: string]: unknown; }
     const [searchQuery, setSearchQuery] = useState('');
-    const [searchResults, setSearchResults] = useState<any[]>([]);
+    const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
     const [isLoading, setIsLoading] = useState(false);
     const inputRef = useRef<HTMLInputElement>(null);
     const containerRef = useRef<HTMLDivElement>(null);
@@ -130,7 +131,7 @@ export function LocationAutocomplete({
     }, []);
 
     // Sonuç seçme
-    const handleSelectResult = useCallback((result: any) => {
+    const handleSelectResult = useCallback((result: SearchResult) => {
         const location: Location = {
             lat: result.lat,
             lng: result.lng,

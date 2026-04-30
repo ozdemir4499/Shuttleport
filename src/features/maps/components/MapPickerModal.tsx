@@ -20,7 +20,7 @@ interface MapPickerModalProps {
 
 declare global {
     interface Window {
-        google: any;
+        google: unknown;
         initMap: () => void;
     }
     // var google: any;
@@ -41,8 +41,9 @@ export function MapPickerModal({
     const mapInitializedRef = useRef(false);
     const [map, setMap] = useState<any | null>(null);
     const [marker, setMarker] = useState<any | null>(null);
+    interface SearchResult { place_id?: string; description?: string; lat?: number; lng?: number; formatted_address?: string; name?: string; address?: string; [key: string]: unknown; }
     const [searchQuery, setSearchQuery] = useState('');
-    const [searchResults, setSearchResults] = useState<any[]>([]);
+    const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
     const [selectedLocation, setSelectedLocation] = useState<Location | null>(null);
     const [isLoading, setIsLoading] = useState(false);
     const [isMapLoaded, setIsMapLoaded] = useState(false);
@@ -116,7 +117,7 @@ export function MapPickerModal({
             const geocoder = new window.google.maps.Geocoder();
             geocoder.geocode(
                 { location: { lat, lng } },
-                (results: any[] | null, status: any) => {
+                (results, status) => {
                     if (status === 'OK' && results && results[0]) {
                         setSelectedLocation({
                             lat,
@@ -165,7 +166,7 @@ export function MapPickerModal({
             });
 
             // Haritaya tıklama
-            mapInstance.addListener('click', (e: any) => {
+            mapInstance.addListener('click', (e: google.maps.MapMouseEvent) => {
                 if (e.latLng) {
                     markerInstance.setPosition(e.latLng);
                     reverseGeocode(e.latLng.lat(), e.latLng.lng());
@@ -212,7 +213,7 @@ export function MapPickerModal({
                         input: query,
                         componentRestrictions: { country: 'tr' }
                     },
-                    (predictions: any[], status: any) => {
+                    (predictions, status) => {
                         if (status === 'OK' && predictions) {
                             setSearchResults(predictions.map(p => ({
                                 place_id: p.place_id,
@@ -227,14 +228,14 @@ export function MapPickerModal({
     }, []);
 
     // Arama sonucu seçme
-    const handleSelectSearchResult = useCallback((result: any) => {
+    const handleSelectSearchResult = useCallback((result: SearchResult) => {
         if (result.lat && result.lng) {
             // Backend'den gelen sonuç
             const location = {
-                lat: result.lat,
-                lng: result.lng,
-                address: result.address,
-                name: result.name
+                lat: result.lat as number,
+                lng: result.lng as number,
+                address: (result.address as string) || (result.formatted_address as string) || '',
+                name: result.name as string
             };
 
             if (map && marker) {
@@ -245,13 +246,13 @@ export function MapPickerModal({
 
             setSelectedLocation(location);
             setSearchResults([]);
-            setSearchQuery(result.name);
+            setSearchQuery(result.name || '');
         } else if (result.place_id && window.google?.maps?.places && map) {
             // Google Places sonucu
             const placesService = new window.google.maps.places.PlacesService(map);
             placesService.getDetails(
                 { placeId: result.place_id, fields: ['geometry', 'formatted_address', 'name'] },
-                (place: any, status: any) => {
+                (place, status) => {
                     if (status === 'OK' && place?.geometry?.location) {
                         const lat = place.geometry.location.lat();
                         const lng = place.geometry.location.lng();

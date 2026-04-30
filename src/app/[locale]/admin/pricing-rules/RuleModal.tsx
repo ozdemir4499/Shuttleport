@@ -37,7 +37,7 @@ export default function RuleModal({ isOpen, onClose, onSave }: RuleModalProps) {
     try {
       await onSave(formData);
       onClose();
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error(error);
       alert("Kural kaydedilemedi. Lütfen alanları kontrol edin.");
     } finally {

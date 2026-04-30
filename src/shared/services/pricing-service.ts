@@ -100,7 +100,7 @@ class PricingService {
     /**
      * Get fixed routes
      */
-    async getFixedRoutes(): Promise<any> {
+    async getFixedRoutes(): Promise<unknown> {
         const response = await fetch(`${API_URL}/api/pricing/fixed-routes`);
 
         if (!response.ok) {

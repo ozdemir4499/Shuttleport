@@ -7,8 +7,8 @@ import { env } from '@/config/env';
 export class APIError extends Error {
     constructor(
         message: string,
-        public statusCode?: number,
-        public response?: any
+        public status: number,
+        public response?: unknown
     ) {
         super(message);
         this.name = 'APIError';
@@ -55,7 +55,8 @@ class APIClient {
             }
 
             throw new APIError(
-                error instanceof Error ? error.message : 'Network error occurred'
+                error instanceof Error ? error.message : 'Network error occurred',
+                500
             );
         }
     }
@@ -64,7 +65,7 @@ class APIClient {
         return this.request<T>(endpoint, { ...options, method: 'GET' });
     }
 
-    async post<T>(endpoint: string, data?: any, options?: RequestInit): Promise<T> {
+    async post<T>(endpoint: string, data?: unknown, options?: RequestInit): Promise<T> {
         return this.request<T>(endpoint, {
             ...options,
             method: 'POST',
@@ -72,7 +73,7 @@ class APIClient {
         });
     }
 
-    async put<T>(endpoint: string, data?: any, options?: RequestInit): Promise<T> {
+    async put<T>(endpoint: string, data?: unknown, options?: RequestInit): Promise<T> {
         return this.request<T>(endpoint, {
             ...options,
             method: 'PUT',

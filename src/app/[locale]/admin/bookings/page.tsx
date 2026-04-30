@@ -78,7 +78,7 @@ export default function BookingsPage() {
 
   // Google Autocomplete iptal edildi (API Key hatası girdileri kilitliyordu)
   useEffect(() => {
-    // if (isVoucherModalOpen && typeof window !== 'undefined' && (window as any).google) { ... }
+    // if (isVoucherModalOpen && typeof window !== 'undefined' && (window as Window & typeof globalThis & { google: unknown }).google) { ... }
   }, [isVoucherModalOpen]);
 
   const fetchBookings = async () => {
@@ -203,7 +203,7 @@ export default function BookingsPage() {
         finalNotes = finalNotes ? `${finalNotes}\n\n${passengerList}` : passengerList;
       }
       
-      const payload: any = {
+      const payload: Record<string, unknown> = {
         ...formData,
         customer_phone: `${formData.phone_code} ${formData.customer_phone}`.trim(),
         transfer_datetime: formData.transfer_datetime.length === 16 ? formData.transfer_datetime + ':00' : formData.transfer_datetime,

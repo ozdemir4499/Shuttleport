@@ -67,7 +67,7 @@ export default function RouteModal({ isOpen, onClose, onSave }: RouteModalProps)
     try {
       await onSave(formData);
       onClose();
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error(error);
       alert("Rota kaydedilemedi. Lütfen tüm alanları kontrol edin.");
     } finally {
