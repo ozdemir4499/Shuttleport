@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { MapPin, Calendar, Users, Shield, Clock, Car, Globe, Menu, X, Instagram, MessageCircle, User, ChevronDown, ChevronLeft, ChevronRight } from 'lucide-react';
+import { MapPin, Calendar, Users, Shield, Clock, Car, Facebook, Menu, X, Instagram, MessageCircle, User, ChevronDown, ChevronLeft, ChevronRight, Star } from 'lucide-react';
 import { LocationAutocomplete } from '@/features/maps';
 import { mapsService } from '@/features/maps/services/maps-service';
 import { ServiceTypeSelector } from '@/features/booking/components/ServiceTypeSelector';
@@ -74,10 +74,10 @@ export default function Home() {
 
     const nextSlide = useCallback(() => {
         if (sliderState.isAnimating) return;
-        
+
         // Start sliding left
         setSliderState({ offset: -100, isAnimating: true });
-        
+
         // After sliding completes, instantly swap items and reset position
         setTimeout(() => {
             setSlides(prev => [...prev.slice(1), prev[0]]);
@@ -87,16 +87,16 @@ export default function Home() {
 
     const prevSlide = useCallback(() => {
         if (sliderState.isAnimating) return;
-        
+
         // Instantly move the last slide to the front and hide it off-screen to the left
         setSlides(prev => [prev[prev.length - 1], ...prev.slice(0, prev.length - 1)]);
         setSliderState({ offset: -100, isAnimating: false });
-        
+
         // One frame later, animate it sliding in from the left to the center
         setTimeout(() => {
             setSliderState({ offset: 0, isAnimating: true });
         }, 50);
-        
+
         // Unlock after animation finishes
         setTimeout(() => {
             setSliderState(prev => ({ ...prev, isAnimating: false }));
@@ -257,9 +257,9 @@ export default function Home() {
                     {/* LOGO */}
                     <Link href="/" className="flex items-center space-x-2 md:space-x-3">
                         <div className="w-12 h-12 md:w-16 md:h-16 flex items-center justify-center">
-                            <img 
-                                src="/red_lion_icon.png" 
-                                alt="Lion Icon" 
+                            <img
+                                src="/red_lion_icon.png"
+                                alt="Lion Icon"
                                 className="w-full h-full object-contain scale-110 mix-blend-multiply"
                             />
                         </div>
@@ -282,10 +282,35 @@ export default function Home() {
                     {/* RIGHT ACTIONS */}
                     <div className="hidden lg:flex items-center space-x-4">
                         {/* Social Icons */}
-                        <div className="flex items-center space-x-4 border-r border-gray-200 pr-5">
-                            <Link href="#" className="text-gray-900 hover:text-[#D32F2F]"><Instagram className="w-5 h-5 stroke-2" /></Link>
-                            <Link href="#" className="text-gray-900 hover:text-[#D32F2F]"><Globe className="w-5 h-5 stroke-2" /></Link>
-                            <Link href="#" className="text-gray-900 hover:text-green-600"><MessageCircle className="w-5 h-5 stroke-2" /></Link>
+                        <div className="flex items-center space-x-3 border-r border-gray-200 pr-5">
+                            <Link href="#">
+                                <div className="flex items-center justify-center w-[26px] h-[26px] bg-gradient-to-tr from-[#f09433] via-[#dc2743] to-[#bc1888] rounded-full hover:scale-110 transition-transform shadow-sm">
+                                    <Instagram className="w-3.5 h-3.5 text-white stroke-[2.5]" />
+                                </div>
+                            </Link>
+                            
+                            <Link href="#">
+                                <div className="flex items-center justify-center w-[26px] h-[26px] bg-[#1877F2] rounded-full hover:scale-110 transition-transform shadow-sm">
+                                    <Facebook className="w-3.5 h-3.5 text-white stroke-[2.5]" />
+                                </div>
+                            </Link>
+
+                            <Link href="#">
+                                <div className="flex items-center justify-center w-[26px] h-[26px] bg-black rounded-full hover:scale-110 transition-transform shadow-sm">
+                                    <svg className="w-3.5 h-3.5 text-white stroke-[2.5]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round">
+                                        <path d="M21 7.917v4.034a9.948 9.948 0 0 1 -5 -1.951v4.5a6.5 6.5 0 1 1 -8 -6.326v4.326a2.5 2.5 0 1 0 4 2v-11.5h4.083a6.005 6.005 0 0 0 4.917 4.917" />
+                                    </svg>
+                                </div>
+                            </Link>
+
+                            <Link href="#">
+                                <div className="flex items-center justify-center w-[26px] h-[26px] bg-[#25D366] rounded-full hover:scale-110 transition-transform shadow-sm">
+                                    <svg className="w-3.5 h-3.5 text-white stroke-[2.5]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round">
+                                        <path d="M3 21l1.65 -3.8a9 9 0 1 1 3.4 2.9l-5.05 .9" />
+                                        <path d="M9 10a.5 .5 0 0 0 1 0v-1a.5 .5 0 0 0 -1 0v1a5 5 0 0 0 5 5h1a.5 .5 0 0 0 0 -1h-1a.5 .5 0 0 0 0 1" />
+                                    </svg>
+                                </div>
+                            </Link>
                         </div>
 
                         {/* Language */}
@@ -357,10 +382,32 @@ export default function Home() {
                             <div className="border-t border-gray-100 my-2 pt-2"></div>
 
                             <div className="flex items-center justify-between p-2">
-                                <div className="flex space-x-4">
-                                    <Instagram className="w-5 h-5 text-gray-600" />
-                                    <Globe className="w-5 h-5 text-gray-600" />
-                                    <MessageCircle className="w-5 h-5 text-gray-600" />
+                                <div className="flex space-x-3">
+                                    <Link href="#">
+                                        <div className="flex items-center justify-center w-[26px] h-[26px] bg-gradient-to-tr from-[#f09433] via-[#dc2743] to-[#bc1888] rounded-full">
+                                            <Instagram className="w-3.5 h-3.5 text-white stroke-[2.5]" />
+                                        </div>
+                                    </Link>
+                                    <Link href="#">
+                                        <div className="flex items-center justify-center w-[26px] h-[26px] bg-[#1877F2] rounded-full">
+                                            <Facebook className="w-3.5 h-3.5 text-white stroke-[2.5]" />
+                                        </div>
+                                    </Link>
+                                    <Link href="#">
+                                        <div className="flex items-center justify-center w-[26px] h-[26px] bg-black rounded-full">
+                                            <svg className="w-3.5 h-3.5 text-white stroke-[2.5]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round">
+                                                <path d="M21 7.917v4.034a9.948 9.948 0 0 1 -5 -1.951v4.5a6.5 6.5 0 1 1 -8 -6.326v4.326a2.5 2.5 0 1 0 4 2v-11.5h4.083a6.005 6.005 0 0 0 4.917 4.917" />
+                                            </svg>
+                                        </div>
+                                    </Link>
+                                    <Link href="#">
+                                        <div className="flex items-center justify-center w-[26px] h-[26px] bg-[#25D366] rounded-full">
+                                            <svg className="w-3.5 h-3.5 text-white stroke-[2.5]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round">
+                                                <path d="M3 21l1.65 -3.8a9 9 0 1 1 3.4 2.9l-5.05 .9" />
+                                                <path d="M9 10a.5 .5 0 0 0 1 0v-1a.5 .5 0 0 0 -1 0v1a5 5 0 0 0 5 5h1a.5 .5 0 0 0 0 -1h-1a.5 .5 0 0 0 0 1" />
+                                            </svg>
+                                        </div>
+                                    </Link>
                                 </div>
                                 <div className="flex items-center space-x-2">
                                     <div className="w-6 h-6 rounded-full bg-[#D32F2F] flex items-center justify-center text-[9px] text-white font-bold">TR</div>
@@ -381,7 +428,7 @@ export default function Home() {
             </header>
 
             {/* HERO SECTION */}
-            <section className="relative min-h-screen flex items-center justify-center pt-24 md:pt-28 pb-12 bg-gray-50">
+            <section className="relative pt-[88px] md:pt-[104px] pb-12 bg-gray-50">
 
                 {/* Hero Content */}
                 <div className="relative z-10 container-custom px-4 w-full">
@@ -391,19 +438,19 @@ export default function Home() {
                     </div>
 
                     {/* Hero Banner Image (Matches Booking Widget Width) */}
-                    <div className="max-w-7xl mx-auto h-48 md:h-[320px] mb-8 rounded-2xl overflow-hidden shadow-2xl relative group">
-                        <img 
-                            src="/vip_transfer_banner.png" 
-                            alt="VIP Transfer & Tours" 
-                            className="w-full h-full object-cover object-[center_60%] transition-transform duration-1000 group-hover:scale-105"
+                    <div className="max-w-[1440px] mx-auto h-48 md:h-[320px] mb-4 rounded-2xl overflow-hidden shadow-2xl relative group">
+                        <img
+                            src="/airport_vip_van_wide_banner_shrunk_right.png"
+                            alt="VIP Transfer & Tours"
+                            className="w-full h-full object-cover object-[right_center] transition-transform duration-1000 group-hover:scale-105"
                         />
                         {/* Gradient to ensure text readability on the left without covering the car on the right */}
                         <div className="absolute inset-0 bg-gradient-to-r from-white/95 from-10% via-white/80 md:via-white/60 via-45% md:via-35% to-white/10 md:to-transparent to-75% md:to-55% pointer-events-none"></div>
-                        
+
                         {/* Container for everything */}
-                        <div className="absolute inset-0 flex items-start md:items-center justify-between px-2 md:px-12 pointer-events-none">
+                        <div className="absolute inset-0 flex items-start md:items-center justify-between md:justify-start px-2 md:px-12 pointer-events-none">
                             {/* Left Carousel Button */}
-                            <button 
+                            <button
                                 onClick={prevSlide}
                                 className="pointer-events-auto shrink-0 w-7 h-7 md:w-12 md:h-12 bg-white/60 md:bg-transparent hover:bg-white/90 backdrop-blur-md border border-gray-300 md:border-gray-400 rounded-full flex items-center justify-center transition-all group/btn z-10 shadow-sm md:shadow-none mt-7 md:mt-0"
                             >
@@ -411,16 +458,22 @@ export default function Home() {
                             </button>
 
                             {/* Text Block */}
-                            <div className="absolute top-0 bottom-0 left-10 md:left-28 right-8 md:right-auto flex flex-col md:w-[460px] lg:w-[520px] justify-start md:justify-center overflow-hidden pt-4 md:pt-0 pb-4 md:py-4">
-                                <div 
+                            <div
+                                className="absolute md:relative top-0 bottom-0 left-10 md:left-auto right-0 md:right-auto flex flex-col md:w-[500px] lg:w-[560px] justify-start md:justify-center overflow-hidden pt-4 md:pt-0 pb-4 md:py-4 md:mx-4"
+                                style={{
+                                    maskImage: 'linear-gradient(to right, black, black calc(100% - 40px), transparent)',
+                                    WebkitMaskImage: 'linear-gradient(to right, black, black calc(100% - 40px), transparent)'
+                                }}
+                            >
+                                <div
                                     className="flex w-full h-full items-start md:items-center"
-                                    style={{ 
+                                    style={{
                                         transform: `translateX(${sliderState.offset}%)`,
                                         transition: sliderState.isAnimating ? 'transform 1000ms cubic-bezier(0.4, 0, 0.2, 1)' : 'none'
                                     }}
                                 >
                                     {slides.map((text, idx) => (
-                                        <div key={idx} className="w-full flex-shrink-0 flex flex-col justify-start md:justify-center pr-2 md:pr-0">
+                                        <div key={idx} className="w-full flex-shrink-0 flex flex-col justify-start md:justify-center pr-[40px]">
                                             <span className="text-gray-700 md:text-gray-600 font-bold tracking-wider text-[10px] md:text-sm mb-1.5 md:mb-2 drop-shadow-sm md:drop-shadow-none">
                                                 {text.subtitle}
                                             </span>
@@ -433,7 +486,7 @@ export default function Home() {
                             </div>
 
                             {/* Right Carousel Button */}
-                            <button 
+                            <button
                                 onClick={nextSlide}
                                 className="pointer-events-auto shrink-0 w-7 h-7 md:w-12 md:h-12 bg-white/60 md:bg-transparent hover:bg-white/90 backdrop-blur-md border border-gray-300 md:border-gray-400 rounded-full flex items-center justify-center transition-all group/btn z-10 shadow-sm md:shadow-none mt-7 md:mt-0"
                             >
@@ -442,124 +495,168 @@ export default function Home() {
                         </div>
                     </div>
 
-                    {/* BOOKING WIDGET - Main Reservation Form */}
-                    <div className="max-w-7xl mx-auto bg-transparent md:bg-white rounded-2xl md:shadow-xl md:p-8 md:border-2 md:border-[#D32F2F]">
-                        {/* Tab Menu - White with shadow on Mobile */}
-                        <ServiceTypeSelector activeType={serviceType} onChange={setServiceType} />
+                    {/* BOOKING WIDGET CONTAINER */}
+                    <div className="max-w-[1440px] mx-auto">
 
-                        {/* Main Form Layout - Mobile Optimized Cards */}
-                        <div className="grid grid-cols-1 md:grid-cols-12 gap-4">
-                            {/* Left Section: NEREDEN and NEREYE */}
-                            <div className="col-span-12 lg:col-span-6 relative">
-                                <div ref={dropdownContainerRef} className="flex flex-col md:grid md:grid-cols-2 gap-4 relative">
-                                    {/* NEREDEN Card */}
-                                    <LocationAutocomplete
-                                        type="origin"
-                                        label="NEREDEN"
-                                        placeholder="Adres, Havalimanı, Otel, Hastane..."
-                                        value={originLocation}
-                                        onChange={setOriginLocation}
-                                        isActive={activeLocationInput === 'origin'}
-                                        onActivate={() => setActiveLocationInput('origin')}
-                                        onDeactivate={() => setActiveLocationInput(null)}
-                                        dropdownPortalRef={dropdownContainerRef}
-                                    />
+                        {/* Desktop Folder Tab Menu & Badges Container */}
+                        <div className="hidden md:flex justify-between items-end relative z-10 translate-y-[1px]">
+                            {/* Left Side: Tab Menu & TripAdvisor */}
+                            <div className="flex items-end space-x-6">
+                                {/* Tab Menu */}
+                                <div className="inline-block bg-white rounded-t-2xl px-6 pt-4 pb-0 border border-b-0 border-black relative">
+                                    <ServiceTypeSelector activeType={serviceType} onChange={setServiceType} />
+                                    {/* Masking element to cover the main border below the tabs */}
+                                    <div className="absolute bottom-[-1px] left-0 right-0 h-[2px] bg-white"></div>
+                                </div>
 
-                                    {/* Swap Button - Center Absolute for Mobile & Desktop */}
-                                    <div className="absolute left-1/2 md:left-1/2 top-1/2 md:top-1/2 transform -translate-x-1/2 -translate-y-1/2 z-30">
-                                        <button
-                                            onClick={handleSwapLocations}
-                                            disabled={!originLocation && !destinationLocation}
-                                            className="w-12 h-12 bg-white border-2 border-gray-300 rounded-full flex items-center justify-center shadow-xl hover:bg-[#D32F2F] hover:border-[#D32F2F] hover:scale-110 transition-all rotate-90 md:rotate-0 disabled:opacity-40 disabled:cursor-not-allowed group"
-                                        >
-                                            <svg className="w-5 h-5 text-gray-600 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" />
-                                            </svg>
-                                        </button>
+                                {/* TripAdvisor */}
+                                <a href="#" className="flex items-center space-x-2 pb-4 group cursor-pointer" target="_blank" rel="noopener noreferrer">
+                                    <svg className="w-6 h-6 md:w-7 md:h-7 transition-transform group-hover:scale-105" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <ellipse cx="12" cy="12.5" rx="9" ry="6" fill="#00aa6c" />
+                                        <path fill="#000000" d="M12.006 4.295c-2.67 0-5.338.784-7.645 2.353H0l1.963 2.135a5.997 5.997 0 0 0 4.04 10.43 5.976 5.976 0 0 0 4.075-1.6L12 19.705l1.922-2.09a5.972 5.972 0 0 0 4.072 1.598 6 6 0 0 0 6-5.998 5.982 5.982 0 0 0-1.957-4.432L24 6.648h-4.35a13.573 13.573 0 0 0-7.644-2.353zM12 6.255c1.531 0 3.063.303 4.504.903C13.943 8.138 12 10.43 12 13.1c0-2.671-1.942-4.962-4.504-5.942A11.72 11.72 0 0 1 12 6.256zM6.002 9.157a4.059 4.059 0 1 1 0 8.118 4.059 4.059 0 0 1 0-8.118zm11.992.002a4.057 4.057 0 1 1 .003 8.115 4.057 4.057 0 0 1-.003-8.115zm-11.992 1.93a2.128 2.128 0 0 0 0 4.256 2.128 2.128 0 0 0 0-4.256zm11.992 0a2.128 2.128 0 0 0 0 4.256 2.128 2.128 0 0 0 0-4.256z" />
+                                    </svg>
+                                    <div className="flex items-center space-x-1.5">
+                                        <span className="text-[15px] font-extrabold text-gray-900 group-hover:text-gray-700 tracking-tight transition-colors">Tripadvisor</span>
+                                        <div className="flex items-center space-x-1">
+                                            <span className="text-sm font-bold text-gray-900 leading-none">4.5</span>
+                                            <div className="flex items-center space-x-0.5">
+                                                {[...Array(4)].map((_, i) => (
+                                                    <Star key={i} className="w-3.5 h-3.5 text-amber-400" fill="currentColor" strokeWidth={1} />
+                                                ))}
+                                                {/* Half Star Implementation */}
+                                                <div className="relative w-3.5 h-3.5">
+                                                    <Star className="absolute inset-0 w-3.5 h-3.5 text-gray-300" fill="currentColor" strokeWidth={1} />
+                                                    <div className="absolute inset-0 overflow-hidden w-[50%]">
+                                                        <Star className="w-3.5 h-3.5 text-amber-400" fill="currentColor" strokeWidth={1} />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+
+                            {/* Premium Trust Badges (Right Side) */}
+                            <div className="flex items-center space-x-6 pb-4 pr-6">
+
+                                {/* VIP Transfer */}
+                                <div className="flex items-center space-x-2">
+                                    <Star className="w-4 h-4 text-amber-500" fill="currentColor" />
+                                    <span className="text-xs font-bold text-gray-400 uppercase tracking-wide">VIP Transfer</span>
+                                </div>
+
+                                {/* Özel Şoför */}
+                                <div className="flex items-center space-x-2">
+                                    <User className="w-4 h-4 text-slate-800" />
+                                    <span className="text-xs font-bold text-gray-400 uppercase tracking-wide">Özel Şoför</span>
+                                </div>
+
+                                {/* Ücretsiz İptal */}
+                                <div className="flex items-center space-x-2">
+                                    <Clock className="w-4 h-4 text-blue-500" />
+                                    <span className="text-xs font-bold text-gray-400 uppercase tracking-wide">Ücretsiz İptal</span>
+                                </div>
+
+                                {/* Güvenli Ödeme */}
+                                <div className="flex items-center space-x-2">
+                                    <Shield className="w-4 h-4 text-emerald-500" />
+                                    <span className="text-xs font-bold text-gray-400 uppercase tracking-wide">Güvenli Ödeme</span>
+                                </div>
+
+                                {/* 7/24 Destek */}
+                                <a href="#" className="flex items-center space-x-2 group cursor-pointer">
+                                    <MessageCircle className="w-4 h-4 text-green-500 group-hover:text-green-600 transition-colors" />
+                                    <span className="text-xs font-bold text-gray-400 uppercase tracking-wide group-hover:text-green-600 transition-colors">7/24 Destek</span>
+                                </a>
+                            </div>
+                        </div>
+
+                        {/* Main Reservation Form */}
+                        <div className="bg-transparent md:bg-white rounded-2xl md:rounded-tl-none md:shadow-xl md:p-8 md:border md:border-black relative z-0">
+
+                            {/* Mobile Tab Menu */}
+                            <div className="md:hidden">
+                                <ServiceTypeSelector activeType={serviceType} onChange={setServiceType} />
+                            </div>
+
+                            {/* Main Form Layout - Mobile Optimized Cards */}
+                            <div className="grid grid-cols-1 md:grid-cols-12 gap-4">
+                                {/* Left Section: NEREDEN and NEREYE */}
+                                <div className="col-span-12 lg:col-span-6 relative">
+                                    <div ref={dropdownContainerRef} className="flex flex-col md:grid md:grid-cols-2 gap-4 relative">
+                                        {/* NEREDEN Card */}
+                                        <LocationAutocomplete
+                                            type="origin"
+                                            label="NEREDEN"
+                                            placeholder="Adres, Havalimanı, Otel, Hastane..."
+                                            value={originLocation}
+                                            onChange={setOriginLocation}
+                                            isActive={activeLocationInput === 'origin'}
+                                            onActivate={() => setActiveLocationInput('origin')}
+                                            onDeactivate={() => setActiveLocationInput(null)}
+                                            dropdownPortalRef={dropdownContainerRef}
+                                        />
+
+                                        {/* Swap Button - Center Absolute for Mobile & Desktop */}
+                                        <div className="absolute left-1/2 md:left-1/2 top-1/2 md:top-1/2 transform -translate-x-1/2 -translate-y-1/2 z-30">
+                                            <button
+                                                onClick={handleSwapLocations}
+                                                disabled={!originLocation && !destinationLocation}
+                                                className="w-12 h-12 bg-white border-2 border-gray-300 rounded-full flex items-center justify-center shadow-xl hover:bg-[#D32F2F] hover:border-[#D32F2F] hover:scale-110 transition-all rotate-0 md:rotate-90 disabled:opacity-40 disabled:cursor-not-allowed group"
+                                            >
+                                                <svg className="w-5 h-5 text-black group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" />
+                                                </svg>
+                                            </button>
+                                        </div>
+
+                                        {/* NEREYE Card */}
+                                        <LocationAutocomplete
+                                            type="destination"
+                                            label="NEREYE"
+                                            placeholder="Adres, Havalimanı, Otel, Hastane..."
+                                            value={destinationLocation}
+                                            onChange={setDestinationLocation}
+                                            isActive={activeLocationInput === 'destination'}
+                                            onActivate={() => setActiveLocationInput('destination')}
+                                            onDeactivate={() => setActiveLocationInput(null)}
+                                            dropdownPortalRef={dropdownContainerRef}
+                                        />
                                     </div>
 
-                                    {/* NEREYE Card */}
-                                    <LocationAutocomplete
-                                        type="destination"
-                                        label="NEREYE"
-                                        placeholder="Adres, Havalimanı, Otel, Hastane..."
-                                        value={destinationLocation}
-                                        onChange={setDestinationLocation}
-                                        isActive={activeLocationInput === 'destination'}
-                                        onActivate={() => setActiveLocationInput('destination')}
-                                        onDeactivate={() => setActiveLocationInput(null)}
-                                        dropdownPortalRef={dropdownContainerRef}
-                                    />
+
                                 </div>
 
 
-                            </div>
-
-
-                            {/* Middle Section: TARİH */}
-                            <div className="col-span-12 lg:col-span-2 relative">
-                                {!isRoundTrip ? (
-                                    <div className="relative">
-                                        <button
-                                            onClick={() => {
-                                                setDatePickerType('departure');
-                                                setShowDatePicker(!showDatePicker || datePickerType !== 'departure');
-                                            }}
-                                            className="w-full bg-white rounded-xl shadow-md p-1 border border-gray-100 relative h-[80px] md:h-[100px] flex items-center hover:border-[#D32F2F] hover:shadow-lg transition-all group text-left"
-                                        >
-                                            <div className="absolute left-4 z-10">
-                                                <div className="w-10 h-10 bg-white border-2 border-gray-200 rounded-full flex items-center justify-center group-hover:bg-[#D32F2F] transition-colors">
-                                                    <Calendar className="w-5 h-5 text-gray-600 group-hover:text-white transition-colors" />
-                                                </div>
-                                            </div>
-                                            <div className="w-full h-full pl-[70px] pr-4 flex flex-col justify-center">
-                                                <label className="text-[10px] font-bold text-gray-800 uppercase">TARİH & SAAT</label>
-                                                <span className={`text-sm font-bold ${startDate ? 'text-gray-900' : 'text-gray-400'}`}>
-                                                    {startDate
-                                                        ? `${startDate.getDate().toString().padStart(2, '0')} ${['OCAK', 'ŞUBAT', 'MART', 'NİSAN', 'MAYIS', 'HAZİRAN', 'TEMMUZ', 'AĞUSTOS', 'EYLÜL', 'EKİM', 'KASIM', 'ARALIK'][startDate.getMonth()]}, ${['PAZ', 'PZT', 'SAL', 'ÇAR', 'PER', 'CUM', 'CMT'][startDate.getDay()]}`
-                                                        : 'Tarih Seçiniz'}
-                                                </span>
-                                                {startDate && (
-                                                    <span className="text-[10px] text-[#D32F2F] font-bold">
-                                                        {startDate.getHours().toString().padStart(2, '0')}:{startDate.getMinutes().toString().padStart(2, '0')}
-                                                    </span>
-                                                )}
-                                            </div>
-                                        </button>
-
-                                        <InlineDateTimePicker
-                                            isOpen={showDatePicker && datePickerType === 'departure'}
-                                            onClose={() => setShowDatePicker(false)}
-                                            onSelectDateTime={(date) => {
-                                                setStartDate(date);
-                                                setShowDatePicker(false);
-                                            }}
-                                            initialDate={startDate || undefined}
-                                            position="left"
-                                        />
-                                    </div>
-                                ) : (
-                                    <div className="grid grid-cols-2 gap-2 h-[80px] md:h-[100px]">
-                                        {/* Gidiş */}
+                                {/* Middle Section: TARİH */}
+                                <div className="col-span-12 lg:col-span-2 relative">
+                                    {!isRoundTrip ? (
                                         <div className="relative">
                                             <button
                                                 onClick={() => {
                                                     setDatePickerType('departure');
                                                     setShowDatePicker(!showDatePicker || datePickerType !== 'departure');
                                                 }}
-                                                className="w-full bg-white rounded-xl shadow-md border border-gray-100 p-2 hover:border-[#D32F2F] hover:shadow-lg transition-all group text-left flex flex-col justify-center h-full"
+                                                className="w-full bg-white rounded-xl shadow-md p-1 border border-gray-100 relative h-[80px] md:h-[100px] flex items-center hover:border-[#D32F2F] hover:shadow-lg transition-all group text-left"
                                             >
-                                                <label className="text-[9px] font-bold text-gray-800 uppercase mb-1">GİDİŞ</label>
-                                                <span className={`text-xs font-bold ${startDate ? 'text-gray-900' : 'text-gray-400'}`}>
-                                                    {startDate
-                                                        ? `${startDate.getDate().toString().padStart(2, '0')} ${['OCA', 'ŞUB', 'MAR', 'NİS', 'MAY', 'HAZ', 'TEM', 'AĞU', 'EYL', 'EKİ', 'KAS', 'ARA'][startDate.getMonth()]}`
-                                                        : 'Seçiniz'}
-                                                </span>
-                                                {startDate && (
-                                                    <span className="text-[9px] text-gray-400">
-                                                        {startDate.getHours().toString().padStart(2, '0')}:{startDate.getMinutes().toString().padStart(2, '0')}
+                                                <div className="absolute left-4 z-10">
+                                                    <div className="w-10 h-10 bg-white border-2 border-gray-200 rounded-full flex items-center justify-center group-hover:bg-[#D32F2F] transition-colors">
+                                                        <Calendar className="w-5 h-5 text-gray-600 group-hover:text-white transition-colors" />
+                                                    </div>
+                                                </div>
+                                                <div className="w-full h-full pl-[70px] pr-4 flex flex-col justify-center">
+                                                    <label className="text-[10px] font-bold text-gray-800 uppercase">TARİH & SAAT</label>
+                                                    <span className={`text-sm font-bold ${startDate ? 'text-gray-900' : 'text-gray-400'}`}>
+                                                        {startDate
+                                                            ? `${startDate.getDate().toString().padStart(2, '0')} ${['OCAK', 'ŞUBAT', 'MART', 'NİSAN', 'MAYIS', 'HAZİRAN', 'TEMMUZ', 'AĞUSTOS', 'EYLÜL', 'EKİM', 'KASIM', 'ARALIK'][startDate.getMonth()]}, ${['PAZ', 'PZT', 'SAL', 'ÇAR', 'PER', 'CUM', 'CMT'][startDate.getDay()]}`
+                                                            : 'Tarih Seçiniz'}
                                                     </span>
-                                                )}
+                                                    {startDate && (
+                                                        <span className="text-[10px] text-[#D32F2F] font-bold">
+                                                            {startDate.getHours().toString().padStart(2, '0')}:{startDate.getMinutes().toString().padStart(2, '0')}
+                                                        </span>
+                                                    )}
+                                                </div>
                                             </button>
 
                                             <InlineDateTimePicker
@@ -573,101 +670,137 @@ export default function Home() {
                                                 position="left"
                                             />
                                         </div>
-
-                                        {/* Dönüş */}
-                                        <div className="relative">
-                                            <button
-                                                onClick={() => {
-                                                    setDatePickerType('return');
-                                                    setShowDatePicker(!showDatePicker || datePickerType !== 'return');
-                                                }}
-                                                className="w-full bg-white rounded-xl shadow-md border border-gray-100 p-2 hover:border-[#D32F2F] hover:shadow-lg transition-all group text-left flex flex-col justify-center h-full"
-                                            >
-                                                <label className="text-[9px] font-bold text-gray-800 uppercase mb-1">DÖNÜŞ</label>
-                                                <span className={`text-xs font-bold ${returnDate ? 'text-gray-900' : 'text-gray-400'}`}>
-                                                    {returnDate
-                                                        ? `${returnDate.getDate().toString().padStart(2, '0')} ${['OCA', 'ŞUB', 'MAR', 'NİS', 'MAY', 'HAZ', 'TEM', 'AĞU', 'EYL', 'EKİ', 'KAS', 'ARA'][returnDate.getMonth()]}`
-                                                        : 'Seçiniz'}
-                                                </span>
-                                                {returnDate && (
-                                                    <span className="text-[9px] text-gray-400">
-                                                        {returnDate.getHours().toString().padStart(2, '0')}:{returnDate.getMinutes().toString().padStart(2, '0')}
+                                    ) : (
+                                        <div className="grid grid-cols-2 gap-2 h-[80px] md:h-[100px]">
+                                            {/* Gidiş */}
+                                            <div className="relative">
+                                                <button
+                                                    onClick={() => {
+                                                        setDatePickerType('departure');
+                                                        setShowDatePicker(!showDatePicker || datePickerType !== 'departure');
+                                                    }}
+                                                    className="w-full bg-white rounded-xl shadow-md border border-gray-100 p-2 hover:border-[#D32F2F] hover:shadow-lg transition-all group text-left flex flex-col justify-center h-full"
+                                                >
+                                                    <label className="text-[9px] font-bold text-gray-800 uppercase mb-1">GİDİŞ</label>
+                                                    <span className={`text-xs font-bold ${startDate ? 'text-gray-900' : 'text-gray-400'}`}>
+                                                        {startDate
+                                                            ? `${startDate.getDate().toString().padStart(2, '0')} ${['OCA', 'ŞUB', 'MAR', 'NİS', 'MAY', 'HAZ', 'TEM', 'AĞU', 'EYL', 'EKİ', 'KAS', 'ARA'][startDate.getMonth()]}`
+                                                            : 'Seçiniz'}
                                                     </span>
-                                                )}
-                                            </button>
+                                                    {startDate && (
+                                                        <span className="text-[9px] text-gray-400">
+                                                            {startDate.getHours().toString().padStart(2, '0')}:{startDate.getMinutes().toString().padStart(2, '0')}
+                                                        </span>
+                                                    )}
+                                                </button>
 
-                                            <InlineDateTimePicker
-                                                isOpen={showDatePicker && datePickerType === 'return'}
-                                                onClose={() => setShowDatePicker(false)}
-                                                onSelectDateTime={(date) => {
-                                                    setReturnDate(date);
-                                                    setShowDatePicker(false);
-                                                }}
-                                                initialDate={returnDate || undefined}
-                                                position="right"
-                                            />
+                                                <InlineDateTimePicker
+                                                    isOpen={showDatePicker && datePickerType === 'departure'}
+                                                    onClose={() => setShowDatePicker(false)}
+                                                    onSelectDateTime={(date) => {
+                                                        setStartDate(date);
+                                                        setShowDatePicker(false);
+                                                    }}
+                                                    initialDate={startDate || undefined}
+                                                    position="left"
+                                                />
+                                            </div>
+
+                                            {/* Dönüş */}
+                                            <div className="relative">
+                                                <button
+                                                    onClick={() => {
+                                                        setDatePickerType('return');
+                                                        setShowDatePicker(!showDatePicker || datePickerType !== 'return');
+                                                    }}
+                                                    className="w-full bg-white rounded-xl shadow-md border border-gray-100 p-2 hover:border-[#D32F2F] hover:shadow-lg transition-all group text-left flex flex-col justify-center h-full"
+                                                >
+                                                    <label className="text-[9px] font-bold text-gray-800 uppercase mb-1">DÖNÜŞ</label>
+                                                    <span className={`text-xs font-bold ${returnDate ? 'text-gray-900' : 'text-gray-400'}`}>
+                                                        {returnDate
+                                                            ? `${returnDate.getDate().toString().padStart(2, '0')} ${['OCA', 'ŞUB', 'MAR', 'NİS', 'MAY', 'HAZ', 'TEM', 'AĞU', 'EYL', 'EKİ', 'KAS', 'ARA'][returnDate.getMonth()]}`
+                                                            : 'Seçiniz'}
+                                                    </span>
+                                                    {returnDate && (
+                                                        <span className="text-[9px] text-gray-400">
+                                                            {returnDate.getHours().toString().padStart(2, '0')}:{returnDate.getMinutes().toString().padStart(2, '0')}
+                                                        </span>
+                                                    )}
+                                                </button>
+
+                                                <InlineDateTimePicker
+                                                    isOpen={showDatePicker && datePickerType === 'return'}
+                                                    onClose={() => setShowDatePicker(false)}
+                                                    onSelectDateTime={(date) => {
+                                                        setReturnDate(date);
+                                                        setShowDatePicker(false);
+                                                    }}
+                                                    initialDate={returnDate || undefined}
+                                                    position="right"
+                                                />
+                                            </div>
                                         </div>
-                                    </div>
-                                )}
-                            </div>
+                                    )}
+                                </div>
 
-                            {/* Right Section: Controls (3 Column Grid on Mobile) */}
-                            <div className="col-span-12 lg:col-span-4">
-                                <div className="grid grid-cols-3 md:grid-cols-12 gap-3 md:h-[100px]">
-                                    {/* Toggle */}
-                                    <button
-                                        onClick={() => setIsRoundTrip(!isRoundTrip)}
-                                        className="col-span-1 md:col-span-4 bg-white rounded-xl shadow-md border border-gray-100 h-[80px] md:h-full flex flex-col items-center justify-center p-2 hover:border-orange-500 transition-colors"
-                                    >
-                                        <span className="text-[9px] font-bold text-gray-800 mb-1">GİDİŞ-DÖNÜŞ</span>
-                                        <div className="relative inline-flex items-center cursor-pointer scale-75">
-                                            <input
-                                                type="checkbox"
-                                                checked={isRoundTrip}
-                                                onChange={() => setIsRoundTrip(!isRoundTrip)}
-                                                className="sr-only peer"
-                                            />
-                                            <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-orange-600"></div>
-                                        </div>
-                                    </button>
-
-                                    {/* Kişi Counter */}
-                                    <div className="col-span-1 md:col-span-4 relative bg-white rounded-xl shadow-md border border-gray-100 h-[80px] md:h-full">
+                                {/* Right Section: Controls (3 Column Grid on Mobile) */}
+                                <div className="col-span-12 lg:col-span-4">
+                                    <div className="grid grid-cols-3 md:grid-cols-12 gap-3 md:h-[100px]">
+                                        {/* Toggle */}
                                         <button
-                                            onClick={() => setShowPassengerSelector(!showPassengerSelector)}
-                                            className="w-full h-full flex flex-col items-center justify-center p-2 hover:border-blue-500 transition-colors rounded-xl"
+                                            onClick={() => setIsRoundTrip(!isRoundTrip)}
+                                            className="col-span-1 md:col-span-4 bg-white rounded-xl shadow-md border border-gray-100 h-[80px] md:h-full flex flex-col items-center justify-center p-2 hover:border-orange-500 transition-colors"
                                         >
-                                            <span className="text-[9px] font-bold text-gray-800 mb-1">KİŞİ SAYISI</span>
-                                            <div className="flex items-center space-x-2">
-                                                <span className="text-lg font-bold text-gray-900">
-                                                    {passengerCount} Kişi
-                                                </span>
-                                                <ChevronDown className={`w-4 h-4 text-gray-500 transition-transform ${showPassengerSelector ? 'rotate-180' : ''}`} />
+                                            <span className="text-[9px] font-bold text-gray-800 mb-1">GİDİŞ-DÖNÜŞ</span>
+                                            <div className="relative inline-flex items-center cursor-pointer scale-75">
+                                                <input
+                                                    type="checkbox"
+                                                    checked={isRoundTrip}
+                                                    onChange={() => setIsRoundTrip(!isRoundTrip)}
+                                                    className="sr-only peer"
+                                                />
+                                                <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-orange-600"></div>
                                             </div>
                                         </button>
 
-                                        <InlinePassengerSelector
-                                            isOpen={showPassengerSelector}
-                                            onClose={() => setShowPassengerSelector(false)}
-                                            value={passengerCount}
-                                            onChange={setPassengerCount}
-                                        />
-                                    </div>
+                                        {/* Kişi Counter */}
+                                        <div className="col-span-1 md:col-span-4 relative bg-white rounded-xl shadow-md border border-gray-100 h-[80px] md:h-full">
+                                            <button
+                                                onClick={() => setShowPassengerSelector(!showPassengerSelector)}
+                                                className="w-full h-full flex flex-col items-center justify-center p-2 hover:border-blue-500 transition-colors rounded-xl"
+                                            >
+                                                <span className="text-[9px] font-bold text-gray-800 mb-1">KİŞİ SAYISI</span>
+                                                <div className="flex items-center space-x-2">
+                                                    <span className="text-lg font-bold text-gray-900">
+                                                        {passengerCount} Kişi
+                                                    </span>
+                                                    <ChevronDown className={`w-4 h-4 text-gray-500 transition-transform ${showPassengerSelector ? 'rotate-180' : ''}`} />
+                                                </div>
+                                            </button>
 
-                                    {/* Ara Button */}
-                                    <div className="col-span-1 md:col-span-4 h-[80px] md:h-full">
-                                        <button
-                                            onClick={handleSearch}
-                                            disabled={isSearching}
-                                            className="w-full h-full bg-[#D0142D] hover:bg-[#b01126] disabled:bg-gray-400 text-white rounded-xl shadow-md flex flex-col items-center justify-center p-2 transition-colors"
-                                        >
-                                            {isSearching ? (
-                                                <div className="w-6 h-6 mb-1 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                                            ) : (
-                                                <svg className="w-6 h-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
-                                            )}
-                                            <span className="text-xs font-bold">{isSearching ? 'Aranıyor...' : 'Ara'}</span>
-                                        </button>
+                                            <InlinePassengerSelector
+                                                isOpen={showPassengerSelector}
+                                                onClose={() => setShowPassengerSelector(false)}
+                                                value={passengerCount}
+                                                onChange={setPassengerCount}
+                                            />
+                                        </div>
+
+                                        {/* Ara Button */}
+                                        <div className="col-span-1 md:col-span-4 h-[80px] md:h-full">
+                                            <button
+                                                onClick={handleSearch}
+                                                disabled={isSearching}
+                                                className="w-full h-full bg-[#D0142D] hover:bg-[#b01126] disabled:bg-gray-400 text-white rounded-xl shadow-md flex flex-col items-center justify-center p-2 transition-colors"
+                                            >
+                                                {isSearching ? (
+                                                    <div className="w-6 h-6 mb-1 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                                                ) : (
+                                                    <svg className="w-6 h-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+                                                )}
+                                                <span className="text-xs font-bold">{isSearching ? 'Aranıyor...' : 'Ara'}</span>
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -679,39 +812,45 @@ export default function Home() {
             {/* TOURS SECTION */}
             <section className="py-10 md:py-20 bg-gray-50">
                 <div className="container-custom px-4">
-                    <div className="grid grid-cols-12 gap-8 md:gap-12 items-center">
-                        {/* Left Content */}
-                        <div className="col-span-12 lg:col-span-4 space-y-6 md:space-y-8">
-                            <h2 className="text-2xl md:text-4xl font-bold text-gray-900 leading-tight">
-                                Harika bir tur gezisine<br />ne dersiniz?
-                            </h2>
-                            <p className="text-gray-500 text-lg">
-                                Eşsiz rotalar ve kişiye özel maceralarla dolu turlarımızla unutulmaz anılar yaratmaya hazır olun!
-                            </p>
-
-                            <Link href="/turlar" className="inline-block bg-black hover:bg-gray-800 text-white font-semibold px-8 py-3 rounded-lg transition-colors">
-                                Daha Fazla Tur
-                            </Link>
-
-                            {/* Navigation Buttons */}
-                            <div className="flex space-x-4 pt-4">
-                                <button
-                                    onClick={scrollPrev}
-                                    className="w-12 h-12 rounded-full border border-gray-300 flex items-center justify-center text-gray-400 hover:border-orange-500 hover:text-orange-500 transition-colors"
-                                >
-                                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
-                                </button>
-                                <button
-                                    onClick={scrollNext}
-                                    className="w-12 h-12 rounded-full border border-gray-300 flex items-center justify-center text-gray-900 hover:border-orange-500 hover:text-orange-500 transition-colors"
-                                >
-                                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
-                                </button>
+                    <div className="flex flex-col space-y-8">
+                        {/* Section Header */}
+                        <div className="mb-6">
+                            <div className="max-w-2xl">
+                                <div className="flex items-center space-x-2 mb-3">
+                                    <span className="h-px w-8 bg-[#D0142D]"></span>
+                                    <span className="text-[#D0142D] font-bold text-sm tracking-widest uppercase">
+                                        EŞSİZ DENEYİMLER
+                                    </span>
+                                </div>
+                                <h2 className="text-3xl md:text-5xl font-extrabold text-gray-900 mb-4 tracking-tight">
+                                    Özel <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#D0142D] to-red-600">İstanbul</span> Turları
+                                </h2>
+                                <div className="flex flex-col md:flex-row md:items-center gap-4 mb-6">
+                                    <p className="text-gray-500 text-lg leading-relaxed">
+                                        Şehrin tarihi güzelliklerini ve gizli kalmış hazinelerini VIP ayrıcalığı ve lüks araçlarımızla keşfetmeye hazır olun.
+                                    </p>
+                                    
+                                    {/* Navigation Buttons */}
+                                    <div className="flex space-x-3 flex-shrink-0">
+                                        <button
+                                            onClick={scrollPrev}
+                                            className="w-12 h-12 rounded-2xl bg-black shadow-lg shadow-black/20 flex items-center justify-center text-white hover:bg-gray-800 transition-all duration-300 group"
+                                        >
+                                            <svg className="w-5 h-5 group-hover:-translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
+                                        </button>
+                                        <button
+                                            onClick={scrollNext}
+                                            className="w-12 h-12 rounded-2xl bg-[#D0142D] shadow-lg shadow-[#D0142D]/30 flex items-center justify-center text-white hover:bg-[#b01126] transition-all duration-300 group"
+                                        >
+                                            <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
-                        {/* Right Content - Slider */}
-                        <div className="col-span-12 lg:col-span-8 lg:-mr-[50vw] lg:pr-[10vw]">
+                        {/* Slider */}
+                        <div className="w-full">
                             <div
                                 ref={scrollContainerRef}
                                 className="flex space-x-6 overflow-x-auto pb-8 scrollbar-hide [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none']"

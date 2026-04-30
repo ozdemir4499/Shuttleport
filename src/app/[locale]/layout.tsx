@@ -7,7 +7,7 @@ import './globals.css';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-    title: 'Luxe Transfer - VIP Transfer Hizmetleri',
+    title: 'Istanbul Transfer - VIP Transfer Hizmetleri',
     description: 'Havalimanı ve şehir içi transfer hizmetleri için online rezervasyon platformu',
 };
 
@@ -28,7 +28,7 @@ export default async function RootLayout({
     const jsonLd = {
       "@context": "https://schema.org",
       "@type": "TravelAgency",
-      "name": "Luxe Transfer",
+      "name": "Istanbul Transfer",
       "image": "https://shuttleport.com/logo.png",
       "description": "Premium Airport and City Transfer Service",
       "address": {

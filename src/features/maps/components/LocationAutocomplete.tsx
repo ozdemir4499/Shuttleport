@@ -199,7 +199,7 @@ export function LocationAutocomplete({
                 {/* İçerik Alanı - Floating Label */}
                 <div className="w-full h-full pl-[70px] pr-12 flex flex-col justify-center relative">
                     {/* Floating Label - Her zaman üstte */}
-                    <label className="text-[10px] font-bold text-gray-500 uppercase mb-0.5">
+                    <label className="text-[11px] font-bold text-black uppercase mb-0.5">
                         {label}
                     </label>
 
