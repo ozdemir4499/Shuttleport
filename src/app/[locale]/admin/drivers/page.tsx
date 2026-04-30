@@ -15,6 +15,10 @@ interface Driver {
   license_number: string | null;
   vehicle_id: number | null;
   vehicle_name: string | null;
+  photo_path: string | null;
+  permit_document_path: string | null;
+  identity_document_path: string | null;
+  notes: string | null;
   active: boolean;
 }
 
@@ -29,6 +33,7 @@ export default function DriversPage() {
     email: '',
     license_number: '',
     vehicle_id: '',
+    notes: '',
     active: true
   });
   const router = useRouter();
@@ -87,6 +92,7 @@ export default function DriversPage() {
         email: formData.email || null,
         license_number: formData.license_number || null,
         vehicle_id: formData.vehicle_id ? parseInt(formData.vehicle_id) : null,
+        notes: formData.notes || null,
         active: formData.active
       };
 
@@ -134,6 +140,39 @@ export default function DriversPage() {
     }
   };
 
+  const handleFileUpload = async (driverId: number, docType: string, file: File) => {
+    try {
+      const token = localStorage.getItem('adminToken');
+      const formDataUpload = new FormData();
+      formDataUpload.append('doc_type', docType);
+      formDataUpload.append('file', file);
+
+      const res = await fetch(`http://localhost:8000/api/admin/drivers/${driverId}/document`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        },
+        body: formDataUpload
+      });
+
+      if (res.ok) {
+        fetchDrivers();
+        alert('Belge başarıyla yüklendi.');
+        // Refresh the editing driver to show new documents
+        const updatedDrivers = await (await fetch('http://localhost:8000/api/admin/drivers', {
+           headers: { 'Authorization': `Bearer ${token}` }
+        })).json();
+        const updated = updatedDrivers.find((d: Driver) => d.id === driverId);
+        if (updated) setEditingDriver(updated);
+      } else {
+        alert('Belge yükleme başarısız oldu.');
+      }
+    } catch (err) {
+      console.error(err);
+      alert('Yükleme sırasında hata oluştu.');
+    }
+  };
+
   const openCreateModal = () => {
     setEditingDriver(null);
     setFormData({
@@ -142,6 +181,7 @@ export default function DriversPage() {
       email: '',
       license_number: '',
       vehicle_id: '',
+      notes: '',
       active: true
     });
     setIsModalOpen(true);
@@ -155,6 +195,7 @@ export default function DriversPage() {
       email: driver.email || '',
       license_number: driver.license_number || '',
       vehicle_id: driver.vehicle_id ? driver.vehicle_id.toString() : '',
+      notes: driver.notes || '',
       active: driver.active
     });
     setIsModalOpen(true);
@@ -207,8 +248,12 @@ export default function DriversPage() {
                   <tr key={driver.id} className="hover:bg-slate-50/50 transition-colors group">
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="flex items-center">
-                        <div className="flex-shrink-0 h-10 w-10 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center font-bold text-lg">
-                          {driver.full_name.charAt(0)}
+                        <div className="flex-shrink-0 h-10 w-10 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center font-bold text-lg overflow-hidden">
+                          {driver.photo_path ? (
+                            <img src={`http://localhost:8000${driver.photo_path}`} alt="Driver" className="w-full h-full object-cover" />
+                          ) : (
+                            driver.full_name.charAt(0)
+                          )}
                         </div>
                         <div className="ml-4">
                           <div className="text-sm font-bold text-slate-900">{driver.full_name}</div>
@@ -330,7 +375,70 @@ export default function DriversPage() {
                     ))}
                   </select>
                 </div>
+                
+                <div className="col-span-2">
+                  <label className="block text-sm font-medium text-slate-700 mb-1">Notlar / Açıklama</label>
+                  <textarea
+                    value={formData.notes}
+                    onChange={(e) => setFormData({...formData, notes: e.target.value})}
+                    className="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                    placeholder="Sürücü hakkında ek bilgiler..."
+                    rows={2}
+                  ></textarea>
+                </div>
               </div>
+
+              {editingDriver && (
+                <div className="mt-6 pt-4 border-t border-slate-100">
+                  <h3 className="text-sm font-bold text-slate-800 mb-3">Sürücü Belgeleri</h3>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    {/* Profil Resmi */}
+                    <div className="border border-slate-200 rounded-xl p-4 flex flex-col items-center justify-center text-center bg-slate-50">
+                      <p className="text-xs font-semibold text-slate-600 mb-2">Profil Fotoğrafı</p>
+                      {editingDriver.photo_path && (
+                        <div className="w-16 h-16 rounded-full overflow-hidden mb-2">
+                          <img src={`http://localhost:8000${editingDriver.photo_path}`} alt="Profil" className="w-full h-full object-cover" />
+                        </div>
+                      )}
+                      <label className="cursor-pointer text-xs text-indigo-600 hover:text-indigo-800 font-medium">
+                        {editingDriver.photo_path ? 'Değiştir' : 'Yükle'}
+                        <input type="file" className="hidden" accept="image/*" onChange={(e) => {
+                          if (e.target.files && e.target.files[0]) handleFileUpload(editingDriver.id, 'photo', e.target.files[0])
+                        }} />
+                      </label>
+                    </div>
+
+                    {/* İzin Belgesi (SRC) */}
+                    <div className="border border-slate-200 rounded-xl p-4 flex flex-col items-center justify-center text-center bg-slate-50">
+                      <p className="text-xs font-semibold text-slate-600 mb-2">İzin Belgesi / SRC</p>
+                      {editingDriver.permit_document_path && (
+                        <a href={`http://localhost:8000${editingDriver.permit_document_path}`} target="_blank" rel="noreferrer" className="text-xs text-blue-500 mb-2 hover:underline">Belgeyi Gör</a>
+                      )}
+                      <label className="cursor-pointer text-xs text-indigo-600 hover:text-indigo-800 font-medium">
+                        {editingDriver.permit_document_path ? 'Güncelle' : 'Yükle'}
+                        <input type="file" className="hidden" onChange={(e) => {
+                          if (e.target.files && e.target.files[0]) handleFileUpload(editingDriver.id, 'permit', e.target.files[0])
+                        }} />
+                      </label>
+                    </div>
+
+                    {/* Kimlik / Ehliyet Kopyası */}
+                    <div className="border border-slate-200 rounded-xl p-4 flex flex-col items-center justify-center text-center bg-slate-50">
+                      <p className="text-xs font-semibold text-slate-600 mb-2">Kimlik / Ehliyet Kopyası</p>
+                      {editingDriver.identity_document_path && (
+                        <a href={`http://localhost:8000${editingDriver.identity_document_path}`} target="_blank" rel="noreferrer" className="text-xs text-blue-500 mb-2 hover:underline">Belgeyi Gör</a>
+                      )}
+                      <label className="cursor-pointer text-xs text-indigo-600 hover:text-indigo-800 font-medium">
+                        {editingDriver.identity_document_path ? 'Güncelle' : 'Yükle'}
+                        <input type="file" className="hidden" onChange={(e) => {
+                          if (e.target.files && e.target.files[0]) handleFileUpload(editingDriver.id, 'identity', e.target.files[0])
+                        }} />
+                      </label>
+                    </div>
+                  </div>
+                  <p className="text-[10px] text-slate-400 mt-2 text-center">* Belge yüklediğinizde anında kaydedilir.</p>
+                </div>
+              )}
 
               <div className="flex items-center gap-2 mt-4 pt-4 border-t border-slate-100">
                 <input
