@@ -84,7 +84,7 @@ export default function BookingsPage() {
   const fetchBookings = async () => {
     try {
       const token = localStorage.getItem('adminToken');
-      const res = await fetch('http://127.0.0.1:8000/api/admin/bookings', {
+      const res = await fetch('http://localhost:8000/api/admin/bookings', {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       if (res.ok) {
@@ -101,7 +101,7 @@ export default function BookingsPage() {
   const updateStatus = async (id: number, newStatus: string) => {
     try {
       const token = localStorage.getItem('adminToken');
-      const res = await fetch(`http://127.0.0.1:8000/api/admin/bookings/${id}/status`, {
+      const res = await fetch(`http://localhost:8000/api/admin/bookings/${id}/status`, {
         method: 'PUT',
         headers: { 
           'Content-Type': 'application/json',
@@ -214,8 +214,8 @@ export default function BookingsPage() {
       delete payload.phone_code;
 
       const url = editingBookingId 
-        ? `http://127.0.0.1:8000/api/admin/bookings/${editingBookingId}`
-        : 'http://127.0.0.1:8000/api/admin/bookings';
+        ? `http://localhost:8000/api/admin/bookings/${editingBookingId}`
+        : 'http://localhost:8000/api/admin/bookings';
       
       const method = editingBookingId ? 'PUT' : 'POST';
 
