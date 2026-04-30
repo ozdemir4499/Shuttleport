@@ -1,217 +1,287 @@
 
 > shuttleport-mvp@0.1.0 dev
-> next dev
+> next dev -p 3003
 
- ⚠ Port 3000 is in use, trying 3001 instead.
- ⚠ Port 3001 is in use, trying 3002 instead.
- ⚠ Port 3002 is in use, trying 3003 instead.
-  ▲ Next.js 14.2.35
-  - Local:        http://localho ⚠ Found a change in next.config.js. Restarting the server to apply the changes...
- ⚠ Port 3000 is in use, trying 3001 instead.
- ⚠ Port 3001 is in use, trying 3002 instead.
-  ▲ Next.js 14.2.35
-  - Local:        http://localhost:3002
-
- ✓ Starting...
-Error: 
-[next-intl] Could not locate request configuration module.
-
-This path is supported by default: ./(src/)i18n/request.{js,jsx,ts,tsx}
-
-Alternatively, you can specify a custom location in your Next.js config:
-
-const withNextIntl = createNextIntlPlugin(
-  './path/to/i18n/request.tsx'
-);
-
-    at throwError (/home/bedir/Documents/code/Shuttleport_Front/node_modules/next-intl/dist/cjs/development/plugin-Har7Ebj3.cjs:21:9)
-    at resolveI18nPath (/home/bedir/Documents/code/Shuttleport_Front/node_modules/next-intl/dist/cjs/development/plugin-Har7Ebj3.cjs:1221:7)
-    at Object.webpack (/home/bedir/Documents/code/Shuttleport_Front/node_modules/next-intl/dist/cjs/development/plugin-Har7Ebj3.cjs:1393:96)
-    at getBaseWebpackConfig (/home/bedir/Documents/code/Shuttleport_Front/node_modules/next/dist/build/webpack-config.js:1838:32)
-    at async Promise.all (index 1)
-    at async Span.traceAsyncFn (/home/bedir/Documents/code/Shuttleport_Front/node_modules/next/dist/trace/trace.js:154:20)
-    at async Span.traceAsyncFn (/home/bedir/Documents/code/Shuttleport_Front/node_modules/next/dist/trace/trace.js:154:20)
-    at async HotReloaderWebpack.start (/home/bedir/Documents/code/Shuttleport_Front/node_modules/next/dist/server/dev/hot-reloader-webpack.js:621:37)
-    at async startWatcher (/home/bedir/Documents/code/Shuttleport_Front/node_modules/next/dist/server/lib/router-utils/setup-dev-bundler.js:156:5)
-    at async setupDevBundler (/home/bedir/Documents/code/Shuttleport_Front/node_modules/next/dist/server/lib/router-utils/setup-dev-bundler.js:775:20)
-[?25h
-ed in 188ms (355 modules)
- ✓ Compiled in 379ms (670 modules)
- GET / 200 in 88ms
- GET /admin/pricing-rules 200 in 87ms
- ✓ Compiled /admin/routes in 255ms (676 modules)
- ✓ Compiled in 167ms (357 modules)
- ✓ Compiled in 272ms (683 modules)
- GET /admin/vehicles 404 in 62ms
- GET /admin/vehicles 404 in 23ms
- GET /admin/vehicles 404 in 20ms
- GET /admin/vehicles 404 in 25ms
- GET /admin/vehicles 404 in 22ms
- GET /admin/vehicles 404 in 20ms
- GET /admin/routes 200 in 33ms
- ✓ Compiled in 599ms (683 modules)
- ✓ Compiled /admin/vehicles in 184ms (675 modules)
- ✓ Compiled in 431ms (677 modules)
- ✓ Compiled in 188ms (358 modules)
- ✓ Compiled /_not-found in 310ms (666 modules)
- GET /admin/vehicles 200 in 59ms
- GET /admin/vehicles 200 in 31ms
- ✓ Compiled /admin/bookings in 254ms (669 modules)
- ✓ Compiled in 280ms (360 modules)
- ✓ Compiled in 219ms (360 modules)
- ✓ Compiled in 695ms (678 modules)
- ⨯ ./src/app/admin/layout.tsx
-Error: 
-  [31mx[0m You're importing a component that needs useRouter. It only works in a Client Component but none of its parents are marked with "use client", so they're Server Components by default.
-  [31m|[0m Learn more: https://nextjs.org/docs/getting-started/react-essentials
-  [31m|[0m 
-  [31m|[0m 
-   ,-[[36;1;4m/home/bedir/Documents/code/Shuttleport_Front/src/app/admin/layout.tsx[0m:1:1]
- [2m1[0m | import React from 'react';
- [2m2[0m | import Link from 'next/link';
- [2m3[0m | import { useRouter } from 'next/navigation';
-   : [31;1m         ^^^^^^^^^[0m
- [2m4[0m | import { useEffect, useState } from 'react';
- [2m5[0m | 
- [2m6[0m | export default function AdminLayout({ children }: { children: React.ReactNode }) {
-   `----
-
-  [31mx[0m You're importing a component that needs useEffect. It only works in a Client Component but none of its parents are marked with "use client", so they're Server Components by default.
-  [31m|[0m Learn more: https://nextjs.org/docs/getting-started/react-essentials
-  [31m|[0m 
-  [31m|[0m 
-   ,-[[36;1;4m/home/bedir/Documents/code/Shuttleport_Front/src/app/admin/layout.tsx[0m:1:1]
- [2m1[0m | import React from 'react';
- [2m2[0m | import Link from 'next/link';
- [2m3[0m | import { useRouter } from 'next/navigation';
- [2m4[0m | import { useEffect, useState } from 'react';
-   : [31;1m         ^^^^^^^^^[0m
- [2m5[0m | 
- [2m6[0m | export default function AdminLayout({ children }: { children: React.ReactNode }) {
- [2m7[0m |   const router = useRouter();
-   `----
-
-  [31mx[0m You're importing a component that needs useState. It only works in a Client Component but none of its parents are marked with "use client", so they're Server Components by default.
-  [31m|[0m Learn more: https://nextjs.org/docs/getting-started/react-essentials
-  [31m|[0m 
-  [31m|[0m 
-   ,-[[36;1;4m/home/bedir/Documents/code/Shuttleport_Front/src/app/admin/layout.tsx[0m:1:1]
- [2m1[0m | import React from 'react';
- [2m2[0m | import Link from 'next/link';
- [2m3[0m | import { useRouter } from 'next/navigation';
- [2m4[0m | import { useEffect, useState } from 'react';
-   : [31;1m                    ^^^^^^^^[0m
- [2m5[0m | 
- [2m6[0m | export default function AdminLayout({ children }: { children: React.ReactNode }) {
- [2m7[0m |   const router = useRouter();
-   `----
-
-Import trace for requested module:
-./src/app/admin/layout.tsx
- ○ Compiling /_error ...
- ⨯ ./src/app/admin/layout.tsx
-Error: 
-  [31mx[0m You're importing a component that needs useRouter. It only works in a Client Component but none of its parents are marked with "use client", so they're Server Components by default.
-  [31m|[0m Learn more: https://nextjs.org/docs/getting-started/react-essentials
-  [31m|[0m 
-  [31m|[0m 
-   ,-[[36;1;4m/home/bedir/Documents/code/Shuttleport_Front/src/app/admin/layout.tsx[0m:1:1]
- [2m1[0m | import React from 'react';
- [2m2[0m | import Link from 'next/link';
- [2m3[0m | import { useRouter } from 'next/navigation';
-   : [31;1m         ^^^^^^^^^[0m
- [2m4[0m | import { useEffect, useState } from 'react';
- [2m5[0m | 
- [2m6[0m | export default function AdminLayout({ children }: { children: React.ReactNode }) {
-   `----
-
-  [31mx[0m You're importing a component that needs useEffect. It only works in a Client Component but none of its parents are marked with "use client", so they're Server Components by default.
-  [31m|[0m Learn more: https://nextjs.org/docs/getting-started/react-essentials
-  [31m|[0m 
-  [31m|[0m 
-   ,-[[36;1;4m/home/bedir/Documents/code/Shuttleport_Front/src/app/admin/layout.tsx[0m:1:1]
- [2m1[0m | import React from 'react';
- [2m2[0m | import Link from 'next/link';
- [2m3[0m | import { useRouter } from 'next/navigation';
- [2m4[0m | import { useEffect, useState } from 'react';
-   : [31;1m         ^^^^^^^^^[0m
- [2m5[0m | 
- [2m6[0m | export default function AdminLayout({ children }: { children: React.ReactNode }) {
- [2m7[0m |   const router = useRouter();
-   `----
-
-  [31mx[0m You're importing a component that needs useState. It only works in a Client Component but none of its parents are marked with "use client", so they're Server Components by default.
-  [31m|[0m Learn more: https://nextjs.org/docs/getting-started/react-essentials
-  [31m|[0m 
-  [31m|[0m 
-   ,-[[36;1;4m/home/bedir/Documents/code/Shuttleport_Front/src/app/admin/layout.tsx[0m:1:1]
- [2m1[0m | import React from 'react';
- [2m2[0m | import Link from 'next/link';
- [2m3[0m | import { useRouter } from 'next/navigation';
- [2m4[0m | import { useEffect, useState } from 'react';
-   : [31;1m                    ^^^^^^^^[0m
- [2m5[0m | 
- [2m6[0m | export default function AdminLayout({ children }: { children: React.ReactNode }) {
- [2m7[0m |   const router = useRouter();
-   `----
-
-Import trace for requested module:
-./src/app/admin/layout.tsx
- GET / 500 in 29ms
- GET /admin/bookings 500 in 48ms
-<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, rename '/home/bedir/Documents/code/Shuttleport_Front/.next/cache/webpack/client-development-fallback/0.pack.gz_' -> '/home/bedir/Documents/code/Shuttleport_Front/.next/cache/webpack/client-development-fallback/0.pack.gz'
- ✓ Compiled /_not-found in 655ms (896 modules)
- GET /_next/static/webpack/643ce56b4c17ee6c.webpack.hot-update.json 404 in 876ms
- GET / 200 in 239ms
- GET /admin/bookings 200 in 240ms
- ✓ Compiled /admin/login in 191ms (902 modules)
- ✓ Compiled in 357ms (913 modules)
- ✓ Compiled in 264ms (551 modules)
- ✓ Compiled in 337ms (911 modules)
- ✓ Compiled in 347ms (911 modules)
- ✓ Compiled /admin in 108ms (363 modules)
- GET /admin 200 in 205ms
- ✓ Compiled in 357ms (911 modules)
- ✓ Compiled /admin/pricing-rules in 170ms (368 modules)
- ✓ Compiled in 262ms (548 modules)
- ✓ Compiled in 666ms (914 modules)
- ⚠ Fast Refresh had to perform a full reload due to a runtime error.
- ⚠ Fast Refresh had to perform a full reload due to a runtime error.
- GET / 200 in 234ms
- GET /admin 200 in 236ms
- GET / 200 in 25ms
- ✓ Compiled in 603ms (892 modules)
- ✓ Compiled in 193ms (552 modules)
- ✓ Compiled in 211ms (552 modules)
- ✓ Compiled in 309ms (552 modules)
- ✓ Compiled in 321ms (892 modules)
- ⚠ Found a change in next.config.js. Restarting the server to apply the changes...
- ⚠ Port 3000 is in use, trying 3001 instead.
- ⚠ Port 3001 is in use, trying 3002 instead.
- ⚠ Port 3002 is in use, trying 3003 instead.
   ▲ Next.js 14.2.35
   - Local:        http://localhost:3003
+  - Environments: .env.local
 
  ✓ Starting...
+> [PWA] PWA support is disabled
+> [PWA] PWA support is disabled
+ ✓ Ready in 1987ms
+ ✓ Compiled /src/middleware in 330ms (88 modules)
+MIDDLEWARE CALLED FOR: /en
+ ○ Compiling /[locale] ...
+ ✓ Compiled /[locale] in 2.8s (763 modules)
+ ✓ Compiled in 373ms (332 modules)
+ GET /en 200 in 3206ms
+ ○ Compiling /icon.png ...
+ ✓ Compiled /icon.png in 2.3s (454 modules)
+ GET /icon.png?89bb144c429230e8 200 in 2438ms
+MIDDLEWARE CALLED FOR: /tr
+MIDDLEWARE CALLED FOR: /
+ GET / 200 in 126ms
+MIDDLEWARE CALLED FOR: /
+ GET / 200 in 49ms
+MIDDLEWARE CALLED FOR: /
+ GET / 200 in 73ms
+MIDDLEWARE CALLED FOR: /
+ GET / 200 in 26ms
+ GET /icon.png?89bb144c429230e8 200 in 28ms
+MIDDLEWARE CALLED FOR: /
+ GET / 200 in 48ms
+ GET /icon.png?89bb144c429230e8 200 in 25ms
+ ✓ Compiled in 299ms (332 modules)
+MIDDLEWARE CALLED FOR: /
+ GET /?_rsc=7rpsd 200 in 37ms
+MIDDLEWARE CALLED FOR: /en/admin/routes
+ ✓ Compiled /[locale]/admin/routes in 284ms (753 modules)
+ GET /en/admin/routes 200 in 581ms
+ ✓ Compiled /icon.png in 77ms (462 modules)
+ GET /icon.png?89bb144c429230e8 200 in 158ms
+ ✓ Compiled in 448ms (767 modules)
+MIDDLEWARE CALLED FOR: /
+MIDDLEWARE CALLED FOR: /en/admin/routes
+MIDDLEWARE CALLED FOR: /en
+ GET /en/admin/routes?_rsc=4bhuk 200 in 121ms
+ GET /en 200 in 158ms
+ ✓ Compiled in 265ms (767 modules)
+MIDDLEWARE CALLED FOR: /en/admin/routes
+MIDDLEWARE CALLED FOR: /
+MIDDLEWARE CALLED FOR: /en
+ GET /en/admin/routes?_rsc=4bhuk 200 in 113ms
+ GET /en 200 in 130ms
+MIDDLEWARE CALLED FOR: /
+MIDDLEWARE CALLED FOR: /en
+ GET /en 200 in 114ms
+ ✓ Compiled /icon.png in 136ms (462 modules)
+ GET /icon.png?89bb144c429230e8 200 in 224ms
+MIDDLEWARE CALLED FOR: /en/admin/routes
+ GET /en/admin/routes 200 in 111ms
+ GET /icon.png?89bb144c429230e8 200 in 27ms
+ ✓ Compiled in 335ms (337 modules)
+MIDDLEWARE CALLED FOR: /en/admin/routes
+MIDDLEWARE CALLED FOR: /en
+ GET /en?_rsc=1rqfb 200 in 84ms
+ GET /en/admin/routes?_rsc=4bhuk 200 in 86ms
+ ✓ Compiled in 319ms (337 modules)
+MIDDLEWARE CALLED FOR: /en
+MIDDLEWARE CALLED FOR: /en/admin/routes
+ GET /en?_rsc=1rqfb 200 in 81ms
+ GET /en/admin/routes?_rsc=4bhuk 200 in 89ms
+ ✓ Compiled in 232ms (337 modules)
+MIDDLEWARE CALLED FOR: /en/admin/routes
+MIDDLEWARE CALLED FOR: /en
+ GET /en?_rsc=1rqfb 200 in 73ms
+ GET /en/admin/routes?_rsc=4bhuk 200 in 74ms
+ ✓ Compiled in 137ms (430 modules)
+MIDDLEWARE CALLED FOR: /en/admin/routes
+ GET /en/admin/routes 200 in 137ms
+ ✓ Compiled /icon.png in 129ms (462 modules)
+ GET /icon.png?89bb144c429230e8 200 in 217ms
+MIDDLEWARE CALLED FOR: /admin/bookings
+MIDDLEWARE CALLED FOR: /en/admin/bookings
+ ⨯ ./src/app/[locale]/admin/bookings/page.tsx
 Error: 
-[next-intl] Could not locate request configuration module.
+  [31mx[0m Expression expected
+     ,-[[36;1;4m/home/bedir/Documents/code/Shuttleport_Front/src/app/[locale]/admin/bookings/page.tsx[0m:440:1]
+ [2m440[0m |     : bookings;
+ [2m441[0m | 
+ [2m442[0m |   return (
+ [2m443[0m |     <>
+     : [31;1m     ^[0m
+ [2m444[0m |       <style dangerouslySetInnerHTML={{__html: `
+ [2m445[0m |         .react-datepicker { font-family: inherit; border: 1px solid #f3f4f6; border-radius: 1.25rem; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1); overflow: hidden; border: 1px solid rgba(255,255,255,0.5); }
+ [2m446[0m |         .react-datepicker__header { background-color: #f8fafc; border-bottom: 1px solid #e2e8f0; padding-top: 1.25rem; padding-bottom: 0.5rem; }
+     `----
 
-This path is supported by default: ./(src/)i18n/request.{js,jsx,ts,tsx}
+  [31mx[0m Expected ',', got 'className'
+     ,-[[36;1;4m/home/bedir/Documents/code/Shuttleport_Front/src/app/[locale]/admin/bookings/page.tsx[0m:456:1]
+ [2m456[0m |         .react-datepicker__navigation:hover .react-datepicker__navigation-icon::before { border-color: #4f46e5; }
+ [2m457[0m |         .react-datepicker-popper[data-placement^="bottom"] .react-datepicker__triangle { fill: #f8fafc; color: #f8fafc; stroke: #e2e8f0; }
+ [2m458[0m |       `}} />
+ [2m459[0m |       <div className="space-y-8 animate-in fade-in duration-500">
+     : [31;1m           ^^^^^^^^^[0m
+ [2m460[0m |         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+ [2m461[0m |         <div className="flex items-center gap-4">
+ [2m462[0m |           <div className="w-12 h-12 shrink-0 rounded-2xl bg-gradient-to-br from-indigo-600 via-blue-600 to-cyan-500 flex items-center justify-center shadow-[0_4px_12px_rgba(79,70,229,0.3)] ring-4 ring-indigo-50 transform transition-transform hover:scale-105 hover:rotate-3">
+     `----
 
-Alternatively, you can specify a custom location in your Next.js config:
+Caused by:
+    Syntax Error
 
-const withNextIntl = createNextIntlPlugin(
-  './path/to/i18n/request.tsx'
-);
+Import trace for requested module:
+./src/app/[locale]/admin/bookings/page.tsx
+ ○ Compiling /_not-found ...
+ ⨯ ./src/app/[locale]/admin/bookings/page.tsx
+Error: 
+  [31mx[0m Expression expected
+     ,-[[36;1;4m/home/bedir/Documents/code/Shuttleport_Front/src/app/[locale]/admin/bookings/page.tsx[0m:440:1]
+ [2m440[0m |     : bookings;
+ [2m441[0m | 
+ [2m442[0m |   return (
+ [2m443[0m |     <>
+     : [31;1m     ^[0m
+ [2m444[0m |       <style dangerouslySetInnerHTML={{__html: `
+ [2m445[0m |         .react-datepicker { font-family: inherit; border: 1px solid #f3f4f6; border-radius: 1.25rem; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1); overflow: hidden; border: 1px solid rgba(255,255,255,0.5); }
+ [2m446[0m |         .react-datepicker__header { background-color: #f8fafc; border-bottom: 1px solid #e2e8f0; padding-top: 1.25rem; padding-bottom: 0.5rem; }
+     `----
 
-    at throwError (/home/bedir/Documents/code/Shuttleport_Front/node_modules/next-intl/dist/cjs/development/plugin-Har7Ebj3.cjs:21:9)
-    at resolveI18nPath (/home/bedir/Documents/code/Shuttleport_Front/node_modules/next-intl/dist/cjs/development/plugin-Har7Ebj3.cjs:1221:7)
-    at Object.webpack (/home/bedir/Documents/code/Shuttleport_Front/node_modules/next-intl/dist/cjs/development/plugin-Har7Ebj3.cjs:1393:96)
-    at getBaseWebpackConfig (/home/bedir/Documents/code/Shuttleport_Front/node_modules/next/dist/build/webpack-config.js:1838:32)
-    at async Promise.all (index 1)
-    at async Span.traceAsyncFn (/home/bedir/Documents/code/Shuttleport_Front/node_modules/next/dist/trace/trace.js:154:20)
-    at async Span.traceAsyncFn (/home/bedir/Documents/code/Shuttleport_Front/node_modules/next/dist/trace/trace.js:154:20)
-    at async HotReloaderWebpack.start (/home/bedir/Documents/code/Shuttleport_Front/node_modules/next/dist/server/dev/hot-reloader-webpack.js:621:37)
-    at async startWatcher (/home/bedir/Documents/code/Shuttleport_Front/node_modules/next/dist/server/lib/router-utils/setup-dev-bundler.js:156:5)
-    at async setupDevBundler (/home/bedir/Documents/code/Shuttleport_Front/node_modules/next/dist/server/lib/router-utils/setup-dev-bundler.js:775:20)
-[?25h
+  [31mx[0m Expected ',', got 'className'
+     ,-[[36;1;4m/home/bedir/Documents/code/Shuttleport_Front/src/app/[locale]/admin/bookings/page.tsx[0m:456:1]
+ [2m456[0m |         .react-datepicker__navigation:hover .react-datepicker__navigation-icon::before { border-color: #4f46e5; }
+ [2m457[0m |         .react-datepicker-popper[data-placement^="bottom"] .react-datepicker__triangle { fill: #f8fafc; color: #f8fafc; stroke: #e2e8f0; }
+ [2m458[0m |       `}} />
+ [2m459[0m |       <div className="space-y-8 animate-in fade-in duration-500">
+     : [31;1m           ^^^^^^^^^[0m
+ [2m460[0m |         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+ [2m461[0m |         <div className="flex items-center gap-4">
+ [2m462[0m |           <div className="w-12 h-12 shrink-0 rounded-2xl bg-gradient-to-br from-indigo-600 via-blue-600 to-cyan-500 flex items-center justify-center shadow-[0_4px_12px_rgba(79,70,229,0.3)] ring-4 ring-indigo-50 transform transition-transform hover:scale-105 hover:rotate-3">
+     `----
+
+Caused by:
+    Syntax Error
+
+Import trace for requested module:
+./src/app/[locale]/admin/bookings/page.tsx
+MIDDLEWARE CALLED FOR: /en
+ ⨯ ./src/app/[locale]/admin/bookings/page.tsx
+Error: 
+  [31mx[0m Expression expected
+     ,-[[36;1;4m/home/bedir/Documents/code/Shuttleport_Front/src/app/[locale]/admin/bookings/page.tsx[0m:440:1]
+ [2m440[0m |     : bookings;
+ [2m441[0m | 
+ [2m442[0m |   return (
+ [2m443[0m |     <>
+     : [31;1m     ^[0m
+ [2m444[0m |       <style dangerouslySetInnerHTML={{__html: `
+ [2m445[0m |         .react-datepicker { font-family: inherit; border: 1px solid #f3f4f6; border-radius: 1.25rem; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1); overflow: hidden; border: 1px solid rgba(255,255,255,0.5); }
+ [2m446[0m |         .react-datepicker__header { background-color: #f8fafc; border-bottom: 1px solid #e2e8f0; padding-top: 1.25rem; padding-bottom: 0.5rem; }
+     `----
+
+  [31mx[0m Expected ',', got 'className'
+     ,-[[36;1;4m/home/bedir/Documents/code/Shuttleport_Front/src/app/[locale]/admin/bookings/page.tsx[0m:456:1]
+ [2m456[0m |         .react-datepicker__navigation:hover .react-datepicker__navigation-icon::before { border-color: #4f46e5; }
+ [2m457[0m |         .react-datepicker-popper[data-placement^="bottom"] .react-datepicker__triangle { fill: #f8fafc; color: #f8fafc; stroke: #e2e8f0; }
+ [2m458[0m |       `}} />
+ [2m459[0m |       <div className="space-y-8 animate-in fade-in duration-500">
+     : [31;1m           ^^^^^^^^^[0m
+ [2m460[0m |         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+ [2m461[0m |         <div className="flex items-center gap-4">
+ [2m462[0m |           <div className="w-12 h-12 shrink-0 rounded-2xl bg-gradient-to-br from-indigo-600 via-blue-600 to-cyan-500 flex items-center justify-center shadow-[0_4px_12px_rgba(79,70,229,0.3)] ring-4 ring-indigo-50 transform transition-transform hover:scale-105 hover:rotate-3">
+     `----
+
+Caused by:
+    Syntax Error
+
+Import trace for requested module:
+./src/app/[locale]/admin/bookings/page.tsx
+ ⨯ ./src/app/[locale]/admin/bookings/page.tsx
+Error: 
+  [31mx[0m Expression expected
+     ,-[[36;1;4m/home/bedir/Documents/code/Shuttleport_Front/src/app/[locale]/admin/bookings/page.tsx[0m:440:1]
+ [2m440[0m |     : bookings;
+ [2m441[0m | 
+ [2m442[0m |   return (
+ [2m443[0m |     <>
+     : [31;1m     ^[0m
+ [2m444[0m |       <style dangerouslySetInnerHTML={{__html: `
+ [2m445[0m |         .react-datepicker { font-family: inherit; border: 1px solid #f3f4f6; border-radius: 1.25rem; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1); overflow: hidden; border: 1px solid rgba(255,255,255,0.5); }
+ [2m446[0m |         .react-datepicker__header { background-color: #f8fafc; border-bottom: 1px solid #e2e8f0; padding-top: 1.25rem; padding-bottom: 0.5rem; }
+     `----
+
+  [31mx[0m Expected ',', got 'className'
+     ,-[[36;1;4m/home/bedir/Documents/code/Shuttleport_Front/src/app/[locale]/admin/bookings/page.tsx[0m:456:1]
+ [2m456[0m |         .react-datepicker__navigation:hover .react-datepicker__navigation-icon::before { border-color: #4f46e5; }
+ [2m457[0m |         .react-datepicker-popper[data-placement^="bottom"] .react-datepicker__triangle { fill: #f8fafc; color: #f8fafc; stroke: #e2e8f0; }
+ [2m458[0m |       `}} />
+ [2m459[0m |       <div className="space-y-8 animate-in fade-in duration-500">
+     : [31;1m           ^^^^^^^^^[0m
+ [2m460[0m |         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+ [2m461[0m |         <div className="flex items-center gap-4">
+ [2m462[0m |           <div className="w-12 h-12 shrink-0 rounded-2xl bg-gradient-to-br from-indigo-600 via-blue-600 to-cyan-500 flex items-center justify-center shadow-[0_4px_12px_rgba(79,70,229,0.3)] ring-4 ring-indigo-50 transform transition-transform hover:scale-105 hover:rotate-3">
+     `----
+
+Caused by:
+    Syntax Error
+
+Import trace for requested module:
+./src/app/[locale]/admin/bookings/page.tsx
+MIDDLEWARE CALLED FOR: /en/admin/bookings
+MIDDLEWARE CALLED FOR: /en
+MIDDLEWARE CALLED FOR: /en/admin/bookings
+MIDDLEWARE CALLED FOR: /en
+ GET /en 500 in 20ms
+MIDDLEWARE CALLED FOR: /en/admin/bookings
+ GET /en/admin/bookings 500 in 28ms
+MIDDLEWARE CALLED FOR: /en/admin/bookings
+ GET /en/admin/bookings 500 in 8ms
+MIDDLEWARE CALLED FOR: /en/admin/bookings
+ GET /en/admin/bookings 500 in 8ms
+
+Could not open page.tsx in the editor.
+The editor process exited with an error: Terminal editors can only be used on macOS.
+
+To set up the editor integration, add something like REACT_EDITOR=atom to the .env.local file in your project folder and restart the development server.
+
+MIDDLEWARE CALLED FOR: /en/admin/bookings
+ GET /en/admin/bookings 500 in 14ms
+MIDDLEWARE CALLED FOR: /en/admin/bookings
+ GET /en/admin/bookings 500 in 11ms
+MIDDLEWARE CALLED FOR: /en/admin/bookings
+ GET /en/admin/bookings 500 in 11ms
+MIDDLEWARE CALLED FOR: /en/admin/bookings
+ GET /en/admin/bookings 500 in 9ms
+MIDDLEWARE CALLED FOR: /en/admin/bookings
+ GET /en/admin/bookings 500 in 8ms
+ ✓ Compiled /_error in 3.3s (2696 modules)
+MIDDLEWARE CALLED FOR: /en
+MIDDLEWARE CALLED FOR: /en/admin/bookings
+ ✓ Compiled (2682 modules)
+ GET /_next/static/webpack/643ce56b4c17ee6c.webpack.hot-update.json 404 in 3674ms
+ GET /en 200 in 330ms
+ GET /_next/static/webpack/643ce56b4c17ee6c.webpack.hot-update.json 404 in 20ms
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ GET /en/admin/bookings 200 in 349ms
+MIDDLEWARE CALLED FOR: /en/admin/bookings
+ GET /en/admin/bookings 200 in 149ms
+ ✓ Compiled in 635ms (2696 modules)
+MIDDLEWARE CALLED FOR: /en
+MIDDLEWARE CALLED FOR: /en/admin/bookings
+ GET /en?_rsc=1rqfb 200 in 138ms
+ GET /en/admin/bookings?_rsc=1gbmk 200 in 151ms
+ ✓ Compiled in 771ms (2692 modules)
+MIDDLEWARE CALLED FOR: /en/admin/bookings
+MIDDLEWARE CALLED FOR: /en
+ GET /en?_rsc=1rqfb 200 in 191ms
+ GET /en/admin/bookings?_rsc=1gbmk 200 in 192ms
+MIDDLEWARE CALLED FOR: /en/admin/bookings
+ GET /en/admin/bookings 200 in 147ms
+ ✓ Compiled /icon.png in 152ms (1344 modules)
+ GET /icon.png?89bb144c429230e8 200 in 251ms
+ ✓ Compiled in 745ms (2692 modules)
+MIDDLEWARE CALLED FOR: /en
+MIDDLEWARE CALLED FOR: /en/admin/bookings
+ GET /en?_rsc=1rqfb 200 in 184ms
+ GET /en/admin/bookings?_rsc=1gbmk 200 in 190ms
+MIDDLEWARE CALLED FOR: /en/admin/bookings
+ GET /en/admin/bookings 200 in 152ms
+ ✓ Compiled /icon.png in 153ms (1344 modules)
+ GET /icon.png?89bb144c429230e8 200 in 247ms
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 565ms (2682 modules)
+ GET /.well-known/appspecific/com.chrome.devtools.json 404 in 682ms
+MIDDLEWARE CALLED FOR: /en/admin/bookings
+ GET /en/admin/bookings 200 in 138ms
+ GET /.well-known/appspecific/com.chrome.devtools.json 404 in 25ms
+ ✓ Compiled /icon.png in 271ms (1346 modules)
+ GET /icon.png?89bb144c429230e8 200 in 363ms
+MIDDLEWARE CALLED FOR: /en/admin/bookings
+ GET /en/admin/bookings 200 in 195ms
+MIDDLEWARE CALLED FOR: /en
+ GET /en 200 in 158ms
+MIDDLEWARE CALLED FOR: /en
+MIDDLEWARE CALLED FOR: /en/admin/bookings
+ GET /en 200 in 174ms
+ GET /en/admin/bookings 200 in 174ms

@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { LocationAutocomplete } from '@/features/maps/components/LocationAutocomplete';
 
 type FixedRouteSchema = {
   origin: string;
@@ -20,9 +21,10 @@ type RouteModalProps = {
   isOpen: boolean;
   onClose: () => void;
   onSave: (route: FixedRouteSchema) => Promise<void>;
+  initialData?: FixedRouteSchema | null;
 };
 
-export default function RouteModal({ isOpen, onClose, onSave }: RouteModalProps) {
+export default function RouteModal({ isOpen, onClose, onSave, initialData }: RouteModalProps) {
   const [formData, setFormData] = useState<FixedRouteSchema>({
     origin: '',
     destination: '',
@@ -34,6 +36,23 @@ export default function RouteModal({ isOpen, onClose, onSave }: RouteModalProps)
 
   const [vehicles, setVehicles] = useState<Vehicle[]>([]);
   const [loading, setLoading] = useState(false);
+  const [activeInput, setActiveInput] = useState<'origin' | 'destination' | null>(null);
+  const modalRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (initialData && isOpen) {
+      setFormData(initialData);
+    } else if (isOpen) {
+      setFormData({
+        origin: '',
+        destination: '',
+        vehicle_id: 0,
+        price: 1500,
+        discount_percent: 0,
+        active: true,
+      });
+    }
+  }, [initialData, isOpen]);
 
   useEffect(() => {
     if (isOpen) {
@@ -77,36 +96,40 @@ export default function RouteModal({ isOpen, onClose, onSave }: RouteModalProps)
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-white rounded-lg shadow-xl w-full max-w-md overflow-hidden">
+      <div ref={modalRef} className="bg-white rounded-lg shadow-xl w-full max-w-md overflow-visible relative">
         <div className="px-6 py-4 border-b border-gray-200 flex justify-between items-center">
-          <h3 className="text-lg font-medium text-gray-900">Yeni Rota Ekle</h3>
+          <h3 className="text-lg font-medium text-gray-900">{initialData ? 'Rotayı Düzenle' : 'Yeni Rota Ekle'}</h3>
           <button onClick={onClose} className="text-gray-400 hover:text-gray-500">
             &times;
           </button>
         </div>
         
         <form onSubmit={handleSubmit} className="p-6 space-y-4">
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-700">Kalkış Noktası</label>
-              <input 
-                type="text" 
-                required
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm p-2 border"
+          <div className="grid grid-cols-1 gap-4">
+            <div className="relative z-20">
+              <LocationAutocomplete 
+                type="origin"
+                label="Kalkış Noktası"
                 placeholder="Örn: Istanbul Airport"
-                value={formData.origin}
-                onChange={e => setFormData({...formData, origin: e.target.value})}
+                value={formData.origin ? { lat: 0, lng: 0, address: formData.origin, name: formData.origin } : null}
+                onChange={(loc) => setFormData({...formData, origin: loc ? (loc.name || loc.address) : ''})}
+                isActive={activeInput === 'origin'}
+                onActivate={() => setActiveInput('origin')}
+                onDeactivate={() => setActiveInput(null)}
+                dropdownPosition="right"
               />
             </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700">Varış Noktası</label>
-              <input 
-                type="text" 
-                required
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm p-2 border"
+            <div className="relative z-10">
+              <LocationAutocomplete 
+                type="destination"
+                label="Varış Noktası"
                 placeholder="Örn: Taksim"
-                value={formData.destination}
-                onChange={e => setFormData({...formData, destination: e.target.value})}
+                value={formData.destination ? { lat: 0, lng: 0, address: formData.destination, name: formData.destination } : null}
+                onChange={(loc) => setFormData({...formData, destination: loc ? (loc.name || loc.address) : ''})}
+                isActive={activeInput === 'destination'}
+                onActivate={() => setActiveInput('destination')}
+                onDeactivate={() => setActiveInput(null)}
+                dropdownPosition="right"
               />
             </div>
           </div>

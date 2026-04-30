@@ -14,9 +14,10 @@ type RuleModalProps = {
   isOpen: boolean;
   onClose: () => void;
   onSave: (rule: PricingRuleSchema) => Promise<void>;
+  initialData?: PricingRuleSchema | null;
 };
 
-export default function RuleModal({ isOpen, onClose, onSave }: RuleModalProps) {
+export default function RuleModal({ isOpen, onClose, onSave, initialData }: RuleModalProps) {
   const [formData, setFormData] = useState<PricingRuleSchema>({
     name: '',
     rule_type: 'surge',
@@ -28,6 +29,22 @@ export default function RuleModal({ isOpen, onClose, onSave }: RuleModalProps) {
   });
 
   const [loading, setLoading] = useState(false);
+
+  React.useEffect(() => {
+    if (initialData && isOpen) {
+      setFormData(initialData);
+    } else if (isOpen) {
+      setFormData({
+        name: '',
+        rule_type: 'surge',
+        multiplier: 1.2,
+        start_time: '00:00',
+        end_time: '06:00',
+        days_of_week: [0, 1, 2, 3, 4, 5, 6],
+        active: true,
+      });
+    }
+  }, [initialData, isOpen]);
 
   if (!isOpen) return null;
 
