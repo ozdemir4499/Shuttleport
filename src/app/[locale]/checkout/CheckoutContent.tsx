@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { MapPin, Calendar, Users, Clock, Instagram, Globe, MessageCircle, User, ChevronDown, Menu, X, Check } from 'lucide-react';
@@ -11,6 +11,8 @@ export default function CheckoutContent() {
     const router = useRouter();
     const vehicleId = searchParams.get('vehicleId');
     const currency = searchParams.get('currency') || 'TRY';
+
+    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
     const [paymentMethod, setPaymentMethod] = useState('credit-card');
     const [isSubmitting, setIsSubmitting] = useState(false);
