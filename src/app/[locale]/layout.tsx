@@ -13,6 +13,7 @@ export const metadata: Metadata = {
 
 import ConditionalFooter from '@/components/layout/ConditionalFooter';
 import CookieBanner from '@/components/common/CookieBanner';
+import Script from 'next/script';
 
 export default async function RootLayout({
     children,
@@ -53,6 +54,10 @@ export default async function RootLayout({
                     <CookieBanner />
                     <ConditionalFooter />
                 </NextIntlClientProvider>
+                <Script 
+                    src={`https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}&libraries=places&loading=async`} 
+                    strategy="beforeInteractive" 
+                />
             </body>
         </html>
     );

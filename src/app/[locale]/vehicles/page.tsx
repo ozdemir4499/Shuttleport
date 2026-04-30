@@ -201,8 +201,8 @@ export default function VehiclesPage() {
                 if ((!distanceText || distanceText === '-' || distanceText === 'null' || !durationText || durationText === '-' || durationText === 'null') && fromLat && fromLng && toLat && toLng) {
                     try {
                         const distanceData = await mapsService.calculateDistance(
-                            { lat: parseFloat(fromLat), lng: parseFloat(fromLng), address: fromAddress },
-                            { lat: parseFloat(toLat), lng: parseFloat(toLng), address: toAddress }
+                            { lat: parseFloat(fromLat), lng: parseFloat(fromLng) },
+                            { lat: parseFloat(toLat), lng: parseFloat(toLng) }
                         );
                         finalDistanceText = distanceData.distance_text;
                         finalDurationText = distanceData.duration_text;
