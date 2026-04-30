@@ -87,6 +87,11 @@ export default function BookingsPage() {
       const res = await fetch('http://localhost:8000/api/admin/bookings', {
         headers: { 'Authorization': `Bearer ${token}` }
       });
+      if (res.status === 401) {
+        localStorage.removeItem('adminToken');
+        window.location.href = '/admin/login';
+        return;
+      }
       if (res.ok) {
         const data = await res.json();
         setBookings(data);
@@ -109,6 +114,11 @@ export default function BookingsPage() {
         },
         body: JSON.stringify({ status: newStatus })
       });
+      if (res.status === 401) {
+        localStorage.removeItem('adminToken');
+        window.location.href = '/admin/login';
+        return;
+      }
       if (res.ok) {
         fetchBookings();
       }
@@ -227,11 +237,17 @@ export default function BookingsPage() {
         },
         body: JSON.stringify(payload)
       });
+      if (res.status === 401) {
+        localStorage.removeItem('adminToken');
+        window.location.href = '/admin/login';
+        return;
+      }
       if (res.ok) {
         closeVoucherModal();
         fetchBookings();
       } else {
-        alert("İşlem sırasında bir hata oluştu.");
+        const err = await res.json();
+        alert("Hata: " + JSON.stringify(err));
       }
     } catch (error) {
       console.error("Error creating/updating booking:", error);
@@ -684,7 +700,7 @@ Misafir Bilgisi:
                     {getStatusBadge(b.status)}
                   </td>
                   <td className="px-4 py-4 whitespace-nowrap text-left text-sm font-medium w-px">
-                    <div className="flex items-center justify-start gap-1.5 opacity-0 group-hover:opacity-100 transition-all duration-300">
+                    <div className="flex items-center justify-start gap-1.5 opacity-100 transition-all duration-300">
                       <button onClick={() => openDetailModal(b)} className="w-6 h-6 shrink-0 rounded-md flex items-center justify-center bg-blue-50 text-blue-600 hover:bg-blue-100 hover:text-blue-700 transition-all shadow-sm border border-blue-200/50" title="Detayları Görüntüle">
                         <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>
                       </button>
@@ -862,14 +878,14 @@ Misafir Bilgisi:
                     <div className="absolute inset-y-0 left-0 flex items-center pl-4 pt-6 pointer-events-none text-slate-400 group-focus-within/input:text-indigo-500 transition-colors">
                       <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
                     </div>
-                    <input type="text" ref={originInputRef} required defaultValue={formData.origin} onBlur={e => setFormData({...formData, origin: e.target.value})} className="w-full bg-slate-50/50 hover:bg-slate-50 border border-slate-200 text-slate-900 text-sm rounded-xl focus:bg-white focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500 block px-4 py-3 pl-11 transition-all" placeholder="Alış Noktası" />
+                    <input type="text" ref={originInputRef} required value={formData.origin} onChange={e => setFormData({...formData, origin: e.target.value})} className="w-full bg-slate-50/50 hover:bg-slate-50 border border-slate-200 text-slate-900 text-sm rounded-xl focus:bg-white focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500 block px-4 py-3 pl-11 transition-all" placeholder="Alış Noktası" />
                   </div>
                   <div className="relative group/input">
                     <label className="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-1.5 ml-1">Nereye (Varış) <span className="text-rose-500">*</span></label>
                     <div className="absolute inset-y-0 left-0 flex items-center pl-4 pt-6 pointer-events-none text-slate-400 group-focus-within/input:text-emerald-500 transition-colors">
                       <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
                     </div>
-                    <input type="text" ref={destinationInputRef} required defaultValue={formData.destination} onBlur={e => setFormData({...formData, destination: e.target.value})} className="w-full bg-slate-50/50 hover:bg-slate-50 border border-slate-200 text-slate-900 text-sm rounded-xl focus:bg-white focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-500 block px-4 py-3 pl-11 transition-all" placeholder="Varış Noktası" />
+                    <input type="text" ref={destinationInputRef} required value={formData.destination} onChange={e => setFormData({...formData, destination: e.target.value})} className="w-full bg-slate-50/50 hover:bg-slate-50 border border-slate-200 text-slate-900 text-sm rounded-xl focus:bg-white focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-500 block px-4 py-3 pl-11 transition-all" placeholder="Varış Noktası" />
                   </div>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-5 relative z-10">
