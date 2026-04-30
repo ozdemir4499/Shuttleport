@@ -35,6 +35,11 @@ export default function VehiclesPage() {
       const res = await fetch('http://localhost:8000/api/admin/vehicles', {
         headers: { 'Authorization': `Bearer ${token}` }
       });
+      if (res.status === 401) {
+        localStorage.removeItem('adminToken');
+        window.location.href = '/admin/login';
+        return;
+      }
       if (res.ok) {
         const data = await res.json();
         setVehicles(data);
@@ -58,6 +63,11 @@ export default function VehiclesPage() {
         },
         body: JSON.stringify(formData)
       });
+      if (res.status === 401) {
+        localStorage.removeItem('adminToken');
+        window.location.href = '/admin/login';
+        return;
+      }
       if (res.ok) {
         setIsModalOpen(false);
         fetchVehicles();
