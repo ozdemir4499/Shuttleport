@@ -10,6 +10,7 @@ type Vehicle = {
   baggage_capacity: number;
   quantity: number;
   active: boolean;
+  image_path?: string | null;
 };
 
 export default function VehiclesPage() {
@@ -17,6 +18,7 @@ export default function VehiclesPage() {
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingId, setEditingId] = useState<number | null>(null);
+  const [imageFile, setImageFile] = useState<File | null>(null);
   
   const initialFormState = {
     vehicle_type: '',
@@ -59,12 +61,14 @@ export default function VehiclesPage() {
 
   const openAddModal = () => {
     setEditingId(null);
+    setImageFile(null);
     setFormData(initialFormState);
     setIsModalOpen(true);
   };
 
   const openEditModal = (vehicle: Vehicle) => {
     setEditingId(vehicle.id);
+    setImageFile(null);
     setFormData({
       vehicle_type: vehicle.vehicle_type,
       name_en: vehicle.name_en,
@@ -101,10 +105,30 @@ export default function VehiclesPage() {
         return;
       }
       if (res.ok) {
+        const data = await res.json();
+        
+        // Handle image upload if a file was selected
+        if (imageFile) {
+          const vehicleId = editingId || data.id;
+          const formDataObj = new FormData();
+          formDataObj.append('file', imageFile);
+          
+          try {
+            await fetch(`http://localhost:8000/api/admin/vehicles/${vehicleId}/image`, {
+              method: 'POST',
+              headers: { 'Authorization': `Bearer ${token}` },
+              body: formDataObj
+            });
+          } catch (imgError) {
+            console.error("Image upload failed", imgError);
+          }
+        }
+        
         setIsModalOpen(false);
         fetchVehicles();
         setFormData(initialFormState);
         setEditingId(null);
+        setImageFile(null);
       } else {
         alert("Araç kaydedilirken bir hata oluştu.");
       }
@@ -177,8 +201,12 @@ export default function VehiclesPage() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {vehicles.map((vehicle) => (
           <div key={vehicle.id} className={`bg-white rounded-lg shadow-md overflow-hidden border ${vehicle.active ? 'border-gray-100' : 'border-red-200 opacity-80'}`}>
-            <div className="h-40 bg-gray-200 flex items-center justify-center relative">
-              <span className="text-gray-400 font-medium">Görsel Yok</span>
+            <div className="h-40 bg-gray-200 flex items-center justify-center relative overflow-hidden">
+              {vehicle.image_path ? (
+                <img src={`http://localhost:8000${vehicle.image_path}`} alt={vehicle.name_tr} className="w-full h-full object-cover" />
+              ) : (
+                <span className="text-gray-400 font-medium">Görsel Yok</span>
+              )}
               <div className="absolute top-3 right-3 flex space-x-2">
                 <span className={`px-2 py-1 text-xs font-semibold rounded-full shadow-sm ${
                   vehicle.active ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
@@ -275,6 +303,15 @@ export default function VehiclesPage() {
                   <label className="block text-sm font-medium text-gray-700">Adet (Stok)</label>
                   <input type="number" required min="1" value={formData.quantity} onChange={e => setFormData({...formData, quantity: e.target.value ? parseInt(e.target.value) : 0})} className="mt-1 w-full p-2 border rounded bg-indigo-50 border-indigo-200" />
                 </div>
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Araç Görseli</label>
+                <input 
+                  type="file" 
+                  accept="image/*" 
+                  onChange={e => setImageFile(e.target.files && e.target.files.length > 0 ? e.target.files[0] : null)} 
+                  className="w-full p-2 border rounded text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100" 
+                />
               </div>
               <div className="flex justify-end space-x-3 mt-6 pt-4 border-t border-gray-100">
                 <button type="button" onClick={() => setIsModalOpen(false)} className="px-4 py-2 text-gray-600 bg-gray-100 rounded hover:bg-gray-200 font-medium">İptal</button>
