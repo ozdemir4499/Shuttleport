@@ -38,9 +38,9 @@ export default function Header() {
                 <Link href="/" className="flex items-center space-x-2 md:space-x-3">
                     <div className="w-12 h-12 md:w-16 md:h-16 flex items-center justify-center">
                         <img 
-                            src="/red_lion_icon.png" 
+                            src="/red_lion_icon_transparent.png" 
                             alt="Lion Icon" 
-                            className="w-full h-full object-contain scale-110 mix-blend-multiply"
+                            className="w-full h-full object-contain scale-110"
                         />
                     </div>
                     <div className="flex flex-col justify-center">

@@ -42,11 +42,14 @@ export default function AdminLoginPage() {
     <div className="min-h-screen flex items-center justify-center bg-gray-900">
       <div className="bg-white p-8 rounded-xl shadow-2xl w-full max-w-md">
         <div className="text-center mb-8">
-          <div className="text-[#D32F2F] flex justify-center mb-4">
-            <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M25 2L31 19H49L35 30L40 48L25 37L10 48L15 30L1 19H19L25 2Z" fill="currentColor" />
-              <path d="M25 12L28 22H38L30 28L33 38L25 32L17 38L20 28L12 22H22L25 12Z" fill="white" />
-            </svg>
+          <div className="flex justify-center mb-6">
+            <div className="w-24 h-24 flex items-center justify-center">
+                <img 
+                    src="/red_lion_icon_transparent.png" 
+                    alt="Lion Icon" 
+                    className="w-full h-full object-contain scale-[1.2]"
+                />
+            </div>
           </div>
           <h1 className="text-2xl font-bold text-gray-900">Yönetim Paneli</h1>
           <p className="text-sm text-gray-500 mt-2">Lütfen giriş bilgilerinizi girin</p>
