@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { MapPin, Calendar, Users, Shield, Clock, Car, Facebook, Menu, X, Instagram, MessageCircle, User, ChevronDown, ChevronLeft, ChevronRight, Star } from 'lucide-react';
+import { MapPin, Calendar, Users, Shield, Clock, Car, Facebook, Menu, X, Instagram, MessageCircle, User, ChevronDown, ChevronLeft, ChevronRight, Star, Plane, Building2, Compass, Crown, Sparkles } from 'lucide-react';
 import { LocationAutocomplete } from '@/features/maps';
 import { mapsService } from '@/features/maps/services/maps-service';
 import { ServiceTypeSelector } from '@/features/booking/components/ServiceTypeSelector';
@@ -440,9 +440,9 @@ export default function Home() {
                     {/* Hero Banner Image (Matches Booking Widget Width) */}
                     <div className="max-w-[1440px] mx-auto h-48 md:h-[320px] mb-4 rounded-2xl overflow-hidden shadow-2xl relative group">
                         <img
-                            src="/airport_vip_van_wide_banner_shrunk_right.png"
+                            src="/coastal_vip_van_banner_v11.png"
                             alt="VIP Transfer & Tours"
-                            className="w-full h-full object-cover object-[right_center] transition-transform duration-1000 group-hover:scale-105"
+                            className="w-full h-full object-cover object-[right_25%] transition-transform duration-1000 group-hover:scale-105"
                         />
                         {/* Gradient to ensure text readability on the left without covering the car on the right */}
                         <div className="absolute inset-0 bg-gradient-to-r from-white/95 from-10% via-white/80 md:via-white/60 via-45% md:via-35% to-white/10 md:to-transparent to-75% md:to-55% pointer-events-none"></div>
@@ -474,10 +474,10 @@ export default function Home() {
                                 >
                                     {slides.map((text, idx) => (
                                         <div key={idx} className="w-full flex-shrink-0 flex flex-col justify-start md:justify-center pr-[40px]">
-                                            <span className="text-gray-700 md:text-gray-600 font-bold tracking-wider text-[10px] md:text-sm mb-1.5 md:mb-2 drop-shadow-sm md:drop-shadow-none">
+                                            <span className="text-[#D32F2F] font-bold tracking-wider text-[10px] md:text-sm mb-1.5 md:mb-2 drop-shadow-sm md:drop-shadow-none">
                                                 {text.subtitle}
                                             </span>
-                                            <h2 className="text-[17px] leading-[1.3] md:text-3xl lg:text-4xl text-gray-900 font-black md:font-bold md:leading-tight">
+                                            <h2 className="text-[17px] leading-[1.3] md:text-3xl lg:text-4xl text-[#0a0a0a] font-black md:font-bold md:leading-tight">
                                                 {text.title}
                                             </h2>
                                         </div>
@@ -536,38 +536,32 @@ export default function Home() {
                                 </a>
                             </div>
 
-                            {/* Premium Trust Badges (Right Side) */}
+                            {/* Premium Services Badges (Right Side) */}
                             <div className="flex items-center space-x-6 pb-4 pr-6">
 
-                                {/* VIP Transfer */}
+                                {/* Havalimanı Transfer */}
                                 <div className="flex items-center space-x-2">
-                                    <Star className="w-4 h-4 text-amber-500" fill="currentColor" />
-                                    <span className="text-xs font-bold text-gray-400 uppercase tracking-wide">VIP Transfer</span>
+                                    <Plane className="w-4 h-4 text-blue-500" />
+                                    <span className="text-xs font-bold text-gray-400 uppercase tracking-wide">Havalimanı Transfer</span>
                                 </div>
 
-                                {/* Özel Şoför */}
+                                {/* Hotel Transfer */}
                                 <div className="flex items-center space-x-2">
-                                    <User className="w-4 h-4 text-slate-800" />
-                                    <span className="text-xs font-bold text-gray-400 uppercase tracking-wide">Özel Şoför</span>
+                                    <Building2 className="w-4 h-4 text-indigo-500" />
+                                    <span className="text-xs font-bold text-gray-400 uppercase tracking-wide">Hotel Transfer</span>
                                 </div>
 
-                                {/* Ücretsiz İptal */}
+                                {/* Şehir Turu */}
                                 <div className="flex items-center space-x-2">
-                                    <Clock className="w-4 h-4 text-blue-500" />
-                                    <span className="text-xs font-bold text-gray-400 uppercase tracking-wide">Ücretsiz İptal</span>
+                                    <Compass className="w-4 h-4 text-emerald-500" />
+                                    <span className="text-xs font-bold text-gray-400 uppercase tracking-wide">Şehir Turu</span>
                                 </div>
 
-                                {/* Güvenli Ödeme */}
+                                {/* Makam Aracı */}
                                 <div className="flex items-center space-x-2">
-                                    <Shield className="w-4 h-4 text-emerald-500" />
-                                    <span className="text-xs font-bold text-gray-400 uppercase tracking-wide">Güvenli Ödeme</span>
+                                    <Crown className="w-4 h-4 text-amber-500" />
+                                    <span className="text-xs font-bold text-gray-400 uppercase tracking-wide">Makam Aracı</span>
                                 </div>
-
-                                {/* 7/24 Destek */}
-                                <a href="#" className="flex items-center space-x-2 group cursor-pointer">
-                                    <MessageCircle className="w-4 h-4 text-green-500 group-hover:text-green-600 transition-colors" />
-                                    <span className="text-xs font-bold text-gray-400 uppercase tracking-wide group-hover:text-green-600 transition-colors">7/24 Destek</span>
-                                </a>
                             </div>
                         </div>
 
@@ -810,11 +804,11 @@ export default function Home() {
             </section>
 
             {/* TOURS SECTION */}
-            <section className="py-10 md:py-20 bg-gray-50">
+            <section className="pt-8 pb-8 md:pt-12 md:pb-12 bg-gray-50">
                 <div className="container-custom px-4">
                     <div className="flex flex-col space-y-8">
                         {/* Section Header */}
-                        <div className="mb-6">
+                        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-8 mb-8">
                             <div className="max-w-2xl">
                                 <div className="flex items-center space-x-2 mb-3">
                                     <span className="h-px w-8 bg-[#D0142D]"></span>
@@ -825,7 +819,7 @@ export default function Home() {
                                 <h2 className="text-3xl md:text-5xl font-extrabold text-gray-900 mb-4 tracking-tight">
                                     Özel <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#D0142D] to-red-600">İstanbul</span> Turları
                                 </h2>
-                                <div className="flex flex-col md:flex-row md:items-center gap-4 mb-6">
+                                <div className="flex flex-col md:flex-row md:items-center gap-4">
                                     <p className="text-gray-500 text-lg leading-relaxed">
                                         Şehrin tarihi güzelliklerini ve gizli kalmış hazinelerini VIP ayrıcalığı ve lüks araçlarımızla keşfetmeye hazır olun.
                                     </p>
@@ -844,6 +838,30 @@ export default function Home() {
                                         >
                                             <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
                                         </button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            {/* AI Summary Badge (Right Side) */}
+                            <div className="hidden lg:flex items-start space-x-6 bg-white/60 backdrop-blur-md p-8 rounded-3xl border border-gray-200/50 shadow-[0_8px_30px_rgb(0,0,0,0.06)] max-w-xl">
+                                <div className="bg-gradient-to-br from-indigo-50 to-blue-50 p-4 rounded-2xl flex-shrink-0 border border-blue-100/50 shadow-sm mt-1">
+                                    <Sparkles className="w-8 h-8 text-indigo-500" />
+                                </div>
+                                <div className="pt-1">
+                                    <div className="flex items-center space-x-3 mb-3">
+                                        <h3 className="text-xl font-extrabold text-gray-900 tracking-tight">Yapay Zeka Özeti</h3>
+                                        <span className="px-3 py-1 rounded-full bg-indigo-50 text-indigo-600 text-xs font-bold tracking-widest uppercase">Beta</span>
+                                    </div>
+                                    <p className="text-base text-gray-500 leading-relaxed">
+                                        "Kullanıcılar genellikle <b className="text-gray-700">şoförlerin profesyonelliğini</b>, <b className="text-gray-700">araçların VIP lüksünü</b> ve <b className="text-gray-700">zamanlamadaki kusursuzluğu</b> öne çıkarıyor."
+                                    </p>
+                                    <div className="flex items-center space-x-3 mt-5">
+                                        <div className="flex -space-x-1">
+                                            {[...Array(5)].map((_, i) => (
+                                                <Star key={i} className="w-5 h-5 text-amber-400" fill="currentColor" strokeWidth={1} />
+                                            ))}
+                                        </div>
+                                        <span className="text-sm text-gray-400 font-semibold tracking-wide">Google & Tripadvisor</span>
                                     </div>
                                 </div>
                             </div>
@@ -892,7 +910,7 @@ export default function Home() {
             </section>
 
             {/* POPULAR LOCATIONS SECTION */}
-            <section className="py-16 md:py-24 bg-white">
+            <section className="pt-10 pb-16 md:pt-12 md:pb-24 bg-white">
                 <div className="container-custom">
                     {/* Section Header */}
                     <div className="text-center mb-12">

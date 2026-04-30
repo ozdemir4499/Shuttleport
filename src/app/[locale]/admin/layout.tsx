@@ -50,20 +50,25 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   return (
     <div className="flex h-screen bg-[#F4F7FE] overflow-hidden font-sans">
       {/* Sidebar - Premium Dark Glass */}
-      <aside className="w-72 bg-[#0B1120] text-gray-300 flex flex-col relative shadow-[10px_0_30px_rgba(0,0,0,0.05)] border-r border-gray-800/50 z-20">
+      <aside className="w-72 bg-[#0a0a0a] text-gray-300 flex flex-col relative shadow-[10px_0_30px_rgba(0,0,0,0.05)] border-r border-gray-800/80 z-20">
         <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
-          <div className="absolute -top-24 -left-24 w-48 h-48 bg-indigo-600 rounded-full mix-blend-screen filter blur-[80px] opacity-20"></div>
-          <div className="absolute top-1/2 -right-12 w-32 h-32 bg-blue-500 rounded-full mix-blend-screen filter blur-[60px] opacity-10"></div>
+          <div className="absolute -top-24 -left-24 w-48 h-48 bg-red-600 rounded-full mix-blend-screen filter blur-[80px] opacity-10"></div>
+          <div className="absolute top-1/2 -right-12 w-32 h-32 bg-red-800 rounded-full mix-blend-screen filter blur-[60px] opacity-[0.05]"></div>
         </div>
         
         <div className="p-8 pb-4 relative z-10">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-blue-600 flex items-center justify-center shadow-lg shadow-indigo-500/30">
-              <span className="text-white font-bold text-xl">S</span>
+            <div className="w-14 h-14 flex items-center justify-center shrink-0">
+                <img 
+                    src="/red_lion_icon_transparent.png" 
+                    alt="Lion Icon" 
+                    className="w-full h-full object-contain scale-[1.2]"
+                />
             </div>
-            <div>
-              <h2 className="text-xl font-bold text-white tracking-tight">Shuttleport</h2>
-              <p className="text-[10px] uppercase tracking-widest text-indigo-400 font-semibold">Command Center</p>
+            <div className="flex flex-col justify-center">
+                <span className="text-[11px] font-bold tracking-[0.2em] text-[#D32F2F] leading-tight">İSTANBUL</span>
+                <span className="text-xl font-black text-white leading-none tracking-tight mt-0.5">TRANSFER</span>
+                <span className="text-[8px] uppercase tracking-widest text-gray-400 font-semibold mt-1">Command Center</span>
             </div>
           </div>
         </div>
@@ -77,12 +82,12 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                 href={item.path} 
                 className={`flex items-center gap-3 py-3.5 px-4 rounded-xl transition-all duration-300 group relative overflow-hidden ${
                   isActive 
-                    ? 'text-white bg-indigo-600/10 border border-indigo-500/20 shadow-[0_0_15px_rgba(79,70,229,0.1)]' 
+                    ? 'text-white bg-red-600/10 border border-red-500/20 shadow-[0_0_15px_rgba(211,47,47,0.15)]' 
                     : 'hover:text-white hover:bg-gray-800/50'
                 }`}
               >
-                {isActive && <div className="absolute left-0 top-0 w-1 h-full bg-indigo-500 rounded-r-md"></div>}
-                <svg className={`w-5 h-5 transition-colors ${isActive ? 'text-indigo-400' : 'text-gray-500 group-hover:text-gray-300'}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                {isActive && <div className="absolute left-0 top-0 w-1 h-full bg-[#D32F2F] rounded-r-md"></div>}
+                <svg className={`w-5 h-5 transition-colors ${isActive ? 'text-[#D32F2F]' : 'text-gray-500 group-hover:text-gray-300'}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={isActive ? "2" : "1.5"} d={item.icon} />
                 </svg>
                 <span className={`font-medium ${isActive ? 'font-semibold' : ''}`}>{item.name}</span>
@@ -115,7 +120,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       {/* Main Content Area */}
       <main className="flex-1 flex flex-col relative w-full h-full overflow-hidden">
         {/* Background Accents */}
-        <div className="absolute top-0 left-0 w-full h-64 bg-gradient-to-b from-indigo-50/80 to-[#F4F7FE] -z-10"></div>
+        <div className="absolute top-0 left-0 w-full h-64 bg-gradient-to-b from-red-50/50 to-[#F4F7FE] -z-10"></div>
 
         {/* Dynamic Content Scroll Area */}
         <div className="flex-1 overflow-x-hidden overflow-y-auto px-8 py-6 relative z-0 mt-4">
@@ -128,8 +133,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       <style dangerouslySetInnerHTML={{__html: `
         .custom-scrollbar::-webkit-scrollbar { width: 4px; height: 4px; }
         .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
-        .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(79, 70, 229, 0.2); border-radius: 4px; }
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: rgba(79, 70, 229, 0.4); }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(211, 47, 47, 0.2); border-radius: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: rgba(211, 47, 47, 0.4); }
       `}} />
     </div>
   );
