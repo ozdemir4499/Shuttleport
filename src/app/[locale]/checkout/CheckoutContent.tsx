@@ -42,11 +42,18 @@ export default function CheckoutContent() {
 
     // Load pending booking from vehicles page
     const [pendingBooking, setPendingBooking] = useState<any>(null);
+    const [passengerNames, setPassengerNames] = useState<Array<{fullName: string}>>([]);
 
     useEffect(() => {
         const stored = localStorage.getItem('pendingBooking');
         if (stored) {
-            setPendingBooking(JSON.parse(stored));
+            const parsed = JSON.parse(stored);
+            setPendingBooking(parsed);
+            
+            const count = parseInt(parsed.passengers) || 1;
+            if (count > 1) {
+                setPassengerNames(Array.from({ length: count - 1 }, () => ({ fullName: '' })));
+            }
         } else {
             // Optional: redirect to home if no booking data
             // router.push('/');
@@ -113,12 +120,27 @@ export default function CheckoutContent() {
         }));
     };
 
+    const handlePassengerChange = (index: number, value: string) => {
+        const newPassengers = [...passengerNames];
+        newPassengers[index] = { ...newPassengers[index], fullName: value };
+        setPassengerNames(newPassengers);
+    };
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setIsSubmitting(true);
         setErrorMsg(null);
 
         try {
+            const extraPassengers = passengerNames
+                .filter(p => p.fullName)
+                .map((p, i) => `${i + 2}. Yolcu: ${p.fullName}`)
+                .join(', ');
+            
+            const finalNotes = extraPassengers 
+                ? `${formData.notes ? formData.notes + '\n\n' : ''}Ekstra Yolcular:\n${extraPassengers}`
+                : formData.notes || null;
+
             const bookingPayload = {
                 customer_name: `${formData.firstName} ${formData.lastName}`,
                 customer_email: formData.email,
@@ -131,7 +153,7 @@ export default function CheckoutContent() {
                 vehicle_type: vehicle.name,
                 total_price: calculateTotal(),
                 currency: vehicle.currency,
-                notes: formData.notes || null
+                notes: finalNotes
             };
 
             const res = await fetch('http://localhost:8000/api/bookings', {
@@ -174,13 +196,26 @@ export default function CheckoutContent() {
         <div className="min-h-screen bg-gray-50">
             {/* HEADER - Same as homepage */}
             <header className="absolute top-0 left-0 right-0 z-50 bg-white shadow-sm h-20 md:h-24">
-                <div className="container-custom h-full flex items-center justify-between px-4">
+                <div className="w-full max-w-[1600px] mx-auto h-full flex items-center justify-between px-4 lg:px-8">
                     {/* LOGO */}
                     <Link href="/" className="flex items-center space-x-3 md:space-x-4">
                         <div className="text-[#D32F2F]">
-                            <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-8 h-8 md:w-10 md:h-10">
-                                <path d="M20 0C18.5 10 10 18.5 0 20C10 21.5 18.5 30 20 40C21.5 30 30 21.5 40 20C30 18.5 21.5 10 20 0Z" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
-                                <circle cx="20" cy="20" r="4" fill="currentColor" />
+                            <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-10 h-10 md:w-12 md:h-12 drop-shadow-md transition-transform hover:scale-105">
+                                {/* Outer Pin */}
+                                <path d="M50 5 C 25 5 5 25 5 50 C 5 75 50 95 50 95 C 50 95 95 75 95 50 C 95 25 75 5 50 5 Z" fill="url(#pin_grad_checkout)" />
+                                {/* Right half overlay for 3D effect */}
+                                <path d="M50 5 C 75 5 95 25 95 50 C 95 75 50 95 50 95 V 5 Z" fill="#000000" fillOpacity="0.15" />
+                                {/* Inner White Circle */}
+                                <circle cx="50" cy="45" r="22" fill="#FFFFFF" />
+                                {/* Stylized "S" */}
+                                <path d="M 58 35 C 42 35, 40 42, 50 45 C 60 48, 58 55, 42 55" stroke="url(#pin_grad_checkout)" strokeWidth="7" strokeLinecap="round" />
+                                <defs>
+                                    <linearGradient id="pin_grad_checkout" x1="5" y1="5" x2="95" y2="95">
+                                        <stop stopColor="#EF4444" />
+                                        <stop offset="0.5" stopColor="#DC2626" />
+                                        <stop offset="1" stopColor="#991B1B" />
+                                    </linearGradient>
+                                </defs>
                             </svg>
                         </div>
                         <div className="flex flex-col justify-center">
@@ -190,7 +225,7 @@ export default function CheckoutContent() {
                     </Link>
 
                     {/* DESKTOP NAV */}
-                    <nav className="hidden xl:flex items-center space-x-6 text-[13px] font-bold text-gray-800">
+                    <nav className="hidden xl:flex items-center space-x-8 text-[15px] font-bold text-gray-800">
                         <Link href="/turlar" className="hover:text-[#D32F2F] transition-colors">Turlar</Link>
                         <Link href="/hakkimizda" className="hover:text-[#D32F2F] transition-colors">Hakkımızda</Link>
                         <Link href="#" className="hover:text-[#D32F2F] transition-colors">İşveren Olun</Link>
@@ -209,18 +244,43 @@ export default function CheckoutContent() {
                         </div>
 
                         {/* Language */}
-                        <div className="flex items-center space-x-2 cursor-pointer group">
-                            <div className="w-6 h-6 rounded-full bg-[#D32F2F] flex items-center justify-center text-[9px] text-white font-bold ring-2 ring-transparent group-hover:ring-red-100 transition-all">TR</div>
-                            <span className="text-sm font-bold text-gray-900">TR</span>
-                            <ChevronDown className="w-4 h-4 text-gray-500" />
+                        <div className="relative flex items-center space-x-2 cursor-pointer group">
+                            <div className="flex items-center space-x-2 py-2">
+                                <img src="https://flagcdn.com/w40/tr.png" alt="TR" className="w-6 h-6 rounded-full object-cover shadow-sm border border-gray-100" />
+                                <span className="text-[15px] font-bold text-gray-900">TR</span>
+                                <ChevronDown className="w-4 h-4 text-gray-500 transition-transform group-hover:rotate-180" />
+                            </div>
+
+                            {/* Dropdown Menu */}
+                            <div className="absolute top-full right-0 mt-1 w-20 bg-white rounded-xl shadow-lg border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 overflow-hidden">
+                                <div className="py-2 flex flex-col">
+                                    {[
+                                        { code: 'EN', flag: 'gb' },
+                                        { code: 'DE', flag: 'de' },
+                                        { code: 'ES', flag: 'es' },
+                                        { code: 'FR', flag: 'fr' },
+                                        { code: 'İT', flag: 'it' },
+                                        { code: 'PT', flag: 'pt' },
+                                        { code: 'RU', flag: 'ru' },
+                                        { code: 'HU', flag: 'hu' },
+                                        { code: 'NL', flag: 'nl' },
+                                        { code: 'AR', flag: 'sa' }
+                                    ].map((lang) => (
+                                        <div key={lang.code} className="flex items-center space-x-2 px-3 py-2 hover:bg-gray-50 transition-colors">
+                                            <img src={`https://flagcdn.com/w40/${lang.flag}.png`} alt={lang.code} className="w-5 h-5 rounded-full object-cover shadow-sm border border-gray-100" />
+                                            <span className="text-[14px] font-semibold text-gray-700">{lang.code}</span>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
                         </div>
 
                         {/* Auth */}
                         <div className="flex items-center space-x-4 ml-2">
-                            <Link href="#" className="text-sm font-bold text-gray-900 hover:text-[#D32F2F]">Üye Ol</Link>
-                            <Link href="#" className="flex items-center space-x-2 border border-black rounded-lg px-4 py-2 hover:bg-black hover:text-white transition-all group">
-                                <User className="w-4 h-4 group-hover:text-white" />
-                                <span className="text-sm font-bold">Giriş</span>
+                            <Link href="#" className="text-[15px] font-bold text-gray-900 hover:text-[#D32F2F]">Üye Ol</Link>
+                            <Link href="#" className="flex items-center space-x-2 border border-black rounded-lg px-5 py-2.5 hover:bg-black hover:text-white transition-all group">
+                                <User className="w-5 h-5 group-hover:text-white" />
+                                <span className="text-[15px] font-bold">Giriş</span>
                             </Link>
                         </div>
                     </div>
@@ -316,7 +376,7 @@ export default function CheckoutContent() {
                         <div className="bg-white rounded-xl shadow-md p-6">
                             <div className="flex items-center gap-2 mb-6">
                                 <User className="w-5 h-5 text-red-600" />
-                                <h2 className="text-lg font-bold text-gray-900">Rezervasyon Sahibi Yolcu Bilgileri</h2>
+                                <h2 className="text-lg font-bold text-gray-900">1. Yolcu Bilgileri (Rezervasyon Sahibi)</h2>
                             </div>
 
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -403,6 +463,30 @@ export default function CheckoutContent() {
                                 </label>
                             </div>
                         </div>
+
+                        {/* Extra Passengers (if any) */}
+                        {passengerNames.length > 0 && (
+                            <div className="bg-white rounded-xl shadow-md p-6 mb-6">
+                                <div className="flex items-center gap-2 mb-6">
+                                    <User className="w-5 h-5 text-gray-600" />
+                                    <h2 className="text-lg font-bold text-gray-900">Diğer Yolcu Bilgileri</h2>
+                                </div>
+                                <div className="space-y-4">
+                                    {passengerNames.map((passenger, index) => (
+                                        <div key={index}>
+                                            <input
+                                                type="text"
+                                                value={passenger.fullName}
+                                                onChange={(e) => handlePassengerChange(index, e.target.value)}
+                                                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent uppercase placeholder:normal-case"
+                                                placeholder={`${index + 2}. YOLCU BİLGİSİ AD SOYAD`}
+                                                required
+                                            />
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
 
                         {/* Flight Details */}
                         <div className="bg-white rounded-xl shadow-md p-6">

@@ -112,18 +112,6 @@ export default function Footer() {
                 </div>
             </div>
 
-            {/* Sticky Whatsapp Button (Optional based on image hint) */}
-            <a
-                href="https://wa.me/905324178963"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="fixed bottom-6 right-6 bg-[#25D366] hover:bg-[#128C7E] text-white px-4 py-3 rounded-full shadow-lg flex items-center space-x-2 z-50 transition-all hover:scale-105"
-            >
-                <div className="bg-white p-1 rounded-full">
-                    <MessageCircle className="w-4 h-4 text-[#25D366] fill-current" />
-                </div>
-                <span className="font-bold">Whatsapp</span>
-            </a>
         </footer>
     );
 }

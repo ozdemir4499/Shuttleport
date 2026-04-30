@@ -86,7 +86,7 @@ export function MapPickerModal({
                 }
 
                 const script = document.createElement('script');
-                script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&libraries=places&language=tr&callback=initMap`;
+                script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&libraries=places&language=tr&loading=async&callback=initMap`;
                 script.async = true;
                 script.defer = true;
 

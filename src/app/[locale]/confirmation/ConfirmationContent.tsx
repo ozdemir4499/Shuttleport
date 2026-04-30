@@ -56,7 +56,7 @@ export default function ConfirmationContent() {
     };
 
     const handleWhatsApp = () => {
-        const message = `Rezervasyon No: ${reservation.id}\nİsim: ${reservation.passengerName}\nTarih: ${reservation.date}`;
+        const message = `Rezervasyon No: ${reservation.id}\nİsim: ${reservation.passengerName || reservation.customer_name}\nTarih: ${reservation.date}`;
         window.open(`https://wa.me/?text=${encodeURIComponent(message)}`, '_blank');
     };
 
@@ -254,19 +254,19 @@ export default function ConfirmationContent() {
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                             <div>
                                 <div className="text-xs text-gray-500 uppercase mb-1">AD SOYAD</div>
-                                <div className="text-sm font-semibold text-gray-900">{reservation.passengerName}</div>
+                                <div className="text-sm font-semibold text-gray-900">{reservation.passengerName || reservation.customer_name}</div>
                             </div>
                             <div>
                                 <div className="text-xs text-gray-500 uppercase mb-1">E-POSTA ADRESİNİZ</div>
-                                <div className="text-sm font-semibold text-gray-900">{reservation.email}</div>
+                                <div className="text-sm font-semibold text-gray-900">{reservation.email || reservation.customer_email}</div>
                             </div>
                             <div>
                                 <div className="text-xs text-gray-500 uppercase mb-1">TELEFON NUMARASI</div>
-                                <div className="text-sm font-semibold text-gray-900">{reservation.phone}</div>
+                                <div className="text-sm font-semibold text-gray-900">{reservation.phone || reservation.customer_phone}</div>
                             </div>
                             <div>
                                 <div className="text-xs text-gray-500 uppercase mb-1">UÇUŞ NUMARASI</div>
-                                <div className="text-sm font-semibold text-gray-900">{reservation.flightNumber}</div>
+                                <div className="text-sm font-semibold text-gray-900">{reservation.flightNumber || reservation.flight_number || '-'}</div>
                             </div>
                         </div>
                     </div>
@@ -284,11 +284,11 @@ export default function ConfirmationContent() {
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div>
                                     <div className="text-xs text-gray-500 uppercase mb-1">NEREDEN</div>
-                                    <div className="text-sm font-medium text-gray-900">{reservation.from}</div>
+                                    <div className="text-sm font-medium text-gray-900">{reservation.from || reservation.origin}</div>
                                 </div>
                                 <div>
                                     <div className="text-xs text-gray-500 uppercase mb-1">NEREYE</div>
-                                    <div className="text-sm font-medium text-gray-900">{reservation.to}</div>
+                                    <div className="text-sm font-medium text-gray-900">{reservation.to || reservation.destination}</div>
                                 </div>
                             </div>
 
@@ -299,7 +299,7 @@ export default function ConfirmationContent() {
                                 </div>
                                 <div>
                                     <div className="text-xs text-gray-500 uppercase mb-1">ARAÇ</div>
-                                    <div className="text-sm font-semibold text-gray-900">{reservation.vehicle}</div>
+                                    <div className="text-sm font-semibold text-gray-900">{reservation.vehicle || reservation.vehicle_type}</div>
                                 </div>
                                 <div>
                                     <div className="text-xs text-gray-500 uppercase mb-1">MESAFE</div>
@@ -336,26 +336,30 @@ export default function ConfirmationContent() {
                         <div className="space-y-3">
                             <div className="flex items-center justify-between text-sm">
                                 <span className="text-gray-600">YOLCULUK ÜCRETİ</span>
-                                <span className="font-semibold text-gray-900">{reservation.basePrice}₺</span>
+                                <span className="font-semibold text-gray-900">{reservation.basePrice || reservation.total_price} {reservation.currency || '₺'}</span>
                             </div>
 
                             <div className="space-y-2">
-                                <div className="text-xs text-gray-500 uppercase font-medium">EK HİZMETLER</div>
-                                {reservation.additionalServices.map((service: any, index: number) => (
-                                    <div key={index} className="flex items-start gap-2 text-sm">
-                                        <Check className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
-                                        <div className="flex-1 flex items-center justify-between">
-                                            <span className="text-gray-600">{service.name}</span>
-                                            <span className="font-semibold text-gray-900">{service.price}₺</span>
-                                        </div>
-                                    </div>
-                                ))}
+                                {reservation.additionalServices && reservation.additionalServices.length > 0 && (
+                                    <>
+                                        <div className="text-xs text-gray-500 uppercase font-medium">EK HİZMETLER</div>
+                                        {reservation.additionalServices.map((service: any, index: number) => (
+                                            <div key={index} className="flex items-start gap-2 text-sm">
+                                                <Check className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
+                                                <div className="flex-1 flex items-center justify-between">
+                                                    <span className="text-gray-600">{service.name}</span>
+                                                    <span className="font-semibold text-gray-900">{service.price} {reservation.currency || '₺'}</span>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </>
+                                )}
                             </div>
 
                             <div className="pt-4 border-t-2 border-gray-200">
                                 <div className="flex items-center justify-between mb-4">
                                     <span className="text-lg font-bold text-gray-900">TUTAR</span>
-                                    <span className="text-2xl font-bold text-gray-900">{reservation.total}₺</span>
+                                    <span className="text-2xl font-bold text-gray-900">{reservation.total || reservation.total_price} {reservation.currency || '₺'}</span>
                                 </div>
                                 <button className="w-full bg-red-500 hover:bg-red-600 text-white px-8 py-4 rounded-lg font-bold text-lg transition-colors shadow-md hover:shadow-lg">
                                     Ödeme Yap

@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { MapPin, Calendar, Users, Shield, Clock, Car, Globe, Menu, X, Instagram, MessageCircle, User, ChevronDown } from 'lucide-react';
+import { MapPin, Calendar, Users, Shield, Clock, Car, Globe, Menu, X, Instagram, MessageCircle, User, ChevronDown, ChevronLeft, ChevronRight } from 'lucide-react';
 import { LocationAutocomplete } from '@/features/maps';
 import { mapsService } from '@/features/maps/services/maps-service';
 import { ServiceTypeSelector } from '@/features/booking/components/ServiceTypeSelector';
@@ -18,7 +18,22 @@ interface Location {
     name?: string;
 }
 
+const bannerTexts = [
+    {
+        subtitle: "İADE GARANTİSİ.",
+        title: <>6 saatten önceki rezervasyon <br className="hidden md:block" /> iptallerinde <span className="font-extrabold text-black">%100 iade garantisi.</span></>
+    },
+    {
+        subtitle: "7/24 HAVALİMANI TRANSFERİ.",
+        title: <>İstanbul havalimanlarından otelinize <br className="hidden md:block" /> <span className="font-extrabold text-black">VIP ayrıcalığıyla ulaşın.</span></>
+    },
+    {
+        subtitle: "ÖZEL İSTANBUL TURLARI.",
+        title: <>Şehrin tarihi güzelliklerini <br className="hidden md:block" /> <span className="font-extrabold text-black">lüks araçlarımızla keşfedin.</span></>
+    }
+];
 
+const extendedSlides = [bannerTexts[bannerTexts.length - 1], ...bannerTexts, bannerTexts[0]];
 
 export default function Home() {
     const router = useRouter();
@@ -28,7 +43,8 @@ export default function Home() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [startDate, setStartDate] = useState<Date | null>(new Date());
     const [returnDate, setReturnDate] = useState<Date | null>(null);
-    const [currentSlide, setCurrentSlide] = useState(0);
+    const [slides, setSlides] = useState(bannerTexts);
+    const [sliderState, setSliderState] = useState({ offset: 0, isAnimating: false });
     const [datePickerType, setDatePickerType] = useState<'departure' | 'return'>('departure');
 
     // Location states
@@ -46,6 +62,45 @@ export default function Home() {
 
     // Exchange rates state
     const [exchangeRates, setExchangeRates] = useState({ TRY: 1, EUR: 0.029, USD: 0.031, GBP: 0.025 });
+
+    const nextSlide = useCallback(() => {
+        if (sliderState.isAnimating) return;
+        
+        // Start sliding left
+        setSliderState({ offset: -100, isAnimating: true });
+        
+        // After sliding completes, instantly swap items and reset position
+        setTimeout(() => {
+            setSlides(prev => [...prev.slice(1), prev[0]]);
+            setSliderState({ offset: 0, isAnimating: false });
+        }, 1000);
+    }, [sliderState.isAnimating]);
+
+    const prevSlide = useCallback(() => {
+        if (sliderState.isAnimating) return;
+        
+        // Instantly move the last slide to the front and hide it off-screen to the left
+        setSlides(prev => [prev[prev.length - 1], ...prev.slice(0, prev.length - 1)]);
+        setSliderState({ offset: -100, isAnimating: false });
+        
+        // One frame later, animate it sliding in from the left to the center
+        setTimeout(() => {
+            setSliderState({ offset: 0, isAnimating: true });
+        }, 50);
+        
+        // Unlock after animation finishes
+        setTimeout(() => {
+            setSliderState(prev => ({ ...prev, isAnimating: false }));
+        }, 1050);
+    }, [sliderState.isAnimating]);
+
+    // Auto-advance banner text
+    useEffect(() => {
+        const timer = setInterval(() => {
+            nextSlide();
+        }, 8000); // 8 saniye bekleme süresi
+        return () => clearInterval(timer);
+    }, [nextSlide]);
 
     // Fetch fixed routes from backend
     useEffect(() => {
@@ -87,20 +142,6 @@ export default function Home() {
     const dropdownContainerRef = useRef<HTMLDivElement>(null);
 
     // Hero carousel headlines
-    const heroHeadlines = [
-        "İstanbul'un En Konforlu\nVIP Transfer Hizmeti",
-        "7/24 Profesyonel\nHavalimanı Transfer Hizmeti",
-        "Güvenli ve Lüks\nŞehir İçi Transfer Çözümleri"
-    ];
-
-    // Auto-rotate hero carousel
-    useEffect(() => {
-        const interval = setInterval(() => {
-            setCurrentSlide((prev) => (prev + 1) % heroHeadlines.length);
-        }, 4000);
-        return () => clearInterval(interval);
-    }, []);
-
     // Scroll effect for navbar
     if (typeof window !== 'undefined') {
         window.addEventListener('scroll', () => {
@@ -203,25 +244,24 @@ export default function Home() {
         <main className="min-h-screen bg-white overflow-x-hidden">
             {/* HEADER - Sticky Navigation */}
             <header className="absolute top-0 left-0 right-0 z-50 bg-white shadow-sm h-20 md:h-24">
-                <div className="container-custom h-full flex items-center justify-between px-4">
+                <div className="w-full max-w-[1600px] mx-auto h-full flex items-center justify-between px-4 lg:px-8">
                     {/* LOGO */}
-                    <Link href="/" className="flex items-center space-x-3 md:space-x-4">
-                        <div className="text-[#D32F2F]">
-                            <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-10 h-10 md:w-12 md:h-12">
-                                {/* Star/compass shape */}
-                                <path d="M25 2L31 19H49L35 30L40 48L25 37L10 48L15 30L1 19H19L25 2Z" fill="currentColor" />
-                                {/* Inner airplane silhouette */}
-                                <path d="M25 12L28 22H38L30 28L33 38L25 32L17 38L20 28L12 22H22L25 12Z" fill="white" />
-                            </svg>
+                    <Link href="/" className="flex items-center space-x-2 md:space-x-3">
+                        <div className="w-12 h-12 md:w-16 md:h-16 flex items-center justify-center">
+                            <img 
+                                src="/red_lion_icon.png" 
+                                alt="Lion Icon" 
+                                className="w-full h-full object-contain scale-110 mix-blend-multiply"
+                            />
                         </div>
                         <div className="flex flex-col justify-center">
-                            <span className="text-[8px] md:text-[10px] font-bold tracking-[0.15em] text-[#D32F2F] leading-tight">LUXE</span>
-                            <span className="text-base md:text-xl font-black text-gray-900 leading-none tracking-tight">TRANSFER</span>
+                            <span className="text-[11px] md:text-[13px] font-bold tracking-[0.2em] text-[#D32F2F] leading-tight">İSTANBUL</span>
+                            <span className="text-xl md:text-[28px] font-black text-gray-900 leading-none tracking-tight mt-0.5">TRANSFER</span>
                         </div>
                     </Link>
 
                     {/* DESKTOP NAV */}
-                    <nav className="hidden xl:flex items-center space-x-6 text-[13px] font-bold text-gray-800">
+                    <nav className="hidden xl:flex items-center space-x-8 text-[15px] font-bold text-gray-800">
                         <Link href="/turlar" className="hover:text-[#D32F2F] transition-colors">Turlar</Link>
                         <Link href="/hakkimizda" className="hover:text-[#D32F2F] transition-colors">Hakkımızda</Link>
                         <Link href="#" className="hover:text-[#D32F2F] transition-colors">İşveren Olun</Link>
@@ -240,18 +280,43 @@ export default function Home() {
                         </div>
 
                         {/* Language */}
-                        <div className="flex items-center space-x-2 cursor-pointer group">
-                            <div className="w-6 h-6 rounded-full bg-[#D32F2F] flex items-center justify-center text-[9px] text-white font-bold ring-2 ring-transparent group-hover:ring-red-100 transition-all">TR</div>
-                            <span className="text-sm font-bold text-gray-900">TR</span>
-                            <ChevronDown className="w-4 h-4 text-gray-500" />
+                        <div className="relative flex items-center space-x-2 cursor-pointer group">
+                            <div className="flex items-center space-x-2 py-2">
+                                <img src="https://flagcdn.com/w40/tr.png" alt="TR" className="w-6 h-6 rounded-full object-cover shadow-sm border border-gray-100" />
+                                <span className="text-[15px] font-bold text-gray-900">TR</span>
+                                <ChevronDown className="w-4 h-4 text-gray-500 transition-transform group-hover:rotate-180" />
+                            </div>
+
+                            {/* Dropdown Menu */}
+                            <div className="absolute top-full right-0 mt-1 w-20 bg-white rounded-xl shadow-lg border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 overflow-hidden">
+                                <div className="py-2 flex flex-col">
+                                    {[
+                                        { code: 'EN', flag: 'gb' },
+                                        { code: 'DE', flag: 'de' },
+                                        { code: 'ES', flag: 'es' },
+                                        { code: 'FR', flag: 'fr' },
+                                        { code: 'İT', flag: 'it' },
+                                        { code: 'PT', flag: 'pt' },
+                                        { code: 'RU', flag: 'ru' },
+                                        { code: 'HU', flag: 'hu' },
+                                        { code: 'NL', flag: 'nl' },
+                                        { code: 'AR', flag: 'sa' }
+                                    ].map((lang) => (
+                                        <div key={lang.code} className="flex items-center space-x-2 px-3 py-2 hover:bg-gray-50 transition-colors">
+                                            <img src={`https://flagcdn.com/w40/${lang.flag}.png`} alt={lang.code} className="w-5 h-5 rounded-full object-cover shadow-sm border border-gray-100" />
+                                            <span className="text-[14px] font-semibold text-gray-700">{lang.code}</span>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
                         </div>
 
                         {/* Auth */}
                         <div className="flex items-center space-x-4 ml-2">
-                            <Link href="#" className="text-sm font-bold text-gray-900 hover:text-[#D32F2F]">Üye Ol</Link>
-                            <Link href="#" className="flex items-center space-x-2 border border-black rounded-lg px-4 py-2 hover:bg-black hover:text-white transition-all group">
-                                <User className="w-4 h-4 group-hover:text-white" />
-                                <span className="text-sm font-bold">Giriş</span>
+                            <Link href="#" className="text-[15px] font-bold text-gray-900 hover:text-[#D32F2F]">Üye Ol</Link>
+                            <Link href="#" className="flex items-center space-x-2 border border-black rounded-lg px-5 py-2.5 hover:bg-black hover:text-white transition-all group">
+                                <User className="w-5 h-5 group-hover:text-white" />
+                                <span className="text-[15px] font-bold">Giriş</span>
                             </Link>
                         </div>
                     </div>
@@ -306,17 +371,8 @@ export default function Home() {
                 )}
             </header>
 
-            {/* HERO SECTION with Background Image */}
-            <section className="relative min-h-screen md:h-screen flex items-center justify-center pt-24 md:pt-0">
-                {/* Background Image */}
-                <div
-                    className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-                    style={{
-                        backgroundImage: 'url(/hero_transfer_background_1767168320181.png)',
-                    }}
-                >
-                    <div className="absolute inset-0 bg-gradient-to-r from-gray-900/90 via-gray-900/70 to-gray-900/50"></div>
-                </div>
+            {/* HERO SECTION */}
+            <section className="relative min-h-screen flex items-center justify-center pt-24 md:pt-28 pb-12 bg-gray-50">
 
                 {/* Hero Content */}
                 <div className="relative z-10 container-custom px-4 w-full">
@@ -325,27 +381,60 @@ export default function Home() {
 
                     </div>
 
-                    {/* Auto-Scrolling Hero Carousel */}
-                    <div className="relative h-32 md:h-48 mb-6 overflow-hidden">
-                        <div
-                            className="absolute inset-0 transition-transform duration-700 ease-in-out"
-                            style={{ transform: `translateX(-${currentSlide * 100}%)` }}
-                        >
-                            <div className="flex h-full">
-                                {heroHeadlines.map((headline, index) => (
-                                    <h1
-                                        key={index}
-                                        className="min-w-full text-3xl md:text-6xl lg:text-7xl font-bold text-white text-center flex items-center justify-center whitespace-pre-line"
-                                    >
-                                        {headline}
-                                    </h1>
-                                ))}
+                    {/* Hero Banner Image (Matches Booking Widget Width) */}
+                    <div className="max-w-7xl mx-auto h-48 md:h-[320px] mb-8 rounded-2xl overflow-hidden shadow-2xl relative group">
+                        <img 
+                            src="/vip_transfer_banner.png" 
+                            alt="VIP Transfer & Tours" 
+                            className="w-full h-full object-cover object-[center_60%] transition-transform duration-1000 group-hover:scale-105"
+                        />
+                        {/* Gradient to ensure text readability on the left without covering the car on the right */}
+                        <div className="absolute inset-0 bg-gradient-to-r from-white/95 from-10% via-white/80 md:via-white/60 via-45% md:via-35% to-white/10 md:to-transparent to-75% md:to-55% pointer-events-none"></div>
+                        
+                        {/* Container for everything */}
+                        <div className="absolute inset-0 flex items-start md:items-center justify-between px-2 md:px-12 pointer-events-none">
+                            {/* Left Carousel Button */}
+                            <button 
+                                onClick={prevSlide}
+                                className="pointer-events-auto shrink-0 w-7 h-7 md:w-12 md:h-12 bg-white/60 md:bg-transparent hover:bg-white/90 backdrop-blur-md border border-gray-300 md:border-gray-400 rounded-full flex items-center justify-center transition-all group/btn z-10 shadow-sm md:shadow-none mt-7 md:mt-0"
+                            >
+                                <ChevronLeft className="w-4 h-4 md:w-5 md:h-5 text-gray-900 md:text-gray-600 group-hover/btn:text-black" strokeWidth={1.5} />
+                            </button>
+
+                            {/* Text Block */}
+                            <div className="absolute top-0 bottom-0 left-10 md:left-28 right-8 md:right-auto flex flex-col md:w-[460px] lg:w-[520px] justify-start md:justify-center overflow-hidden pt-4 md:pt-0 pb-4 md:py-4">
+                                <div 
+                                    className="flex w-full h-full items-start md:items-center"
+                                    style={{ 
+                                        transform: `translateX(${sliderState.offset}%)`,
+                                        transition: sliderState.isAnimating ? 'transform 1000ms cubic-bezier(0.4, 0, 0.2, 1)' : 'none'
+                                    }}
+                                >
+                                    {slides.map((text, idx) => (
+                                        <div key={idx} className="w-full flex-shrink-0 flex flex-col justify-start md:justify-center pr-2 md:pr-0">
+                                            <span className="text-gray-700 md:text-gray-600 font-bold tracking-wider text-[10px] md:text-sm mb-1.5 md:mb-2 drop-shadow-sm md:drop-shadow-none">
+                                                {text.subtitle}
+                                            </span>
+                                            <h2 className="text-[17px] leading-[1.3] md:text-3xl lg:text-4xl text-gray-900 font-black md:font-bold md:leading-tight">
+                                                {text.title}
+                                            </h2>
+                                        </div>
+                                    ))}
+                                </div>
                             </div>
+
+                            {/* Right Carousel Button */}
+                            <button 
+                                onClick={nextSlide}
+                                className="pointer-events-auto shrink-0 w-7 h-7 md:w-12 md:h-12 bg-white/60 md:bg-transparent hover:bg-white/90 backdrop-blur-md border border-gray-300 md:border-gray-400 rounded-full flex items-center justify-center transition-all group/btn z-10 shadow-sm md:shadow-none mt-7 md:mt-0"
+                            >
+                                <ChevronRight className="w-4 h-4 md:w-5 md:h-5 text-gray-900 md:text-gray-600 group-hover/btn:text-black" strokeWidth={1.5} />
+                            </button>
                         </div>
                     </div>
 
                     {/* BOOKING WIDGET - Main Reservation Form */}
-                    <div className="max-w-7xl mx-auto bg-transparent md:bg-white rounded-2xl md:shadow-2xl md:p-8">
+                    <div className="max-w-7xl mx-auto bg-transparent md:bg-white rounded-2xl md:shadow-xl md:p-8 md:border-2 md:border-[#D32F2F]">
                         {/* Tab Menu - White with shadow on Mobile */}
                         <ServiceTypeSelector activeType={serviceType} onChange={setServiceType} />
 

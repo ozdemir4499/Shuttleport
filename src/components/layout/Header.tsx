@@ -35,18 +35,17 @@ export default function Header() {
         <header className="bg-white shadow-sm sticky top-0 z-50">
             <div className="container-custom flex items-center justify-between py-4 px-4">
                 {/* LOGO */}
-                <Link href="/" className="flex items-center space-x-3">
-                    <div className="w-10 h-10 md:w-12 md:h-12 text-[#D32F2F]">
-                        <svg viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
-                            {/* Star/compass shape */}
-                            <path d="M25 2L31 19H49L35 30L40 48L25 37L10 48L15 30L1 19H19L25 2Z" fill="currentColor" />
-                            {/* Inner airplane silhouette */}
-                            <path d="M25 12L28 22H38L30 28L33 38L25 32L17 38L20 28L12 22H22L25 12Z" fill="white" />
-                        </svg>
+                <Link href="/" className="flex items-center space-x-2 md:space-x-3">
+                    <div className="w-12 h-12 md:w-16 md:h-16 flex items-center justify-center">
+                        <img 
+                            src="/red_lion_icon.png" 
+                            alt="Lion Icon" 
+                            className="w-full h-full object-contain scale-110 mix-blend-multiply"
+                        />
                     </div>
                     <div className="flex flex-col justify-center">
-                        <span className="text-[8px] md:text-[10px] font-bold tracking-[0.15em] text-[#D32F2F] leading-tight">LUXE</span>
-                        <span className="text-base md:text-xl font-black text-gray-900 leading-none tracking-tight">TRANSFER</span>
+                        <span className="text-[11px] md:text-[13px] font-bold tracking-[0.2em] text-[#D32F2F] leading-tight">İSTANBUL</span>
+                        <span className="text-xl md:text-[28px] font-black text-gray-900 leading-none tracking-tight mt-0.5">TRANSFER</span>
                     </div>
                 </Link>
 

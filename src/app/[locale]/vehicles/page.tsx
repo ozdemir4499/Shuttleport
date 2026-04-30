@@ -104,6 +104,11 @@ export default function VehiclesPage() {
         GBP: 0.025
     });
 
+    const [distanceInfo, setDistanceInfo] = useState({
+        distance: '-',
+        duration: '-'
+    });
+
     const dropdownContainerRef = useRef<HTMLDivElement>(null);
 
     // Initialize states from URL parameters
@@ -189,9 +194,31 @@ export default function VehiclesPage() {
             setPricingError(null);
 
             try {
+                let finalDistanceText = distanceText;
+                let finalDurationText = durationText;
+
+                // Fetch distance if missing or set to '-' from URL
+                if ((!distanceText || distanceText === '-' || distanceText === 'null' || !durationText || durationText === '-' || durationText === 'null') && fromLat && fromLng && toLat && toLng) {
+                    try {
+                        const distanceData = await mapsService.calculateDistance(
+                            { lat: parseFloat(fromLat), lng: parseFloat(fromLng), address: fromAddress },
+                            { lat: parseFloat(toLat), lng: parseFloat(toLng), address: toAddress }
+                        );
+                        finalDistanceText = distanceData.distance_text;
+                        finalDurationText = distanceData.duration_text;
+                    } catch (e) {
+                        console.error('Missing distance fetch error:', e);
+                    }
+                }
+
+                setDistanceInfo({
+                    distance: finalDistanceText || '-',
+                    duration: finalDurationText || '-'
+                });
+
                 // Parse distance and duration
-                const distanceKm = distanceText ? parseFloat(distanceText.replace(/[^\d.]/g, '')) : 0;
-                const durationMin = durationText ? parseInt(durationText.replace(/[^\d]/g, '')) : 0;
+                const distanceKm = finalDistanceText ? parseFloat(finalDistanceText.replace(/[^\d.]/g, '')) : 0;
+                const durationMin = finalDurationText ? parseInt(finalDurationText.replace(/[^\d]/g, '')) : 0;
 
                 // Check if origin or destination contains airport keywords
                 const isAirportTransfer =
@@ -274,25 +301,24 @@ export default function VehiclesPage() {
         if (!dateString) return '-';
         try {
             const date = new Date(dateString);
-            return new Intl.DateTimeFormat('tr-TR', {
-                day: '2-digit',
-                month: '2-digit',
-                year: 'numeric',
-                hour: '2-digit',
-                minute: '2-digit'
-            }).format(date);
+            const day = date.getDate().toString().padStart(2, '0');
+            const month = (date.getMonth() + 1).toString().padStart(2, '0');
+            const year = date.getFullYear();
+            const hours = date.getHours().toString().padStart(2, '0');
+            const minutes = date.getMinutes().toString().padStart(2, '0');
+            return `${day}/${month}/${year} - ${hours}:${minutes}`;
         } catch (e) {
             return dateString;
         }
     };
 
-    // Get reservation data from URL params
+    // Get reservation data from URL params and state
     const reservation = {
         from: searchParams.get('fromAddress') || searchParams.get('from') || 'Seçilmedi',
         to: searchParams.get('toAddress') || searchParams.get('to') || 'Seçilmedi',
         date: formatDate(searchParams.get('date')),
-        distance: searchParams.get('distance') || '-',
-        duration: searchParams.get('duration') || '-',
+        distance: distanceInfo.distance,
+        duration: distanceInfo.duration,
         passengers: searchParams.get('passengers') || 1,
         tripType: searchParams.get('isRoundTrip') === 'true' ? 'Gidiş-Dönüş' : 'Tek Yön'
     };
