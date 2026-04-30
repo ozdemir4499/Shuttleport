@@ -153,6 +153,7 @@ export default function CheckoutContent() {
                 vehicle_type: vehicle.name,
                 total_price: calculateTotal(),
                 currency: vehicle.currency,
+                payment_method: paymentMethod === 'credit-card' ? 'credit_card' : 'cash_in_car',
                 notes: finalNotes
             };
 
