@@ -158,7 +158,7 @@ export default function VehiclesPage() {
     useEffect(() => {
         const fetchExchangeRates = async () => {
             try {
-                const response = await fetch('https://turizm.bedirkaraabali.com/api/exchange-rates');
+                const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/exchange-rates`);
                 if (response.ok) {
                     const data = await response.json();
                     setExchangeRates(data.rates);

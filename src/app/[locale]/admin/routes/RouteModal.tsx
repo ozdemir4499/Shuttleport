@@ -63,7 +63,7 @@ export default function RouteModal({ isOpen, onClose, onSave, initialData }: Rou
   const fetchVehicles = async () => {
     try {
       const token = localStorage.getItem('adminToken');
-      const res = await fetch('https://turizm.bedirkaraabali.com/api/admin/vehicles', {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/admin/vehicles`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       if (res.ok) {

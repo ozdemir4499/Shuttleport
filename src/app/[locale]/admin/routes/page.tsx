@@ -26,7 +26,7 @@ export default function RoutesPage() {
   const fetchRoutes = async () => {
     try {
       const token = localStorage.getItem('adminToken');
-      const res = await fetch('https://turizm.bedirkaraabali.com/api/admin/routes', {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/admin/routes`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       if (res.ok) {
@@ -44,7 +44,7 @@ export default function RoutesPage() {
     if (!confirm("Bu rotayı kalıcı olarak silmek istediğinize emin misiniz?")) return;
     try {
       const token = localStorage.getItem('adminToken');
-      const res = await fetch(`https://turizm.bedirkaraabali.com/api/admin/routes/${id}`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/admin/routes/${id}`, {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${token}` }
       });
@@ -62,7 +62,7 @@ export default function RoutesPage() {
   const toggleActive = async (route: FixedRoute) => {
     try {
       const token = localStorage.getItem('adminToken');
-      const res = await fetch(`https://turizm.bedirkaraabali.com/api/admin/routes/${route.id}/status`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/admin/routes/${route.id}/status`, {
         method: 'PUT',
         headers: { 'Authorization': `Bearer ${token}` }
       });
@@ -81,8 +81,8 @@ export default function RoutesPage() {
       const token = localStorage.getItem('adminToken');
       const method = editingRoute ? 'PUT' : 'POST';
       const url = editingRoute
-        ? `https://turizm.bedirkaraabali.com/api/admin/routes/${editingRoute.id}`
-        : `https://turizm.bedirkaraabali.com/api/admin/routes`;
+        ? `${process.env.NEXT_PUBLIC_API_URL}/api/admin/routes/${editingRoute.id}`
+        : `${process.env.NEXT_PUBLIC_API_URL}/api/admin/routes`;
 
       const res = await fetch(url, {
         method,
