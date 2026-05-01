@@ -285,3 +285,99 @@ MIDDLEWARE CALLED FOR: /en
 MIDDLEWARE CALLED FOR: /en/admin/bookings
  GET /en 200 in 174ms
  GET /en/admin/bookings 200 in 174ms
+MIDDLEWARE CALLED FOR: /admin
+MIDDLEWARE CALLED FOR: /en/admin
+ ○ Compiling /[locale]/admin ...
+ ✓ Compiled /[locale]/admin in 1465ms (2684 modules)
+MIDDLEWARE CALLED FOR: /en/admin
+MIDDLEWARE CALLED FOR: /admin/bookings
+MIDDLEWARE CALLED FOR: /en/admin/bookings
+MIDDLEWARE CALLED FOR: /admin/pricing-rules
+MIDDLEWARE CALLED FOR: /en/admin/pricing-rules
+ ✓ Compiled /[locale]/admin/pricing-rules in 323ms (2692 modules)
+MIDDLEWARE CALLED FOR: /admin/vehicles
+MIDDLEWARE CALLED FOR: /en/admin/vehicles
+ ✓ Compiled /[locale]/admin/vehicles in 341ms (2698 modules)
+MIDDLEWARE CALLED FOR: /en/admin/vehicles
+MIDDLEWARE CALLED FOR: /admin/drivers
+MIDDLEWARE CALLED FOR: /en/admin/drivers
+ ✓ Compiled /[locale]/admin/drivers in 312ms (2704 modules)
+MIDDLEWARE CALLED FOR: /en/admin/drivers
+MIDDLEWARE CALLED FOR: /admin/routes
+MIDDLEWARE CALLED FOR: /en/admin/routes
+MIDDLEWARE CALLED FOR: /en/admin/routes
+MIDDLEWARE CALLED FOR: /en/admin/pricing-rules
+MIDDLEWARE CALLED FOR: /en/admin
+MIDDLEWARE CALLED FOR: /en/admin/bookings
+MIDDLEWARE CALLED FOR: /en/admin/pricing-rules
+MIDDLEWARE CALLED FOR: /en/admin/routes
+MIDDLEWARE CALLED FOR: /en/admin/drivers
+MIDDLEWARE CALLED FOR: /en/admin
+MIDDLEWARE CALLED FOR: /en/admin/vehicles
+MIDDLEWARE CALLED FOR: /en/admin/bookings
+MIDDLEWARE CALLED FOR: /en/admin
+MIDDLEWARE CALLED FOR: /en/admin/bookings
+MIDDLEWARE CALLED FOR: /en/admin/routes
+MIDDLEWARE CALLED FOR: /en/admin/pricing-rules
+MIDDLEWARE CALLED FOR: /en/admin/vehicles
+MIDDLEWARE CALLED FOR: /en/admin/drivers
+MIDDLEWARE CALLED FOR: /en/admin/bookings
+ GET /en/admin/bookings 200 in 764ms
+ ○ Compiling /icon.png ...
+ ✓ Compiled /icon.png in 1386ms (1352 modules)
+ GET /icon.png?89bb144c429230e8 200 in 1542ms
+MIDDLEWARE CALLED FOR: /
+MIDDLEWARE CALLED FOR: /en
+ GET /en 200 in 157ms
+MIDDLEWARE CALLED FOR: /en
+ GET /en 200 in 71ms
+ GET /icon.png?89bb144c429230e8 200 in 25ms
+MIDDLEWARE CALLED FOR: /en
+ GET /en 200 in 62ms
+ GET /icon.png?89bb144c429230e8 200 in 26ms
+MIDDLEWARE CALLED FOR: /en
+ GET /en 200 in 60ms
+ GET /icon.png?89bb144c429230e8 200 in 35ms
+MIDDLEWARE CALLED FOR: /tr
+MIDDLEWARE CALLED FOR: /
+ GET / 200 in 68ms
+MIDDLEWARE CALLED FOR: /
+ GET / 200 in 60ms
+ GET /icon.png?89bb144c429230e8 200 in 28ms
+MIDDLEWARE CALLED FOR: /
+ GET / 200 in 102ms
+ GET /icon.png?89bb144c429230e8 200 in 33ms
+MIDDLEWARE CALLED FOR: /hakkimizda
+ ○ Compiling /[locale]/hakkimizda ...
+ ✓ Compiled /[locale]/hakkimizda in 1144ms (2757 modules)
+MIDDLEWARE CALLED FOR: /hakkimizda
+MIDDLEWARE CALLED FOR: /iletisim
+ ✓ Compiled /[locale]/iletisim in 337ms (2769 modules)
+MIDDLEWARE CALLED FOR: /iletisim
+MIDDLEWARE CALLED FOR: /sss
+ ○ Compiling /[locale]/sss ...
+ ✓ Compiled /[locale]/sss in 610ms (2785 modules)
+MIDDLEWARE CALLED FOR: /sss
+MIDDLEWARE CALLED FOR: /is-ortagi-ol
+ ✓ Compiled /[locale]/is-ortagi-ol in 372ms (2799 modules)
+MIDDLEWARE CALLED FOR: /turlar
+MIDDLEWARE CALLED FOR: /en/turlar
+ ○ Compiling /[locale]/turlar ...
+ ✓ Compiled /[locale]/turlar in 848ms (2747 modules)
+MIDDLEWARE CALLED FOR: /en/turlar
+ GET /en/turlar?_rsc=4ajeb 200 in 63ms
+ ✓ Compiled /icon.png in 184ms (1369 modules)
+ GET /icon.png?89bb144c429230e8 200 in 283ms
+MIDDLEWARE CALLED FOR: /
+MIDDLEWARE CALLED FOR: /en
+MIDDLEWARE CALLED FOR: /en
+MIDDLEWARE CALLED FOR: /en
+ GET /en 200 in 181ms
+ GET /icon.png?89bb144c429230e8 200 in 30ms
+ ✓ Compiled in 1232ms (2741 modules)
+ ✓ Compiled in 810ms (1424 modules)
+   Reload env: .env
+ ✓ Compiled in 417ms (2829 modules)
+ ✓ Compiled in 43ms (88 modules)
+ ✓ Compiled in 872ms (2755 modules)
+ ✓ Compiled in 420ms (1424 modules)
