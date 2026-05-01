@@ -157,7 +157,7 @@ export default function CheckoutContent() {
                 notes: finalNotes
             };
 
-            const res = await fetch('http://localhost:8000/api/bookings', {
+            const res = await fetch('https://turizm.bedirkaraabali.com/api/bookings', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(bookingPayload)

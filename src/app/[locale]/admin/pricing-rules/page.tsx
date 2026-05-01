@@ -26,7 +26,7 @@ export default function PricingRulesPage() {
   const fetchRules = async () => {
     try {
       const token = localStorage.getItem('adminToken');
-      const res = await fetch('http://localhost:8000/api/admin/rules', {
+      const res = await fetch('https://turizm.bedirkaraabali.com/api/admin/rules', {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       if (res.ok) {
@@ -43,7 +43,7 @@ export default function PricingRulesPage() {
   const toggleActive = async (rule: PricingRule) => {
     try {
       const token = localStorage.getItem('adminToken');
-      const res = await fetch(`http://localhost:8000/api/admin/rules/${rule.id}`, {
+      const res = await fetch(`https://turizm.bedirkaraabali.com/api/admin/rules/${rule.id}`, {
         method: 'PUT',
         headers: { 
           'Content-Type': 'application/json',
@@ -63,7 +63,7 @@ export default function PricingRulesPage() {
     if (!confirm("Bu kuralı silmek istediğinize emin misiniz?")) return;
     try {
       const token = localStorage.getItem('adminToken');
-      const res = await fetch(`http://localhost:8000/api/admin/rules/${id}`, {
+      const res = await fetch(`https://turizm.bedirkaraabali.com/api/admin/rules/${id}`, {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${token}` }
       });
@@ -80,8 +80,8 @@ export default function PricingRulesPage() {
       const token = localStorage.getItem('adminToken');
       const method = editingRule ? 'PUT' : 'POST';
       const url = editingRule 
-        ? `http://localhost:8000/api/admin/rules/${editingRule.id}` 
-        : `http://localhost:8000/api/admin/rules`;
+        ? `https://turizm.bedirkaraabali.com/api/admin/rules/${editingRule.id}` 
+        : `https://turizm.bedirkaraabali.com/api/admin/rules`;
         
       const res = await fetch(url, {
         method,
