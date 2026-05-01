@@ -76,7 +76,7 @@ export function MapPickerModal({
 
             try {
                 // Fetch API Key from backend
-                const response = await fetch('https://turizm.bedirkaraabali.com/api/maps-key');
+                const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/maps-key`);
                 if (!response.ok) throw new Error('API key fetch failed');
                 const data = await response.json();
                 const apiKey = data.api_key;
@@ -193,7 +193,7 @@ export function MapPickerModal({
         }
 
         try {
-            const response = await fetch('https://turizm.bedirkaraabali.com/api/search-places', {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/search-places`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ query })

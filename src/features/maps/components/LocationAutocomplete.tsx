@@ -114,7 +114,7 @@ export function LocationAutocomplete({
         debounceRef.current = setTimeout(async () => {
             setIsLoading(true);
             try {
-                const response = await fetch('https://turizm.bedirkaraabali.com/api/search-places', {
+                const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/search-places`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ query })
