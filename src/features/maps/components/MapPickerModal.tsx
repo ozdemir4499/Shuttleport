@@ -39,8 +39,8 @@ export function MapPickerModal({
     const mapRef = useRef<HTMLDivElement>(null);
     const inputRef = useRef<HTMLInputElement>(null);
     const mapInitializedRef = useRef(false);
-    const [map, setMap] = useState<any | null>(null);
-    const [marker, setMarker] = useState<any | null>(null);
+    const [map, setMap] = useState<google.maps.Map | null>(null);
+    const [marker, setMarker] = useState<google.maps.Marker | null>(null);
     interface SearchResult { place_id?: string; description?: string; lat?: number; lng?: number; formatted_address?: string; name?: string; address?: string; [key: string]: unknown; }
     const [searchQuery, setSearchQuery] = useState('');
     const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
