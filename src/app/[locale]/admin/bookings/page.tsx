@@ -89,7 +89,7 @@ export default function BookingsPage() {
   const fetchBookings = async () => {
     try {
       const token = localStorage.getItem('adminToken');
-      const res = await fetch('http://localhost:8000/api/admin/bookings', {
+      const res = await fetch('https://turizm.bedirkaraabali.com/api/admin/bookings', {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       if (res.status === 401) {
@@ -111,7 +111,7 @@ export default function BookingsPage() {
   const updateStatus = async (id: number, newStatus: string) => {
     try {
       const token = localStorage.getItem('adminToken');
-      const res = await fetch(`http://localhost:8000/api/admin/bookings/${id}/status`, {
+      const res = await fetch(`https://turizm.bedirkaraabali.com/api/admin/bookings/${id}/status`, {
         method: 'PUT',
         headers: { 
           'Content-Type': 'application/json',
@@ -229,8 +229,8 @@ export default function BookingsPage() {
       delete payload.phone_code;
 
       const url = editingBookingId 
-        ? `http://localhost:8000/api/admin/bookings/${editingBookingId}`
-        : 'http://localhost:8000/api/admin/bookings';
+        ? `https://turizm.bedirkaraabali.com/api/admin/bookings/${editingBookingId}`
+        : 'https://turizm.bedirkaraabali.com/api/admin/bookings';
       
       const method = editingBookingId ? 'PUT' : 'POST';
 

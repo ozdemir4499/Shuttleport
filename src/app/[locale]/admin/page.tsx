@@ -15,7 +15,7 @@ export default function AdminDashboard() {
     const fetchStats = async () => {
       try {
         const token = localStorage.getItem('adminToken');
-        const res = await fetch('http://localhost:8000/api/admin/dashboard-stats', {
+        const res = await fetch('https://turizm.bedirkaraabali.com/api/admin/dashboard-stats', {
           headers: { 'Authorization': `Bearer ${token}` }
         });
         if (res.ok) {

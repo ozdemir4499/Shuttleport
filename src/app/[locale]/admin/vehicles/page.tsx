@@ -38,7 +38,7 @@ export default function VehiclesPage() {
   const fetchVehicles = async () => {
     try {
       const token = localStorage.getItem('adminToken');
-      const res = await fetch('http://localhost:8000/api/admin/vehicles', {
+      const res = await fetch('https://turizm.bedirkaraabali.com/api/admin/vehicles', {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       if (res.status === 401) {
@@ -84,8 +84,8 @@ export default function VehiclesPage() {
     try {
       const token = localStorage.getItem('adminToken');
       const url = editingId 
-        ? `http://localhost:8000/api/admin/vehicles/${editingId}`
-        : 'http://localhost:8000/api/admin/vehicles';
+        ? `https://turizm.bedirkaraabali.com/api/admin/vehicles/${editingId}`
+        : 'https://turizm.bedirkaraabali.com/api/admin/vehicles';
       const method = editingId ? 'PUT' : 'POST';
 
       const res = await fetch(url, {
@@ -111,7 +111,7 @@ export default function VehiclesPage() {
           formDataObj.append('file', imageFile);
           
           try {
-            await fetch(`http://localhost:8000/api/admin/vehicles/${vehicleId}/image`, {
+            await fetch(`https://turizm.bedirkaraabali.com/api/admin/vehicles/${vehicleId}/image`, {
               method: 'POST',
               headers: { 'Authorization': `Bearer ${token}` },
               body: formDataObj
@@ -140,7 +140,7 @@ export default function VehiclesPage() {
     
     try {
       const token = localStorage.getItem('adminToken');
-      const res = await fetch(`http://localhost:8000/api/admin/vehicles/${id}`, {
+      const res = await fetch(`https://turizm.bedirkaraabali.com/api/admin/vehicles/${id}`, {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${token}` }
       });
@@ -162,7 +162,7 @@ export default function VehiclesPage() {
   const handleToggleStatus = async (id: number) => {
     try {
       const token = localStorage.getItem('adminToken');
-      const res = await fetch(`http://localhost:8000/api/admin/vehicles/${id}/status`, {
+      const res = await fetch(`https://turizm.bedirkaraabali.com/api/admin/vehicles/${id}/status`, {
         method: 'PUT',
         headers: { 'Authorization': `Bearer ${token}` }
       });
@@ -200,7 +200,7 @@ export default function VehiclesPage() {
           <div key={vehicle.id} className={`bg-white rounded-lg shadow-md overflow-hidden border ${vehicle.active ? 'border-gray-100' : 'border-red-200 opacity-80'}`}>
             <div className="h-40 bg-gray-200 flex items-center justify-center relative overflow-hidden">
               {vehicle.image_path ? (
-                <img src={`http://localhost:8000${vehicle.image_path}`} alt={vehicle.name_tr} className="w-full h-full object-cover" />
+                <img src={`https://turizm.bedirkaraabali.com${vehicle.image_path}`} alt={vehicle.name_tr} className="w-full h-full object-cover" />
               ) : (
                 <span className="text-gray-400 font-medium">Görsel Yok</span>
               )}

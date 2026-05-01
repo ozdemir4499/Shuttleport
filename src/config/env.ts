@@ -18,7 +18,7 @@ function getEnvVar(key: keyof EnvConfig): string {
 }
 
 export const env: EnvConfig = {
-    NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL || (process.env.NODE_ENV === 'production' ? 'https://turizm.bedirkaraabali.com' : 'http://localhost:8000'),
+    NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL || (process.env.NODE_ENV === 'production' ? 'https://turizm.bedirkaraabali.com' : 'https://turizm.bedirkaraabali.com'),
     NODE_ENV: (process.env.NODE_ENV as EnvConfig['NODE_ENV']) || 'development',
 };
 

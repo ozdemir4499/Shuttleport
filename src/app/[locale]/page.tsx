@@ -115,7 +115,7 @@ export default function Home() {
     useEffect(() => {
         const fetchFixedRoutes = async () => {
             try {
-                const response = await fetch('http://localhost:8000/api/pricing/fixed-routes');
+                const response = await fetch('https://turizm.bedirkaraabali.com/api/pricing/fixed-routes');
                 const data = await response.json();
                 setFixedRoutes(data.routes || []);
             } catch (error) {
@@ -132,7 +132,7 @@ export default function Home() {
     useEffect(() => {
         const fetchExchangeRates = async () => {
             try {
-                const response = await fetch('http://localhost:8000/api/exchange-rates');
+                const response = await fetch('https://turizm.bedirkaraabali.com/api/exchange-rates');
                 const data = await response.json();
                 if (data.rates) {
                     setExchangeRates(data.rates);

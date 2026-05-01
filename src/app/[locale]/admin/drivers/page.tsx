@@ -46,7 +46,7 @@ export default function DriversPage() {
   const fetchDrivers = async () => {
     try {
       const token = localStorage.getItem('adminToken');
-      const res = await fetch('http://localhost:8000/api/admin/drivers', {
+      const res = await fetch('https://turizm.bedirkaraabali.com/api/admin/drivers', {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       if (res.status === 401) {
@@ -66,7 +66,7 @@ export default function DriversPage() {
   const fetchVehicles = async () => {
     try {
       const token = localStorage.getItem('adminToken');
-      const res = await fetch('http://localhost:8000/api/admin/vehicles', {
+      const res = await fetch('https://turizm.bedirkaraabali.com/api/admin/vehicles', {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       if (res.ok) {
@@ -83,8 +83,8 @@ export default function DriversPage() {
     try {
       const token = localStorage.getItem('adminToken');
       const url = editingDriver 
-        ? `http://localhost:8000/api/admin/drivers/${editingDriver.id}` 
-        : 'http://localhost:8000/api/admin/drivers';
+        ? `https://turizm.bedirkaraabali.com/api/admin/drivers/${editingDriver.id}` 
+        : 'https://turizm.bedirkaraabali.com/api/admin/drivers';
       
       const payload = {
         full_name: formData.full_name,
@@ -128,7 +128,7 @@ export default function DriversPage() {
     if (!confirm('Bu sürücüyü silmek istediğinize emin misiniz?')) return;
     try {
       const token = localStorage.getItem('adminToken');
-      const res = await fetch(`http://localhost:8000/api/admin/drivers/${id}`, {
+      const res = await fetch(`https://turizm.bedirkaraabali.com/api/admin/drivers/${id}`, {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${token}` }
       });
@@ -147,7 +147,7 @@ export default function DriversPage() {
       formDataUpload.append('doc_type', docType);
       formDataUpload.append('file', file);
 
-      const res = await fetch(`http://localhost:8000/api/admin/drivers/${driverId}/document`, {
+      const res = await fetch(`https://turizm.bedirkaraabali.com/api/admin/drivers/${driverId}/document`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`
@@ -159,7 +159,7 @@ export default function DriversPage() {
         fetchDrivers();
         alert('Belge başarıyla yüklendi.');
         // Refresh the editing driver to show new documents
-        const updatedDrivers = await (await fetch('http://localhost:8000/api/admin/drivers', {
+        const updatedDrivers = await (await fetch('https://turizm.bedirkaraabali.com/api/admin/drivers', {
            headers: { 'Authorization': `Bearer ${token}` }
         })).json();
         const updated = updatedDrivers.find((d: Driver) => d.id === driverId);
@@ -250,7 +250,7 @@ export default function DriversPage() {
                       <div className="flex items-center">
                         <div className="flex-shrink-0 h-10 w-10 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center font-bold text-lg overflow-hidden">
                           {driver.photo_path ? (
-                            <img src={`http://localhost:8000${driver.photo_path}`} alt="Driver" className="w-full h-full object-cover" />
+                            <img src={`https://turizm.bedirkaraabali.com${driver.photo_path}`} alt="Driver" className="w-full h-full object-cover" />
                           ) : (
                             driver.full_name.charAt(0)
                           )}
@@ -397,7 +397,7 @@ export default function DriversPage() {
                       <p className="text-xs font-semibold text-slate-600 mb-2">Profil Fotoğrafı</p>
                       {editingDriver.photo_path && (
                         <div className="w-16 h-16 rounded-full overflow-hidden mb-2">
-                          <img src={`http://localhost:8000${editingDriver.photo_path}`} alt="Profil" className="w-full h-full object-cover" />
+                          <img src={`https://turizm.bedirkaraabali.com${editingDriver.photo_path}`} alt="Profil" className="w-full h-full object-cover" />
                         </div>
                       )}
                       <label className="cursor-pointer text-xs text-indigo-600 hover:text-indigo-800 font-medium">
@@ -412,7 +412,7 @@ export default function DriversPage() {
                     <div className="border border-slate-200 rounded-xl p-4 flex flex-col items-center justify-center text-center bg-slate-50">
                       <p className="text-xs font-semibold text-slate-600 mb-2">İzin Belgesi / SRC</p>
                       {editingDriver.permit_document_path && (
-                        <a href={`http://localhost:8000${editingDriver.permit_document_path}`} target="_blank" rel="noreferrer" className="text-xs text-blue-500 mb-2 hover:underline">Belgeyi Gör</a>
+                        <a href={`https://turizm.bedirkaraabali.com${editingDriver.permit_document_path}`} target="_blank" rel="noreferrer" className="text-xs text-blue-500 mb-2 hover:underline">Belgeyi Gör</a>
                       )}
                       <label className="cursor-pointer text-xs text-indigo-600 hover:text-indigo-800 font-medium">
                         {editingDriver.permit_document_path ? 'Güncelle' : 'Yükle'}
@@ -426,7 +426,7 @@ export default function DriversPage() {
                     <div className="border border-slate-200 rounded-xl p-4 flex flex-col items-center justify-center text-center bg-slate-50">
                       <p className="text-xs font-semibold text-slate-600 mb-2">Kimlik / Ehliyet Kopyası</p>
                       {editingDriver.identity_document_path && (
-                        <a href={`http://localhost:8000${editingDriver.identity_document_path}`} target="_blank" rel="noreferrer" className="text-xs text-blue-500 mb-2 hover:underline">Belgeyi Gör</a>
+                        <a href={`https://turizm.bedirkaraabali.com${editingDriver.identity_document_path}`} target="_blank" rel="noreferrer" className="text-xs text-blue-500 mb-2 hover:underline">Belgeyi Gör</a>
                       )}
                       <label className="cursor-pointer text-xs text-indigo-600 hover:text-indigo-800 font-medium">
                         {editingDriver.identity_document_path ? 'Güncelle' : 'Yükle'}
