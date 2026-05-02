@@ -305,7 +305,7 @@ export default function Home() {
                 <div className="relative z-10 container-custom px-4 w-full">
 
                     {/* Hero Banner Image (Matches Booking Widget Width) */}
-                    <div className="max-w-[1440px] mx-auto h-[120px] sm:h-[160px] md:h-[320px] mb-2 md:mb-4 rounded-xl sm:rounded-2xl overflow-hidden shadow-2xl relative group">
+                    <div className="max-w-[1440px] mx-auto h-[160px] sm:h-[240px] md:h-[380px] mb-2 md:mb-4 rounded-xl sm:rounded-2xl overflow-hidden shadow-2xl relative group">
                         <img
                             src="/coastal_vip_van_banner_v11.png"
                             alt="VIP Transfer & Tours"
