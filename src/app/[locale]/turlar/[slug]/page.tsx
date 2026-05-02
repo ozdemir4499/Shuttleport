@@ -70,34 +70,34 @@ export default function TurDetayPage() {
                     <div className="flex items-center justify-center space-x-4 md:space-x-12">
                         {/* Step 1 */}
                         <div className="flex items-center space-x-2">
-                            <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold ${activeStep >= 1 ? 'bg-[#D32F2F] text-white' : 'bg-gray-200 text-gray-500'}`}>
+                            <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold ${activeStep >= 1 ? 'bg-[#0a192f] text-white' : 'bg-gray-200 text-gray-500'}`}>
                                 1
                             </div>
-                            <span className={`hidden md:block text-sm font-medium ${activeStep >= 1 ? 'text-[#D32F2F]' : 'text-gray-500'}`}>
+                            <span className={`hidden md:block text-sm font-medium ${activeStep >= 1 ? 'text-[#0a192f]' : 'text-gray-500'}`}>
                                 Tur Seçimi
                             </span>
                         </div>
                         <div className="w-12 md:w-24 h-0.5 bg-gray-200">
-                            <div className={`h-full transition-all ${activeStep >= 2 ? 'bg-[#D32F2F] w-full' : 'w-0'}`}></div>
+                            <div className={`h-full transition-all ${activeStep >= 2 ? 'bg-[#0a192f] w-full' : 'w-0'}`}></div>
                         </div>
                         {/* Step 2 */}
                         <div className="flex items-center space-x-2">
-                            <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold ${activeStep >= 2 ? 'bg-[#D32F2F] text-white' : 'bg-gray-200 text-gray-500'}`}>
+                            <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold ${activeStep >= 2 ? 'bg-[#0a192f] text-white' : 'bg-gray-200 text-gray-500'}`}>
                                 2
                             </div>
-                            <span className={`hidden md:block text-sm font-medium ${activeStep >= 2 ? 'text-[#D32F2F]' : 'text-gray-500'}`}>
+                            <span className={`hidden md:block text-sm font-medium ${activeStep >= 2 ? 'text-[#0a192f]' : 'text-gray-500'}`}>
                                 Katılımcı Bilgileri & Ödeme
                             </span>
                         </div>
                         <div className="w-12 md:w-24 h-0.5 bg-gray-200">
-                            <div className={`h-full transition-all ${activeStep >= 3 ? 'bg-[#D32F2F] w-full' : 'w-0'}`}></div>
+                            <div className={`h-full transition-all ${activeStep >= 3 ? 'bg-[#0a192f] w-full' : 'w-0'}`}></div>
                         </div>
                         {/* Step 3 */}
                         <div className="flex items-center space-x-2">
-                            <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold ${activeStep >= 3 ? 'bg-[#D32F2F] text-white' : 'bg-gray-200 text-gray-500'}`}>
+                            <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold ${activeStep >= 3 ? 'bg-[#0a192f] text-white' : 'bg-gray-200 text-gray-500'}`}>
                                 3
                             </div>
-                            <span className={`hidden md:block text-sm font-medium ${activeStep >= 3 ? 'text-[#D32F2F]' : 'text-gray-500'}`}>
+                            <span className={`hidden md:block text-sm font-medium ${activeStep >= 3 ? 'text-[#0a192f]' : 'text-gray-500'}`}>
                                 Tur Detayları
                             </span>
                         </div>
@@ -106,37 +106,35 @@ export default function TurDetayPage() {
             </div>
 
             {/* TOUR HEADER */}
-            <section className="bg-white border-b border-gray-100 py-6">
+            <section className="bg-white border-b border-gray-100 pt-3 pb-2 md:py-6">
                 <div className="container-custom px-4">
-                    <h1 className="text-2xl md:text-3xl font-bold text-[#D32F2F] mb-4">
+                    <h1 className="text-lg md:text-3xl font-bold text-[#0a192f] mb-3 md:mb-4 leading-tight text-center md:text-left">
                         {tour.title}
                     </h1>
 
-                    <div className="flex flex-wrap items-center gap-4 md:gap-8">
-                        <div className="flex items-center space-x-2 text-gray-600">
-                            <Clock className="w-5 h-5 text-[#D32F2F]" />
-                            <div>
-                                <div className="text-sm text-gray-500">Tur Başlangıç Saati</div>
-                                <div className="font-bold">{tour.startTime}</div>
+                    <div className="flex flex-col md:flex-row md:items-center gap-2 md:gap-8 md:mt-2">
+                        <div className="grid grid-cols-2 gap-2 w-full md:w-auto">
+                            <div className="flex items-center space-x-2 text-gray-600 bg-gray-50 py-1.5 px-2 md:p-0 md:bg-transparent rounded-lg">
+                                <Clock className="w-3.5 h-3.5 text-[#0a192f]" />
+                                <div>
+                                    <div className="text-[9px] md:text-sm text-gray-500 uppercase tracking-wide font-semibold">Başlangıç</div>
+                                    <div className="font-bold text-xs md:text-base leading-tight">{tour.startTime}</div>
+                                </div>
                             </div>
-                        </div>
-                        <div className="flex items-center space-x-2 text-gray-600">
-                            <Clock className="w-5 h-5 text-[#D32F2F]" />
-                            <div>
-                                <div className="text-sm text-gray-500">Tur Bitiş Saati</div>
-                                <div className="font-bold">{tour.endTime}</div>
+                            <div className="flex items-center space-x-2 text-gray-600 bg-gray-50 py-1.5 px-2 md:p-0 md:bg-transparent rounded-lg">
+                                <Clock className="w-3.5 h-3.5 text-[#0a192f]" />
+                                <div>
+                                    <div className="text-[9px] md:text-sm text-gray-500 uppercase tracking-wide font-semibold">Bitiş</div>
+                                    <div className="font-bold text-xs md:text-base leading-tight">{tour.endTime}</div>
+                                </div>
                             </div>
-                        </div>
-                        <div className="ml-auto flex items-center space-x-2">
-                            <MapPin className="w-5 h-5 text-[#D32F2F]" />
-                            <span className="font-bold text-[#D32F2F]">{tour.location}</span>
                         </div>
                     </div>
                 </div>
             </section>
 
             {/* MAIN CONTENT */}
-            <section className="py-8 md:py-12">
+            <section className="py-2 md:py-12">
                 <div className="container-custom px-4">
                     {/* Mobile Layout: Image First, Then Booking Card */}
                     <div className="lg:hidden space-y-6">
@@ -149,10 +147,16 @@ export default function TurDetayPage() {
                                     className="w-full h-full object-cover"
                                 />
                                 {tour.badge && (
-                                    <div className="absolute top-4 left-4 bg-gradient-to-r from-yellow-400 to-orange-500 text-white px-4 py-2 rounded-lg text-sm font-black shadow-lg">
+                                    <div className="absolute top-4 left-4 bg-gradient-to-r from-yellow-400 to-orange-500 text-white px-4 py-2 rounded-lg text-sm font-black shadow-lg z-10">
                                         {tour.badge}
                                     </div>
                                 )}
+                                
+                                {/* Location Badge on Image */}
+                                <div className="absolute top-4 right-4 bg-black/60 backdrop-blur-md text-white px-3 py-1.5 rounded-lg text-sm font-bold shadow-lg flex items-center space-x-1.5 z-10">
+                                    <MapPin className="w-4 h-4 text-white" />
+                                    <span>{tour.location}</span>
+                                </div>
 
                                 {/* Navigation Arrows */}
                                 <button
@@ -175,7 +179,7 @@ export default function TurDetayPage() {
                                     <button
                                         key={idx}
                                         onClick={() => setCurrentImageIndex(idx)}
-                                        className={`flex-shrink-0 w-20 h-16 rounded-lg overflow-hidden border-2 transition-all ${currentImageIndex === idx ? 'border-[#D32F2F]' : 'border-transparent'
+                                        className={`flex-shrink-0 w-20 h-16 rounded-lg overflow-hidden border-2 transition-all ${currentImageIndex === idx ? 'border-[#0a192f]' : 'border-transparent'
                                             }`}
                                     >
                                         <img src={img} alt="" className="w-full h-full object-cover" />
@@ -201,20 +205,20 @@ export default function TurDetayPage() {
                                     <div className="flex items-center space-x-3">
                                         <button
                                             onClick={() => setAdultCount(Math.max(1, adultCount - 1))}
-                                            className="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center hover:border-[#D32F2F] hover:text-[#D32F2F] transition-colors"
+                                            className="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center hover:border-[#0a192f] hover:text-[#0a192f] transition-colors"
                                         >
                                             <Minus className="w-4 h-4" />
                                         </button>
                                         <span className="w-8 text-center font-bold">{adultCount}</span>
                                         <button
                                             onClick={() => setAdultCount(adultCount + 1)}
-                                            className="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center hover:border-[#D32F2F] hover:text-[#D32F2F] transition-colors"
+                                            className="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center hover:border-[#0a192f] hover:text-[#0a192f] transition-colors"
                                         >
                                             <Plus className="w-4 h-4" />
                                         </button>
                                     </div>
                                     <div className="text-right min-w-[80px]">
-                                        <span className="font-bold text-[#D32F2F]">
+                                        <span className="font-bold text-[#0a192f]">
                                             {currencySymbols[selectedCurrency]}{formatPrice(tour.prices.adult[selectedCurrency] * adultCount)}
                                         </span>
                                     </div>
@@ -229,14 +233,14 @@ export default function TurDetayPage() {
                                     <div className="flex items-center space-x-3">
                                         <button
                                             onClick={() => setChildCount(Math.max(0, childCount - 1))}
-                                            className="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center hover:border-[#D32F2F] hover:text-[#D32F2F] transition-colors"
+                                            className="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center hover:border-[#0a192f] hover:text-[#0a192f] transition-colors"
                                         >
                                             <Minus className="w-4 h-4" />
                                         </button>
                                         <span className="w-8 text-center font-bold">{childCount}</span>
                                         <button
                                             onClick={() => setChildCount(childCount + 1)}
-                                            className="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center hover:border-[#D32F2F] hover:text-[#D32F2F] transition-colors"
+                                            className="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center hover:border-[#0a192f] hover:text-[#0a192f] transition-colors"
                                         >
                                             <Plus className="w-4 h-4" />
                                         </button>
@@ -257,14 +261,14 @@ export default function TurDetayPage() {
                                     <div className="flex items-center space-x-3">
                                         <button
                                             onClick={() => setBabyCount(Math.max(0, babyCount - 1))}
-                                            className="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center hover:border-[#D32F2F] hover:text-[#D32F2F] transition-colors"
+                                            className="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center hover:border-[#0a192f] hover:text-[#0a192f] transition-colors"
                                         >
                                             <Minus className="w-4 h-4" />
                                         </button>
                                         <span className="w-8 text-center font-bold">{babyCount}</span>
                                         <button
                                             onClick={() => setBabyCount(babyCount + 1)}
-                                            className="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center hover:border-[#D32F2F] hover:text-[#D32F2F] transition-colors"
+                                            className="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center hover:border-[#0a192f] hover:text-[#0a192f] transition-colors"
                                         >
                                             <Plus className="w-4 h-4" />
                                         </button>
@@ -312,7 +316,7 @@ export default function TurDetayPage() {
                             {/* Overview */}
                             <div className="bg-white rounded-2xl p-6 shadow-sm">
                                 <div className="flex items-center space-x-3 mb-4">
-                                    <Heart className="w-6 h-6 text-[#D32F2F]" />
+                                    <Heart className="w-6 h-6 text-[#0a192f]" />
                                     <h3 className="text-xl font-bold text-gray-900">Genel Bakış</h3>
                                 </div>
                                 <p className="text-gray-600 leading-relaxed mb-4">
@@ -327,9 +331,9 @@ export default function TurDetayPage() {
                             <div className="bg-white rounded-2xl p-6 shadow-sm">
                                 <div className="flex items-center space-x-3 mb-6">
                                     <div className="w-6 h-6 flex flex-col justify-center space-y-0.5">
-                                        <div className="w-full h-1 bg-[#D32F2F] rounded"></div>
-                                        <div className="w-full h-1 bg-[#D32F2F] rounded"></div>
-                                        <div className="w-full h-1 bg-[#D32F2F] rounded"></div>
+                                        <div className="w-full h-1 bg-[#0a192f] rounded"></div>
+                                        <div className="w-full h-1 bg-[#0a192f] rounded"></div>
+                                        <div className="w-full h-1 bg-[#0a192f] rounded"></div>
                                     </div>
                                     <h3 className="text-xl font-bold text-gray-900">Tur Programı</h3>
                                 </div>
@@ -337,7 +341,7 @@ export default function TurDetayPage() {
                                 <div className="space-y-6">
                                     {tour.program.map((section, idx) => (
                                         <div key={idx}>
-                                            <h4 className="font-bold text-[#D32F2F] mb-3">{section.title}</h4>
+                                            <h4 className="font-bold text-[#0a192f] mb-3">{section.title}</h4>
                                             <ul className="space-y-2">
                                                 {section.items.map((item, i) => (
                                                     <li key={i} className="flex items-start space-x-3 text-gray-600">
@@ -417,20 +421,20 @@ export default function TurDetayPage() {
                                         <div className="flex items-center space-x-3">
                                             <button
                                                 onClick={() => setAdultCount(Math.max(1, adultCount - 1))}
-                                                className="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center hover:border-[#D32F2F] hover:text-[#D32F2F] transition-colors"
+                                                className="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center hover:border-[#0a192f] hover:text-[#0a192f] transition-colors"
                                             >
                                                 <Minus className="w-4 h-4" />
                                             </button>
                                             <span className="w-8 text-center font-bold">{adultCount}</span>
                                             <button
                                                 onClick={() => setAdultCount(adultCount + 1)}
-                                                className="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center hover:border-[#D32F2F] hover:text-[#D32F2F] transition-colors"
+                                                className="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center hover:border-[#0a192f] hover:text-[#0a192f] transition-colors"
                                             >
                                                 <Plus className="w-4 h-4" />
                                             </button>
                                         </div>
                                         <div className="text-right min-w-[80px]">
-                                            <span className="font-bold text-[#D32F2F]">
+                                            <span className="font-bold text-[#0a192f]">
                                                 {currencySymbols[selectedCurrency]}{formatPrice(tour.prices.adult[selectedCurrency] * adultCount)}
                                             </span>
                                         </div>
@@ -445,14 +449,14 @@ export default function TurDetayPage() {
                                         <div className="flex items-center space-x-3">
                                             <button
                                                 onClick={() => setChildCount(Math.max(0, childCount - 1))}
-                                                className="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center hover:border-[#D32F2F] hover:text-[#D32F2F] transition-colors"
+                                                className="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center hover:border-[#0a192f] hover:text-[#0a192f] transition-colors"
                                             >
                                                 <Minus className="w-4 h-4" />
                                             </button>
                                             <span className="w-8 text-center font-bold">{childCount}</span>
                                             <button
                                                 onClick={() => setChildCount(childCount + 1)}
-                                                className="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center hover:border-[#D32F2F] hover:text-[#D32F2F] transition-colors"
+                                                className="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center hover:border-[#0a192f] hover:text-[#0a192f] transition-colors"
                                             >
                                                 <Plus className="w-4 h-4" />
                                             </button>
@@ -473,14 +477,14 @@ export default function TurDetayPage() {
                                         <div className="flex items-center space-x-3">
                                             <button
                                                 onClick={() => setBabyCount(Math.max(0, babyCount - 1))}
-                                                className="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center hover:border-[#D32F2F] hover:text-[#D32F2F] transition-colors"
+                                                className="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center hover:border-[#0a192f] hover:text-[#0a192f] transition-colors"
                                             >
                                                 <Minus className="w-4 h-4" />
                                             </button>
                                             <span className="w-8 text-center font-bold">{babyCount}</span>
                                             <button
                                                 onClick={() => setBabyCount(babyCount + 1)}
-                                                className="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center hover:border-[#D32F2F] hover:text-[#D32F2F] transition-colors"
+                                                className="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center hover:border-[#0a192f] hover:text-[#0a192f] transition-colors"
                                             >
                                                 <Plus className="w-4 h-4" />
                                             </button>
@@ -536,10 +540,16 @@ export default function TurDetayPage() {
                                         className="w-full h-full object-cover"
                                     />
                                     {tour.badge && (
-                                        <div className="absolute top-4 left-4 bg-gradient-to-r from-yellow-400 to-orange-500 text-white px-4 py-2 rounded-lg text-sm font-black shadow-lg">
+                                        <div className="absolute top-4 left-4 bg-gradient-to-r from-yellow-400 to-orange-500 text-white px-4 py-2 rounded-lg text-sm font-black shadow-lg z-10">
                                             {tour.badge}
                                         </div>
                                     )}
+
+                                    {/* Location Badge on Image */}
+                                    <div className="absolute top-4 right-4 bg-black/60 backdrop-blur-md text-white px-3 py-1.5 rounded-lg text-sm font-bold shadow-lg flex items-center space-x-1.5 z-10">
+                                        <MapPin className="w-4 h-4 text-white" />
+                                        <span>{tour.location}</span>
+                                    </div>
 
                                     {/* Navigation Arrows */}
                                     <button
@@ -562,7 +572,7 @@ export default function TurDetayPage() {
                                         <button
                                             key={idx}
                                             onClick={() => setCurrentImageIndex(idx)}
-                                            className={`flex-shrink-0 w-20 h-16 rounded-lg overflow-hidden border-2 transition-all ${currentImageIndex === idx ? 'border-[#D32F2F]' : 'border-transparent'
+                                            className={`flex-shrink-0 w-20 h-16 rounded-lg overflow-hidden border-2 transition-all ${currentImageIndex === idx ? 'border-[#0a192f]' : 'border-transparent'
                                                 }`}
                                         >
                                             <img src={img} alt="" className="w-full h-full object-cover" />
@@ -574,7 +584,7 @@ export default function TurDetayPage() {
                             {/* Overview */}
                             <div className="bg-white rounded-2xl p-6 shadow-sm">
                                 <div className="flex items-center space-x-3 mb-4">
-                                    <Heart className="w-6 h-6 text-[#D32F2F]" />
+                                    <Heart className="w-6 h-6 text-[#0a192f]" />
                                     <h3 className="text-xl font-bold text-gray-900">Genel Bakış</h3>
                                 </div>
                                 <p className="text-gray-600 leading-relaxed mb-4">
@@ -589,9 +599,9 @@ export default function TurDetayPage() {
                             <div className="bg-white rounded-2xl p-6 shadow-sm">
                                 <div className="flex items-center space-x-3 mb-6">
                                     <div className="w-6 h-6 flex flex-col justify-center space-y-0.5">
-                                        <div className="w-full h-1 bg-[#D32F2F] rounded"></div>
-                                        <div className="w-full h-1 bg-[#D32F2F] rounded"></div>
-                                        <div className="w-full h-1 bg-[#D32F2F] rounded"></div>
+                                        <div className="w-full h-1 bg-[#0a192f] rounded"></div>
+                                        <div className="w-full h-1 bg-[#0a192f] rounded"></div>
+                                        <div className="w-full h-1 bg-[#0a192f] rounded"></div>
                                     </div>
                                     <h3 className="text-xl font-bold text-gray-900">Tur Programı</h3>
                                 </div>
@@ -599,7 +609,7 @@ export default function TurDetayPage() {
                                 <div className="space-y-6">
                                     {tour.program.map((section, idx) => (
                                         <div key={idx}>
-                                            <h4 className="font-bold text-[#D32F2F] mb-3">{section.title}</h4>
+                                            <h4 className="font-bold text-[#0a192f] mb-3">{section.title}</h4>
                                             <ul className="space-y-2">
                                                 {section.items.map((item, i) => (
                                                     <li key={i} className="flex items-start space-x-3 text-gray-600">

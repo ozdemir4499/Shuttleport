@@ -7,7 +7,7 @@ export default function KullanimPage() {
             <div className="prose lg:prose-xl">
                 <p>Son güncellenme tarihi: 29 Nisan 2026</p>
                 <h2>1. Taraflar ve Kapsam</h2>
-                <p>Bu sözleşme, Luxe Transfer üzerinden VIP transfer ve araç kiralama hizmeti alan yolcular için geçerlidir.</p>
+                <p>Bu sözleşme, Asitane Travel üzerinden VIP transfer ve araç kiralama hizmeti alan yolcular için geçerlidir.</p>
                 <h2>2. İptal ve İade Koşulları</h2>
                 <p>Transfer saatinden 12 saat öncesine kadar yapılan iptallerde %100 kesintisiz iade garantisi sunulmaktadır. 12 saatten daha az kalan iptallerde iade yapılamaz.</p>
                 <h2>3. Bagaj ve Yolcu Sayısı</h2>

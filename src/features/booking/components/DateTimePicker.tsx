@@ -278,7 +278,7 @@ export function DateTimePicker({
                                                 : 'hover:bg-gray-100 cursor-pointer'
                                             }
                                             ${isSelected
-                                                ? 'bg-[#D32F2F] text-white hover:bg-[#D32F2F]'
+                                                ? 'bg-[#0a192f] text-white hover:bg-[#0a192f]'
                                                 : isTodayDate && dayInfo.isCurrentMonth
                                                     ? 'bg-blue-50 text-blue-600 font-bold'
                                                     : dayInfo.isCurrentMonth ? 'text-gray-700' : ''
@@ -309,7 +309,7 @@ export function DateTimePicker({
                                         className={`
                                             w-full py-2.5 px-3 rounded-lg text-sm font-medium transition-all
                                             ${isSelected
-                                                ? 'bg-[#D32F2F] text-white'
+                                                ? 'bg-[#0a192f] text-white'
                                                 : 'bg-gray-50 hover:bg-gray-100 text-gray-700'
                                             }
                                         `}

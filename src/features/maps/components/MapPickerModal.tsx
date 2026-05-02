@@ -350,12 +350,12 @@ export function MapPickerModal({
                             value={searchQuery}
                             onChange={(e) => handleSearch(e.target.value)}
                             placeholder="Adres, havalimanı, otel ara..."
-                            className="w-full pl-12 pr-12 py-3 bg-gray-50 rounded-xl border border-gray-200 focus:border-[#D32F2F] focus:ring-2 focus:ring-red-100 outline-none transition-all text-gray-900"
+                            className="w-full pl-12 pr-12 py-3 bg-gray-50 rounded-xl border border-gray-200 focus:border-[#0a192f] focus:ring-2 focus:ring-red-100 outline-none transition-all text-gray-900"
                         />
                         <button
                             onClick={getCurrentLocation}
                             disabled={isLoading}
-                            className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-lg bg-[#D32F2F] hover:bg-[#b01126] flex items-center justify-center transition-colors disabled:opacity-50"
+                            className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-lg bg-[#0a192f] hover:bg-[#B58A32] flex items-center justify-center transition-colors disabled:opacity-50"
                             style={{ left: 'auto', right: '8px' }}
                             title="Konumumu bul"
                         >
@@ -376,7 +376,7 @@ export function MapPickerModal({
                                     onClick={() => handleSelectSearchResult(result)}
                                     className="w-full text-left px-4 py-3 hover:bg-gray-50 flex items-start space-x-3 border-b border-gray-50 last:border-0"
                                 >
-                                    <MapPin className="w-5 h-5 text-[#D32F2F] flex-shrink-0 mt-0.5" />
+                                    <MapPin className="w-5 h-5 text-[#0a192f] flex-shrink-0 mt-0.5" />
                                     <div>
                                         <div className="font-medium text-gray-900">
                                             {result.name}
@@ -408,7 +408,7 @@ export function MapPickerModal({
                     ) : !isMapLoaded ? (
                         <div className="absolute inset-0 flex items-center justify-center bg-gray-100">
                             <div className="flex flex-col items-center">
-                                <Loader2 className="w-12 h-12 animate-spin text-[#D32F2F] mb-4" />
+                                <Loader2 className="w-12 h-12 animate-spin text-[#0a192f] mb-4" />
                                 <p className="text-gray-600">Harita yükleniyor...</p>
                             </div>
                         </div>
@@ -421,7 +421,7 @@ export function MapPickerModal({
                     {selectedLocation ? (
                         <div className="flex items-center justify-between">
                             <div className="flex items-start space-x-3 flex-1 min-w-0">
-                                <div className="w-10 h-10 bg-[#D32F2F] rounded-full flex items-center justify-center flex-shrink-0">
+                                <div className="w-10 h-10 bg-[#0a192f] rounded-full flex items-center justify-center flex-shrink-0">
                                     <MapPin className="w-5 h-5 text-white" />
                                 </div>
                                 <div className="min-w-0">
@@ -435,7 +435,7 @@ export function MapPickerModal({
                             </div>
                             <button
                                 onClick={handleConfirmLocation}
-                                className="ml-4 px-6 py-3 bg-[#D32F2F] hover:bg-[#b01126] text-white font-bold rounded-xl transition-colors flex-shrink-0"
+                                className="ml-4 px-6 py-3 bg-[#0a192f] hover:bg-[#B58A32] text-white font-bold rounded-xl transition-colors flex-shrink-0"
                             >
                                 Bu Konumu Seç
                             </button>

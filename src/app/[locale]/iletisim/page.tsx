@@ -59,9 +59,9 @@ export default function IletisimPage() {
                     <div className="flex items-center justify-between">
                         <h1 className="text-2xl font-bold text-gray-900">İletişim</h1>
                         <nav className="flex items-center text-sm text-gray-500">
-                            <Link href="/" className="hover:text-[#D32F2F] transition-colors">Anasayfa</Link>
+                            <Link href="/" className="hover:text-[#0a192f] transition-colors">Anasayfa</Link>
                             <ChevronRight className="w-4 h-4 mx-2" />
-                            <span className="text-[#D32F2F] font-medium">İletişim</span>
+                            <span className="text-[#0a192f] font-medium">İletişim</span>
                         </nav>
                     </div>
                 </div>
@@ -104,11 +104,11 @@ export default function IletisimPage() {
                                             value={formData.firstName}
                                             onChange={handleInputChange}
                                             required
-                                            className="w-full bg-white border border-gray-200 rounded-xl px-5 py-4 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#D32F2F] focus:border-transparent transition-all peer"
+                                            className="w-full bg-white border border-gray-200 rounded-xl px-5 py-4 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#0a192f] focus:border-transparent transition-all peer"
                                             placeholder=" "
                                         />
-                                        <label className="absolute left-5 top-4 text-gray-400 text-sm transition-all pointer-events-none peer-placeholder-shown:top-4 peer-placeholder-shown:text-base peer-focus:top-1 peer-focus:text-xs peer-focus:text-[#D32F2F] peer-[:not(:placeholder-shown)]:top-1 peer-[:not(:placeholder-shown)]:text-xs">
-                                            ADINIZ <span className="text-[#D32F2F]">*</span>
+                                        <label className="absolute left-5 top-4 text-gray-400 text-sm transition-all pointer-events-none peer-placeholder-shown:top-4 peer-placeholder-shown:text-base peer-focus:top-1 peer-focus:text-xs peer-focus:text-[#0a192f] peer-[:not(:placeholder-shown)]:top-1 peer-[:not(:placeholder-shown)]:text-xs">
+                                            ADINIZ <span className="text-[#0a192f]">*</span>
                                         </label>
                                     </div>
 
@@ -120,11 +120,11 @@ export default function IletisimPage() {
                                             value={formData.lastName}
                                             onChange={handleInputChange}
                                             required
-                                            className="w-full bg-white border border-gray-200 rounded-xl px-5 py-4 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#D32F2F] focus:border-transparent transition-all peer"
+                                            className="w-full bg-white border border-gray-200 rounded-xl px-5 py-4 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#0a192f] focus:border-transparent transition-all peer"
                                             placeholder=" "
                                         />
-                                        <label className="absolute left-5 top-4 text-gray-400 text-sm transition-all pointer-events-none peer-placeholder-shown:top-4 peer-placeholder-shown:text-base peer-focus:top-1 peer-focus:text-xs peer-focus:text-[#D32F2F] peer-[:not(:placeholder-shown)]:top-1 peer-[:not(:placeholder-shown)]:text-xs">
-                                            SOYADINIZ <span className="text-[#D32F2F]">*</span>
+                                        <label className="absolute left-5 top-4 text-gray-400 text-sm transition-all pointer-events-none peer-placeholder-shown:top-4 peer-placeholder-shown:text-base peer-focus:top-1 peer-focus:text-xs peer-focus:text-[#0a192f] peer-[:not(:placeholder-shown)]:top-1 peer-[:not(:placeholder-shown)]:text-xs">
+                                            SOYADINIZ <span className="text-[#0a192f]">*</span>
                                         </label>
                                     </div>
                                 </div>
@@ -138,11 +138,11 @@ export default function IletisimPage() {
                                             value={formData.phone}
                                             onChange={handleInputChange}
                                             required
-                                            className="w-full bg-white border border-gray-200 rounded-xl px-5 py-4 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#D32F2F] focus:border-transparent transition-all peer"
+                                            className="w-full bg-white border border-gray-200 rounded-xl px-5 py-4 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#0a192f] focus:border-transparent transition-all peer"
                                             placeholder=" "
                                         />
-                                        <label className="absolute left-5 top-4 text-gray-400 text-sm transition-all pointer-events-none peer-placeholder-shown:top-4 peer-placeholder-shown:text-base peer-focus:top-1 peer-focus:text-xs peer-focus:text-[#D32F2F] peer-[:not(:placeholder-shown)]:top-1 peer-[:not(:placeholder-shown)]:text-xs">
-                                            TELEFON NUMARASI <span className="text-[#D32F2F]">*</span>
+                                        <label className="absolute left-5 top-4 text-gray-400 text-sm transition-all pointer-events-none peer-placeholder-shown:top-4 peer-placeholder-shown:text-base peer-focus:top-1 peer-focus:text-xs peer-focus:text-[#0a192f] peer-[:not(:placeholder-shown)]:top-1 peer-[:not(:placeholder-shown)]:text-xs">
+                                            TELEFON NUMARASI <span className="text-[#0a192f]">*</span>
                                         </label>
                                     </div>
 
@@ -154,11 +154,11 @@ export default function IletisimPage() {
                                             value={formData.email}
                                             onChange={handleInputChange}
                                             required
-                                            className="w-full bg-white border border-gray-200 rounded-xl px-5 py-4 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#D32F2F] focus:border-transparent transition-all peer"
+                                            className="w-full bg-white border border-gray-200 rounded-xl px-5 py-4 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#0a192f] focus:border-transparent transition-all peer"
                                             placeholder=" "
                                         />
-                                        <label className="absolute left-5 top-4 text-gray-400 text-sm transition-all pointer-events-none peer-placeholder-shown:top-4 peer-placeholder-shown:text-base peer-focus:top-1 peer-focus:text-xs peer-focus:text-[#D32F2F] peer-[:not(:placeholder-shown)]:top-1 peer-[:not(:placeholder-shown)]:text-xs">
-                                            E-POSTA ADRESİNİZ <span className="text-[#D32F2F]">*</span>
+                                        <label className="absolute left-5 top-4 text-gray-400 text-sm transition-all pointer-events-none peer-placeholder-shown:top-4 peer-placeholder-shown:text-base peer-focus:top-1 peer-focus:text-xs peer-focus:text-[#0a192f] peer-[:not(:placeholder-shown)]:top-1 peer-[:not(:placeholder-shown)]:text-xs">
+                                            E-POSTA ADRESİNİZ <span className="text-[#0a192f]">*</span>
                                         </label>
                                     </div>
                                 </div>
@@ -171,11 +171,11 @@ export default function IletisimPage() {
                                         onChange={handleInputChange}
                                         required
                                         rows={5}
-                                        className="w-full bg-white border border-gray-200 rounded-xl px-5 py-4 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#D32F2F] focus:border-transparent transition-all resize-none peer"
+                                        className="w-full bg-white border border-gray-200 rounded-xl px-5 py-4 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#0a192f] focus:border-transparent transition-all resize-none peer"
                                         placeholder=" "
                                     />
-                                    <label className="absolute left-5 top-4 text-gray-400 text-sm transition-all pointer-events-none peer-placeholder-shown:top-4 peer-placeholder-shown:text-base peer-focus:top-1 peer-focus:text-xs peer-focus:text-[#D32F2F] peer-[:not(:placeholder-shown)]:top-1 peer-[:not(:placeholder-shown)]:text-xs">
-                                        MESAJINIZ <span className="text-[#D32F2F]">*</span>
+                                    <label className="absolute left-5 top-4 text-gray-400 text-sm transition-all pointer-events-none peer-placeholder-shown:top-4 peer-placeholder-shown:text-base peer-focus:top-1 peer-focus:text-xs peer-focus:text-[#0a192f] peer-[:not(:placeholder-shown)]:top-1 peer-[:not(:placeholder-shown)]:text-xs">
+                                        MESAJINIZ <span className="text-[#0a192f]">*</span>
                                     </label>
                                 </div>
 
@@ -183,7 +183,7 @@ export default function IletisimPage() {
                                 <button
                                     type="submit"
                                     disabled={isSubmitting}
-                                    className="w-full md:w-auto bg-[#D32F2F] hover:bg-[#B71C1C] disabled:bg-gray-400 text-white font-bold px-8 py-4 rounded-xl transition-all flex items-center justify-center space-x-2 group"
+                                    className="w-full md:w-auto bg-[#0a192f] hover:bg-[#B58A32] disabled:bg-gray-400 text-white font-bold px-8 py-4 rounded-xl transition-all flex items-center justify-center space-x-2 group"
                                 >
                                     {isSubmitting ? (
                                         <>
@@ -214,7 +214,7 @@ export default function IletisimPage() {
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent">
                                     <div className="absolute top-6 right-6 bg-white/90 backdrop-blur-sm rounded-lg px-4 py-2">
                                         <div className="flex items-center space-x-2">
-                                            <div className="w-8 h-8 text-[#D32F2F]">
+                                            <div className="w-8 h-8 text-[#0a192f]">
                                                 <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
                                                     <path d="M20 2L4 12V28L20 38L36 28V12L20 2Z" fill="currentColor" />
                                                     <path d="M20 8L28 18L20 14L12 18L20 8Z" fill="white" />
@@ -222,14 +222,14 @@ export default function IletisimPage() {
                                                 </svg>
                                             </div>
                                             <div>
-                                                <div className="text-[8px] font-bold tracking-widest text-gray-600">LUXE</div>
+                                                <div className="text-[8px] font-bold tracking-widest text-gray-600">ASİTANE</div>
                                                 <div className="text-sm font-black text-gray-900">TRANSFER</div>
                                             </div>
                                         </div>
                                     </div>
 
                                     {/* Contact Number Overlay */}
-                                    <div className="absolute bottom-6 right-6 bg-[#D32F2F] text-white px-6 py-3 rounded-xl flex items-center space-x-3">
+                                    <div className="absolute bottom-6 right-6 bg-[#0a192f] text-white px-6 py-3 rounded-xl flex items-center space-x-3">
                                         <Phone className="w-5 h-5" />
                                         <span className="font-bold">+90 (532) 417 8963</span>
                                     </div>
@@ -264,7 +264,7 @@ export default function IletisimPage() {
                             {/* Contact Info Cards */}
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8">
                                 <div className="bg-white rounded-xl p-6 shadow-md hover:shadow-lg transition-shadow text-center">
-                                    <div className="w-14 h-14 bg-gradient-to-br from-[#D32F2F] to-[#B71C1C] rounded-full flex items-center justify-center mx-auto mb-4">
+                                    <div className="w-14 h-14 bg-gradient-to-br from-[#0a192f] to-[#B58A32] rounded-full flex items-center justify-center mx-auto mb-4">
                                         <Phone className="w-6 h-6 text-white" />
                                     </div>
                                     <h4 className="font-bold text-gray-900 mb-1">Telefon</h4>
@@ -272,15 +272,15 @@ export default function IletisimPage() {
                                 </div>
 
                                 <div className="bg-white rounded-xl p-6 shadow-md hover:shadow-lg transition-shadow text-center">
-                                    <div className="w-14 h-14 bg-gradient-to-br from-[#D32F2F] to-[#B71C1C] rounded-full flex items-center justify-center mx-auto mb-4">
+                                    <div className="w-14 h-14 bg-gradient-to-br from-[#0a192f] to-[#B58A32] rounded-full flex items-center justify-center mx-auto mb-4">
                                         <Mail className="w-6 h-6 text-white" />
                                     </div>
                                     <h4 className="font-bold text-gray-900 mb-1">E-Posta</h4>
-                                    <p className="text-sm text-gray-600 break-all">info@luxetransfer.com</p>
+                                    <p className="text-sm text-gray-600 break-all">info@asitanetravel.com</p>
                                 </div>
 
                                 <div className="bg-white rounded-xl p-6 shadow-md hover:shadow-lg transition-shadow text-center">
-                                    <div className="w-14 h-14 bg-gradient-to-br from-[#D32F2F] to-[#B71C1C] rounded-full flex items-center justify-center mx-auto mb-4">
+                                    <div className="w-14 h-14 bg-gradient-to-br from-[#0a192f] to-[#B58A32] rounded-full flex items-center justify-center mx-auto mb-4">
                                         <MapPin className="w-6 h-6 text-white" />
                                     </div>
                                     <h4 className="font-bold text-gray-900 mb-1">Adres</h4>
@@ -305,7 +305,7 @@ export default function IletisimPage() {
                             allowFullScreen
                             loading="lazy"
                             referrerPolicy="no-referrer-when-downgrade"
-                            title="Luxe Transfer Konum"
+                            title="Asitane Travel Konum"
                         />
                     </div>
                 </div>

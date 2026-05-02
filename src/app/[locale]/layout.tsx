@@ -77,7 +77,7 @@ export default async function RootLayout({
       "@type": "TravelAgency",
       "name": siteName,
       "image": `${siteUrl}/logo.png`,
-      "description": "Premium Airport and City Transfer Service",
+      "description": "Asitane Travel Havalimanı Transfer Hizmetleri",
       "address": {
         "@type": "PostalAddress",
         "addressLocality": "Istanbul",

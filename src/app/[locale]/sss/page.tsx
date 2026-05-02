@@ -12,7 +12,7 @@ interface FAQItem {
 const faqData: FAQItem[] = [
     {
         question: "Rezervasyonumu nasıl iptal edebilirim?",
-        answer: "Rezervasyonunuzu iptal etmek için web sitemizden giriş yaparak 'Rezervasyonlarım' bölümünden ilgili rezervasyonu seçip iptal edebilirsiniz. Ayrıca WhatsApp üzerinden +90 532 417 89 63 numaramızdan veya info@luxetransfer.com e-posta adresimizden de iptal işlemlerinizi gerçekleştirebilirsiniz."
+        answer: "Rezervasyonunuzu iptal etmek için web sitemizden giriş yaparak 'Rezervasyonlarım' bölümünden ilgili rezervasyonu seçip iptal edebilirsiniz. Ayrıca WhatsApp üzerinden +90 532 417 89 63 numaramızdan veya info@asitanetravel.com e-posta adresimizden de iptal işlemlerinizi gerçekleştirebilirsiniz."
     },
     {
         question: "Havalimanı transfer rezervasyonu nasıl yapılır?",
@@ -72,7 +72,7 @@ export default function SSSPage() {
             <Header />
 
             {/* Hero Section */}
-            <section className="relative bg-gradient-to-br from-[#D32F2F] via-[#C62828] to-[#B71C1C] text-white py-16 md:py-24 overflow-hidden">
+            <section className="relative bg-gradient-to-br from-[#0a192f] via-[#C62828] to-[#B58A32] text-white py-16 md:py-24 overflow-hidden">
                 {/* Animated Background Pattern */}
                 <div className="absolute inset-0 opacity-10">
                     <div className="absolute top-10 left-10 w-72 h-72 bg-white rounded-full blur-3xl animate-pulse"></div>
@@ -201,13 +201,13 @@ export default function SSSPage() {
                                         className="w-full flex items-center justify-between p-6 text-left transition-colors hover:bg-gray-50"
                                     >
                                         <span className="font-bold text-gray-900 pr-4 flex items-start">
-                                            <span className="text-[#D32F2F] mr-3 text-xl">
+                                            <span className="text-[#0a192f] mr-3 text-xl">
                                                 {openIndex === index ? '−' : '+'}
                                             </span>
                                             {faq.question}
                                         </span>
                                         {openIndex === index ? (
-                                            <ChevronUp className="w-5 h-5 text-[#D32F2F] flex-shrink-0" />
+                                            <ChevronUp className="w-5 h-5 text-[#0a192f] flex-shrink-0" />
                                         ) : (
                                             <ChevronDown className="w-5 h-5 text-gray-400 flex-shrink-0" />
                                         )}
@@ -215,7 +215,7 @@ export default function SSSPage() {
 
                                     {openIndex === index && (
                                         <div className="px-6 pb-6 pt-0">
-                                            <div className="pl-8 text-gray-600 leading-relaxed border-l-2 border-[#D32F2F]/20">
+                                            <div className="pl-8 text-gray-600 leading-relaxed border-l-2 border-[#0a192f]/20">
                                                 {faq.answer}
                                             </div>
                                         </div>
@@ -243,7 +243,7 @@ export default function SSSPage() {
                                 </a>
                                 <a
                                     href="/iletisim"
-                                    className="inline-flex items-center justify-center px-8 py-4 bg-[#D32F2F] hover:bg-[#B71C1C] text-white font-bold rounded-xl transition-all"
+                                    className="inline-flex items-center justify-center px-8 py-4 bg-[#0a192f] hover:bg-[#B58A32] text-white font-bold rounded-xl transition-all"
                                 >
                                     İletişim Formu
                                 </a>

@@ -214,7 +214,7 @@ export function LocationAutocomplete({
                             onChange={(e) => handleSearch(e.target.value)}
                             onKeyDown={handleKeyDown}
                             placeholder=""
-                            className="w-full text-sm font-semibold text-gray-900 bg-transparent outline-none placeholder:text-gray-400"
+                            className="w-full text-[16px] md:text-sm font-semibold text-gray-900 bg-transparent outline-none placeholder:text-gray-400"
                             autoComplete="off"
                         />
                     ) : value ? (
@@ -255,7 +255,7 @@ export function LocationAutocomplete({
                             {isLoading ? (
                                 <div className="px-4 py-6 text-center text-gray-500">
                                     <div className="flex items-center justify-center space-x-2">
-                                        <div className="w-4 h-4 border-2 border-gray-300 border-t-[#D32F2F] rounded-full animate-spin"></div>
+                                        <div className="w-4 h-4 border-2 border-gray-300 border-t-[#0a192f] rounded-full animate-spin"></div>
                                         <span>Aranıyor...</span>
                                     </div>
                                 </div>
@@ -296,7 +296,7 @@ export function LocationAutocomplete({
                         {isLoading ? (
                             <div className="px-4 py-6 text-center text-gray-500">
                                 <div className="flex items-center justify-center space-x-2">
-                                    <div className="w-4 h-4 border-2 border-gray-300 border-t-[#D32F2F] rounded-full animate-spin"></div>
+                                    <div className="w-4 h-4 border-2 border-gray-300 border-t-[#0a192f] rounded-full animate-spin"></div>
                                     <span>Aranıyor...</span>
                                 </div>
                             </div>

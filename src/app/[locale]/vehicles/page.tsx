@@ -9,6 +9,7 @@ import { mapsService } from '@/features/maps/services/maps-service';
 import { InlineDateTimePicker } from '@/features/booking/components/InlineDateTimePicker';
 import { InlinePassengerSelector } from '@/features/booking/components/InlinePassengerSelector';
 import { pricingService, type VehiclePricing, type VehicleInfo } from '@/shared/services/pricing-service';
+import Header from '@/components/layout/Header';
 
 interface Location {
     lat: number;
@@ -43,7 +44,7 @@ function VehicleImageSlider({ images, name }: { images: string[], name: string }
                         <img
                             src={img}
                             alt={`${name} - ${idx + 1}`}
-                            className="w-full aspect-[4/3] sm:h-64 md:h-full object-cover object-center"
+                            className="w-full aspect-video sm:h-64 md:h-full object-cover object-center"
                         />
                     </div>
                 ))}
@@ -363,109 +364,12 @@ export default function VehiclesPage() {
 
     return (
         <div className="min-h-screen bg-gray-50">
-            {/* Header - Same as homepage */}
-            <header className="absolute top-0 left-0 right-0 z-50 bg-white shadow-sm h-20 md:h-24">
-                <div className="container-custom h-full flex items-center justify-between px-4">
-                    {/* LOGO */}
-                    <Link href="/" className="flex items-center space-x-3 md:space-x-4">
-                        <div className="text-[#D32F2F]">
-                            <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-8 h-8 md:w-10 md:h-10">
-                                <path d="M20 0C18.5 10 10 18.5 0 20C10 21.5 18.5 30 20 40C21.5 30 30 21.5 40 20C30 18.5 21.5 10 20 0Z" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
-                                <circle cx="20" cy="20" r="4" fill="currentColor" />
-                            </svg>
-                        </div>
-                        <div className="flex flex-col justify-center">
-                            <span className="text-[10px] md:text-xs font-bold tracking-[0.2em] text-gray-900 leading-tight">SHUTTLE</span>
-                            <span className="text-lg md:text-2xl font-black italic text-gray-900 leading-none tracking-tighter">TRANSFER</span>
-                        </div>
-                    </Link>
-
-                    {/* DESKTOP NAV */}
-                    <nav className="hidden xl:flex items-center space-x-6 text-[13px] font-bold text-gray-800">
-                        <Link href="/turlar" className="hover:text-[#D32F2F] transition-colors">Turlar</Link>
-                        <Link href="/hakkimizda" className="hover:text-[#D32F2F] transition-colors">Hakkımızda</Link>
-                        <Link href="#" className="hover:text-[#D32F2F] transition-colors">İşveren Olun</Link>
-                        <Link href="#" className="hover:text-[#D32F2F] transition-colors">Taşıyıcı Olun</Link>
-                        <Link href="/iletisim" className="hover:text-[#D32F2F] transition-colors">İletişim</Link>
-                        <Link href="#" className="hover:text-[#D32F2F] transition-colors">S.S.S</Link>
-                    </nav>
-
-                    {/* RIGHT ACTIONS */}
-                    <div className="hidden lg:flex items-center space-x-4">
-                        {/* Social Icons */}
-                        <div className="flex items-center space-x-4 border-r border-gray-200 pr-5">
-                            <Link href="#" className="text-gray-900 hover:text-[#D32F2F]"><Instagram className="w-5 h-5 stroke-2" /></Link>
-                            <Link href="#" className="text-gray-900 hover:text-[#D32F2F]"><Globe className="w-5 h-5 stroke-2" /></Link>
-                            <Link href="#" className="text-gray-900 hover:text-green-600"><MessageCircle className="w-5 h-5 stroke-2" /></Link>
-                        </div>
-
-                        {/* Language */}
-                        <div className="flex items-center space-x-2 cursor-pointer group">
-                            <div className="w-6 h-6 rounded-full bg-[#D32F2F] flex items-center justify-center text-[9px] text-white font-bold ring-2 ring-transparent group-hover:ring-red-100 transition-all">TR</div>
-                            <span className="text-sm font-bold text-gray-900">TR</span>
-                            <ChevronDown className="w-4 h-4 text-gray-500" />
-                        </div>
-
-                        {/* Auth */}
-                        <div className="flex items-center space-x-4 ml-2">
-                            <Link href="#" className="text-sm font-bold text-gray-900 hover:text-[#D32F2F]">Üye Ol</Link>
-                            <Link href="#" className="flex items-center space-x-2 border border-black rounded-lg px-4 py-2 hover:bg-black hover:text-white transition-all group">
-                                <User className="w-4 h-4 group-hover:text-white" />
-                                <span className="text-sm font-bold">Giriş</span>
-                            </Link>
-                        </div>
-                    </div>
-
-                    {/* Mobile Menu Button */}
-                    <button
-                        className="lg:hidden"
-                        onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                    >
-                        {mobileMenuOpen ? (
-                            <X className="w-8 h-8 text-gray-900" />
-                        ) : (
-                            <Menu className="w-8 h-8 text-gray-900" />
-                        )}
-                    </button>
-                </div>
-
-                {/* Mobile Menu Dropdown */}
-                {mobileMenuOpen && (
-                    <div className="lg:hidden bg-white border-t border-gray-100 absolute top-full left-0 right-0 shadow-xl overflow-hidden">
-                        <div className="container-custom py-4 space-y-2">
-                            <Link href="/turlar" className="block text-gray-900 font-bold hover:text-[#D32F2F] p-2 rounded-lg hover:bg-red-50">Turlar</Link>
-                            <Link href="/hakkimizda" className="block text-gray-900 font-bold hover:text-[#D32F2F] p-2 rounded-lg hover:bg-red-50">Hakkımızda</Link>
-                            <Link href="#" className="block text-gray-900 font-bold hover:text-[#D32F2F] p-2 rounded-lg hover:bg-red-50">İşveren Olun</Link>
-                            <Link href="#" className="block text-gray-900 font-bold hover:text-[#D32F2F] p-2 rounded-lg hover:bg-red-50">Taşıyıcı Olun</Link>
-                            <Link href="/iletisim" className="block text-gray-900 font-bold hover:text-[#D32F2F] p-2 rounded-lg hover:bg-red-50">İletişim</Link>
-                            <Link href="#" className="block text-gray-900 font-bold hover:text-[#D32F2F] p-2 rounded-lg hover:bg-red-50">S.S.S</Link>
-
-                            <div className="border-t border-gray-100 my-2 pt-2"></div>
-
-                            <div className="flex items-center justify-between p-2">
-                                <div className="flex space-x-4">
-                                    <Instagram className="w-5 h-5 text-gray-600" />
-                                    <Globe className="w-5 h-5 text-gray-600" />
-                                    <MessageCircle className="w-5 h-5 text-gray-600" />
-                                </div>
-                                <div className="flex items-center space-x-2">
-                                    <div className="w-6 h-6 rounded-full bg-[#D32F2F] flex items-center justify-center text-[9px] text-white font-bold">TR</div>
-                                    <span className="text-sm font-bold">TR</span>
-                                </div>
-                            </div>
-
-                            <div className="flex space-x-2 pt-2">
-                                <Link href="#" className="flex-1 text-center text-sm font-bold text-gray-900 hover:text-[#D32F2F] border border-gray-300 rounded-lg py-2">Üye Ol</Link>
-                                <Link href="#" className="flex-1 text-center text-sm font-bold text-white bg-black rounded-lg py-2">Giriş</Link>
-                            </div>
-                        </div>
-                    </div>
-                )}
-            </header>
+            {/* Header */}
+            <Header />
 
             {/* Progress Stepper */}
-            <div className="bg-white border-b pt-24 md:pt-28">
-                <div className="container-custom py-6">
+            <div className="bg-white border-b">
+                <div className="container-custom py-3 md:py-6">
                     <div className="flex items-center justify-center max-w-2xl mx-auto">
                         {/* Step 1 - Active */}
                         <div className="flex items-center">
@@ -513,14 +417,14 @@ export default function VehiclesPage() {
             </div>
 
             {/* Main Content */}
-            <div className="container-custom py-8">
+            <div className="container-custom py-4 md:py-8">
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                     {/* Left Side - Vehicle List */}
                     <div className="lg:col-span-2 space-y-6">
                         {/* Loading State */}
                         {isLoadingPricing && (
                             <div className="bg-white rounded-2xl shadow-md p-12 text-center">
-                                <div className="w-16 h-16 border-4 border-[#D32F2F] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+                                <div className="w-16 h-16 border-4 border-[#0a192f] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
                                 <p className="text-gray-600 font-semibold">Fiyatlar hesaplanıyor...</p>
                             </div>
                         )}
@@ -555,7 +459,7 @@ export default function VehiclesPage() {
                                     </div>
 
                                     {/* Vehicle Info - Right Side */}
-                                    <div className="flex-1 p-4 md:p-6 flex flex-col">
+                                    <div className="flex-1 p-3 md:p-6 flex flex-col">
                                         {/* Header with Title and Capacity */}
                                         <div className="flex items-start justify-between gap-4 mb-2">
                                             <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-900 flex-1 min-w-0 pr-2">{vehicle.name}</h3>
@@ -575,38 +479,38 @@ export default function VehiclesPage() {
                                         </div>
 
                                         {/* Red accent line */}
-                                        <div className="h-0.5 bg-red-600 w-12 mb-3"></div>
+                                        <div className="h-0.5 bg-red-600 w-12 mb-2"></div>
 
                                         {/* Features - Horizontal inline */}
-                                        <div className="flex items-center gap-3 md:gap-4 mb-3 flex-wrap text-gray-600">
+                                        <div className="flex items-center gap-3 md:gap-4 mb-2 flex-wrap text-gray-600">
                                             <div className="flex items-center gap-1">
                                                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                                                 </svg>
-                                                <span className="text-xs">Sabit Fiyat</span>
+                                                <span className="text-[11px] sm:text-xs">Sabit Fiyat</span>
                                             </div>
                                             <div className="flex items-center gap-1">
                                                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
                                                 </svg>
-                                                <span className="text-xs">Uçuş Takibi</span>
+                                                <span className="text-[11px] sm:text-xs">Uçuş Takibi</span>
                                             </div>
                                             <div className="flex items-center gap-1">
                                                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                                                 </svg>
-                                                <span className="text-xs">Havalimanı Karşılama</span>
+                                                <span className="text-[11px] sm:text-xs">Havalimanı Karşılama</span>
                                             </div>
                                             <div className="flex items-center gap-1">
                                                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
                                                 </svg>
-                                                <span className="text-xs">Ücretsiz İptal</span>
+                                                <span className="text-[11px] sm:text-xs">Ücretsiz İptal</span>
                                             </div>
                                         </div>
 
                                         {/* Currency selection text */}
-                                        <p className="text-xs text-gray-500 mb-3">
+                                        <p className="text-xs text-gray-500 mb-3 hidden sm:block">
                                             Lütfen ödeme yapmak istediğiniz para birimi seçiniz
                                         </p>
 
@@ -614,7 +518,7 @@ export default function VehiclesPage() {
                                         {/* Pricing and Action - Side by side */}
                                         <div className="flex flex-col sm:flex-row items-stretch sm:items-end justify-between gap-3 mt-auto">
                                             {/* Currency buttons */}
-                                            <div className="flex gap-1.5 flex-wrap sm:flex-nowrap">
+                                            <div className="grid grid-cols-4 gap-1.5 sm:flex sm:flex-nowrap">
                                                 {(() => {
                                                     const selectedCurrency = selectedCurrencies[vehicle.id] || 'TRY';
                                                     const hasDiscount = vehicle.pricing.round_trip_discount > 0;
@@ -626,7 +530,7 @@ export default function VehiclesPage() {
                                                             {/* TRY Button */}
                                                             <button
                                                                 onClick={() => setSelectedCurrencies(prev => ({ ...prev, [vehicle.id]: 'TRY' }))}
-                                                                className={`relative min-w-[70px] px-2 py-2 rounded-lg transition-all ${selectedCurrency === 'TRY'
+                                                                className={`relative px-1 py-1.5 sm:min-w-[70px] sm:px-2 sm:py-2 rounded-lg transition-all ${selectedCurrency === 'TRY'
                                                                     ? 'bg-white border-2 border-green-500 shadow-sm'
                                                                     : 'bg-gray-100 border-2 border-transparent hover:bg-gray-200'
                                                                     }`}
@@ -640,12 +544,12 @@ export default function VehiclesPage() {
                                                                     </div>
                                                                 )}
                                                                 <div className="flex flex-col items-center">
-                                                                    <div className="flex items-center gap-0.5 text-sm font-bold text-gray-900">
+                                                                    <div className="flex items-center gap-0.5 text-xs sm:text-sm font-bold text-gray-900">
                                                                         <span>{Math.round(vehicle.pricing.final_price)}</span>
                                                                         <span>₺</span>
                                                                     </div>
                                                                     {hasDiscount && (
-                                                                        <div className="text-[10px] text-gray-400 line-through">
+                                                                        <div className="text-[9px] sm:text-[10px] text-gray-400 line-through">
                                                                             {Math.round(originalPrice)} ₺
                                                                         </div>
                                                                     )}
@@ -655,18 +559,18 @@ export default function VehiclesPage() {
                                                             {/* EUR Button */}
                                                             <button
                                                                 onClick={() => setSelectedCurrencies(prev => ({ ...prev, [vehicle.id]: 'EUR' }))}
-                                                                className={`min-w-[70px] px-2 py-2 rounded-lg transition-all ${selectedCurrency === 'EUR'
+                                                                className={`px-1 py-1.5 sm:min-w-[70px] sm:px-2 sm:py-2 rounded-lg transition-all ${selectedCurrency === 'EUR'
                                                                     ? 'bg-white border-2 border-green-500 shadow-sm'
                                                                     : 'bg-gray-100 border-2 border-transparent hover:bg-gray-200'
                                                                     }`}
                                                             >
                                                                 <div className="flex flex-col items-center">
-                                                                    <div className="flex items-center gap-0.5 text-sm font-bold text-gray-900">
+                                                                    <div className="flex items-center gap-0.5 text-xs sm:text-sm font-bold text-gray-900">
                                                                         <span>€</span>
                                                                         <span>{Math.round(vehicle.pricing.final_price * exchangeRates.EUR)}</span>
                                                                     </div>
                                                                     {hasDiscount && (
-                                                                        <div className="text-[10px] text-gray-400 line-through">
+                                                                        <div className="text-[9px] sm:text-[10px] text-gray-400 line-through">
                                                                             € {Math.round(originalPrice * exchangeRates.EUR)}
                                                                         </div>
                                                                     )}
@@ -676,18 +580,18 @@ export default function VehiclesPage() {
                                                             {/* USD Button */}
                                                             <button
                                                                 onClick={() => setSelectedCurrencies(prev => ({ ...prev, [vehicle.id]: 'USD' }))}
-                                                                className={`min-w-[70px] px-2 py-2 rounded-lg transition-all ${selectedCurrency === 'USD'
+                                                                className={`px-1 py-1.5 sm:min-w-[70px] sm:px-2 sm:py-2 rounded-lg transition-all ${selectedCurrency === 'USD'
                                                                     ? 'bg-white border-2 border-green-500 shadow-sm'
                                                                     : 'bg-gray-100 border-2 border-transparent hover:bg-gray-200'
                                                                     }`}
                                                             >
                                                                 <div className="flex flex-col items-center">
-                                                                    <div className="flex items-center gap-0.5 text-sm font-bold text-gray-900">
+                                                                    <div className="flex items-center gap-0.5 text-xs sm:text-sm font-bold text-gray-900">
                                                                         <span>$</span>
                                                                         <span>{Math.round(vehicle.pricing.final_price * exchangeRates.USD)}</span>
                                                                     </div>
                                                                     {hasDiscount && (
-                                                                        <div className="text-[10px] text-gray-400 line-through">
+                                                                        <div className="text-[9px] sm:text-[10px] text-gray-400 line-through">
                                                                             $ {Math.round(originalPrice * exchangeRates.USD)}
                                                                         </div>
                                                                     )}
@@ -697,18 +601,18 @@ export default function VehiclesPage() {
                                                             {/* GBP Button */}
                                                             <button
                                                                 onClick={() => setSelectedCurrencies(prev => ({ ...prev, [vehicle.id]: 'GBP' }))}
-                                                                className={`min-w-[70px] px-2 py-2 rounded-lg transition-all ${selectedCurrency === 'GBP'
+                                                                className={`px-1 py-1.5 sm:min-w-[70px] sm:px-2 sm:py-2 rounded-lg transition-all ${selectedCurrency === 'GBP'
                                                                     ? 'bg-white border-2 border-green-500 shadow-sm'
                                                                     : 'bg-gray-100 border-2 border-transparent hover:bg-gray-200'
                                                                     }`}
                                                             >
                                                                 <div className="flex flex-col items-center">
-                                                                    <div className="flex items-center gap-0.5 text-sm font-bold text-gray-900">
+                                                                    <div className="flex items-center gap-0.5 text-xs sm:text-sm font-bold text-gray-900">
                                                                         <span>£</span>
                                                                         <span>{Math.round(vehicle.pricing.final_price * exchangeRates.GBP)}</span>
                                                                     </div>
                                                                     {hasDiscount && (
-                                                                        <div className="text-[10px] text-gray-400 line-through">
+                                                                        <div className="text-[9px] sm:text-[10px] text-gray-400 line-through">
                                                                             £ {Math.round(originalPrice * exchangeRates.GBP)}
                                                                         </div>
                                                                     )}
@@ -743,7 +647,7 @@ export default function VehiclesPage() {
                                                         localStorage.setItem('pendingBooking', JSON.stringify(pendingBooking));
                                                         router.push(`/checkout`);
                                                     }}
-                                                    className="w-full sm:w-auto bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-lg font-bold text-sm transition-colors shadow-md hover:shadow-lg whitespace-nowrap text-center flex items-center justify-center h-12 sm:h-[38px]"
+                                                    className="w-full sm:w-auto bg-green-500 hover:bg-green-600 text-white px-6 py-2.5 sm:py-3 rounded-lg font-bold text-sm transition-colors shadow-md hover:shadow-lg whitespace-nowrap text-center flex items-center justify-center h-[42px]"
                                                 >
                                                     Rezervasyon Yap
                                                 </button>
@@ -876,7 +780,7 @@ export default function VehiclesPage() {
                                     <button
                                         onClick={handleUpdateSearch}
                                         disabled={isSearching}
-                                        className="w-full bg-[#D0142D] hover:bg-[#b01126] text-white py-3.5 rounded-xl font-bold shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2 group mt-4"
+                                        className="w-full bg-[#0a192f] hover:bg-[#B58A32] text-white py-3.5 rounded-xl font-bold shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2 group mt-4"
                                     >
                                         {isSearching ? (
                                             <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />

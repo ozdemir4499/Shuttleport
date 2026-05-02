@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { MapPin, Calendar, Users, Clock, Instagram, Globe, MessageCircle, User, ChevronDown, Menu, X, Check, Printer, Phone } from 'lucide-react';
+import Header from '@/components/layout/Header';
 
 
 interface ReservationData {
@@ -92,94 +93,11 @@ export default function ConfirmationContent() {
 
     return (
         <div className="min-h-screen bg-gray-50">
-            {/* HEADER - Same as homepage */}
-            <header className="absolute top-0 left-0 right-0 z-50 bg-white shadow-sm h-20 md:h-24">
-                <div className="container-custom h-full flex items-center justify-between px-4">
-                    {/* LOGO */}
-                    <Link href="/" className="flex items-center space-x-3 md:space-x-4">
-                        <div className="text-[#D32F2F]">
-                            <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-8 h-8 md:w-10 md:h-10">
-                                <path d="M20 0C18.5 10 10 18.5 0 20C10 21.5 18.5 30 20 40C21.5 30 30 21.5 40 20C30 18.5 21.5 10 20 0Z" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
-                                <circle cx="20" cy="20" r="4" fill="currentColor" />
-                            </svg>
-                        </div>
-                        <div className="flex flex-col justify-center">
-                            <span className="text-[10px] md:text-xs font-bold tracking-[0.2em] text-gray-900 leading-tight">SHUTTLE</span>
-                            <span className="text-lg md:text-2xl font-black italic text-gray-900 leading-none tracking-tighter">TRANSFER</span>
-                        </div>
-                    </Link>
-
-                    {/* DESKTOP NAV */}
-                    <nav className="hidden xl:flex items-center space-x-6 text-[13px] font-bold text-gray-800">
-                        <Link href="/turlar" className="hover:text-[#D32F2F] transition-colors">Turlar</Link>
-                        <Link href="/hakkimizda" className="hover:text-[#D32F2F] transition-colors">Hakkımızda</Link>
-                        <Link href="#" className="hover:text-[#D32F2F] transition-colors">İşveren Olun</Link>
-                        <Link href="#" className="hover:text-[#D32F2F] transition-colors">Taşıyıcı Olun</Link>
-                        <Link href="/iletisim" className="hover:text-[#D32F2F] transition-colors">İletişim</Link>
-                        <Link href="#" className="hover:text-[#D32F2F] transition-colors">S.S.S</Link>
-                    </nav>
-
-                    {/* RIGHT ACTIONS */}
-                    <div className="hidden lg:flex items-center space-x-4">
-                        {/* Social Icons */}
-                        <div className="flex items-center space-x-4 border-r border-gray-200 pr-5">
-                            <Link href="#" className="text-gray-900 hover:text-[#D32F2F]"><Instagram className="w-5 h-5 stroke-2" /></Link>
-                            <Link href="#" className="text-gray-900 hover:text-[#D32F2F]"><Globe className="w-5 h-5 stroke-2" /></Link>
-                            <Link href="#" className="text-gray-900 hover:text-green-600"><MessageCircle className="w-5 h-5 stroke-2" /></Link>
-                        </div>
-
-                        {/* Language */}
-                        <div className="flex items-center space-x-2 cursor-pointer group">
-                            <div className="w-6 h-6 rounded-full bg-[#D32F2F] flex items-center justify-center text-[9px] text-white font-bold ring-2 ring-transparent group-hover:ring-red-100 transition-all">TR</div>
-                            <span className="text-sm font-bold text-gray-900">TR</span>
-                            <ChevronDown className="w-4 h-4 text-gray-500" />
-                        </div>
-
-                        {/* Auth */}
-                        <div className="flex items-center space-x-4 ml-2">
-                            <Link href="#" className="text-sm font-bold text-gray-900 hover:text-[#D32F2F]">Üye Ol</Link>
-                            <Link href="#" className="flex items-center space-x-2 border border-black rounded-lg px-4 py-2 hover:bg-black hover:text-white transition-all group">
-                                <User className="w-4 h-4 group-hover:text-white" />
-                                <span className="text-sm font-bold">Giriş</span>
-                            </Link>
-                        </div>
-                    </div>
-
-                    {/* Mobile Menu Button */}
-                    <button
-                        className="lg:hidden"
-                        onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                    >
-                        {mobileMenuOpen ? (
-                            <X className="w-8 h-8 text-gray-900" />
-                        ) : (
-                            <Menu className="w-8 h-8 text-gray-900" />
-                        )}
-                    </button>
-                </div>
-
-                {/* Mobile Menu Dropdown */}
-                {mobileMenuOpen && (
-                    <div className="lg:hidden bg-white border-t border-gray-100 absolute top-full left-0 right-0 shadow-xl overflow-hidden animate-in slide-in-from-top-2">
-                        <div className="container-custom py-4 space-y-2">
-                            <Link href="/turlar" className="block text-gray-900 font-bold hover:text-[#D32F2F] p-2 rounded-lg hover:bg-red-50">Turlar</Link>
-                            <Link href="/hakkimizda" className="block text-gray-900 font-bold hover:text-[#D32F2F] p-2 rounded-lg hover:bg-red-50">Hakkımızda</Link>
-                            <Link href="#" className="block text-gray-900 font-bold hover:text-[#D32F2F] p-2 rounded-lg hover:bg-red-50">İşveren Olun</Link>
-                            <Link href="#" className="block text-gray-900 font-bold hover:text-[#D32F2F] p-2 rounded-lg hover:bg-red-50">Taşıyıcı Olun</Link>
-                            <Link href="/iletisim" className="block text-gray-900 font-bold hover:text-[#D32F2F] p-2 rounded-lg hover:bg-red-50">İletişim</Link>
-                            <Link href="#" className="block text-gray-900 font-bold hover:text-[#D32F2F] p-2 rounded-lg hover:bg-red-50">S.S.S</Link>
-
-                            <div className="flex items-center space-x-2 pt-4 border-t border-gray-100">
-                                <Link href="#" className="flex-1 text-center text-sm font-bold text-gray-900 hover:text-[#D32F2F] border border-gray-300 rounded-lg py-2">Üye Ol</Link>
-                                <Link href="#" className="flex-1 text-center text-sm font-bold text-white bg-black rounded-lg py-2">Giriş</Link>
-                            </div>
-                        </div>
-                    </div>
-                )}
-            </header>
+            {/* HEADER */}
+            <Header />
 
             {/* Progress Stepper */}
-            <div className="bg-white border-b pt-24 md:pt-28">
+            <div className="bg-white border-b">
                 <div className="container-custom py-6">
                     <div className="flex items-center justify-center max-w-2xl mx-auto">
                         {/* Step 1 - Completed */}

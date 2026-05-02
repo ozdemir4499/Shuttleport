@@ -4,11 +4,14 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
+import RegisterModal from '@/components/auth/RegisterModal';
+import LoginModal from '@/components/auth/LoginModal';
 import {
     Menu,
     X,
     ChevronDown,
     Instagram,
+    Facebook,
     Globe,
     MessageCircle,
     User
@@ -16,6 +19,8 @@ import {
 
 export default function Header() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+    const [isRegisterOpen, setIsRegisterOpen] = useState(false);
+    const [isLoginOpen, setIsLoginOpen] = useState(false);
     const pathname = usePathname();
     const locale = useLocale();
     const t = useTranslations('Index'); // Fallback if we need to translate nav
@@ -49,30 +54,53 @@ export default function Header() {
     };
 
     return (
-        <header className="bg-white shadow-sm sticky top-0 z-50">
-            <div className="container-custom flex items-center justify-between py-4 px-4">
+        <header className="absolute top-0 left-0 right-0 z-50 bg-white shadow-sm h-20 md:h-24 flex items-center">
+            <div className="container-custom flex items-center justify-between w-full px-4 lg:px-8">
                 {/* LOGO */}
-                <Link href="/" className="flex items-center space-x-2 md:space-x-3">
-                    <div className="w-12 h-12 md:w-16 md:h-16 flex items-center justify-center">
+                <Link href="/" className="flex flex-col md:flex-row md:items-center transition-opacity hover:opacity-90 pt-1 md:pt-0">
+                    <div className="relative flex items-center mt-1.5 md:mt-0">
+                        {/* Arka Plan (İkon + Silüet) */}
                         <img 
-                            src="/red_lion_icon_transparent.png" 
-                            alt="Lion Icon" 
-                            className="w-full h-full object-contain scale-110"
+                            src="/logo_bg.png?v=13" 
+                            alt="Asitane Travel" 
+                            className="h-9 md:h-[80px] w-auto object-contain"
                         />
+                        {/* Metinler - Masaüstünde Yanda, Mobilde Altta */}
+                        <div className="absolute md:absolute right-0 md:right-0 top-[20%] md:top-[10%] hidden md:flex flex-col items-end justify-center md:translate-x-[14px] md:-translate-y-[8px]">
+                            <img 
+                                src="/logo_asitane.png?v=13" 
+                                alt="Asitane" 
+                                className="md:h-[14.5px] w-auto object-contain"
+                            />
+                            <img 
+                                src="/logo_travel.png?v=13" 
+                                alt="Travel" 
+                                className="md:h-[16.5px] w-auto object-contain md:mt-0.5"
+                            />
+                        </div>
                     </div>
-                    <div className="flex flex-col justify-center">
-                        <span className="text-[11px] md:text-[13px] font-bold tracking-[0.2em] text-[#D32F2F] leading-tight">İSTANBUL</span>
-                        <span className="text-xl md:text-[28px] font-black text-gray-900 leading-none tracking-tight mt-0.5">TRANSFER</span>
+                    {/* Mobil için Alt Bölüm */}
+                    <div className="flex md:hidden flex-col items-center mt-0.5 w-full">
+                        <img 
+                            src="/logo_asitane.png?v=13" 
+                            alt="Asitane" 
+                            className="h-[7.5px] w-auto object-contain"
+                        />
+                        <img 
+                            src="/logo_travel.png?v=13" 
+                            alt="Travel" 
+                            className="h-[12.5px] w-auto object-contain mt-[1px]"
+                        />
                     </div>
                 </Link>
 
                 {/* DESKTOP NAV */}
-                <nav className="hidden xl:flex items-center space-x-6 text-[13px] font-bold text-gray-800">
+                <nav className="hidden xl:flex items-center space-x-8 text-[14px] font-medium tracking-wide text-[#0a192f]">
                     {navLinks.map((link) => (
                         <Link
                             key={link.name}
                             href={link.href}
-                            className={`transition-colors ${isActive(link.href) ? 'text-[#D32F2F]' : 'hover:text-[#D32F2F]'}`}
+                            className={`transition-colors ${isActive(link.href) ? 'text-[#B58A32]' : 'hover:text-[#B58A32]'}`}
                         >
                             {link.name}
                         </Link>
@@ -82,41 +110,112 @@ export default function Header() {
                 {/* RIGHT ACTIONS */}
                 <div className="hidden lg:flex items-center space-x-4">
                     {/* Social Icons */}
-                    <div className="flex items-center space-x-4 border-r border-gray-200 pr-5">
-                        <Link href="#" className="text-gray-900 hover:text-[#D32F2F]"><Instagram className="w-5 h-5 stroke-2" /></Link>
-                        <Link href="#" className="text-gray-900 hover:text-[#D32F2F]"><Globe className="w-5 h-5 stroke-2" /></Link>
-                        <Link href="https://wa.me/905324178963" target="_blank" className="text-gray-900 hover:text-green-600"><MessageCircle className="w-5 h-5 stroke-2" /></Link>
+                    <div className="flex items-center space-x-3 border-r border-gray-200 pr-5">
+                        <Link href="#" className="flex items-center justify-center w-8 h-8 bg-gradient-to-tr from-[#f09433] via-[#dc2743] to-[#bc1888] rounded-full hover:scale-110 transition-transform shadow-sm">
+                            <Instagram className="w-4 h-4 text-white stroke-[2.5]" />
+                        </Link>
+                        
+                        <Link href="#" className="flex items-center justify-center w-8 h-8 bg-[#1877F2] rounded-full hover:scale-110 transition-transform shadow-sm">
+                            <Facebook className="w-4 h-4 text-white stroke-[2.5]" />
+                        </Link>
+
+                        <Link href="#" className="flex items-center justify-center w-8 h-8 bg-black rounded-full hover:scale-110 transition-transform shadow-sm">
+                            <svg className="w-4 h-4 text-white stroke-[2.5]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round">
+                                <path d="M21 7.917v4.034a9.948 9.948 0 0 1 -5 -1.951v4.5a6.5 6.5 0 1 1 -8 -6.326v4.326a2.5 2.5 0 1 0 4 2v-11.5h4.083a6.005 6.005 0 0 0 4.917 4.917" />
+                            </svg>
+                        </Link>
+
+                        <Link href="https://wa.me/905324178963" target="_blank" className="flex items-center justify-center w-8 h-8 bg-[#25D366] rounded-full hover:scale-110 transition-transform shadow-sm">
+                            <MessageCircle className="w-4 h-4 text-white stroke-[2.5]" />
+                        </Link>
                     </div>
 
                     {/* Language */}
-                    <div onClick={toggleLanguage} className="flex items-center space-x-2 cursor-pointer group">
-                        <div className="w-6 h-6 rounded-full bg-[#D32F2F] flex items-center justify-center text-[9px] text-white font-bold ring-2 ring-transparent group-hover:ring-red-100 transition-all">
-                            {locale.toUpperCase()}
+                    <div className="relative flex items-center space-x-2 cursor-pointer group">
+                        <div onClick={toggleLanguage} className="flex items-center space-x-2 py-2">
+                            <img src={`https://flagcdn.com/w40/${locale === 'tr' ? 'tr' : 'gb'}.png`} alt={locale.toUpperCase()} className="w-6 h-6 rounded-full object-cover shadow-sm border border-gray-100" />
+                            <span className="text-[15px] font-bold text-gray-900">{locale.toUpperCase()}</span>
+                            <ChevronDown className="w-4 h-4 text-gray-500 transition-transform group-hover:rotate-180" />
                         </div>
-                        <span className="text-sm font-bold text-gray-900">{locale.toUpperCase()}</span>
+
+                        {/* Dropdown Menu */}
+                        <div className="absolute top-full right-0 mt-1 w-20 bg-white rounded-xl shadow-lg border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 overflow-hidden">
+                            <div className="py-2 flex flex-col">
+                                {[
+                                    { code: 'EN', flag: 'gb' },
+                                    { code: 'DE', flag: 'de' },
+                                    { code: 'ES', flag: 'es' },
+                                    { code: 'FR', flag: 'fr' },
+                                    { code: 'İT', flag: 'it' },
+                                    { code: 'PT', flag: 'pt' },
+                                    { code: 'RU', flag: 'ru' },
+                                    { code: 'HU', flag: 'hu' },
+                                    { code: 'NL', flag: 'nl' },
+                                    { code: 'AR', flag: 'sa' }
+                                ].map((lang) => (
+                                    <div key={lang.code} className="flex items-center space-x-2 px-3 py-2 hover:bg-gray-50 transition-colors">
+                                        <img src={`https://flagcdn.com/w40/${lang.flag}.png`} alt={lang.code} className="w-5 h-5 rounded-full object-cover shadow-sm border border-gray-100" />
+                                        <span className="text-[14px] font-semibold text-gray-700">{lang.code}</span>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
                     </div>
 
                     {/* Auth */}
                     <div className="flex items-center space-x-4 ml-2">
-                        <Link href="#" className="text-sm font-bold text-gray-900 hover:text-[#D32F2F]">Üye Ol</Link>
-                        <Link href="#" className="flex items-center space-x-2 border border-black rounded-lg px-4 py-2 hover:bg-black hover:text-white transition-all group">
-                            <User className="w-4 h-4 group-hover:text-white" />
-                            <span className="text-sm font-bold">Giriş</span>
-                        </Link>
+                        <button onClick={() => setIsRegisterOpen(true)} className="text-[15px] font-bold text-gray-900 hover:text-[#0a192f]">Üye Ol</button>
+                        <button onClick={() => setIsLoginOpen(true)} className="flex items-center space-x-2 border border-black rounded-lg px-5 py-2.5 hover:bg-black hover:text-white transition-all group">
+                            <User className="w-5 h-5 group-hover:text-white" />
+                            <span className="text-[15px] font-bold">Giriş</span>
+                        </button>
                     </div>
                 </div>
 
-                {/* Mobile Menu Button */}
-                <button
-                    className="lg:hidden"
-                    onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                >
-                    {mobileMenuOpen ? (
-                        <X className="w-8 h-8 text-gray-900" />
-                    ) : (
-                        <Menu className="w-8 h-8 text-gray-900" />
-                    )}
-                </button>
+                {/* Mobile Menu & Language */}
+                <div className="flex lg:hidden items-center space-x-3">
+                    {/* Mobile Language Selector */}
+                    <div className="relative group" tabIndex={0}>
+                        <div className="flex items-center space-x-1.5 cursor-pointer hover:opacity-80 transition-opacity">
+                            <img src={`https://flagcdn.com/w40/${locale === 'tr' ? 'tr' : 'gb'}.png`} alt={locale.toUpperCase()} className="w-[22px] h-[22px] rounded-full object-cover object-center shadow-sm ring-1 ring-gray-100" />
+                            <span className="text-[14px] font-bold text-gray-900">{locale.toUpperCase()}</span>
+                        </div>
+
+                        {/* Dropdown Menu */}
+                        <div className="absolute top-full right-0 mt-3 w-24 bg-white rounded-xl shadow-xl border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform origin-top-right scale-95 group-hover:scale-100 z-[60]">
+                            <div className="py-2 max-h-60 overflow-y-auto custom-scrollbar">
+                                {[
+                                    { code: 'EN', flag: 'gb' },
+                                    { code: 'DE', flag: 'de' },
+                                    { code: 'ES', flag: 'es' },
+                                    { code: 'FR', flag: 'fr' },
+                                    { code: 'İT', flag: 'it' },
+                                    { code: 'PT', flag: 'pt' },
+                                    { code: 'RU', flag: 'ru' },
+                                    { code: 'HU', flag: 'hu' },
+                                    { code: 'NL', flag: 'nl' },
+                                    { code: 'AR', flag: 'sa' }
+                                ].map((lang) => (
+                                    <div key={lang.code} className="flex items-center space-x-3 px-4 py-2 hover:bg-gray-50 transition-colors cursor-pointer">
+                                        <img src={`https://flagcdn.com/w40/${lang.flag}.png`} alt={lang.code} className="w-5 h-5 rounded-full object-cover shadow-sm border border-gray-100" />
+                                        <span className="text-[14px] font-semibold text-gray-700">{lang.code}</span>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+
+                    <button
+                        onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                        className="p-1"
+                    >
+                        {mobileMenuOpen ? (
+                            <X className="w-7 h-7 text-gray-900" />
+                        ) : (
+                            <Menu className="w-7 h-7 text-gray-900" />
+                        )}
+                    </button>
+                </div>
             </div>
 
             {/* Mobile Menu Dropdown */}
@@ -127,7 +226,7 @@ export default function Header() {
                             <Link
                                 key={link.name}
                                 href={link.href}
-                                className={`block font-bold p-2 rounded-lg ${isActive(link.href) ? 'text-[#D32F2F] bg-red-50' : 'text-gray-900 hover:text-[#D32F2F] hover:bg-red-50'}`}
+                                className={`block font-medium tracking-wide p-2 rounded-lg ${isActive(link.href) ? 'text-[#B58A32] bg-amber-50' : 'text-[#0a192f] hover:text-[#B58A32] hover:bg-amber-50'}`}
                                 onClick={() => setMobileMenuOpen(false)}
                             >
                                 {link.name}
@@ -136,31 +235,62 @@ export default function Header() {
 
                         <div className="border-t border-gray-100 my-2 pt-2"></div>
 
-                        <div className="flex items-center justify-between p-2">
+                        <div className="flex items-center justify-center p-2">
                             <div className="flex space-x-4">
-                                <Instagram className="w-5 h-5 text-gray-600" />
-                                <Globe className="w-5 h-5 text-gray-600" />
-                                <MessageCircle className="w-5 h-5 text-gray-600" />
-                            </div>
-                            <div onClick={toggleLanguage} className="flex items-center space-x-2 cursor-pointer">
-                                <div className="w-6 h-6 rounded-full bg-[#D32F2F] flex items-center justify-center text-[9px] text-white font-bold">
-                                    {locale.toUpperCase()}
-                                </div>
-                                <span className="font-bold">{locale.toUpperCase()}</span>
+                                <Link href="#" className="flex items-center justify-center w-[30px] h-[30px] bg-gradient-to-tr from-[#f09433] via-[#dc2743] to-[#bc1888] rounded-full">
+                                    <Instagram className="w-4 h-4 text-white stroke-[2.5]" />
+                                </Link>
+                                <Link href="#" className="flex items-center justify-center w-[30px] h-[30px] bg-[#1877F2] rounded-full">
+                                    <Facebook className="w-4 h-4 text-white stroke-[2.5]" />
+                                </Link>
+                                <Link href="#" className="flex items-center justify-center w-[30px] h-[30px] bg-black rounded-full">
+                                    <svg className="w-4 h-4 text-white stroke-[2.5]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round">
+                                        <path d="M21 7.917v4.034a9.948 9.948 0 0 1 -5 -1.951v4.5a6.5 6.5 0 1 1 -8 -6.326v4.326a2.5 2.5 0 1 0 4 2v-11.5h4.083a6.005 6.005 0 0 0 4.917 4.917" />
+                                    </svg>
+                                </Link>
+                                <Link href="https://wa.me/905324178963" target="_blank" className="flex items-center justify-center w-[30px] h-[30px] bg-[#25D366] rounded-full">
+                                    <MessageCircle className="w-4 h-4 text-white stroke-[2.5]" />
+                                </Link>
                             </div>
                         </div>
 
-                        <div className="flex space-x-3 pt-2">
-                            <Link href="#" className="flex-1 text-center py-3 border border-gray-300 rounded-lg font-bold hover:border-[#D32F2F] hover:text-[#D32F2F]">
+                        <div className="flex space-x-3 pt-4">
+                            <button 
+                                onClick={() => { setMobileMenuOpen(false); setIsRegisterOpen(true); }} 
+                                className="flex-1 text-center py-3 border border-[#0a192f] text-[#0a192f] rounded-lg font-medium tracking-wide hover:border-[#B58A32] hover:text-[#B58A32] transition-colors"
+                            >
                                 Üye Ol
-                            </Link>
-                            <Link href="#" className="flex-1 text-center py-3 bg-black text-white rounded-lg font-bold hover:bg-gray-800">
-                                Giriş
-                            </Link>
+                            </button>
+                            <button 
+                                onClick={() => { setMobileMenuOpen(false); setIsLoginOpen(true); }} 
+                                className="flex-1 flex justify-center items-center py-3 bg-[#0a192f] text-white rounded-lg font-medium tracking-wide hover:bg-[#112a52] transition-colors space-x-2"
+                            >
+                                <User className="w-4 h-4" />
+                                <span>Giriş</span>
+                            </button>
                         </div>
                     </div>
                 </div>
             )}
+
+            {/* Modals */}
+            <RegisterModal 
+                isOpen={isRegisterOpen} 
+                onClose={() => setIsRegisterOpen(false)} 
+                onSwitchToLogin={() => {
+                    setIsRegisterOpen(false);
+                    setIsLoginOpen(true);
+                }}
+            />
+            
+            <LoginModal 
+                isOpen={isLoginOpen} 
+                onClose={() => setIsLoginOpen(false)} 
+                onSwitchToRegister={() => {
+                    setIsLoginOpen(false);
+                    setIsRegisterOpen(true);
+                }}
+            />
         </header>
     );
 }
