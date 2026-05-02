@@ -1,0 +1,31 @@
+name: Deploy Frontend to VPS
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Sunucuya Bağlan ve Güncelle
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          script: |
+            echo "1. Frontend kodları çekiliyor..."
+            cd /var/www/shuttleport/Shuttleport_Front
+            git reset --hard
+            git pull origin main
+            
+            echo "2. Frontend derleniyor..."
+            export PATH=/root/.nvm/versions/node/v20.20.2/bin:$PATH
+            npm install
+            npm run build
+            
+            echo "3. Frontend servisi yeniden başlatılıyor..."
+            systemctl restart shuttleport-front.service
+            echo "Frontend dağıtımı başarıyla tamamlandı! 🚀"
