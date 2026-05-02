@@ -3,9 +3,28 @@
 @tailwind utilities;
 
 @layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%; /* iOS'ta otomatik font büyütmeyi engelle */
+    text-size-adjust: 100%;
+  }
+
   body {
     font-feature-settings: "rlig" 1, "calt" 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    /* iPhone çentik ve Android gesture bar için safe-area */
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+    overflow-x: hidden; /* Yatay scroll engelle — tüm cihazlar */
   }
+
+  /* Scrollbar gizleme — iOS ve Android'de tutarlı görünüm */
+  .scrollbar-hide::-webkit-scrollbar { display: none; }
+  .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+
+  /* Touch hedef boyutları — ihtiyaç duyulan yerlerde kullanılır */
+  .touch-target { min-height: 44px; min-width: 44px; }
+  .touch-target-sm { min-height: unset; min-width: unset; }
 }
 
 @layer components {

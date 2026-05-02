@@ -1,10 +1,19 @@
-import type { Metadata, ResolvingMetadata } from 'next';
+import type { Metadata, ResolvingMetadata, Viewport } from 'next';
 import {NextIntlClientProvider} from 'next-intl';
 import {getMessages, getTranslations} from 'next-intl/server';
 import { Inter } from 'next/font/google';
 import './globals.css';
 
 const inter = Inter({ subsets: ['latin'] });
+
+// Viewport — tüm mobil cihazlarda doğru render için zorunlu
+export const viewport: Viewport = {
+    width: 'device-width',
+    initialScale: 1,
+    maximumScale: 5,
+    userScalable: true,
+    viewportFit: 'cover', // iPhone çentikli ekranlar için
+};
 
 export async function generateMetadata(
   { params: { locale } }: { params: { locale: string } },

@@ -54,16 +54,16 @@ export default function Header() {
     };
 
     return (
-        <header className="absolute top-0 left-0 right-0 z-50 bg-white shadow-sm h-20 md:h-24 flex items-center">
-            <div className="container-custom flex items-center justify-between w-full px-4 lg:px-8">
+        <header className="absolute top-0 left-0 right-0 z-50 bg-white shadow-sm h-16 sm:h-20 md:h-24 flex items-center" style={{ paddingTop: 'env(safe-area-inset-top, 0px)' }}>
+            <div className="container-custom flex items-center justify-between w-full px-3 sm:px-4 xl:px-8">
                 {/* LOGO */}
-                <Link href="/" className="flex flex-col md:flex-row md:items-center transition-opacity hover:opacity-90 pt-1 md:pt-0">
-                    <div className="relative flex items-center mt-1.5 md:mt-0">
+                <Link href="/" className="flex flex-col md:flex-row md:items-center transition-opacity hover:opacity-90">
+                    <div className="relative flex items-center">
                         {/* Arka Plan (İkon + Silüet) */}
                         <img 
                             src="/logo_bg.png?v=13" 
                             alt="Asitane Travel" 
-                            className="h-9 md:h-[80px] w-auto object-contain"
+                            className="h-7 sm:h-9 md:h-[80px] w-auto object-contain"
                         />
                         {/* Metinler - Masaüstünde Yanda, Mobilde Altta */}
                         <div className="absolute md:absolute right-0 md:right-0 top-[20%] md:top-[10%] hidden md:flex flex-col items-end justify-center md:translate-x-[14px] md:-translate-y-[8px]">
@@ -80,16 +80,16 @@ export default function Header() {
                         </div>
                     </div>
                     {/* Mobil için Alt Bölüm */}
-                    <div className="flex md:hidden flex-col items-center mt-0.5 w-full">
+                    <div className="flex md:hidden flex-col items-center w-full">
                         <img 
                             src="/logo_asitane.png?v=13" 
                             alt="Asitane" 
-                            className="h-[7.5px] w-auto object-contain"
+                            className="h-[6px] sm:h-[7.5px] w-auto object-contain"
                         />
                         <img 
                             src="/logo_travel.png?v=13" 
                             alt="Travel" 
-                            className="h-[12.5px] w-auto object-contain mt-[1px]"
+                            className="h-[10px] sm:h-[12.5px] w-auto object-contain mt-[1px]"
                         />
                     </div>
                 </Link>
@@ -108,7 +108,7 @@ export default function Header() {
                 </nav>
 
                 {/* RIGHT ACTIONS */}
-                <div className="hidden lg:flex items-center space-x-4">
+                <div className="hidden xl:flex items-center space-x-4">
                     {/* Social Icons */}
                     <div className="flex items-center space-x-3 border-r border-gray-200 pr-5">
                         <Link href="#" className="flex items-center justify-center w-8 h-8 bg-gradient-to-tr from-[#f09433] via-[#dc2743] to-[#bc1888] rounded-full hover:scale-110 transition-transform shadow-sm">
@@ -173,7 +173,7 @@ export default function Header() {
                 </div>
 
                 {/* Mobile Menu & Language */}
-                <div className="flex lg:hidden items-center space-x-3">
+                <div className="flex xl:hidden items-center space-x-3">
                     {/* Mobile Language Selector */}
                     <div className="relative group" tabIndex={0}>
                         <div className="flex items-center space-x-1.5 cursor-pointer hover:opacity-80 transition-opacity">
@@ -220,7 +220,7 @@ export default function Header() {
 
             {/* Mobile Menu Dropdown */}
             {mobileMenuOpen && (
-                <div className="lg:hidden bg-white border-t border-gray-100 absolute top-full left-0 right-0 shadow-xl overflow-hidden animate-in slide-in-from-top-2">
+                <div className="xl:hidden bg-white border-t border-gray-100 absolute top-full left-0 right-0 shadow-xl overflow-hidden animate-in slide-in-from-top-2">
                     <div className="container-custom py-4 space-y-2">
                         {navLinks.map((link) => (
                             <Link

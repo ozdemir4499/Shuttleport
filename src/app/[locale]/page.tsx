@@ -192,13 +192,15 @@ export default function Home() {
         }
     }, [activeLocationInput]);
 
-    // Hero carousel headlines
-    // Scroll effect for navbar
-    if (typeof window !== 'undefined') {
-        window.addEventListener('scroll', () => {
+
+    // Scroll effect for navbar — useEffect ile temiz memory yönetimi
+    useEffect(() => {
+        const handleScroll = () => {
             setIsScrolled(window.scrollY > 50);
-        });
-    }
+        };
+        window.addEventListener('scroll', handleScroll, { passive: true });
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
 
     // Handlers for Slider Navigation
     const scrollPrev = () => {
@@ -297,13 +299,13 @@ export default function Home() {
             <Header />
 
             {/* HERO SECTION */}
-            <section className="relative pt-[88px] md:pt-[104px] pb-12 bg-gray-50">
+            <section className="relative pt-[72px] sm:pt-[88px] md:pt-[104px] pb-8 sm:pb-12 bg-gray-50">
 
                 {/* Hero Content */}
                 <div className="relative z-10 container-custom px-4 w-full">
 
                     {/* Hero Banner Image (Matches Booking Widget Width) */}
-                    <div className="max-w-[1440px] mx-auto h-[140px] md:h-[320px] mb-2 md:mb-4 rounded-2xl overflow-hidden shadow-2xl relative group">
+                    <div className="max-w-[1440px] mx-auto h-[120px] sm:h-[160px] md:h-[320px] mb-2 md:mb-4 rounded-xl sm:rounded-2xl overflow-hidden shadow-2xl relative group">
                         <img
                             src="/coastal_vip_van_banner_v11.png"
                             alt="VIP Transfer & Tours"
@@ -340,10 +342,10 @@ export default function Home() {
                                 >
                                     {slides.map((text, idx) => (
                                         <div key={idx} className="w-full flex-shrink-0 flex flex-col justify-start md:justify-center pr-[40px]">
-                                            <span className="text-[#0a192f] font-bold tracking-wider text-[9px] md:text-sm mb-1.5 md:mb-2 drop-shadow-sm md:drop-shadow-none">
+                                            <span className="text-[#0a192f] font-bold tracking-wider text-[10px] sm:text-xs md:text-sm mb-1 sm:mb-1.5 md:mb-2 drop-shadow-sm md:drop-shadow-none">
                                                 {text.subtitle}
                                             </span>
-                                            <h2 className="text-[13px] leading-[1.3] md:text-3xl lg:text-4xl text-gray-800 md:text-gray-700 font-semibold md:font-medium tracking-tight md:leading-tight">
+                                            <h2 className="text-[14px] sm:text-base leading-[1.3] md:text-3xl lg:text-4xl text-gray-800 md:text-gray-700 font-semibold md:font-medium tracking-tight md:leading-tight">
                                                 {text.title}
                                             </h2>
                                         </div>

@@ -68,7 +68,7 @@ export default function SSSPage() {
     };
 
     return (
-        <main className="min-h-screen bg-gray-50">
+        <main className="min-h-screen bg-gray-50 pt-16 sm:pt-20 md:pt-24">
             <Header />
 
             {/* Hero Section */}

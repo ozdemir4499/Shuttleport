@@ -6,7 +6,7 @@ import Header from '@/components/layout/Header';
 
 export default function HakkimizdaPage() {
     return (
-        <main className="min-h-screen bg-gray-50">
+        <main className="min-h-screen bg-gray-50 pt-16 sm:pt-20 md:pt-24">
             {/* Ortak Header */}
             <Header />
 

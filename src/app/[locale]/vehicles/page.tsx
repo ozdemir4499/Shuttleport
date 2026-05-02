@@ -363,7 +363,7 @@ export default function VehiclesPage() {
     };
 
     return (
-        <div className="min-h-screen bg-gray-50">
+        <div className="min-h-screen bg-gray-50 pt-16 sm:pt-20 md:pt-24">
             {/* Header */}
             <Header />
 

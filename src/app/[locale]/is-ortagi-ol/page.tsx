@@ -79,7 +79,7 @@ export default function IsOrtagiOlPage() {
     const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '905324178963';
 
     return (
-        <main className="min-h-screen bg-gray-50">
+        <main className="min-h-screen bg-gray-50 pt-16 sm:pt-20 md:pt-24">
             <Header />
 
             {/* Hero Section */}
