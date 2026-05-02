@@ -20,8 +20,15 @@ jobs:
         cache: 'npm'
         
     - name: Install dependencies
-      run: npm ci
-      
+      run: npm install --legacy-peer-deps
       
     - name: Build
+      env:
+        NEXT_PUBLIC_API_URL: https://api.asitanetravel.com
+        NEXT_PUBLIC_SITE_URL: https://asitanetravel.com
+        NEXT_PUBLIC_SITE_NAME: Asitane Travel
+        NEXT_PUBLIC_CONTACT_PHONE: "+905324178963"
+        NEXT_PUBLIC_CONTACT_EMAIL: info@asitanetravel.com
+        NEXT_PUBLIC_WHATSAPP_NUMBER: "905324178963"
+        NEXT_PUBLIC_GOOGLE_MAPS_API_KEY: placeholder
       run: npm run build
