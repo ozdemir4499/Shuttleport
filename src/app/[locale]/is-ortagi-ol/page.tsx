@@ -28,7 +28,6 @@ export default function IsOrtagiOlPage() {
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         // Form submission logic here
-        console.log('Form submitted:', formData);
     };
 
     const benefits = [
@@ -73,6 +72,12 @@ export default function IsOrtagiOlPage() {
         'Özel indirim ve kampanya fırsatları'
     ];
 
+    const companyName = process.env.NEXT_PUBLIC_SITE_NAME || 'Asitane Travel';
+    const contactPhone = process.env.NEXT_PUBLIC_CONTACT_PHONE || '+905324178963';
+    const contactPhoneDisplay = process.env.NEXT_PUBLIC_CONTACT_PHONE_DISPLAY || '+90 532 417 89 63';
+    const contactEmail = process.env.NEXT_PUBLIC_CONTACT_EMAIL || 'info@asitanetravel.com';
+    const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '905324178963';
+
     return (
         <main className="min-h-screen bg-gray-50">
             <Header />
@@ -114,7 +119,7 @@ export default function IsOrtagiOlPage() {
                                     <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                                 </a>
                                 <a
-                                    href="https://wa.me/905324178963"
+                                    href={`https://wa.me/${whatsappNumber}`}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border-2 border-white text-white px-8 py-4 rounded-xl font-bold hover:bg-white/20 transition-all"
@@ -165,7 +170,7 @@ export default function IsOrtagiOlPage() {
                 <div className="container-custom px-4">
                     <div className="text-center mb-16">
                         <h2 className="text-3xl md:text-4xl font-black text-gray-900 mb-4">
-                            Neden Luxe Transfer?
+                            Neden {companyName}?
                         </h2>
                         <p className="text-lg text-gray-600 max-w-2xl mx-auto">
                             İş ortaklarımıza sunduğumuz benzersiz avantajlar ve fırsatlar
@@ -345,21 +350,21 @@ export default function IsOrtagiOlPage() {
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
                         <a
-                            href="tel:+905324178963"
+                            href={`tel:${contactPhone}`}
                             className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 text-center hover:bg-white/20 transition-all group"
                         >
                             <Phone className="w-12 h-12 mx-auto mb-4 text-[#D32F2F] group-hover:scale-110 transition-transform" />
                             <h3 className="font-bold mb-2">Telefon</h3>
-                            <p className="text-gray-300">+90 532 417 89 63</p>
+                            <p className="text-gray-300">{contactPhoneDisplay}</p>
                         </a>
 
                         <a
-                            href="mailto:info@luxetransfer.com"
+                            href={`mailto:${contactEmail}`}
                             className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 text-center hover:bg-white/20 transition-all group"
                         >
                             <Mail className="w-12 h-12 mx-auto mb-4 text-[#D32F2F] group-hover:scale-110 transition-transform" />
                             <h3 className="font-bold mb-2">E-posta</h3>
-                            <p className="text-gray-300">info@luxetransfer.com</p>
+                            <p className="text-gray-300">{contactEmail}</p>
                         </a>
 
                         <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 text-center">

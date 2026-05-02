@@ -11,16 +11,18 @@ export async function generateMetadata(
   parent: ResolvingMetadata
 ): Promise<Metadata> {
   const t = await getTranslations({ locale, namespace: 'Index' });
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://asitanetravel.com';
+  const siteName = process.env.NEXT_PUBLIC_SITE_NAME || 'Asitane Travel';
 
   return {
     title: t('title'),
     description: t('description'),
-    metadataBase: new URL('https://shuttleport.com'),
+    metadataBase: new URL(siteUrl),
     openGraph: {
       title: t('title'),
       description: t('description'),
-      url: 'https://shuttleport.com',
-      siteName: 'Istanbul Transfer',
+      url: siteUrl,
+      siteName: siteName,
       locale: locale,
       type: 'website',
       images: [
@@ -28,7 +30,7 @@ export async function generateMetadata(
           url: '/logo.png',
           width: 800,
           height: 600,
-          alt: 'Istanbul Transfer Logo',
+          alt: `${siteName} Logo`,
         },
       ],
     },
@@ -39,12 +41,12 @@ export async function generateMetadata(
       images: ['/logo.png'],
     },
     alternates: {
-      canonical: `https://shuttleport.com/${locale}`,
+      canonical: `${siteUrl}/${locale}`,
       languages: {
-        'en': 'https://shuttleport.com/en',
-        'tr': 'https://shuttleport.com/tr',
-        'de': 'https://shuttleport.com/de',
-        'ru': 'https://shuttleport.com/ru',
+        'en': `${siteUrl}/en`,
+        'tr': `${siteUrl}/tr`,
+        'de': `${siteUrl}/de`,
+        'ru': `${siteUrl}/ru`,
       },
     },
   };
@@ -64,12 +66,17 @@ export default async function RootLayout({
 }) {
     const messages = await getMessages();
     
+    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://asitanetravel.com';
+    const siteName = process.env.NEXT_PUBLIC_SITE_NAME || 'Asitane Travel';
+    const contactPhone = process.env.NEXT_PUBLIC_CONTACT_PHONE || '+905550000000';
+    const gaId = process.env.NEXT_PUBLIC_GA_ID || 'G-XYZ1234567';
+
     // JSON-LD Structured Data for Tourism Service
     const jsonLd = {
       "@context": "https://schema.org",
       "@type": "TravelAgency",
-      "name": "Istanbul Transfer",
-      "image": "https://shuttleport.com/logo.png",
+      "name": siteName,
+      "image": `${siteUrl}/logo.png`,
       "description": "Premium Airport and City Transfer Service",
       "address": {
         "@type": "PostalAddress",
@@ -77,7 +84,7 @@ export default async function RootLayout({
         "addressCountry": "TR"
       },
       "priceRange": "$$$",
-      "telephone": "+905550000000"
+      "telephone": contactPhone
     };
 
     return (
@@ -100,7 +107,7 @@ export default async function RootLayout({
                     src={`https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}&libraries=places&loading=async`} 
                     strategy="beforeInteractive" 
                 />
-                <GoogleAnalytics gaId="G-XYZ1234567" />
+                {gaId !== 'G-XYZ1234567' && <GoogleAnalytics gaId={gaId} />}
             </body>
         </html>
     );
