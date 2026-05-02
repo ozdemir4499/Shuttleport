@@ -25,7 +25,7 @@ export default function Footer() {
                             <Mail className="w-6 h-6 text-white" />
                         </div>
                         <div>
-                            <div className="font-bold text-lg mb-1">info@luxetransfer.com</div>
+                            <div className="font-bold text-lg mb-1">info@asitanetravel.com</div>
                             <div className="text-sm text-gray-400">E-Posta</div>
                         </div>
                     </div>
@@ -77,10 +77,12 @@ export default function Footer() {
                         <h3 className="text-lg font-bold mb-6 text-white">Keşfet</h3>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-3">
                             {[
-                                'İstanbul Havalimanı Transfer', 'İstanbul Havalimanı Taksi', 'İzmir Havalimanı Transfer',
-                                'Bodrum Havalimanı Transfer', 'Alanya Havalimanı Transfer',
-                                'Sabiha Gökçen Havalimanı Transfer', 'Sabiha Gökçen Havalimanı Taksi',
-                                'Antalya Havalimanı Transfer', 'Dalaman Havalimanı Transfer'
+                                'İstanbul Havalimanı Transfer', 'Sabiha Gökçen Havalimanı Transfer', 
+                                'İstanbul Havalimanı Taksi', 'Sabiha Gökçen Havalimanı Taksi',
+                                'Sultanahmet Transfer', 'Taksim Transfer', 
+                                'Kadıköy Transfer', 'Beşiktaş Transfer', 
+                                'Şişli Transfer', 'Galataport Transfer',
+                                'İstanbul Otel Transferleri', 'İstanbul Şehir Turu'
                             ].map((item) => (
                                 <div key={item}>
                                     <Link href="#" className="flex items-center text-gray-400 hover:text-white transition-colors text-sm group">
@@ -96,7 +98,7 @@ export default function Footer() {
                 {/* BOTTOM COPYRIGHT */}
                 <div className="pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-gray-500">
                     <div className="mb-4 md:mb-0">
-                        &copy; 2024 Luxe Transfer. Tüm hakları saklıdır.
+                        &copy; 2024 Asitane Travel. Tüm hakları saklıdır.
                     </div>
                     <div className="flex flex-wrap justify-center gap-4 md:gap-8">
                         <Link href="#" className="hover:text-white transition-colors">Gizlilik ve Güvenlik</Link>

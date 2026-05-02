@@ -83,7 +83,7 @@ export default function IsOrtagiOlPage() {
             <Header />
 
             {/* Hero Section */}
-            <section className="relative bg-gradient-to-br from-[#D32F2F] via-[#C62828] to-[#B71C1C] text-white py-20 md:py-28 overflow-hidden">
+            <section className="relative bg-gradient-to-br from-[#0a192f] via-[#C62828] to-[#B58A32] text-white py-20 md:py-28 overflow-hidden">
                 {/* Animated Background */}
                 <div className="absolute inset-0 opacity-10">
                     <div className="absolute top-20 left-20 w-96 h-96 bg-white rounded-full blur-3xl animate-pulse"></div>
@@ -113,7 +113,7 @@ export default function IsOrtagiOlPage() {
                             <div className="flex flex-wrap gap-4">
                                 <a
                                     href="#basvuru-formu"
-                                    className="inline-flex items-center gap-2 bg-white text-[#D32F2F] px-8 py-4 rounded-xl font-bold hover:bg-gray-100 transition-all group"
+                                    className="inline-flex items-center gap-2 bg-white text-[#0a192f] px-8 py-4 rounded-xl font-bold hover:bg-gray-100 transition-all group"
                                 >
                                     Hemen Başvur
                                     <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
@@ -183,7 +183,7 @@ export default function IsOrtagiOlPage() {
                                 key={index}
                                 className="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 hover:shadow-xl transition-all group"
                             >
-                                <div className="w-16 h-16 bg-gradient-to-br from-[#D32F2F] to-[#B71C1C] rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                                <div className="w-16 h-16 bg-gradient-to-br from-[#0a192f] to-[#B58A32] rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                                     <benefit.icon className="w-8 h-8 text-white" />
                                 </div>
                                 <h3 className="text-xl font-bold text-gray-900 mb-3">
@@ -256,7 +256,7 @@ export default function IsOrtagiOlPage() {
                                             required
                                             value={formData.companyName}
                                             onChange={(e) => setFormData({ ...formData, companyName: e.target.value })}
-                                            className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#D32F2F] focus:border-transparent outline-none transition-all"
+                                            className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#0a192f] focus:border-transparent outline-none transition-all"
                                             placeholder="Şirket adınızı girin"
                                         />
                                     </div>
@@ -270,7 +270,7 @@ export default function IsOrtagiOlPage() {
                                             required
                                             value={formData.contactPerson}
                                             onChange={(e) => setFormData({ ...formData, contactPerson: e.target.value })}
-                                            className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#D32F2F] focus:border-transparent outline-none transition-all"
+                                            className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#0a192f] focus:border-transparent outline-none transition-all"
                                             placeholder="Adınız ve soyadınız"
                                         />
                                     </div>
@@ -286,7 +286,7 @@ export default function IsOrtagiOlPage() {
                                             required
                                             value={formData.phone}
                                             onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                                            className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#D32F2F] focus:border-transparent outline-none transition-all"
+                                            className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#0a192f] focus:border-transparent outline-none transition-all"
                                             placeholder="+90 5XX XXX XX XX"
                                         />
                                     </div>
@@ -300,7 +300,7 @@ export default function IsOrtagiOlPage() {
                                             required
                                             value={formData.email}
                                             onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                                            className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#D32F2F] focus:border-transparent outline-none transition-all"
+                                            className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#0a192f] focus:border-transparent outline-none transition-all"
                                             placeholder="ornek@email.com"
                                         />
                                     </div>
@@ -314,14 +314,14 @@ export default function IsOrtagiOlPage() {
                                         rows={5}
                                         value={formData.message}
                                         onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                                        className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#D32F2F] focus:border-transparent outline-none transition-all resize-none"
+                                        className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#0a192f] focus:border-transparent outline-none transition-all resize-none"
                                         placeholder="Bize kendinizden ve işletmenizden bahsedin..."
                                     ></textarea>
                                 </div>
 
                                 <button
                                     type="submit"
-                                    className="w-full bg-gradient-to-r from-[#D32F2F] to-[#B71C1C] text-white font-bold py-4 rounded-xl hover:shadow-xl transition-all flex items-center justify-center gap-2 group"
+                                    className="w-full bg-gradient-to-r from-[#0a192f] to-[#B58A32] text-white font-bold py-4 rounded-xl hover:shadow-xl transition-all flex items-center justify-center gap-2 group"
                                 >
                                     Başvuruyu Gönder
                                     <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
@@ -353,7 +353,7 @@ export default function IsOrtagiOlPage() {
                             href={`tel:${contactPhone}`}
                             className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 text-center hover:bg-white/20 transition-all group"
                         >
-                            <Phone className="w-12 h-12 mx-auto mb-4 text-[#D32F2F] group-hover:scale-110 transition-transform" />
+                            <Phone className="w-12 h-12 mx-auto mb-4 text-[#0a192f] group-hover:scale-110 transition-transform" />
                             <h3 className="font-bold mb-2">Telefon</h3>
                             <p className="text-gray-300">{contactPhoneDisplay}</p>
                         </a>
@@ -362,13 +362,13 @@ export default function IsOrtagiOlPage() {
                             href={`mailto:${contactEmail}`}
                             className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 text-center hover:bg-white/20 transition-all group"
                         >
-                            <Mail className="w-12 h-12 mx-auto mb-4 text-[#D32F2F] group-hover:scale-110 transition-transform" />
+                            <Mail className="w-12 h-12 mx-auto mb-4 text-[#0a192f] group-hover:scale-110 transition-transform" />
                             <h3 className="font-bold mb-2">E-posta</h3>
                             <p className="text-gray-300">{contactEmail}</p>
                         </a>
 
                         <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 text-center">
-                            <MapPin className="w-12 h-12 mx-auto mb-4 text-[#D32F2F]" />
+                            <MapPin className="w-12 h-12 mx-auto mb-4 text-[#0a192f]" />
                             <h3 className="font-bold mb-2">Adres</h3>
                             <p className="text-gray-300">İstanbul, Türkiye</p>
                         </div>

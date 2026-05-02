@@ -60,13 +60,13 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           <div className="flex items-center gap-3">
             <div className="w-14 h-14 flex items-center justify-center shrink-0">
                 <img 
-                    src="/red_lion_icon_transparent.png" 
+                    src="/logo_icon.png" 
                     alt="Lion Icon" 
                     className="w-full h-full object-contain scale-[1.2]"
                 />
             </div>
             <div className="flex flex-col justify-center">
-                <span className="text-[11px] font-bold tracking-[0.2em] text-[#D32F2F] leading-tight">İSTANBUL</span>
+                <span className="text-[11px] font-bold tracking-[0.2em] text-[#0a192f] leading-tight">İSTANBUL</span>
                 <span className="text-xl font-black text-white leading-none tracking-tight mt-0.5">TRANSFER</span>
                 <span className="text-[8px] uppercase tracking-widest text-gray-400 font-semibold mt-1">Command Center</span>
             </div>
@@ -86,8 +86,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                     : 'hover:text-white hover:bg-gray-800/50'
                 }`}
               >
-                {isActive && <div className="absolute left-0 top-0 w-1 h-full bg-[#D32F2F] rounded-r-md"></div>}
-                <svg className={`w-5 h-5 transition-colors ${isActive ? 'text-[#D32F2F]' : 'text-gray-500 group-hover:text-gray-300'}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                {isActive && <div className="absolute left-0 top-0 w-1 h-full bg-[#0a192f] rounded-r-md"></div>}
+                <svg className={`w-5 h-5 transition-colors ${isActive ? 'text-[#0a192f]' : 'text-gray-500 group-hover:text-gray-300'}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={isActive ? "2" : "1.5"} d={item.icon} />
                 </svg>
                 <span className={`font-medium ${isActive ? 'font-semibold' : ''}`}>{item.name}</span>

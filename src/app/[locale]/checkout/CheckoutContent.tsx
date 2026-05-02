@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { MapPin, Calendar, Users, Clock, Instagram, Globe, MessageCircle, User, ChevronDown, Menu, X, Check } from 'lucide-react';
+import Header from '@/components/layout/Header';
 
 
 export default function CheckoutContent() {
@@ -195,132 +196,11 @@ export default function CheckoutContent() {
 
     return (
         <div className="min-h-screen bg-gray-50">
-            {/* HEADER - Same as homepage */}
-            <header className="absolute top-0 left-0 right-0 z-50 bg-white shadow-sm h-20 md:h-24">
-                <div className="w-full max-w-[1600px] mx-auto h-full flex items-center justify-between px-4 lg:px-8">
-                    {/* LOGO */}
-                    <Link href="/" className="flex items-center space-x-3 md:space-x-4">
-                        <div className="text-[#D32F2F]">
-                            <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-10 h-10 md:w-12 md:h-12 drop-shadow-md transition-transform hover:scale-105">
-                                {/* Outer Pin */}
-                                <path d="M50 5 C 25 5 5 25 5 50 C 5 75 50 95 50 95 C 50 95 95 75 95 50 C 95 25 75 5 50 5 Z" fill="url(#pin_grad_checkout)" />
-                                {/* Right half overlay for 3D effect */}
-                                <path d="M50 5 C 75 5 95 25 95 50 C 95 75 50 95 50 95 V 5 Z" fill="#000000" fillOpacity="0.15" />
-                                {/* Inner White Circle */}
-                                <circle cx="50" cy="45" r="22" fill="#FFFFFF" />
-                                {/* Stylized "S" */}
-                                <path d="M 58 35 C 42 35, 40 42, 50 45 C 60 48, 58 55, 42 55" stroke="url(#pin_grad_checkout)" strokeWidth="7" strokeLinecap="round" />
-                                <defs>
-                                    <linearGradient id="pin_grad_checkout" x1="5" y1="5" x2="95" y2="95">
-                                        <stop stopColor="#EF4444" />
-                                        <stop offset="0.5" stopColor="#DC2626" />
-                                        <stop offset="1" stopColor="#991B1B" />
-                                    </linearGradient>
-                                </defs>
-                            </svg>
-                        </div>
-                        <div className="flex flex-col justify-center">
-                            <span className="text-[10px] md:text-xs font-bold tracking-[0.2em] text-gray-900 leading-tight">SHUTTLE</span>
-                            <span className="text-lg md:text-2xl font-black italic text-gray-900 leading-none tracking-tighter">TRANSFER</span>
-                        </div>
-                    </Link>
-
-                    {/* DESKTOP NAV */}
-                    <nav className="hidden xl:flex items-center space-x-8 text-[15px] font-bold text-gray-800">
-                        <Link href="/turlar" className="hover:text-[#D32F2F] transition-colors">Turlar</Link>
-                        <Link href="/hakkimizda" className="hover:text-[#D32F2F] transition-colors">Hakkımızda</Link>
-                        <Link href="#" className="hover:text-[#D32F2F] transition-colors">İşveren Olun</Link>
-                        <Link href="#" className="hover:text-[#D32F2F] transition-colors">Taşıyıcı Olun</Link>
-                        <Link href="/iletisim" className="hover:text-[#D32F2F] transition-colors">İletişim</Link>
-                        <Link href="#" className="hover:text-[#D32F2F] transition-colors">S.S.S</Link>
-                    </nav>
-
-                    {/* RIGHT ACTIONS */}
-                    <div className="hidden lg:flex items-center space-x-4">
-                        {/* Social Icons */}
-                        <div className="flex items-center space-x-4 border-r border-gray-200 pr-5">
-                            <Link href="#" className="text-gray-900 hover:text-[#D32F2F]"><Instagram className="w-5 h-5 stroke-2" /></Link>
-                            <Link href="#" className="text-gray-900 hover:text-[#D32F2F]"><Globe className="w-5 h-5 stroke-2" /></Link>
-                            <Link href="#" className="text-gray-900 hover:text-green-600"><MessageCircle className="w-5 h-5 stroke-2" /></Link>
-                        </div>
-
-                        {/* Language */}
-                        <div className="relative flex items-center space-x-2 cursor-pointer group">
-                            <div className="flex items-center space-x-2 py-2">
-                                <img src="https://flagcdn.com/w40/tr.png" alt="TR" className="w-6 h-6 rounded-full object-cover shadow-sm border border-gray-100" />
-                                <span className="text-[15px] font-bold text-gray-900">TR</span>
-                                <ChevronDown className="w-4 h-4 text-gray-500 transition-transform group-hover:rotate-180" />
-                            </div>
-
-                            {/* Dropdown Menu */}
-                            <div className="absolute top-full right-0 mt-1 w-20 bg-white rounded-xl shadow-lg border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 overflow-hidden">
-                                <div className="py-2 flex flex-col">
-                                    {[
-                                        { code: 'EN', flag: 'gb' },
-                                        { code: 'DE', flag: 'de' },
-                                        { code: 'ES', flag: 'es' },
-                                        { code: 'FR', flag: 'fr' },
-                                        { code: 'İT', flag: 'it' },
-                                        { code: 'PT', flag: 'pt' },
-                                        { code: 'RU', flag: 'ru' },
-                                        { code: 'HU', flag: 'hu' },
-                                        { code: 'NL', flag: 'nl' },
-                                        { code: 'AR', flag: 'sa' }
-                                    ].map((lang) => (
-                                        <div key={lang.code} className="flex items-center space-x-2 px-3 py-2 hover:bg-gray-50 transition-colors">
-                                            <img src={`https://flagcdn.com/w40/${lang.flag}.png`} alt={lang.code} className="w-5 h-5 rounded-full object-cover shadow-sm border border-gray-100" />
-                                            <span className="text-[14px] font-semibold text-gray-700">{lang.code}</span>
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* Auth */}
-                        <div className="flex items-center space-x-4 ml-2">
-                            <Link href="#" className="text-[15px] font-bold text-gray-900 hover:text-[#D32F2F]">Üye Ol</Link>
-                            <Link href="#" className="flex items-center space-x-2 border border-black rounded-lg px-5 py-2.5 hover:bg-black hover:text-white transition-all group">
-                                <User className="w-5 h-5 group-hover:text-white" />
-                                <span className="text-[15px] font-bold">Giriş</span>
-                            </Link>
-                        </div>
-                    </div>
-
-                    {/* Mobile Menu Button */}
-                    <button
-                        className="lg:hidden"
-                        onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                    >
-                        {mobileMenuOpen ? (
-                            <X className="w-8 h-8 text-gray-900" />
-                        ) : (
-                            <Menu className="w-8 h-8 text-gray-900" />
-                        )}
-                    </button>
-                </div>
-
-                {/* Mobile Menu Dropdown */}
-                {mobileMenuOpen && (
-                    <div className="lg:hidden bg-white border-t border-gray-100 absolute top-full left-0 right-0 shadow-xl overflow-hidden animate-in slide-in-from-top-2">
-                        <div className="container-custom py-4 space-y-2">
-                            <Link href="/turlar" className="block text-gray-900 font-bold hover:text-[#D32F2F] p-2 rounded-lg hover:bg-red-50">Turlar</Link>
-                            <Link href="/hakkimizda" className="block text-gray-900 font-bold hover:text-[#D32F2F] p-2 rounded-lg hover:bg-red-50">Hakkımızda</Link>
-                            <Link href="#" className="block text-gray-900 font-bold hover:text-[#D32F2F] p-2 rounded-lg hover:bg-red-50">İşveren Olun</Link>
-                            <Link href="#" className="block text-gray-900 font-bold hover:text-[#D32F2F] p-2 rounded-lg hover:bg-red-50">Taşıyıcı Olun</Link>
-                            <Link href="/iletisim" className="block text-gray-900 font-bold hover:text-[#D32F2F] p-2 rounded-lg hover:bg-red-50">İletişim</Link>
-                            <Link href="#" className="block text-gray-900 font-bold hover:text-[#D32F2F] p-2 rounded-lg hover:bg-red-50">S.S.S</Link>
-
-                            <div className="flex items-center space-x-2 pt-4 border-t border-gray-100">
-                                <Link href="#" className="flex-1 text-center text-sm font-bold text-gray-900 hover:text-[#D32F2F] border border-gray-300 rounded-lg py-2">Üye Ol</Link>
-                                <Link href="#" className="flex-1 text-center text-sm font-bold text-white bg-black rounded-lg py-2">Giriş</Link>
-                            </div>
-                        </div>
-                    </div>
-                )}
-            </header>
+            {/* HEADER */}
+            <Header />
 
             {/* Progress Stepper */}
-            <div className="bg-white border-b pt-24 md:pt-28">
+            <div className="bg-white border-b">
                 <div className="container-custom py-6">
                     <div className="flex items-center justify-center max-w-2xl mx-auto">
                         {/* Step 1 - Completed */}

@@ -70,14 +70,14 @@ export function InlinePassengerSelector({
                         className={`
                             w-full px-4 py-2.5 text-left text-sm font-bold transition-colors flex items-center justify-between group
                             ${value === count
-                                ? 'bg-red-50 text-[#D32F2F]'
-                                : 'text-gray-700 hover:bg-gray-50 hover:text-[#D32F2F]'
+                                ? 'bg-red-50 text-[#0a192f]'
+                                : 'text-gray-700 hover:bg-gray-50 hover:text-[#0a192f]'
                             }
                         `}
                     >
                         <span>{count} Kişi</span>
                         {value === count && (
-                            <div className="w-2 h-2 rounded-full bg-[#D32F2F]"></div>
+                            <div className="w-2 h-2 rounded-full bg-[#0a192f]"></div>
                         )}
                     </button>
                 ))}
