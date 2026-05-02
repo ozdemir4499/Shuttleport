@@ -13,7 +13,7 @@ export const ServiceTypeSelector: React.FC<ServiceTypeSelectorProps> = ({
     onChange,
 }) => {
     return (
-        <div className="flex justify-center md:justify-start space-x-4 md:space-x-8 mb-[14px] md:mb-0 border-b border-gray-100 pb-2">
+        <div className="flex flex-wrap justify-center md:justify-start gap-3 sm:gap-4 md:gap-8 mb-[14px] md:mb-0 border-b border-gray-100 pb-2">
             <button
                 onClick={() => onChange('transfer')}
                 className={`flex items-center space-x-2 pb-2 text-sm md:text-base font-bold transition-all duration-200 border-b-2 ${activeType === 'transfer'

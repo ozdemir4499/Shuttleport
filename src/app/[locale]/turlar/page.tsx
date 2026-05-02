@@ -17,7 +17,7 @@ export default function TurlarPage() {
     };
 
     return (
-        <main className="min-h-screen bg-gray-50 pt-20 md:pt-24">
+        <main className="min-h-screen bg-gray-50 pt-16 sm:pt-20 md:pt-24">
             {/* Ortak Header */}
             <Header />
 
