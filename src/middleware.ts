@@ -8,7 +8,6 @@ const intlMiddleware = createMiddleware({
 });
 
 export default function middleware(req: NextRequest) {
-  console.log('MIDDLEWARE CALLED FOR:', req.nextUrl.pathname);
   return intlMiddleware(req);
 }
 
