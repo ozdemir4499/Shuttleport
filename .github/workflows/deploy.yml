@@ -23,7 +23,7 @@ jobs:
             
             echo "2. Frontend derleniyor..."
             export PATH=/root/.nvm/versions/node/v20.20.2/bin:$PATH
-            npm install
+            npm install --legacy-peer-deps
             npm run build
             
             echo "3. Frontend servisi yeniden başlatılıyor..."
