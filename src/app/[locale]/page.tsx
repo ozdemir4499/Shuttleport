@@ -24,15 +24,15 @@ interface Location {
 const bannerTexts = [
     {
         subtitle: "İADE GARANTİSİ.",
-        title: <>6 saatten önceki rezervasyon <br /> iptallerinde <span className="font-bold md:font-black text-gray-900 md:text-black">%100 iade garantisi.</span></>
+        title: <>6 saatten önceki rezervasyon <br /> iptallerinde <span className="font-black text-[#0a192f]">%100 iade garantisi.</span></>
     },
     {
         subtitle: "7/24 HAVALİMANI TRANSFERİ.",
-        title: <>İstanbul havalimanlarından otelinize <br /> <span className="font-bold md:font-black text-gray-900 md:text-black">VIP ayrıcalığıyla ulaşın.</span></>
+        title: <>İstanbul havalimanlarından otelinize <br /> <span className="font-black text-[#0a192f]">VIP ayrıcalığıyla ulaşın.</span></>
     },
     {
         subtitle: "ÖZEL İSTANBUL TURLARI.",
-        title: <>Şehrin tarihi güzelliklerini <br /> <span className="font-bold md:font-black text-gray-900 md:text-black">lüks araçlarımızla keşfedin.</span></>
+        title: <>Şehrin tarihi güzelliklerini <br /> <span className="font-black text-[#0a192f]">lüks araçlarımızla keşfedin.</span></>
     }
 ];
 
@@ -299,13 +299,13 @@ export default function Home() {
             <Header />
 
             {/* HERO SECTION */}
-            <section className="relative pt-[72px] sm:pt-[88px] md:pt-[104px] pb-8 sm:pb-12 bg-gray-50">
+            <section className="relative pt-20 sm:pt-24 md:pt-28 pb-8 sm:pb-12 bg-gray-50">
 
                 {/* Hero Content */}
                 <div className="relative z-10 container-custom px-4 w-full">
 
                     {/* Hero Banner Image (Matches Booking Widget Width) */}
-                    <div className="max-w-[1440px] mx-auto h-[160px] sm:h-[240px] md:h-[380px] mb-2 md:mb-4 rounded-xl sm:rounded-2xl overflow-hidden shadow-2xl relative group">
+                    <div className="max-w-[1440px] mx-auto h-[180px] sm:h-[240px] md:h-[380px] mb-1 rounded-xl sm:rounded-2xl overflow-hidden shadow-2xl relative group">
                         <img
                             src="/coastal_vip_van_banner_v11.png"
                             alt="VIP Transfer & Tours"
@@ -342,10 +342,10 @@ export default function Home() {
                                 >
                                     {slides.map((text, idx) => (
                                         <div key={idx} className="w-full flex-shrink-0 flex flex-col justify-start md:justify-center pr-[40px]">
-                                            <span className="text-[#0a192f] font-bold tracking-wider text-[10px] sm:text-xs md:text-sm mb-1 sm:mb-1.5 md:mb-2 drop-shadow-sm md:drop-shadow-none">
+                                            <span className="text-[#B58A32] font-black tracking-[0.2em] text-[9px] sm:text-[11px] md:text-[13px] mb-1.5 sm:mb-2 md:mb-3 uppercase drop-shadow-sm md:drop-shadow-none">
                                                 {text.subtitle}
                                             </span>
-                                            <h2 className="text-[14px] sm:text-base leading-[1.3] md:text-3xl lg:text-4xl text-gray-800 md:text-gray-700 font-semibold md:font-medium tracking-tight md:leading-tight">
+                                            <h2 className="text-[15px] sm:text-[18px] leading-[1.3] md:text-3xl lg:text-[42px] text-gray-600 md:text-gray-700 font-medium tracking-tight md:leading-[1.15]">
                                                 {text.title}
                                             </h2>
                                         </div>
