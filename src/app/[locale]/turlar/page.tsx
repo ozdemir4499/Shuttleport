@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { ChevronRight, ArrowRight, Calendar, Users, Clock } from 'lucide-react';
 import Header from '@/components/layout/Header';
@@ -10,6 +10,36 @@ type CurrencyType = 'try' | 'eur' | 'usd' | 'gbp';
 
 export default function TurlarPage() {
     const [selectedCurrencies, setSelectedCurrencies] = useState<Record<string, CurrencyType>>({});
+    const [dynamicTours, setDynamicTours] = useState<any[]>(tours);
+
+    useEffect(() => {
+        const fetchTours = async () => {
+            try {
+                const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/tours`);
+                const data = await response.json();
+                if (data && data.length > 0) {
+                    const mappedTours = data.map((t: any) => ({
+                        id: t.id,
+                        slug: t.slug,
+                        title: t.title_tr,
+                        shortTitle: t.title_tr,
+                        image: t.image_url ? `${process.env.NEXT_PUBLIC_API_URL}/static/${t.image_url}` : 'https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?q=80&w=800',
+                        badge: t.badge_tr,
+                        duration: 'Belirtilmedi',
+                        groupSize: 'Belirtilmedi',
+                        date: 'Her Gün',
+                        prices: { adult: { try: t.price, eur: t.price / 35, usd: t.price / 32, gbp: t.price / 40 } },
+                        oldPrices: { adult: { try: t.price * 1.2, eur: (t.price * 1.2) / 35, usd: (t.price * 1.2) / 32, gbp: (t.price * 1.2) / 40 } }
+                    }));
+                    setDynamicTours(mappedTours);
+                }
+            } catch (error) {
+                console.error('Failed to fetch tours:', error);
+            }
+        };
+        fetchTours();
+    }, []);
+
     const currencySymbols: Record<CurrencyType, string> = { try: '₺', eur: '€', usd: '$', gbp: '£' };
 
     const formatPrice = (price: number) => {
@@ -67,7 +97,7 @@ export default function TurlarPage() {
                         {/* RIGHT SIDE - Tour Cards Grid */}
                         <div className="col-span-12 lg:col-span-8 xl:col-span-9">
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                {tours.map((tour) => (
+                                {dynamicTours.map((tour) => (
                                     <div
                                         key={tour.id}
                                         className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 group"
@@ -145,7 +175,7 @@ export default function TurlarPage() {
 
                                             {/* CTA Button */}
                                             <Link
-                                                href={`/turlar/${tour.slug}`}
+                                                href={`/turlar/${tour.id}`}
                                                 className="flex items-center justify-center gap-2 w-full bg-[#0a192f] hover:bg-[#B58A32] text-white font-bold py-2 md:py-3 px-6 rounded-xl transition-all group/btn"
                                             >
                                                 <span>Tur Detayları</span>
