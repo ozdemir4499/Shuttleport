@@ -82,6 +82,9 @@ export default function Home() {
     const [activeReviewIndex, setActiveReviewIndex] = useState(0);
     const [reviewFade, setReviewFade] = useState(true);
 
+    // Tours state
+    const [dynamicTours, setDynamicTours] = useState<any[]>(tours); // fallback to static
+
     const reviews = [
         <>"Kullanıcılar genellikle <b className="text-gray-700">şoförlerin profesyonelliğini</b>, <b className="text-gray-700">araçların VIP lüksünü</b> ve <b className="text-gray-700">zamanlamadaki kusursuzluğu</b> öne çıkarıyor."</>,
         <>"Misafirlerimiz özellikle <b className="text-gray-700">şoförlerin yabancı dil bilgisinden</b> ve <b className="text-gray-700">yolculuk esnasındaki güvenli sürüşten</b> çok memnun kaldıklarını belirtiyor."</>,
@@ -173,6 +176,31 @@ export default function Home() {
         };
 
         fetchExchangeRates();
+    }, []);
+
+    // Fetch dynamic tours
+    useEffect(() => {
+        const fetchTours = async () => {
+            try {
+                const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/tours`);
+                const data = await response.json();
+                if (data && data.length > 0) {
+                    const mappedTours = data.map((t: any) => ({
+                        id: t.id,
+                        slug: t.slug,
+                        title: t.title_tr,
+                        shortTitle: t.title_tr,
+                        image: t.image_url ? `${process.env.NEXT_PUBLIC_API_URL}/static/${t.image_url}` : 'https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?q=80&w=800',
+                        badge: t.badge_tr,
+                        prices: { adult: { try: t.price } }
+                    }));
+                    setDynamicTours(mappedTours);
+                }
+            } catch (error) {
+                console.error('Failed to fetch tours:', error);
+            }
+        };
+        fetchTours();
     }, []);
 
     // Ref for Tours Slider
@@ -747,10 +775,10 @@ export default function Home() {
                                 ref={scrollContainerRef}
                                 className="flex space-x-6 overflow-x-auto pb-8 scrollbar-hide [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none']"
                             >
-                                {tours.map((tour) => (
+                                {dynamicTours.map((tour) => (
                                     <Link
                                         key={tour.id}
-                                        href={`/turlar/${tour.slug}`}
+                                        href={`/turlar/${tour.id}`}
                                         className="w-[300px] md:w-[350px] bg-white rounded-2xl shadow-[0_4px_20px_rgb(0,0,0,0.03)] hover:shadow-[0_12px_30px_rgb(0,0,0,0.08)] hover:-translate-y-1.5 transition-all duration-300 group cursor-pointer flex-shrink-0 flex flex-col h-full border border-gray-100 hover:border-gray-200"
                                     >
                                         <div className="h-[200px] overflow-hidden rounded-t-2xl relative">
