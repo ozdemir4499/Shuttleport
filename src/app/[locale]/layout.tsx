@@ -116,6 +116,23 @@ export default async function RootLayout({
                     src={`https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}&libraries=places&loading=async`} 
                     strategy="beforeInteractive" 
                 />
+                {/* Google Consent Mode v2 — GTM'den ÖNCE yüklenmeli */}
+                <script
+                    id="consent-defaults"
+                    dangerouslySetInnerHTML={{
+                        __html: `
+                            window.dataLayer = window.dataLayer || [];
+                            function gtag(){dataLayer.push(arguments);}
+                            gtag('consent', 'default', {
+                                'analytics_storage': 'denied',
+                                'ad_storage': 'denied',
+                                'ad_user_data': 'denied',
+                                'ad_personalization': 'denied',
+                                'wait_for_update': 500
+                            });
+                        `
+                    }}
+                />
                 {gtmId && <GoogleTagManager gtmId={gtmId} />}
             </body>
         </html>
