@@ -62,14 +62,14 @@ export default function Header() {
                         {/* Arka Plan (İkon + Silüet) */}
                         <img 
                             src="/logo_bg.png?v=13" 
-                            alt="Asitane Travel" 
+                            alt="RidePortX" 
                             className="h-7 sm:h-9 md:h-[65px] 2xl:h-[80px] w-auto object-contain"
                         />
                         {/* Metinler - Masaüstünde Yanda, Mobilde Altta */}
                         <div className="absolute md:absolute right-0 md:right-0 top-[20%] md:top-[10%] hidden md:flex flex-col items-end justify-center md:translate-x-[14px] md:-translate-y-[8px]">
                             <img 
                                 src="/logo_asitane.png?v=13" 
-                                alt="Asitane" 
+                                alt="RidePortX" 
                                 className="md:h-[14.5px] w-auto object-contain"
                             />
                             <img 
@@ -83,7 +83,7 @@ export default function Header() {
                     <div className="flex md:hidden flex-col items-center w-full">
                         <img 
                             src="/logo_asitane.png?v=13" 
-                            alt="Asitane" 
+                            alt="RidePortX" 
                             className="h-[6px] sm:h-[7.5px] w-auto object-contain"
                         />
                         <img 

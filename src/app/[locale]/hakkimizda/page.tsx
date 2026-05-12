@@ -82,7 +82,7 @@ export default function HakkimizdaPage() {
                             <div className="rounded-2xl overflow-hidden shadow-2xl">
                                 <img
                                     src="https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?q=80&w=1000"
-                                    alt="Asitane Travel Araç"
+                                    alt="RidePortX Araç"
                                     className="w-full h-[400px] md:h-[500px] object-cover"
                                 />
                             </div>
@@ -109,7 +109,7 @@ export default function HakkimizdaPage() {
                                 Türkiye'nin Lider VIP Transfer Şirketi
                             </h3>
                             <p className="text-gray-600 leading-relaxed">
-                                Asitane Travel olarak, 2015 yılından bu yana havalimanı transferi, şehir içi VIP ulaşım
+                                RidePortX olarak, 2015 yılından bu yana havalimanı transferi, şehir içi VIP ulaşım
                                 ve kurumsal transfer hizmetlerinde sektörün öncü markası olarak hizmet vermekteyiz.
                             </p>
                             <p className="text-gray-600 leading-relaxed">

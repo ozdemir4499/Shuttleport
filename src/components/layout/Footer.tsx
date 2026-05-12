@@ -25,7 +25,7 @@ export default function Footer() {
                             <Mail className="w-6 h-6 text-white" />
                         </div>
                         <div>
-                            <div className="font-bold text-lg mb-1">info@asitanetravel.com</div>
+                            <div className="font-bold text-lg mb-1">info@rideportx.com</div>
                             <div className="text-sm text-gray-400">E-Posta</div>
                         </div>
                     </div>
@@ -98,7 +98,7 @@ export default function Footer() {
                 {/* BOTTOM COPYRIGHT */}
                 <div className="pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-gray-500">
                     <div className="mb-4 md:mb-0">
-                        &copy; 2024 Asitane Travel. Tüm hakları saklıdır.
+                        &copy; 2024 RidePortX. Tüm hakları saklıdır.
                     </div>
                     <div className="flex flex-wrap justify-center gap-4 md:gap-8">
                         <Link href="#" className="hover:text-white transition-colors">Gizlilik ve Güvenlik</Link>

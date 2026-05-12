@@ -20,8 +20,8 @@ export async function generateMetadata(
   parent: ResolvingMetadata
 ): Promise<Metadata> {
   const t = await getTranslations({ locale, namespace: 'Index' });
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://asitanetravel.com';
-  const siteName = process.env.NEXT_PUBLIC_SITE_NAME || 'Asitane Travel';
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://rideportx.com';
+  const siteName = process.env.NEXT_PUBLIC_SITE_NAME || 'RidePortX';
 
   return {
     title: t('title'),
@@ -64,7 +64,7 @@ export async function generateMetadata(
 import ConditionalFooter from '@/components/layout/ConditionalFooter';
 import CookieBanner from '@/components/common/CookieBanner';
 import Script from 'next/script';
-import { GoogleAnalytics } from '@next/third-parties/google';
+import { GoogleTagManager } from '@next/third-parties/google';
 
 export default async function RootLayout({
     children,
@@ -75,10 +75,10 @@ export default async function RootLayout({
 }) {
     const messages = await getMessages();
     
-    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://asitanetravel.com';
-    const siteName = process.env.NEXT_PUBLIC_SITE_NAME || 'Asitane Travel';
+    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://rideportx.com';
+    const siteName = process.env.NEXT_PUBLIC_SITE_NAME || 'RidePortX';
     const contactPhone = process.env.NEXT_PUBLIC_CONTACT_PHONE || '+905550000000';
-    const gaId = process.env.NEXT_PUBLIC_GA_ID || 'G-XYZ1234567';
+    const gtmId = process.env.NEXT_PUBLIC_GTM_ID || '';
 
     // JSON-LD Structured Data for Tourism Service
     const jsonLd = {
@@ -86,7 +86,7 @@ export default async function RootLayout({
       "@type": "TravelAgency",
       "name": siteName,
       "image": `${siteUrl}/logo.png`,
-      "description": "Asitane Travel Havalimanı Transfer Hizmetleri",
+      "description": "RidePortX Havalimanı Transfer Hizmetleri",
       "address": {
         "@type": "PostalAddress",
         "addressLocality": "Istanbul",
@@ -116,7 +116,7 @@ export default async function RootLayout({
                     src={`https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}&libraries=places&loading=async`} 
                     strategy="beforeInteractive" 
                 />
-                {gaId !== 'G-XYZ1234567' && <GoogleAnalytics gaId={gaId} />}
+                {gtmId && <GoogleTagManager gtmId={gtmId} />}
             </body>
         </html>
     );

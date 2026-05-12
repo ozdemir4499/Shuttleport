@@ -938,7 +938,7 @@ export default function Home() {
                                 Her Yolculukta <span className="text-[#0a192f]">Ayrıcalığı</span> Hissedin.
                             </h2>
                             <p className="text-gray-600 leading-relaxed text-lg">
-                                Asitane Travel ayrıcalığıyla lüksü ve konforu bir arada yaşayın. Profesyonel ekibimiz, VIP tasarımlı özel araç filomuz ve 7/24 kesintisiz hizmet anlayışımızla; havalimanı transferlerinden özel şehir turlarına kadar tüm seyahat ihtiyaçlarınızda güvenli, prestijli ve unutulmaz bir yolculuk deneyimi sunuyoruz.
+                                RidePortX ayrıcalığıyla lüksü ve konforu bir arada yaşayın. Profesyonel ekibimiz, VIP tasarımlı özel araç filomuz ve 7/24 kesintisiz hizmet anlayışımızla; havalimanı transferlerinden özel şehir turlarına kadar tüm seyahat ihtiyaçlarınızda güvenli, prestijli ve unutulmaz bir yolculuk deneyimi sunuyoruz.
                             </p>
                         </div>
 
