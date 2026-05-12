@@ -43,7 +43,7 @@ export default function Header() {
         { name: 'Turlar', href: '/turlar' },
         { name: 'Hakkımızda', href: '/hakkimizda' },
         { name: 'İş Ortağı Ol', href: '/is-ortagi-ol' },
-        { name: 'Taşıyıcı Olun', href: '#' },
+        { name: 'Taşıyıcı Olun', href: '/tasiyici' },
         { name: 'İletişim', href: '/iletisim' },
         { name: 'S.S.S', href: '/sss' },
     ];
