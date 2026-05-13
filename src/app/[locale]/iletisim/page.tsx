@@ -276,7 +276,7 @@ export default function IletisimPage() {
                                         <Mail className="w-6 h-6 text-white" />
                                     </div>
                                     <h4 className="font-bold text-gray-900 mb-1">E-Posta</h4>
-                                    <p className="text-sm text-gray-600 break-all">info@asitanetravel.com</p>
+                                    <p className="text-sm text-gray-600 break-all">info@rideportx.com</p>
                                 </div>
 
                                 <div className="bg-white rounded-xl p-6 shadow-md hover:shadow-lg transition-shadow text-center">
@@ -305,7 +305,7 @@ export default function IletisimPage() {
                             allowFullScreen
                             loading="lazy"
                             referrerPolicy="no-referrer-when-downgrade"
-                            title="Asitane Travel Konum"
+                            title="RidePortX Konum"
                         />
                     </div>
                 </div>

@@ -18,16 +18,7 @@ export default function CheckoutContent() {
     const [paymentMethod, setPaymentMethod] = useState('credit-card');
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [errorMsg, setErrorMsg] = useState<string | null>(null);
-    const [additionalServices, setAdditionalServices] = useState({
-        welcomeSign: false,
-        jetValet: false,
-        childSeat: false,
-        flowers: false,
-        diapers: false,
-        parkingFee: true,
-        bridgeFee: true,
-        tunnel: false
-    });
+    const [additionalServices, setAdditionalServices] = useState<Record<string, boolean>>({});
 
     // Form state
     const [formData, setFormData] = useState({
@@ -45,6 +36,9 @@ export default function CheckoutContent() {
     const [pendingBooking, setPendingBooking] = useState<Record<string, unknown> | null>(null);
     const [passengerNames, setPassengerNames] = useState<Array<{fullName: string}>>([]);
 
+    // Dynamic services from API
+    const [services, setServices] = useState<Array<{id: string; name: string; price: number; description: string}>>([]);
+
     useEffect(() => {
         const stored = localStorage.getItem('pendingBooking');
         if (stored) {
@@ -55,11 +49,51 @@ export default function CheckoutContent() {
             if (count > 1) {
                 setPassengerNames(Array.from({ length: count - 1 }, () => ({ fullName: '' })));
             }
-        } else {
-            // Optional: redirect to home if no booking data
-            // router.push('/');
         }
     }, [router]);
+
+    // Fetch extra services from API
+    useEffect(() => {
+        const fetchServices = async () => {
+            try {
+                const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/api/extra-services/`);
+                if (res.ok) {
+                    const data = await res.json();
+                    const mapped = data.map((s: any) => ({
+                        id: `service_${s.id}`,
+                        name: s.name_tr,
+                        price: s.price,
+                        description: s.description_tr || ''
+                    }));
+                    setServices(mapped);
+                    // Set default selections
+                    const defaults: Record<string, boolean> = {};
+                    data.forEach((s: any) => {
+                        defaults[`service_${s.id}`] = s.is_default_selected;
+                    });
+                    setAdditionalServices(defaults);
+                }
+            } catch {
+                // Fallback to hardcoded if API fails
+                const fallback = [
+                    { id: 'welcomeSign', name: 'Karşılama Tabelası', price: 120, description: '' },
+                    { id: 'jetValet', name: 'Jet Valet Karşılama Hizmeti', price: 1000, description: '' },
+                    { id: 'childSeat', name: 'Çocuk Koltuğu (0-3 yaş)', price: 800, description: '' },
+                    { id: 'flowers', name: 'Çiçek Buketi', price: 3000, description: '' },
+                    { id: 'diapers', name: '15 Adet Üst Bebek Bezi', price: 6000, description: '' },
+                    { id: 'parkingFee', name: 'Sabiha Gökçen Vip Otopark Ücreti', price: 80, description: '' },
+                    { id: 'bridgeFee', name: '15 Temmuz veya F.S.M. Köprü Geçiş Ücreti', price: 80, description: '' },
+                    { id: 'tunnel', name: 'Araçta Tünel', price: 335, description: '' }
+                ];
+                setServices(fallback);
+                setAdditionalServices({
+                    welcomeSign: false, jetValet: false, childSeat: false, flowers: false,
+                    diapers: false, parkingFee: true, bridgeFee: true, tunnel: false
+                });
+            }
+        };
+        fetchServices();
+    }, []);
 
     const reservation = {
         from: (pendingBooking?.from as string) || 'Seçilmedi',
@@ -79,17 +113,6 @@ export default function CheckoutContent() {
         currency: (pendingBooking?.currency as string) || 'TRY'
     };
 
-    const services = [
-        { id: 'welcomeSign', name: 'Karşılama Tabelası', price: 120, description: '' },
-        { id: 'jetValet', name: 'Jet Valet Karşılama Hizmeti', price: 1000, description: '' },
-        { id: 'childSeat', name: 'Çocuk Koltuğu (0-3 yaş)', price: 800, description: '' },
-        { id: 'flowers', name: 'Çiçek Buketi', price: 3000, description: '' },
-        { id: 'diapers', name: '15 Adet Üst Bebek Bezi', price: 6000, description: '' },
-        { id: 'parkingFee', name: 'Sabiha Gökçen Vip Otopark Ücreti', price: 80, description: '' },
-        { id: 'bridgeFee', name: '15 Temmuz veya F.S.M. Köprü Geçiş Ücreti', price: 80, description: '' },
-        { id: 'tunnel', name: 'Araçta Tünel', price: 335, description: '' }
-    ];
-
     const currencySymbols = {
         TRY: '₺',
         EUR: '€',
@@ -100,7 +123,7 @@ export default function CheckoutContent() {
     const calculateTotal = () => {
         let total = vehicle.basePrice;
         services.forEach(service => {
-            if (additionalServices[service.id as keyof typeof additionalServices]) {
+            if (additionalServices[service.id]) {
                 total += service.price;
             }
         });
@@ -110,7 +133,7 @@ export default function CheckoutContent() {
     const toggleService = (serviceId: string) => {
         setAdditionalServices(prev => ({
             ...prev,
-            [serviceId]: !prev[serviceId as keyof typeof additionalServices]
+            [serviceId]: !prev[serviceId]
         }));
     };
 
@@ -438,26 +461,96 @@ export default function CheckoutContent() {
                             </div>
 
                             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                                {services.map((service) => (
+                                {services.map((service) => {
+                                    // Service name'e göre ikon eşleştirme
+                                    const getServiceIcon = (name: string) => {
+                                        const n = name.toLowerCase();
+                                        if (n.includes('karşılama') || n.includes('tabela') || n.includes('welcome'))
+                                            return (
+                                                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 9h3.75M15 12h3.75M15 15h3.75M4.5 19.5h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5zm6-10.125a1.875 1.875 0 11-3.75 0 1.875 1.875 0 013.75 0zm1.294 6.336a6.721 6.721 0 01-3.17.789 6.721 6.721 0 01-3.168-.789 3.376 3.376 0 016.338 0z" />
+                                                </svg>
+                                            );
+                                        if (n.includes('valet') || n.includes('jet'))
+                                            return (
+                                                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
+                                                </svg>
+                                            );
+                                        if (n.includes('çocuk') || n.includes('cocuk') || n.includes('koltuk') || n.includes('child'))
+                                            return (
+                                                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15.182 15.182a4.5 4.5 0 01-6.364 0M21 12a9 9 0 11-18 0 9 9 0 0118 0zM9.75 9.75c0 .414-.168.75-.375.75S9 10.164 9 9.75 9.168 9 9.375 9s.375.336.375.75zm-.375 0h.008v.015h-.008V9.75zm5.625 0c0 .414-.168.75-.375.75s-.375-.336-.375-.75.168-.75.375-.75.375.336.375.75zm-.375 0h.008v.015h-.008V9.75z" />
+                                                </svg>
+                                            );
+                                        if (n.includes('çiçek') || n.includes('cicek') || n.includes('buket') || n.includes('flower'))
+                                            return (
+                                                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+                                                </svg>
+                                            );
+                                        if (n.includes('bebek') || n.includes('bez') || n.includes('diaper'))
+                                            return (
+                                                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+                                                </svg>
+                                            );
+                                        if (n.includes('otopark') || n.includes('park'))
+                                            return (
+                                                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 00-10.026 0 1.106 1.106 0 00-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12" />
+                                                </svg>
+                                            );
+                                        if (n.includes('köprü') || n.includes('kopru') || n.includes('bridge') || n.includes('geçiş') || n.includes('gecis'))
+                                            return (
+                                                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25H12" />
+                                                </svg>
+                                            );
+                                        if (n.includes('tünel') || n.includes('tunel') || n.includes('tunnel'))
+                                            return (
+                                                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418" />
+                                                </svg>
+                                            );
+                                        // Varsayılan ikon
+                                        return (
+                                            <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.455 2.456L21.75 6l-1.036.259a3.375 3.375 0 00-2.455 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z" />
+                                            </svg>
+                                        );
+                                    };
+
+                                    return (
                                     <button
                                         key={service.id}
                                         onClick={() => toggleService(service.id)}
-                                        className={`p-4 rounded-lg border-2 transition-all text-left ${additionalServices[service.id as keyof typeof additionalServices]
+                                        className={`p-4 rounded-lg border-2 transition-all text-left ${additionalServices[service.id]
                                             ? 'border-green-500 bg-green-50'
                                             : 'border-gray-200 hover:border-gray-300'
                                             }`}
                                     >
                                         <div className="flex items-start justify-between mb-2">
-                                            <div className="flex-1">
-                                                <div className="text-sm font-semibold text-gray-900 mb-1">{service.name}</div>
-                                                <div className="text-lg font-bold text-gray-900">{service.price}{currencySymbols[vehicle.currency as keyof typeof currencySymbols] || '₺'}</div>
+                                            <div className="flex items-start gap-3 flex-1">
+                                                <div className={`w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5 ${
+                                                    additionalServices[service.id]
+                                                        ? 'bg-green-100 text-green-600'
+                                                        : 'bg-gray-100 text-gray-500'
+                                                }`}>
+                                                    {getServiceIcon(service.name)}
+                                                </div>
+                                                <div className="flex-1 min-w-0">
+                                                    <div className="text-sm font-semibold text-gray-900 mb-1">{service.name}</div>
+                                                    <div className="text-lg font-bold text-gray-900">{service.price}{currencySymbols[vehicle.currency as keyof typeof currencySymbols] || '₺'}</div>
+                                                </div>
                                             </div>
-                                            {additionalServices[service.id as keyof typeof additionalServices] && (
+                                            {additionalServices[service.id] && (
                                                 <Check className="w-5 h-5 text-green-500 flex-shrink-0" />
                                             )}
                                         </div>
                                     </button>
-                                ))}
+                                    );
+                                })}
                             </div>
                         </div>
 

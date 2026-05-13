@@ -12,7 +12,7 @@ interface FAQItem {
 const faqData: FAQItem[] = [
     {
         question: "Rezervasyonumu nasıl iptal edebilirim?",
-        answer: "Rezervasyonunuzu iptal etmek için web sitemizden giriş yaparak 'Rezervasyonlarım' bölümünden ilgili rezervasyonu seçip iptal edebilirsiniz. Ayrıca WhatsApp üzerinden +90 532 417 89 63 numaramızdan veya info@asitanetravel.com e-posta adresimizden de iptal işlemlerinizi gerçekleştirebilirsiniz."
+        answer: "Rezervasyonunuzu iptal etmek için web sitemizden giriş yaparak 'Rezervasyonlarım' bölümünden ilgili rezervasyonu seçip iptal edebilirsiniz. Ayrıca WhatsApp üzerinden +90 532 417 89 63 numaramızdan veya info@rideportx.com e-posta adresimizden de iptal işlemlerinizi gerçekleştirebilirsiniz."
     },
     {
         question: "Havalimanı transfer rezervasyonu nasıl yapılır?",

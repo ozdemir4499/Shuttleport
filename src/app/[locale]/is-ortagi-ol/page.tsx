@@ -72,10 +72,10 @@ export default function IsOrtagiOlPage() {
         'Özel indirim ve kampanya fırsatları'
     ];
 
-    const companyName = process.env.NEXT_PUBLIC_SITE_NAME || 'Asitane Travel';
+    const companyName = process.env.NEXT_PUBLIC_SITE_NAME || 'RidePortX';
     const contactPhone = process.env.NEXT_PUBLIC_CONTACT_PHONE || '+905324178963';
     const contactPhoneDisplay = process.env.NEXT_PUBLIC_CONTACT_PHONE_DISPLAY || '+90 532 417 89 63';
-    const contactEmail = process.env.NEXT_PUBLIC_CONTACT_EMAIL || 'info@asitanetravel.com';
+    const contactEmail = process.env.NEXT_PUBLIC_CONTACT_EMAIL || 'info@rideportx.com';
     const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '905324178963';
 
     return (

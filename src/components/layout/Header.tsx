@@ -43,7 +43,7 @@ export default function Header() {
         { name: 'Turlar', href: '/turlar' },
         { name: 'Hakkımızda', href: '/hakkimizda' },
         { name: 'İş Ortağı Ol', href: '/is-ortagi-ol' },
-        { name: 'Taşıyıcı Olun', href: '#' },
+        { name: 'Taşıyıcı Olun', href: '/tasiyici' },
         { name: 'İletişim', href: '/iletisim' },
         { name: 'S.S.S', href: '/sss' },
     ];
@@ -57,50 +57,21 @@ export default function Header() {
         <header className="absolute top-0 left-0 right-0 z-50 bg-white shadow-sm h-16 sm:h-20 md:h-24 flex items-center" style={{ paddingTop: 'env(safe-area-inset-top, 0px)' }}>
             <div className="container-custom flex items-center justify-between w-full px-3 sm:px-4 xl:px-8">
                 {/* LOGO */}
-                <Link href="/" className="flex flex-col md:flex-row md:items-center transition-opacity hover:opacity-90">
-                    <div className="relative flex items-center">
-                        {/* Arka Plan (İkon + Silüet) */}
-                        <img 
-                            src="/logo_bg.png?v=13" 
-                            alt="Asitane Travel" 
-                            className="h-7 sm:h-9 md:h-[80px] w-auto object-contain"
-                        />
-                        {/* Metinler - Masaüstünde Yanda, Mobilde Altta */}
-                        <div className="absolute md:absolute right-0 md:right-0 top-[20%] md:top-[10%] hidden md:flex flex-col items-end justify-center md:translate-x-[14px] md:-translate-y-[8px]">
-                            <img 
-                                src="/logo_asitane.png?v=13" 
-                                alt="Asitane" 
-                                className="md:h-[14.5px] w-auto object-contain"
-                            />
-                            <img 
-                                src="/logo_travel.png?v=13" 
-                                alt="Travel" 
-                                className="md:h-[16.5px] w-auto object-contain md:mt-0.5"
-                            />
-                        </div>
-                    </div>
-                    {/* Mobil için Alt Bölüm */}
-                    <div className="flex md:hidden flex-col items-center w-full">
-                        <img 
-                            src="/logo_asitane.png?v=13" 
-                            alt="Asitane" 
-                            className="h-[6px] sm:h-[7.5px] w-auto object-contain"
-                        />
-                        <img 
-                            src="/logo_travel.png?v=13" 
-                            alt="Travel" 
-                            className="h-[10px] sm:h-[12.5px] w-auto object-contain mt-[1px]"
-                        />
-                    </div>
+                <Link href="/" className="flex items-center transition-opacity hover:opacity-90">
+                    <img 
+                        src="/rideportx_logo.png" 
+                        alt="RidePortX" 
+                        className="h-10 sm:h-12 md:h-[65px] 2xl:h-[75px] w-auto object-contain"
+                    />
                 </Link>
 
                 {/* DESKTOP NAV */}
-                <nav className="hidden xl:flex items-center space-x-8 text-[14px] font-medium tracking-wide text-[#0a192f]">
+                <nav className="hidden xl:flex items-center space-x-3 2xl:space-x-8 text-[13px] 2xl:text-[14px] font-medium tracking-wide text-[#0a192f]">
                     {navLinks.map((link) => (
                         <Link
                             key={link.name}
                             href={link.href}
-                            className={`transition-colors ${isActive(link.href) ? 'text-[#B58A32]' : 'hover:text-[#B58A32]'}`}
+                            className={`transition-colors whitespace-nowrap ${isActive(link.href) ? 'text-[#B58A32]' : 'hover:text-[#B58A32]'}`}
                         >
                             {link.name}
                         </Link>
@@ -108,34 +79,34 @@ export default function Header() {
                 </nav>
 
                 {/* RIGHT ACTIONS */}
-                <div className="hidden xl:flex items-center space-x-4">
+                <div className="hidden xl:flex items-center space-x-2 2xl:space-x-4">
                     {/* Social Icons */}
-                    <div className="flex items-center space-x-3 border-r border-gray-200 pr-5">
-                        <Link href="#" className="flex items-center justify-center w-8 h-8 bg-gradient-to-tr from-[#f09433] via-[#dc2743] to-[#bc1888] rounded-full hover:scale-110 transition-transform shadow-sm">
-                            <Instagram className="w-4 h-4 text-white stroke-[2.5]" />
+                    <div className="flex items-center space-x-2 2xl:space-x-3 border-r border-gray-200 pr-3 2xl:pr-5">
+                        <Link href="#" className="flex items-center justify-center w-7 h-7 2xl:w-8 2xl:h-8 bg-gradient-to-tr from-[#f09433] via-[#dc2743] to-[#bc1888] rounded-full hover:scale-110 transition-transform shadow-sm">
+                            <Instagram className="w-3.5 h-3.5 2xl:w-4 2xl:h-4 text-white stroke-[2.5]" />
                         </Link>
                         
-                        <Link href="#" className="flex items-center justify-center w-8 h-8 bg-[#1877F2] rounded-full hover:scale-110 transition-transform shadow-sm">
-                            <Facebook className="w-4 h-4 text-white stroke-[2.5]" />
+                        <Link href="#" className="flex items-center justify-center w-7 h-7 2xl:w-8 2xl:h-8 bg-[#1877F2] rounded-full hover:scale-110 transition-transform shadow-sm">
+                            <Facebook className="w-3.5 h-3.5 2xl:w-4 2xl:h-4 text-white stroke-[2.5]" />
                         </Link>
 
-                        <Link href="#" className="flex items-center justify-center w-8 h-8 bg-black rounded-full hover:scale-110 transition-transform shadow-sm">
-                            <svg className="w-4 h-4 text-white stroke-[2.5]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round">
+                        <Link href="#" className="flex items-center justify-center w-7 h-7 2xl:w-8 2xl:h-8 bg-black rounded-full hover:scale-110 transition-transform shadow-sm">
+                            <svg className="w-3.5 h-3.5 2xl:w-4 2xl:h-4 text-white stroke-[2.5]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round">
                                 <path d="M21 7.917v4.034a9.948 9.948 0 0 1 -5 -1.951v4.5a6.5 6.5 0 1 1 -8 -6.326v4.326a2.5 2.5 0 1 0 4 2v-11.5h4.083a6.005 6.005 0 0 0 4.917 4.917" />
                             </svg>
                         </Link>
 
-                        <Link href="https://wa.me/905324178963" target="_blank" className="flex items-center justify-center w-8 h-8 bg-[#25D366] rounded-full hover:scale-110 transition-transform shadow-sm">
-                            <MessageCircle className="w-4 h-4 text-white stroke-[2.5]" />
+                        <Link href="https://wa.me/905324178963" target="_blank" className="flex items-center justify-center w-7 h-7 2xl:w-8 2xl:h-8 bg-[#25D366] rounded-full hover:scale-110 transition-transform shadow-sm">
+                            <MessageCircle className="w-3.5 h-3.5 2xl:w-4 2xl:h-4 text-white stroke-[2.5]" />
                         </Link>
                     </div>
 
                     {/* Language */}
-                    <div className="relative flex items-center space-x-2 cursor-pointer group">
-                        <div onClick={toggleLanguage} className="flex items-center space-x-2 py-2">
-                            <img src={`https://flagcdn.com/w40/${locale === 'tr' ? 'tr' : 'gb'}.png`} alt={locale.toUpperCase()} className="w-6 h-6 rounded-full object-cover shadow-sm border border-gray-100" />
-                            <span className="text-[15px] font-bold text-gray-900">{locale.toUpperCase()}</span>
-                            <ChevronDown className="w-4 h-4 text-gray-500 transition-transform group-hover:rotate-180" />
+                    <div className="relative flex items-center space-x-1.5 2xl:space-x-2 cursor-pointer group">
+                        <div onClick={toggleLanguage} className="flex items-center space-x-1.5 2xl:space-x-2 py-2">
+                            <img src={`https://flagcdn.com/w40/${locale === 'tr' ? 'tr' : 'gb'}.png`} alt={locale.toUpperCase()} className="w-5 h-5 2xl:w-6 2xl:h-6 rounded-full object-cover shadow-sm border border-gray-100" />
+                            <span className="text-[13px] 2xl:text-[15px] font-bold text-gray-900">{locale.toUpperCase()}</span>
+                            <ChevronDown className="w-3.5 h-3.5 2xl:w-4 2xl:h-4 text-gray-500 transition-transform group-hover:rotate-180" />
                         </div>
 
                         {/* Dropdown Menu */}
@@ -163,11 +134,11 @@ export default function Header() {
                     </div>
 
                     {/* Auth */}
-                    <div className="flex items-center space-x-4 ml-2">
-                        <button onClick={() => setIsRegisterOpen(true)} className="text-[15px] font-bold text-gray-900 hover:text-[#0a192f]">Üye Ol</button>
-                        <button onClick={() => setIsLoginOpen(true)} className="flex items-center space-x-2 border border-black rounded-lg px-5 py-2.5 hover:bg-black hover:text-white transition-all group">
-                            <User className="w-5 h-5 group-hover:text-white" />
-                            <span className="text-[15px] font-bold">Giriş</span>
+                    <div className="flex items-center space-x-2 2xl:space-x-4 ml-1 2xl:ml-2">
+                        <button onClick={() => setIsRegisterOpen(true)} className="text-[13px] 2xl:text-[15px] font-bold text-gray-900 hover:text-[#0a192f] whitespace-nowrap">Üye Ol</button>
+                        <button onClick={() => setIsLoginOpen(true)} className="flex items-center space-x-1.5 2xl:space-x-2 border border-black rounded-lg px-3 py-1.5 2xl:px-5 2xl:py-2.5 hover:bg-black hover:text-white transition-all group whitespace-nowrap">
+                            <User className="w-4 h-4 2xl:w-5 2xl:h-5 group-hover:text-white" />
+                            <span className="text-[13px] 2xl:text-[15px] font-bold">Giriş</span>
                         </button>
                     </div>
                 </div>

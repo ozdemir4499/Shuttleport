@@ -24,7 +24,7 @@ export default function RegisterPage() {
                             </div>
                         </div>
                         <h2 className="text-2xl font-black text-gray-900 mb-2">Aramıza Katılın</h2>
-                        <p className="text-sm text-gray-500 font-medium">Asitane Travel ayrıcalıklarından yararlanmak için hemen hesap oluşturun.</p>
+                        <p className="text-sm text-gray-500 font-medium">RidePortX ayrıcalıklarından yararlanmak için hemen hesap oluşturun.</p>
                     </div>
 
                     {/* Form Section */}
