@@ -704,106 +704,69 @@ export default function Home() {
             </section>
 
             {/* TOURS SECTION */}
-            <section className="pt-8 pb-8 md:pt-12 md:pb-12 bg-gray-50">
-                <div className="container-custom px-4">
-                    <div className="flex flex-col space-y-8">
-                        {/* Section Header */}
-                        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-8 mb-8">
-                            <div className="max-w-2xl">
-                                <div className="flex items-center space-x-2 mb-3">
-                                    <span className="h-px w-8 bg-[#0a192f]"></span>
-                                    <span className="text-[#0a192f] font-bold text-sm tracking-widest uppercase">
-                                        EŞSİZ DENEYİMLER
-                                    </span>
-                                </div>
-                                <h2 className="text-3xl md:text-5xl font-extrabold text-gray-900 mb-4 tracking-tight">
-                                    Özel <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#0a192f] to-[#B58A32]">İstanbul</span> Turları
-                                </h2>
-                                <div className="flex flex-col md:flex-row md:items-center gap-4">
-                                    <p className="text-gray-500 text-lg leading-relaxed">
-                                        Şehrin tarihi güzelliklerini ve gizli kalmış hazinelerini VIP ayrıcalığı ve lüks araçlarımızla keşfetmeye hazır olun.
-                                    </p>
-                                    
-                                    {/* Navigation Buttons */}
-                                    <div className="flex space-x-3 flex-shrink-0">
-                                        <button
-                                            onClick={scrollPrev}
-                                            className="w-12 h-12 rounded-2xl bg-black shadow-lg shadow-black/20 flex items-center justify-center text-white hover:bg-gray-800 transition-all duration-300 group"
-                                        >
-                                            <svg className="w-5 h-5 group-hover:-translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
-                                        </button>
-                                        <button
-                                            onClick={scrollNext}
-                                            className="w-12 h-12 rounded-2xl bg-[#0a192f] shadow-lg shadow-[#0a192f]/30 flex items-center justify-center text-white hover:bg-[#B58A32] transition-all duration-300 group"
-                                        >
-                                            <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
+            <section className="pt-16 pb-16 md:pt-24 md:pb-24 bg-white overflow-hidden relative">
+                <div className="container-custom px-4 relative">
+                    <div className="flex flex-col lg:flex-row gap-8 lg:gap-16 items-center">
+                        {/* Left Side: Content & Navigation */}
+                        <div className="w-full lg:w-[35%] flex flex-col items-start z-10">
+                            <h2 className="text-3xl md:text-[42px] leading-[1.1] font-bold text-gray-900 mb-6 tracking-tight">
+                                Harika bir tur gezisine<br />ne dersiniz?
+                            </h2>
+                            <p className="text-gray-400 text-sm md:text-base mb-8 leading-relaxed max-w-sm">
+                                Eşsiz rotalar ve kişiye özel maceralarla dolu turlarımızla unutulmaz anılar yaratmaya hazır olun!
+                            </p>
                             
-                            {/* AI Summary Badge (Right Side) */}
-                            <div className="hidden lg:flex items-start space-x-6 bg-white/60 backdrop-blur-md p-8 rounded-3xl border border-gray-200/50 shadow-[0_8px_30px_rgb(0,0,0,0.06)] max-w-xl">
-                                <div className="bg-gradient-to-br from-red-50 to-orange-50 p-4 rounded-2xl flex-shrink-0 border border-amber-100/50 shadow-sm mt-1">
-                                    <Quote className="w-8 h-8 text-[#0a192f] fill-[#0a192f]/10" />
-                                </div>
-                                <div className="pt-1 w-full">
-                                    <div className="flex items-center space-x-3 mb-3">
-                                        <h3 className="text-xl font-extrabold text-gray-900 tracking-tight">Öne Çıkan Yorumlar</h3>
-                                        <span className="px-3 py-1 rounded-full bg-amber-50 text-[#0a192f] text-xs font-bold tracking-widest uppercase">Özet</span>
-                                    </div>
-                                    <div className={`transition-opacity duration-300 min-h-[72px] flex items-start ${reviewFade ? 'opacity-100' : 'opacity-0'}`}>
-                                        <p className="text-base text-gray-500 leading-relaxed">
-                                            {reviews[activeReviewIndex]}
-                                        </p>
-                                    </div>
-                                    <div className="flex items-center space-x-3 mt-4">
-                                        <div className="flex -space-x-1">
-                                            {[...Array(5)].map((_, i) => (
-                                                <Star key={i} className="w-5 h-5 text-amber-400" fill="currentColor" strokeWidth={1} />
-                                            ))}
-                                        </div>
-                                        <span className="text-sm text-gray-400 font-semibold tracking-wide">Google & Tripadvisor</span>
-                                    </div>
-                                </div>
+                            <Link href="/turlar" className="bg-black text-white px-8 py-3.5 rounded-lg text-sm font-semibold hover:bg-gray-800 transition-colors mb-12 shadow-md hover:shadow-xl">
+                                Daha Fazla Tur
+                            </Link>
+                            
+                            <div className="flex items-center space-x-4">
+                                <button
+                                    onClick={scrollPrev}
+                                    className="w-12 h-12 rounded-full border border-gray-300 flex items-center justify-center text-gray-500 hover:border-black hover:text-black transition-all group shadow-sm hover:shadow-md"
+                                >
+                                    <ChevronLeft className="w-5 h-5 group-hover:-translate-x-0.5 transition-transform" />
+                                </button>
+                                <button
+                                    onClick={scrollNext}
+                                    className="w-12 h-12 rounded-full border border-gray-300 flex items-center justify-center text-gray-500 hover:border-black hover:text-black transition-all group shadow-sm hover:shadow-md"
+                                >
+                                    <ChevronRight className="w-5 h-5 group-hover:translate-x-0.5 transition-transform" />
+                                </button>
                             </div>
                         </div>
 
-                        {/* Slider */}
-                        <div className="w-full">
+                        {/* Right Side: Slider */}
+                        <div className="w-full lg:w-[65%] relative">
+                            {/* Gradient to fade the right edge */}
+                            <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none hidden lg:block"></div>
+                            
                             <div
                                 ref={scrollContainerRef}
-                                className="flex space-x-6 overflow-x-auto pb-8 scrollbar-hide [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none']"
+                                className="flex space-x-6 overflow-x-auto pb-8 pt-4 scrollbar-hide [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none'] snap-x snap-mandatory"
+                                style={{
+                                    paddingRight: '20vw'
+                                }}
                             >
                                 {dynamicTours.map((tour) => (
                                     <Link
                                         key={tour.id}
                                         href={`/turlar/${tour.id}`}
-                                        className="w-[300px] md:w-[350px] bg-white rounded-2xl shadow-[0_4px_20px_rgb(0,0,0,0.03)] hover:shadow-[0_12px_30px_rgb(0,0,0,0.08)] hover:-translate-y-1.5 transition-all duration-300 group cursor-pointer flex-shrink-0 flex flex-col h-full border border-gray-100 hover:border-gray-200"
+                                        className="w-[280px] md:w-[320px] bg-white rounded-xl shadow-[0_4px_20px_rgb(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] hover:-translate-y-1 transition-all duration-300 group cursor-pointer flex-shrink-0 flex flex-col h-full border border-gray-100 snap-start"
                                     >
-                                        <div className="h-[200px] overflow-hidden rounded-t-2xl relative">
-                                            <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-transparent z-10 pointer-events-none"></div>
-                                            <img src={tour.image} alt={tour.shortTitle} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out" />
-                                            {tour.badge && (
-                                                <div className="absolute top-4 right-4 z-20 bg-white/95 backdrop-blur-md px-3 py-1.5 rounded-full text-xs font-extrabold text-gray-900 shadow-sm">
-                                                    {tour.badge}
-                                                </div>
-                                            )}
+                                        <div className="h-[210px] overflow-hidden rounded-t-xl relative">
+                                            <div className="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors z-10 pointer-events-none"></div>
+                                            <img src={tour.image} alt={tour.shortTitle} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" />
                                         </div>
-                                        <div className="p-6 space-y-4 flex flex-col flex-grow">
-                                            <h3 className="text-gray-900 font-bold text-lg leading-snug min-h-[56px] line-clamp-2">
+                                        <div className="p-6 flex flex-col flex-grow bg-white rounded-b-xl">
+                                            <h3 className="text-gray-600 text-[15px] font-medium leading-relaxed min-h-[48px] line-clamp-2">
                                                 {tour.title}
                                             </h3>
-                                            <div className="w-12 h-1 bg-gray-100 rounded-full overflow-hidden">
-                                                <div className="w-4 group-hover:w-full h-full bg-[#0a192f] transition-all duration-500 ease-out rounded-full"></div>
-                                            </div>
-                                            <div className="flex items-center justify-between pt-2 mt-auto">
-                                                <div className="flex flex-col">
-                                                    <span className="text-[10px] font-bold text-gray-400 uppercase tracking-wide mb-0.5">Başlayan Fiyatlarla</span>
-                                                    <span className="text-2xl font-black text-gray-900 tracking-tight">{tour.prices.adult.try.toLocaleString('tr-TR')}₺</span>
-                                                </div>
-                                                <div className="w-11 h-11 rounded-full border-2 border-gray-100 flex items-center justify-center text-gray-400 group-hover:bg-[#0a192f] group-hover:border-[#0a192f] group-hover:text-white group-hover:scale-110 transition-all duration-300 shadow-sm">
-                                                    <svg className="w-5 h-5 group-hover:translate-x-0.5 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+                                            <div className="w-8 h-[2px] bg-[#e63946] my-5"></div>
+                                            <div className="flex items-center justify-between mt-auto">
+                                                <span className="text-[22px] font-bold text-gray-900 tracking-tight">{tour.prices.adult.try.toLocaleString('tr-TR')}₺</span>
+                                                <div className="w-8 h-8 rounded-full border-[1.5px] border-[#e63946] flex items-center justify-center text-[#e63946] group-hover:bg-[#e63946] group-hover:text-white transition-colors">
+                                                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" /></svg>
                                                 </div>
                                             </div>
                                         </div>

@@ -18,15 +18,17 @@ const CustomDateInput = forwardRef<HTMLDivElement, any>(({ value, onClick, selec
         <div 
             onClick={onClick} 
             ref={ref}
-            className="bg-white border border-gray-200 rounded-lg p-3.5 flex items-center gap-3.5 mb-6 cursor-pointer hover:border-gray-300 transition-colors"
+            className="bg-gray-50 border border-gray-200 rounded-xl p-4 flex items-center gap-4 mb-2 cursor-pointer hover:border-gray-300 hover:bg-gray-100 transition-colors"
         >
-            <Calendar className="w-6 h-6 text-black flex-shrink-0" />
+            <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center flex-shrink-0 shadow-sm border border-gray-100">
+                <Calendar className="w-5 h-5 text-gray-700 flex-shrink-0" />
+            </div>
             <div className="flex flex-col">
-                <span className="text-gray-400 text-xs">Tarih</span>
+                <span className="text-gray-400 text-xs font-bold uppercase tracking-wider">Tarih</span>
                 {selectedDate ? (
                     <>
                         <span className="font-bold text-gray-900 text-sm leading-tight mt-0.5">{formattedDate}</span>
-                        <span className="text-gray-500 text-xs mt-0.5">{formattedDay}</span>
+                        <span className="text-gray-500 text-[11px] font-medium mt-0.5">{formattedDay}</span>
                     </>
                 ) : (
                     <span className="font-bold text-gray-900 text-sm mt-0.5">Tarih Seçin</span>
@@ -161,7 +163,7 @@ export default function TurDetayPage() {
             <Header />
 
             {/* STEPPER */}
-            <div className="bg-white py-8 border-b border-gray-100">
+            <div className="bg-white py-6 border-b border-gray-100">
                 <div className="max-w-7xl mx-auto px-4 flex justify-center items-center">
                     <div className="flex items-center space-x-2 md:space-x-4">
                         <div className="flex items-center gap-3">
@@ -178,149 +180,266 @@ export default function TurDetayPage() {
                         
                         <div className="flex items-center gap-3">
                             <div className="w-8 h-8 rounded-full border-2 border-gray-100 text-gray-300 bg-white flex items-center justify-center font-medium text-sm">3</div>
-                            <span className="text-sm font-medium text-gray-300 hidden sm:block">Tur Detayları</span>
+                            <span className="text-sm font-medium text-gray-300 hidden sm:block">Onay</span>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div className="max-w-7xl mx-auto px-4 py-8">
+            <div className="max-w-7xl mx-auto px-4 py-8 md:py-12">
                 {/* TITLE */}
-                <h1 className="text-2xl md:text-3xl font-semibold text-gray-900 mb-6">
+                <h1 className="text-3xl md:text-[42px] font-extrabold text-gray-900 mb-8 tracking-tight leading-tight">
                     {tour.title_tr}
                 </h1>
 
                 {/* INFO BANNER */}
-                <div className="bg-[#FFF5F5] rounded-lg p-6 mb-8 flex flex-col md:flex-row items-start md:items-center gap-6">
-                    <div className="flex items-start gap-4 min-w-[250px]">
-                        <Clock className="w-6 h-6 text-red-400 mt-1" />
-                        <div>
-                            <div className="flex justify-between gap-8 mb-1">
-                                <span className="text-sm text-gray-600">Tur Başlangıç Saati</span>
-                                <span className="font-bold text-gray-900">{tour.start_time || '09:00'}</span>
+                <div className="bg-gray-50/80 backdrop-blur-sm rounded-2xl p-6 md:p-8 mb-10 flex flex-col md:flex-row items-start md:items-center gap-8 border border-gray-100">
+                    <div className="flex items-start gap-5 min-w-[280px]">
+                        <div className="w-12 h-12 rounded-full bg-white flex items-center justify-center flex-shrink-0 shadow-sm border border-gray-100">
+                            <Clock className="w-6 h-6 text-[#e63946]" />
+                        </div>
+                        <div className="w-full">
+                            <div className="flex justify-between gap-8 mb-2">
+                                <span className="text-sm font-medium text-gray-500">Başlangıç</span>
+                                <span className="font-bold text-gray-900 bg-white px-3 py-1 rounded-md shadow-sm border border-gray-100">{tour.start_time || '09:00'}</span>
                             </div>
                             <div className="flex justify-between gap-8">
-                                <span className="text-sm text-gray-600">Tur Bitiş Saati</span>
-                                <span className="font-bold text-gray-900">{tour.end_time || '17:00'}</span>
+                                <span className="text-sm font-medium text-gray-500">Bitiş</span>
+                                <span className="font-bold text-gray-900 bg-white px-3 py-1 rounded-md shadow-sm border border-gray-100">{tour.end_time || '17:00'}</span>
                             </div>
                         </div>
                     </div>
                     
-                    <div className="hidden md:block w-[1px] h-12 bg-red-200"></div>
+                    <div className="hidden md:block w-[1px] h-16 bg-gray-200"></div>
 
-                    <div className="flex items-start gap-4">
-                        <Map className="w-6 h-6 text-red-400 flex-shrink-0 mt-1" />
-                        <p className="text-sm text-gray-600 leading-relaxed">
-                            {tour.overview_tr || tour.description_tr || "İstanbul'un tarihi ve kültürel zenginliklerini keşfetmeye hazır olun!"}
+                    <div className="flex items-start gap-5">
+                        <div className="w-12 h-12 rounded-full bg-white flex items-center justify-center flex-shrink-0 shadow-sm border border-gray-100">
+                            <Map className="w-6 h-6 text-[#0a192f]" />
+                        </div>
+                        <p className="text-base text-gray-600 leading-relaxed font-medium">
+                            {tour.overview_tr || tour.description_tr || "İstanbul'un tarihi ve kültürel zenginliklerini VIP araçlarımızla keşfetmeye hazır olun!"}
                         </p>
                     </div>
                 </div>
 
-                <div className="flex flex-col lg:flex-row gap-8">
-                    {/* LEFT - BOOKING CARD */}
-                    <div className="w-full lg:w-[400px] flex-shrink-0">
-                        <div className="bg-[#f8f9fa] rounded-xl p-6 border border-gray-100 shadow-sm sticky top-24">
-                            <h3 className="font-bold text-gray-900 mb-6 pb-4 border-b border-gray-200">
+                <div className="flex flex-col lg:flex-row gap-8 lg:gap-12">
+                    {/* LEFT - IMAGE GALLERY & DETAILS */}
+                    <div className="flex-1 order-2 lg:order-1 space-y-12">
+                        {/* Gallery */}
+                        <div className="space-y-4">
+                            <div className="relative rounded-2xl overflow-hidden aspect-[16/9] bg-gray-100 shadow-sm group">
+                                <img 
+                                    src={galleryImages[currentImageIndex]} 
+                                    alt={tour.title_tr} 
+                                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                                />
+                                
+                                {galleryImages.length > 1 && (
+                                    <>
+                                        <button onClick={prevImage} className="absolute left-6 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/40 backdrop-blur-md flex items-center justify-center text-gray-900 hover:bg-white hover:text-black transition-all border border-white/50 shadow-lg opacity-0 group-hover:opacity-100 translate-x-4 group-hover:translate-x-0">
+                                            <ChevronLeft className="w-6 h-6" />
+                                        </button>
+                                        <button onClick={nextImage} className="absolute right-6 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/40 backdrop-blur-md flex items-center justify-center text-gray-900 hover:bg-white hover:text-black transition-all border border-white/50 shadow-lg opacity-0 group-hover:opacity-100 -translate-x-4 group-hover:translate-x-0">
+                                            <ChevronRightIcon className="w-6 h-6" />
+                                        </button>
+                                    </>
+                                )}
+                            </div>
+
+                            {galleryImages.length > 1 && (
+                                <div className="grid grid-cols-5 gap-3">
+                                    {galleryImages.map((img, idx) => (
+                                        <button 
+                                            key={idx} 
+                                            onClick={() => setCurrentImageIndex(idx)}
+                                            className={`rounded-xl overflow-hidden aspect-[4/3] border-[3px] transition-all duration-300 ${currentImageIndex === idx ? 'border-[#0a192f] shadow-md' : 'border-transparent hover:border-gray-300 opacity-70 hover:opacity-100'}`}
+                                        >
+                                            <img src={img} alt="" className="w-full h-full object-cover" />
+                                        </button>
+                                    ))}
+                                </div>
+                            )}
+                        </div>
+
+                        {/* DETAILED SECTIONS */}
+                        <div className="space-y-16 border-t border-gray-100 pt-12 mb-16">
+                            
+                            {/* Genel Bakış */}
+                            <div className="flex flex-col md:flex-row gap-6 md:gap-12">
+                                <div className="w-full md:w-1/4 flex items-center gap-4 text-[#e63946]">
+                                    <Heart className="w-6 h-6" />
+                                    <h3 className="text-xl font-bold text-gray-900">Genel Bakış</h3>
+                                </div>
+                                <div className="w-full md:w-3/4">
+                                    <p className="text-gray-600 text-base leading-relaxed whitespace-pre-line">
+                                        {tour.description_tr || tour.overview_tr || 'Admin panelinden bu tur için "Detaylı Açıklama" eklendiğinde burada görünecektir.'}
+                                    </p>
+                                </div>
+                            </div>
+
+                            {/* Tur Programı */}
+                            <div className="border-t border-gray-100 pt-12 flex flex-col md:flex-row gap-6 md:gap-12">
+                                <div className="w-full md:w-1/4 flex items-center gap-4 text-[#0a192f]">
+                                    <div className="w-6 h-6 flex flex-col justify-center space-y-1.5">
+                                        <div className="w-full h-[3px] bg-current rounded-full"></div>
+                                        <div className="w-3/4 h-[3px] bg-current rounded-full"></div>
+                                        <div className="w-full h-[3px] bg-current rounded-full"></div>
+                                    </div>
+                                    <h3 className="text-xl font-bold text-gray-900">Tur Programı</h3>
+                                </div>
+                                <div className="w-full md:w-3/4 space-y-4 text-base text-gray-600">
+                                    {(tour.program_tr || 'Aşağıda detayları yazılı olan tur programını tamamlamak için araç ve şoför sağlıyoruz.').split('\n').map((line, idx) => {
+                                        if (line.trim().startsWith('-') || line.trim().startsWith('*')) {
+                                            return (
+                                                <div key={idx} className="flex items-start gap-4 bg-gray-50 p-4 rounded-xl">
+                                                    <div className="w-2 h-2 rounded-full bg-[#e63946] mt-2 flex-shrink-0"></div>
+                                                    <span className="leading-relaxed font-medium" dangerouslySetInnerHTML={{ __html: line.replace(/^[-*]\s*/, '').replace(/\((.*?)\)/g, '<span class="text-gray-400 font-normal">($1)</span>') }} />
+                                                </div>
+                                            );
+                                        } else if (line.trim() !== '') {
+                                            return <p key={idx} className="leading-relaxed whitespace-pre-line">{line}</p>;
+                                        }
+                                        return null;
+                                    })}
+                                </div>
+                            </div>
+
+                            {/* Dahil Olanlar */}
+                            <div className="border-t border-gray-100 pt-12 flex flex-col md:flex-row gap-6 md:gap-12">
+                                <div className="w-full md:w-1/4 flex items-center gap-4 text-green-600">
+                                    <Check className="w-6 h-6" />
+                                    <h3 className="text-xl font-bold text-gray-900">Dahil Olanlar</h3>
+                                </div>
+                                <div className="w-full md:w-3/4 grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm text-gray-600">
+                                    {(tour.included_tr || 'Vito veya VW marka konforlu araç\nProfesyonel şoför hizmeti\nAraçtaki kişi sayısı kadar ücretsiz su ikramı').split('\n').filter(l => l.trim()).map((line, idx) => (
+                                        <div key={idx} className="flex items-center gap-3 bg-green-50/50 p-3 rounded-lg border border-green-100">
+                                            <div className="w-6 h-6 rounded-full bg-green-100 flex items-center justify-center flex-shrink-0">
+                                                <Check className="w-4 h-4 text-green-600" />
+                                            </div>
+                                            <span className="font-medium text-gray-700">{line.replace(/^[-*+]\s*/, '')}</span>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+
+                            {/* Hariç Olanlar */}
+                            <div className="border-t border-gray-100 pt-12 flex flex-col md:flex-row gap-6 md:gap-12">
+                                <div className="w-full md:w-1/4 flex items-center gap-4 text-gray-400">
+                                    <Minus className="w-6 h-6" />
+                                    <h3 className="text-xl font-bold text-gray-900">Hariç Olanlar</h3>
+                                </div>
+                                <div className="w-full md:w-3/4 grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm text-gray-500">
+                                    {(tour.excluded_tr || 'Lisanslı tur rehberi (isteğe bağlı)\nMüze ve ören yeri giriş ücretleri\nTüm yemek, içecek ve kişisel harcamalar').split('\n').filter(l => l.trim()).map((line, idx) => (
+                                        <div key={idx} className="flex items-center gap-3 p-3">
+                                            <X className="w-5 h-5 text-gray-400 flex-shrink-0" />
+                                            <span className="line-through decoration-gray-300">{line.replace(/^[-*+]\s*/, '')}</span>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+
+                            {/* Önemli Notlar */}
+                            <div className="border-t border-gray-100 pt-12 flex flex-col md:flex-row gap-6 md:gap-12">
+                                <div className="w-full md:w-1/4 flex items-center gap-4 text-amber-500">
+                                    <Star className="w-6 h-6" />
+                                    <h3 className="text-xl font-bold text-gray-900">Önemli Notlar</h3>
+                                </div>
+                                <div className="w-full md:w-3/4 space-y-4 text-base text-gray-600">
+                                    {(tour.notes_tr || 'Tur, 8 saatlik şoför ve araç hizmeti içermektedir.\nUygun kıyafetlerle dini mekanlar ziyaret edilmelidir.\nEkstra süre talep edilmesi durumunda ek ücret uygulanır.').split('\n').filter(l => l.trim()).map((line, idx) => (
+                                        <div key={idx} className="flex items-start gap-4 bg-amber-50/50 p-4 rounded-xl border border-amber-100">
+                                            <div className="w-6 h-6 rounded-full bg-amber-100 flex items-center justify-center flex-shrink-0">
+                                                <span className="text-amber-600 font-black text-sm">!</span>
+                                            </div>
+                                            <span className="leading-relaxed font-medium text-gray-700">{line.replace(/^[-*+!]\s*/, '')}</span>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* RIGHT - BOOKING CARD */}
+                    <div className="w-full lg:w-[400px] flex-shrink-0 order-1 lg:order-2">
+                        <div className="bg-white rounded-2xl p-6 md:p-8 border border-gray-100 shadow-[0_8px_30px_rgb(0,0,0,0.08)] sticky top-28">
+                            <h3 className="text-xl font-bold text-gray-900 mb-6 pb-4 border-b border-gray-100">
                                 Katılımcıları ve Tarihi Seçin
                             </h3>
 
                             {/* Participants */}
-                            <div className="space-y-6 mb-8">
+                            <div className="space-y-4 mb-8">
                                 {/* Adult */}
-                                <div className="flex items-center justify-between">
+                                <div className="flex items-center justify-between p-3 bg-gray-50 rounded-xl border border-gray-100">
                                     <div>
-                                        <div className="font-medium text-gray-900 text-sm">Yetişkin</div>
+                                        <div className="font-bold text-gray-900 text-sm">Yetişkin</div>
                                         <div className="text-xs text-gray-500">13 yaş ve üzeri</div>
                                     </div>
                                     <div className="flex items-center gap-4">
                                         <div className="flex items-center gap-3">
-                                            <button onClick={() => setAdultCount(Math.max(1, adultCount - 1))} className="w-6 h-6 rounded-full border border-gray-300 flex items-center justify-center text-red-400 hover:border-red-400">
-                                                <Minus className="w-3 h-3" />
+                                            <button onClick={() => setAdultCount(Math.max(1, adultCount - 1))} className="w-8 h-8 rounded-full bg-white border border-gray-200 flex items-center justify-center text-gray-500 hover:border-gray-400 hover:text-black transition-colors shadow-sm">
+                                                <Minus className="w-4 h-4" />
                                             </button>
-                                            <span className="w-4 text-center font-medium text-sm">{adultCount}</span>
-                                            <button onClick={() => setAdultCount(adultCount + 1)} className="w-6 h-6 rounded-full border border-gray-300 flex items-center justify-center text-green-500 hover:border-green-500">
-                                                <Plus className="w-3 h-3" />
+                                            <span className="w-4 text-center font-bold text-base">{adultCount}</span>
+                                            <button onClick={() => setAdultCount(adultCount + 1)} className="w-8 h-8 rounded-full bg-white border border-gray-200 flex items-center justify-center text-gray-500 hover:border-gray-400 hover:text-black transition-colors shadow-sm">
+                                                <Plus className="w-4 h-4" />
                                             </button>
-                                        </div>
-                                        <div className="w-[70px] text-right font-bold text-gray-900">
-                                            {currencySymbols[selectedCurrency]}{formatPrice(prices.adult[selectedCurrency] * adultCount)}
                                         </div>
                                     </div>
                                 </div>
 
                                 {/* Child */}
-                                <div className="flex items-center justify-between">
+                                <div className="flex items-center justify-between p-3 bg-gray-50 rounded-xl border border-gray-100">
                                     <div>
-                                        <div className="font-medium text-gray-900 text-sm">Çocuk</div>
+                                        <div className="font-bold text-gray-900 text-sm">Çocuk</div>
                                         <div className="text-xs text-gray-500">4-9 yaş arası</div>
                                     </div>
                                     <div className="flex items-center gap-4">
                                         <div className="flex items-center gap-3">
-                                            <button onClick={() => setChildCount(Math.max(0, childCount - 1))} className="w-6 h-6 rounded-full border border-gray-300 flex items-center justify-center text-red-400 hover:border-red-400">
-                                                <Minus className="w-3 h-3" />
+                                            <button onClick={() => setChildCount(Math.max(0, childCount - 1))} className="w-8 h-8 rounded-full bg-white border border-gray-200 flex items-center justify-center text-gray-500 hover:border-gray-400 hover:text-black transition-colors shadow-sm">
+                                                <Minus className="w-4 h-4" />
                                             </button>
-                                            <span className="w-4 text-center font-medium text-sm">{childCount}</span>
-                                            <button onClick={() => setChildCount(childCount + 1)} className="w-6 h-6 rounded-full border border-gray-300 flex items-center justify-center text-green-500 hover:border-green-500">
-                                                <Plus className="w-3 h-3" />
+                                            <span className="w-4 text-center font-bold text-base">{childCount}</span>
+                                            <button onClick={() => setChildCount(childCount + 1)} className="w-8 h-8 rounded-full bg-white border border-gray-200 flex items-center justify-center text-gray-500 hover:border-gray-400 hover:text-black transition-colors shadow-sm">
+                                                <Plus className="w-4 h-4" />
                                             </button>
-                                        </div>
-                                        <div className="w-[70px] text-right font-bold text-gray-900">
-                                            {currencySymbols[selectedCurrency]}{formatPrice(prices.child[selectedCurrency] * childCount)}
                                         </div>
                                     </div>
                                 </div>
 
                                 {/* Baby */}
-                                <div className="flex items-center justify-between">
+                                <div className="flex items-center justify-between p-3 bg-gray-50 rounded-xl border border-gray-100">
                                     <div>
-                                        <div className="font-medium text-gray-900 text-sm">Bebek</div>
+                                        <div className="font-bold text-gray-900 text-sm">Bebek</div>
                                         <div className="text-xs text-gray-500">4 yaş öncesi</div>
                                     </div>
                                     <div className="flex items-center gap-4">
                                         <div className="flex items-center gap-3">
-                                            <button onClick={() => setBabyCount(Math.max(0, babyCount - 1))} className="w-6 h-6 rounded-full border border-gray-300 flex items-center justify-center text-red-400 hover:border-red-400">
-                                                <Minus className="w-3 h-3" />
+                                            <button onClick={() => setBabyCount(Math.max(0, babyCount - 1))} className="w-8 h-8 rounded-full bg-white border border-gray-200 flex items-center justify-center text-gray-500 hover:border-gray-400 hover:text-black transition-colors shadow-sm">
+                                                <Minus className="w-4 h-4" />
                                             </button>
-                                            <span className="w-4 text-center font-medium text-sm">{babyCount}</span>
-                                            <button onClick={() => setBabyCount(babyCount + 1)} className="w-6 h-6 rounded-full border border-gray-300 flex items-center justify-center text-green-500 hover:border-green-500">
-                                                <Plus className="w-3 h-3" />
+                                            <span className="w-4 text-center font-bold text-base">{babyCount}</span>
+                                            <button onClick={() => setBabyCount(babyCount + 1)} className="w-8 h-8 rounded-full bg-white border border-gray-200 flex items-center justify-center text-gray-500 hover:border-gray-400 hover:text-black transition-colors shadow-sm">
+                                                <Plus className="w-4 h-4" />
                                             </button>
-                                        </div>
-                                        <div className="w-[70px] text-right font-bold text-gray-900">
-                                            {currencySymbols[selectedCurrency]}0
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
                             {/* Currency Selector */}
-                            <div className="flex gap-2 mb-8">
+                            <div className="flex gap-2 mb-6">
                                 {(['try', 'eur', 'usd', 'gbp'] as const).map((curr) => (
                                     <button
                                         key={curr}
                                         onClick={() => setSelectedCurrency(curr)}
-                                        className={`flex-1 py-2.5 rounded border text-sm font-bold transition-all relative ${
+                                        className={`flex-1 py-2.5 rounded-lg border text-sm font-bold transition-all relative ${
                                             selectedCurrency === curr 
-                                            ? 'border-green-500 text-green-600 bg-white shadow-sm' 
-                                            : 'border-gray-200 text-gray-600 bg-white hover:border-gray-300'
+                                            ? 'border-gray-900 text-white bg-gray-900 shadow-md' 
+                                            : 'border-gray-200 text-gray-600 bg-white hover:border-gray-300 hover:bg-gray-50'
                                         }`}
                                     >
-                                        {selectedCurrency === curr && (
-                                            <div className="absolute -top-1.5 -left-1.5 w-4 h-4 bg-green-500 rounded-full flex items-center justify-center text-white">
-                                                <Check className="w-3 h-3" />
-                                            </div>
-                                        )}
                                         {currencySymbols[curr]}
                                     </button>
                                 ))}
-                            </div>
-
-                            {/* Total Area */}
-                            <div className="flex justify-between items-center py-4 border-t border-b border-gray-200 mb-6">
-                                <span className="font-bold text-gray-800 text-sm">Toplam Tutar</span>
-                                <span className="text-2xl font-bold text-green-500">
-                                    {currencySymbols[selectedCurrency]}{formatPrice(calculateTotal())}
-                                </span>
                             </div>
 
                             {/* Date Picker */}
@@ -335,141 +454,42 @@ export default function TurDetayPage() {
                                 required
                             />
 
-                            <button className="w-full bg-[#10b981] hover:bg-[#059669] text-white font-bold py-4 rounded-lg uppercase tracking-wide text-sm transition-colors shadow-md">
+                            {/* Total Area */}
+                            <div className="flex justify-between items-end p-4 bg-green-50 rounded-xl border border-green-100 mb-6 mt-4">
+                                <span className="font-bold text-gray-700 text-sm">Toplam Tutar</span>
+                                <div className="text-right">
+                                    <span className="text-sm font-bold text-green-600 mr-1">{currencySymbols[selectedCurrency]}</span>
+                                    <span className="text-3xl font-black text-green-600 tracking-tight">
+                                        {formatPrice(calculateTotal())}
+                                    </span>
+                                </div>
+                            </div>
+
+                            <button onClick={() => {
+                                if (!selectedDate) {
+                                    alert('Lütfen bir tarih seçiniz.');
+                                    return;
+                                }
+                                const payload = {
+                                    tourId: tour.id,
+                                    tourName: tour.title_tr,
+                                    date: format(selectedDate, 'dd MMMM yyyy', { locale: tr }),
+                                    rawDate: selectedDate.toISOString(),
+                                    adultCount,
+                                    childCount,
+                                    babyCount,
+                                    passengers: adultCount + childCount + babyCount,
+                                    totalPrice: calculateTotal(),
+                                    currency: selectedCurrency,
+                                    image_url: mainImageUrl
+                                };
+                                localStorage.setItem('pendingTourBooking', JSON.stringify(payload));
+                                router.push(`/turlar/${tour.id}/checkout`);
+                            }} className="w-full bg-[#0a192f] hover:bg-[#B58A32] text-white font-bold py-4 rounded-xl uppercase tracking-widest text-sm transition-all duration-300 shadow-[0_4px_14px_0_rgba(10,25,47,0.39)] hover:shadow-[0_6px_20px_rgba(181,138,50,0.23)] hover:-translate-y-0.5">
                                 REZERVASYON YAP
                             </button>
                         </div>
                     </div>
-
-                    {/* RIGHT - IMAGE GALLERY */}
-                    <div className="flex-1 space-y-4">
-                        <div className="relative rounded-xl overflow-hidden aspect-[16/9] bg-gray-100">
-                            <img 
-                                src={galleryImages[currentImageIndex]} 
-                                alt={tour.title_tr} 
-                                className="w-full h-full object-cover"
-                            />
-                            
-                            {galleryImages.length > 1 && (
-                                <>
-                                    <button onClick={prevImage} className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/30 backdrop-blur-md flex items-center justify-center text-white hover:bg-white/50 transition-colors border border-white/20">
-                                        <ChevronLeft className="w-6 h-6" />
-                                    </button>
-                                    <button onClick={nextImage} className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/30 backdrop-blur-md flex items-center justify-center text-white hover:bg-white/50 transition-colors border border-white/20">
-                                        <ChevronRightIcon className="w-6 h-6" />
-                                    </button>
-                                </>
-                            )}
-                        </div>
-
-                        {galleryImages.length > 1 && (
-                            <div className="grid grid-cols-5 gap-2 md:gap-4">
-                                {galleryImages.map((img, idx) => (
-                                    <button 
-                                        key={idx} 
-                                        onClick={() => setCurrentImageIndex(idx)}
-                                        className={`rounded-lg overflow-hidden aspect-[4/3] border-2 transition-all ${currentImageIndex === idx ? 'border-gray-800' : 'border-transparent hover:border-gray-300 opacity-80 hover:opacity-100'}`}
-                                    >
-                                        <img src={img} alt="" className="w-full h-full object-cover" />
-                                    </button>
-                                ))}
-                            </div>
-                        )}
-
-                    </div>
-                </div>
-
-                {/* DETAILED SECTIONS (FULL WIDTH) */}
-                <div className="mt-24 space-y-16 border-t border-gray-100 pt-16 mb-32">
-                    
-                    {/* Genel Bakış */}
-                    <div className="flex flex-col md:flex-row gap-8 md:gap-12">
-                        <div className="w-full md:w-1/4 flex items-center gap-4">
-                            <Heart className="w-6 h-6 text-red-500" />
-                            <h3 className="text-lg font-bold text-gray-900">Genel Bakış</h3>
-                        </div>
-                        <div className="w-full md:w-3/4">
-                            <p className="text-gray-600 text-sm leading-relaxed whitespace-pre-line">
-                                {tour.description_tr || tour.overview_tr || 'Admin panelinden bu tur için "Detaylı Açıklama" eklendiğinde burada görünecektir.'}
-                            </p>
-                        </div>
-                    </div>
-
-                    {/* Tur Programı */}
-                    <div className="border-t border-gray-100 pt-12 flex flex-col md:flex-row gap-8 md:gap-12">
-                        <div className="w-full md:w-1/4 flex items-center gap-4">
-                            <div className="w-6 h-6 flex flex-col justify-center space-y-1.5">
-                                <div className="w-full h-0.5 bg-red-500 rounded"></div>
-                                <div className="w-full h-0.5 bg-red-500 rounded"></div>
-                                <div className="w-full h-0.5 bg-red-500 rounded"></div>
-                            </div>
-                            <h3 className="text-lg font-bold text-gray-900">Tur Programı</h3>
-                        </div>
-                        <div className="w-full md:w-3/4 space-y-4 text-sm text-gray-600">
-                            {(tour.program_tr || 'Aşağıda detayları yazılı olan tur programını tamamlamak için araç ve şoför sağlıyoruz.').split('\n').map((line, idx) => {
-                                if (line.trim().startsWith('-') || line.trim().startsWith('*')) {
-                                    return (
-                                        <div key={idx} className="flex items-start gap-3 ml-4">
-                                            <div className="w-1.5 h-1.5 rounded-full border border-gray-400 mt-1.5 flex-shrink-0"></div>
-                                            <span className="leading-relaxed" dangerouslySetInnerHTML={{ __html: line.replace(/^[-*]\s*/, '').replace(/\((.*?)\)/g, '<span class="text-gray-400">($1)</span>') }} />
-                                        </div>
-                                    );
-                                } else if (line.trim() !== '') {
-                                    return <p key={idx} className="leading-relaxed whitespace-pre-line">{line}</p>;
-                                }
-                                return null;
-                            })}
-                        </div>
-                    </div>
-
-                    {/* Dahil Olanlar */}
-                    <div className="border-t border-gray-100 pt-12 flex flex-col md:flex-row gap-8 md:gap-12">
-                        <div className="w-full md:w-1/4 flex items-center gap-4">
-                            <Check className="w-6 h-6 text-red-500" />
-                            <h3 className="text-lg font-bold text-gray-900">Dahil Olanlar</h3>
-                        </div>
-                        <div className="w-full md:w-3/4 space-y-3 text-sm text-gray-600">
-                            {(tour.included_tr || 'Vito veya VW marka konforlu araç\nProfesyonel şoför hizmeti\nAraçtaki kişi sayısı kadar ücretsiz su ikramı').split('\n').filter(l => l.trim()).map((line, idx) => (
-                                <div key={idx} className="flex items-start gap-3">
-                                    <Plus className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
-                                    <span className="leading-relaxed">{line.replace(/^[-*+]\s*/, '')}</span>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-
-                    {/* Hariç Olanlar */}
-                    <div className="border-t border-gray-100 pt-12 flex flex-col md:flex-row gap-8 md:gap-12">
-                        <div className="w-full md:w-1/4 flex items-center gap-4">
-                            <Minus className="w-6 h-6 text-red-500" />
-                            <h3 className="text-lg font-bold text-gray-900">Hariç Olanlar</h3>
-                        </div>
-                        <div className="w-full md:w-3/4 space-y-3 text-sm text-gray-600">
-                            {(tour.excluded_tr || 'Lisanslı tur rehberi (isteğe bağlı, ek ücretli)\nMüze ve ören yeri giriş ücretleri\nTüm yemek, içecek ve kişisel harcamalar').split('\n').filter(l => l.trim()).map((line, idx) => (
-                                <div key={idx} className="flex items-start gap-3">
-                                    <Minus className="w-4 h-4 text-yellow-500 mt-0.5 flex-shrink-0" />
-                                    <span className="leading-relaxed">{line.replace(/^[-*+]\s*/, '')}</span>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-
-                    {/* Önemli Notlar */}
-                    <div className="border-t border-gray-100 pt-12 flex flex-col md:flex-row gap-8 md:gap-12">
-                        <div className="w-full md:w-1/4 flex items-center gap-4">
-                            <Star className="w-6 h-6 text-red-500" />
-                            <h3 className="text-lg font-bold text-gray-900">Önemli Notlar</h3>
-                        </div>
-                        <div className="w-full md:w-3/4 space-y-3 text-sm text-gray-600">
-                            {(tour.notes_tr || 'Tur, 8 saatlik şoför ve araç hizmeti içermektedir.\nUygun kıyafetlerle dini mekanlar ziyaret edilmelidir.\nEkstra süre talep edilmesi durumunda ek ücret uygulanır.').split('\n').filter(l => l.trim()).map((line, idx) => (
-                                <div key={idx} className="flex items-start gap-3">
-                                    <span className="text-red-500 font-bold mt-0.5 flex-shrink-0">!</span>
-                                    <span className="leading-relaxed">{line.replace(/^[-*+!]\s*/, '')}</span>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-
                 </div>
             </div>
             
