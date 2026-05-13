@@ -972,132 +972,132 @@ export default function Home() {
                                 className="flex space-x-4 overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none']"
                             >
                                 {/* Original Photos */}
-                                <div className="flex-shrink-0 w-64 h-48 rounded-2xl overflow-hidden shadow-lg">
+                                <div className="flex-shrink-0 w-64 h-64 rounded-2xl overflow-hidden shadow-lg">
                                     <img
-                                        src="https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?q=80&w=800"
-                                        alt="Customer moment 1"
-                                        className="w-full h-full object-cover"
+                                        src="/rideportx_team.jpg"
+                                        alt="RidePortX VIP Transfer"
+                                        className="w-full h-full object-cover object-[50%_35%]"
                                     />
                                 </div>
 
-                                <div className="flex-shrink-0 w-64 h-48 rounded-2xl overflow-hidden shadow-lg">
+                                <div className="flex-shrink-0 w-64 h-64 rounded-2xl overflow-hidden shadow-lg">
                                     <img
-                                        src="https://images.unsplash.com/photo-1464219789935-c2d9d9aba644?q=80&w=800"
-                                        alt="Customer moment 2"
-                                        className="w-full h-full object-cover"
+                                        src="/rideportx_team2.png"
+                                        alt="RidePortX VIP Transfer 2"
+                                        className="w-full h-full object-cover object-[50%_35%]"
                                     />
                                 </div>
 
-                                <div className="flex-shrink-0 w-64 h-48 rounded-2xl overflow-hidden shadow-lg">
+                                <div className="flex-shrink-0 w-64 h-64 rounded-2xl overflow-hidden shadow-lg">
                                     <img
-                                        src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=800"
-                                        alt="Customer moment 3"
-                                        className="w-full h-full object-cover"
+                                        src="/rideportx_team3.png"
+                                        alt="RidePortX VIP Transfer 3"
+                                        className="w-full h-full object-cover object-[50%_35%]"
                                     />
                                 </div>
 
-                                <div className="flex-shrink-0 w-64 h-48 rounded-2xl overflow-hidden shadow-lg">
+                                <div className="flex-shrink-0 w-64 h-64 rounded-2xl overflow-hidden shadow-lg">
                                     <img
-                                        src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?q=80&w=800"
-                                        alt="Customer moment 4"
-                                        className="w-full h-full object-cover"
+                                        src="/rideportx_team4.png"
+                                        alt="RidePortX VIP Transfer 4"
+                                        className="w-full h-full object-cover object-[50%_35%]"
                                     />
                                 </div>
 
-                                <div className="flex-shrink-0 w-64 h-48 rounded-2xl overflow-hidden shadow-lg">
+                                <div className="flex-shrink-0 w-64 h-64 rounded-2xl overflow-hidden shadow-lg">
                                     <img
-                                        src="https://images.unsplash.com/photo-1527631746610-bca00a040d60?q=80&w=800"
-                                        alt="Customer moment 5"
-                                        className="w-full h-full object-cover"
+                                        src="/rideportx_team5.png"
+                                        alt="RidePortX VIP Transfer 5"
+                                        className="w-full h-full object-cover object-[50%_35%]"
                                     />
                                 </div>
 
-                                <div className="flex-shrink-0 w-64 h-48 rounded-2xl overflow-hidden shadow-lg">
+                                <div className="flex-shrink-0 w-64 h-64 rounded-2xl overflow-hidden shadow-lg">
                                     <img
-                                        src="https://images.unsplash.com/photo-1502920917128-1aa500764cbd?q=80&w=800"
-                                        alt="Customer moment 6"
-                                        className="w-full h-full object-cover"
+                                        src="/rideportx_team6.png"
+                                        alt="RidePortX VIP Transfer 6"
+                                        className="w-full h-full object-cover object-[50%_35%]"
                                     />
                                 </div>
 
-                                <div className="flex-shrink-0 w-64 h-48 rounded-2xl overflow-hidden shadow-lg">
+                                <div className="flex-shrink-0 w-64 h-64 rounded-2xl overflow-hidden shadow-lg">
                                     <img
-                                        src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?q=80&w=800"
-                                        alt="Customer moment 7"
-                                        className="w-full h-full object-cover"
+                                        src="/rideportx_team7.png"
+                                        alt="RidePortX VIP Transfer 7"
+                                        className="w-full h-full object-cover object-[50%_35%]"
                                     />
                                 </div>
 
-                                <div className="flex-shrink-0 w-64 h-48 rounded-2xl overflow-hidden shadow-lg">
+                                <div className="flex-shrink-0 w-64 h-64 rounded-2xl overflow-hidden shadow-lg">
                                     <img
-                                        src="https://images.unsplash.com/photo-1530789253388-582c481c54b0?q=80&w=800"
-                                        alt="Customer moment 8"
-                                        className="w-full h-full object-cover"
+                                        src="/rideportx_team8.png"
+                                        alt="RidePortX VIP Transfer 8"
+                                        className="w-full h-full object-cover object-[50%_35%]"
                                     />
                                 </div>
 
                                 {/* Duplicated Photos for Infinite Loop */}
-                                <div className="flex-shrink-0 w-64 h-48 rounded-2xl overflow-hidden shadow-lg">
+                                <div className="flex-shrink-0 w-64 h-64 rounded-2xl overflow-hidden shadow-lg">
                                     <img
-                                        src="https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?q=80&w=800"
-                                        alt="Customer moment 1"
-                                        className="w-full h-full object-cover"
+                                        src="/rideportx_team.jpg"
+                                        alt="RidePortX VIP Transfer"
+                                        className="w-full h-full object-cover object-[50%_35%]"
                                     />
                                 </div>
 
-                                <div className="flex-shrink-0 w-64 h-48 rounded-2xl overflow-hidden shadow-lg">
+                                <div className="flex-shrink-0 w-64 h-64 rounded-2xl overflow-hidden shadow-lg">
                                     <img
-                                        src="https://images.unsplash.com/photo-1464219789935-c2d9d9aba644?q=80&w=800"
-                                        alt="Customer moment 2"
-                                        className="w-full h-full object-cover"
+                                        src="/rideportx_team2.png"
+                                        alt="RidePortX VIP Transfer 2"
+                                        className="w-full h-full object-cover object-[50%_35%]"
                                     />
                                 </div>
 
-                                <div className="flex-shrink-0 w-64 h-48 rounded-2xl overflow-hidden shadow-lg">
+                                <div className="flex-shrink-0 w-64 h-64 rounded-2xl overflow-hidden shadow-lg">
                                     <img
-                                        src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=800"
-                                        alt="Customer moment 3"
-                                        className="w-full h-full object-cover"
+                                        src="/rideportx_team3.png"
+                                        alt="RidePortX VIP Transfer 3"
+                                        className="w-full h-full object-cover object-[50%_35%]"
                                     />
                                 </div>
 
-                                <div className="flex-shrink-0 w-64 h-48 rounded-2xl overflow-hidden shadow-lg">
+                                <div className="flex-shrink-0 w-64 h-64 rounded-2xl overflow-hidden shadow-lg">
                                     <img
-                                        src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?q=80&w=800"
-                                        alt="Customer moment 4"
-                                        className="w-full h-full object-cover"
+                                        src="/rideportx_team4.png"
+                                        alt="RidePortX VIP Transfer 4"
+                                        className="w-full h-full object-cover object-[50%_35%]"
                                     />
                                 </div>
 
-                                <div className="flex-shrink-0 w-64 h-48 rounded-2xl overflow-hidden shadow-lg">
+                                <div className="flex-shrink-0 w-64 h-64 rounded-2xl overflow-hidden shadow-lg">
                                     <img
-                                        src="https://images.unsplash.com/photo-1527631746610-bca00a040d60?q=80&w=800"
-                                        alt="Customer moment 5"
-                                        className="w-full h-full object-cover"
+                                        src="/rideportx_team5.png"
+                                        alt="RidePortX VIP Transfer 5"
+                                        className="w-full h-full object-cover object-[50%_35%]"
                                     />
                                 </div>
 
-                                <div className="flex-shrink-0 w-64 h-48 rounded-2xl overflow-hidden shadow-lg">
+                                <div className="flex-shrink-0 w-64 h-64 rounded-2xl overflow-hidden shadow-lg">
                                     <img
-                                        src="https://images.unsplash.com/photo-1502920917128-1aa500764cbd?q=80&w=800"
-                                        alt="Customer moment 6"
-                                        className="w-full h-full object-cover"
+                                        src="/rideportx_team6.png"
+                                        alt="RidePortX VIP Transfer 6"
+                                        className="w-full h-full object-cover object-[50%_35%]"
                                     />
                                 </div>
 
-                                <div className="flex-shrink-0 w-64 h-48 rounded-2xl overflow-hidden shadow-lg">
+                                <div className="flex-shrink-0 w-64 h-64 rounded-2xl overflow-hidden shadow-lg">
                                     <img
-                                        src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?q=80&w=800"
-                                        alt="Customer moment 7"
-                                        className="w-full h-full object-cover"
+                                        src="/rideportx_team7.png"
+                                        alt="RidePortX VIP Transfer 7"
+                                        className="w-full h-full object-cover object-[50%_35%]"
                                     />
                                 </div>
 
-                                <div className="flex-shrink-0 w-64 h-48 rounded-2xl overflow-hidden shadow-lg">
+                                <div className="flex-shrink-0 w-64 h-64 rounded-2xl overflow-hidden shadow-lg">
                                     <img
-                                        src="https://images.unsplash.com/photo-1530789253388-582c481c54b0?q=80&w=800"
-                                        alt="Customer moment 8"
-                                        className="w-full h-full object-cover"
+                                        src="/rideportx_team8.png"
+                                        alt="RidePortX VIP Transfer 8"
+                                        className="w-full h-full object-cover object-[50%_35%]"
                                     />
                                 </div>
                             </div>

@@ -8,10 +8,12 @@ export default function Footer() {
 
                 {/* TOP CONTACT INFO - 3 Columns */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8 pb-12 border-b border-gray-800">
-                    {/* Phone */}
+                    {/* WhatsApp */}
                     <div className="flex items-start space-x-4">
-                        <div className="w-12 h-12 rounded-2xl bg-gray-900 flex items-center justify-center flex-shrink-0">
-                            <MessageCircle className="w-6 h-6 text-white" />
+                        <div className="w-12 h-12 rounded-2xl bg-[#25D366] flex items-center justify-center flex-shrink-0">
+                            <svg className="w-7 h-7 text-white" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                            </svg>
                         </div>
                         <div>
                             <div className="font-bold text-lg mb-1">+90 (532) 417 89 63</div>
@@ -22,7 +24,12 @@ export default function Footer() {
                     {/* Email */}
                     <div className="flex items-start space-x-4">
                         <div className="w-12 h-12 rounded-2xl bg-gray-900 flex items-center justify-center flex-shrink-0">
-                            <Mail className="w-6 h-6 text-white" />
+                            <svg className="w-7 h-7" viewBox="0 0 24 24" fill="none">
+                                <path d="M22 6L12 13L2 6" stroke="#EA4335" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                                <rect x="2" y="4" width="20" height="16" rx="2" stroke="#4285F4" strokeWidth="2"/>
+                                <path d="M2 6l10 7" stroke="#FBBC05" strokeWidth="2" strokeLinecap="round"/>
+                                <path d="M22 6l-10 7" stroke="#34A853" strokeWidth="2" strokeLinecap="round"/>
+                            </svg>
                         </div>
                         <div>
                             <div className="font-bold text-lg mb-1">info@rideportx.com</div>
@@ -33,7 +40,11 @@ export default function Footer() {
                     {/* Address */}
                     <div className="flex items-start space-x-4">
                         <div className="w-12 h-12 rounded-2xl bg-gray-900 flex items-center justify-center flex-shrink-0">
-                            <MapPin className="w-6 h-6 text-white" />
+                            <svg className="w-7 h-7" viewBox="0 0 24 24" fill="none">
+                                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="#EA4335"/>
+                                <circle cx="12" cy="9" r="2.5" fill="white"/>
+                                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" stroke="#C5221F" strokeWidth="0.5"/>
+                            </svg>
                         </div>
                         <div>
                             <div className="font-bold text-lg mb-1">Maslak, Şişli</div>
@@ -151,11 +162,15 @@ export default function Footer() {
                         </div>
 
                         {/* Orta: Ödeme Yöntemleri - Referans birebir */}
-                        <div className="flex items-center gap-6 flex-wrap justify-center">
+                        <div className="flex items-center gap-5 flex-wrap justify-center">
                             {/* 256 BIT ENCRYPTION */}
                             <div className="flex items-center gap-1.5">
-                                <svg className="w-6 h-6 text-yellow-500" fill="currentColor" viewBox="0 0 24 24">
-                                    <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/>
+                                <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none">
+                                    <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z" fill="#F5C518"/>
+                                    <path d="M12 1v22c5.16-1.26 9-6.45 9-12V5l-9-4z" fill="#D4A80E"/>
+                                    <rect x="9.5" y="10" width="5" height="6" rx="0.5" fill="#1a1a2e"/>
+                                    <rect x="10.5" y="11" width="3" height="2" rx="0.3" fill="#F5C518"/>
+                                    <path d="M10 10V8.5a2 2 0 014 0V10" stroke="#1a1a2e" strokeWidth="1.2" fill="none"/>
                                 </svg>
                                 <div className="text-[10px] font-bold text-gray-300 leading-[1.1]">
                                     <div>256 BIT</div>
@@ -164,46 +179,47 @@ export default function Footer() {
                             </div>
 
                             {/* PayPal */}
-                            <span className="text-[18px] font-black italic tracking-tight">
+                            <span className="text-[20px] font-black italic tracking-tight" style={{fontFamily: 'Verdana, Arial, sans-serif'}}>
                                 <span className="text-[#009cde]">Pay</span><span className="text-[#003087]">Pal</span>
                             </span>
 
                             {/* MasterCard */}
                             <div className="flex flex-col items-center gap-0.5">
-                                <div className="flex items-center">
-                                    <div className="w-5 h-5 rounded-full bg-[#eb001b]"></div>
-                                    <div className="w-5 h-5 rounded-full bg-[#f79e1b] -ml-2"></div>
-                                </div>
-                                <span className="text-[7px] font-semibold text-gray-400 tracking-wide">MasterCard</span>
+                                <svg className="h-7" viewBox="0 0 36 22" fill="none">
+                                    <circle cx="13" cy="11" r="9" fill="#EB001B"/>
+                                    <circle cx="23" cy="11" r="9" fill="#F79E1B"/>
+                                    <path d="M18 4.344a8.963 8.963 0 013 6.656 8.963 8.963 0 01-3 6.656A8.963 8.963 0 0115 11a8.963 8.963 0 013-6.656z" fill="#FF5F00"/>
+                                </svg>
+                                <span className="text-[8px] font-semibold text-gray-400 tracking-wide">MasterCard</span>
                             </div>
 
                             {/* Maestro */}
                             <div className="flex flex-col items-center gap-0.5">
-                                <div className="flex items-center">
-                                    <div className="w-5 h-5 rounded-full bg-[#0099df]"></div>
-                                    <div className="w-5 h-5 rounded-full bg-[#eb001b] -ml-2"></div>
-                                </div>
-                                <span className="text-[7px] font-semibold text-gray-400 tracking-wide">Maestro</span>
+                                <svg className="h-7" viewBox="0 0 36 22" fill="none">
+                                    <circle cx="13" cy="11" r="9" fill="#6C6BBD"/>
+                                    <circle cx="23" cy="11" r="9" fill="#EB001B"/>
+                                    <path d="M18 4.344a8.963 8.963 0 013 6.656 8.963 8.963 0 01-3 6.656A8.963 8.963 0 0115 11a8.963 8.963 0 013-6.656z" fill="#7673C0"/>
+                                </svg>
+                                <span className="text-[8px] font-semibold text-gray-400 tracking-wide">Maestro</span>
                             </div>
 
                             {/* VISA */}
-                            <span className="text-[22px] font-black text-[#1a1f71] italic tracking-tight" style={{fontFamily: 'Arial, sans-serif'}}>VISA</span>
+                            <span className="text-[24px] font-black text-[#1A1F71] italic tracking-tight" style={{fontFamily: 'Arial, sans-serif'}}>VISA</span>
 
                             {/* VISA Electron */}
-                            <div className="border border-gray-500 rounded px-1.5 py-0.5">
-                                <span className="text-[13px] font-black text-[#1a1f71] italic tracking-tight" style={{fontFamily: 'Arial, sans-serif'}}>VISA</span>
+                            <div className="flex flex-col items-center border border-[#1A1F71] rounded px-2 py-0.5">
+                                <span className="text-[14px] font-black text-[#1A1F71] italic tracking-tight" style={{fontFamily: 'Arial, sans-serif'}}>VISA</span>
+                                <span className="text-[6px] font-bold text-[#1A1F71] tracking-[0.15em] -mt-0.5">ELECTRON</span>
                             </div>
 
                             {/* AMEX */}
-                            <div className="flex flex-col items-center">
-                                <div className="bg-[#006fcf] rounded px-2 py-1">
-                                    <div className="text-[8px] font-bold text-white leading-[1.1] tracking-wider">AMERICAN</div>
-                                    <div className="text-[8px] font-bold text-white leading-[1.1] tracking-wider">EXPRESS</div>
-                                </div>
+                            <div className="bg-[#006FCF] rounded px-2 py-1.5">
+                                <div className="text-[8px] font-bold text-white leading-[1.15] tracking-[0.12em]" style={{fontFamily: 'Arial, sans-serif'}}>AMERICAN</div>
+                                <div className="text-[8px] font-bold text-white leading-[1.15] tracking-[0.12em]" style={{fontFamily: 'Arial, sans-serif'}}>EXPRESS</div>
                             </div>
 
-                            {/* Troy */}
-                            <span className="text-[18px] font-bold text-[#00a651] tracking-tight" style={{fontFamily: 'Arial, sans-serif'}}>troy</span>
+                            {/* troy */}
+                            <span className="text-[20px] font-bold italic text-[#00A651] tracking-tight" style={{fontFamily: 'Arial, sans-serif'}}>troy</span>
                         </div>
 
                         {/* Sağ: TÜRSAB Rozeti */}
