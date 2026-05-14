@@ -1,7 +1,7 @@
 {
   "Index": {
-    "title": "Asitane Travel | Flughafen Transfer Istanbul",
-    "description": "Flughafen- und Stadttransfer mit Asitane Travel",
+    "title": "RidePortX | Flughafen Transfer Istanbul",
+    "description": "Flughafen- und Stadttransfer mit RidePortX",
     "bookNow": "Jetzt Buchen",
     "from": "Von",
     "to": "Nach"
@@ -10,6 +10,7 @@
     "nav": {
       "tours": "Touren",
       "about": "Über Uns",
+      "blog": "Blog",
       "partner": "Partner Werden",
       "carrier": "Träger Werden",
       "contact": "Kontakt",
@@ -19,5 +20,500 @@
       "register": "Registrieren",
       "login": "Anmelden"
     }
+  },
+  "Home": {
+    "banners": {
+      "0": {
+        "subtitle": "RÜCKERSTATTUNGSGARANTIE.",
+        "title1": "100% Rückerstattung bei Stornierungen <br></br> bis zu",
+        "titleHighlight": "6 Stunden im Voraus."
+      },
+      "1": {
+        "subtitle": "24/7 FLUGHAFENTRANSFER.",
+        "title1": "Erreichen Sie Ihr Hotel von den Istanbuler Flughäfen",
+        "titleHighlight": "mit VIP-Privilegien."
+      },
+      "2": {
+        "subtitle": "PRIVATE ISTANBUL TOUREN.",
+        "title1": "Entdecken Sie die historischen Schönheiten der Stadt",
+        "titleHighlight": "mit unseren Luxusfahrzeugen."
+      }
+    },
+    "booking": {
+      "tabs": {
+        "airport": "Flughafentransfer",
+        "hotel": "Hoteltransfer",
+        "tour": "Stadtrundfahrt",
+        "vip": "VIP-Fahrzeug"
+      },
+      "form": {
+        "from": "VON",
+        "fromPlaceholder": "Adresse, Flughafen, Hotel, Krankenhaus...",
+        "to": "NACH",
+        "toPlaceholder": "Adresse, Flughafen, Hotel, Krankenhaus...",
+        "date": "DATUM & ZEIT",
+        "departure": "ABFAHRT",
+        "return": "RÜCKKEHR",
+        "roundTrip": "HIN- UND RÜCKFAHRT",
+        "discount": "10% Rabatt",
+        "passengers": "PASSAGIERE",
+        "search": "Suchen",
+        "searching": "Suchen...",
+        "selectDate": "Datum auswählen",
+        "person": "Person"
+      }
+    },
+    "reviews": {
+      "title": "Hervorgehobene Bewertungen",
+      "summary": "Zusammenfassung",
+      "platform": "Google & Tripadvisor",
+      "0": "Benutzer heben im Allgemeinen die <b>Professionalität der Fahrer</b>, <b>VIP-Luxus der Fahrzeuge</b> und das <b>fehlerfreie Timing</b> hervor.",
+      "1": "Unsere Gäste erwähnen besonders, dass sie mit den <b>Fremdsprachenkenntnissen der Fahrer</b> und der <b>sicheren Fahrweise während der Fahrt</b> sehr zufrieden sind.",
+      "2": "In den Bewertungen wird betont, dass <b>Erfrischungen im Auto</b>, <b>Sauberkeit</b> und <b>bequeme Sitze</b> die Reisequalität erhöhen.",
+      "3": "Bei Familientransfers gehören <b>Kindersitzunterstützung</b> und <b>Gepäckhilfe</b> zu den von unseren Gästen am meisten geschätzten Details.",
+      "4": "Unsere Besucher geben an, dass <b>24/7 ununterbrochene Kommunikation</b> und <b>Flugverspätungsverfolgung</b> ihnen großes Vertrauen geben.",
+      "5": "Geschäftsreisende loben die <b>Zeitersparnis</b> und die <b>mobilen Arbeitsmöglichkeiten im Fahrzeug</b>."
+    },
+    "tours": {
+      "subtitle": "EINZIGARTIGE ERLEBNISSE",
+      "title1": "Private ",
+      "titleHighlight": "Istanbul",
+      "title2": " Touren",
+      "desc": "Machen Sie sich bereit, die historischen Schönheiten und verborgenen Schätze der Stadt mit VIP-Privilegien und unseren Luxusfahrzeugen zu entdecken."
+    }
+  },
+  "Footer": {
+    "contactTitle": "Kontakt",
+    "whatsappPhone": "Whatsapp & Telefon",
+    "email": "E-Mail",
+    "corporate": "Unternehmen",
+    "discover": "Entdecken",
+    "copyright": "Alle Rechte vorbehalten",
+    "docs": {
+      "privacy": "Datenschutz & Sicherheit",
+      "passenger": "Personenbeförderungsvertrag",
+      "purchase": "Kaufvertrag",
+      "terms": "Nutzungsbedingungen",
+      "data": "Datenschutz"
+    },
+    "links": {
+      "tours": "Touren",
+      "about": "Über uns",
+      "services": "Unsere Dienstleistungen",
+      "employer": "Arbeitgeber werden",
+      "carrier": "Träger werden",
+      "points": "Treffpunkte",
+      "vehicles": "Unsere Fahrzeuge",
+      "contact": "Kontakt",
+      "faq": "FAQ"
+    }
+  },
+  "Common": {
+    "cookieTitle": "Cookie-Einstellungen",
+    "cookieDesc": "Wir verwenden Cookies, um Ihr Erlebnis im Rahmen von KVKK und DSGVO zu verbessern.",
+    "privacy": "Datenschutzrichtlinie",
+    "terms": "Nutzungsbedingungen",
+    "reject": "Ablehnen",
+    "accept": "Akzeptieren"
+  },
+  "About": {
+    "title": "Über uns",
+    "home": "Startseite",
+    "heroTitle": "Premium Transfer<br></br><span>Erfahrung</span>",
+    "heroDesc": "Seit 2015 bieten wir Tausenden von Kunden sichere, komfortable und luxuriöse Transferdienste. Mit unserem professionellen Team und unserem modernen Fuhrpark machen wir jede Reise zu etwas Besonderem.",
+    "stats": {
+      "years": "Jahre Erfahrung",
+      "customers": "Zufriedene Kunden",
+      "drivers": "Professionelle Fahrer",
+      "vehicles": "Moderne Fahrzeuge"
+    },
+    "ratingTitle": "Kundenzufriedenheit",
+    "whoWeAre": "Wer sind wir?",
+    "whoTitle": "Die führende VIP-Transfer-Firma der Türkei",
+    "whoDesc1": "Als RidePortX sind wir seit 2015 die führende Marke für Flughafentransfers, städtische VIP-Transporte und Firmen-Transferdienste.",
+    "whoDesc2": "Mit unserem Verständnis, das die Kundenzufriedenheit an erste Stelle setzt, unserem professionellen und erfahrenen Fahrerpersonal und unserer hochmodernen Fahrzeugflotte machen wir jede Reise zu einem komfortablen und sicheren Erlebnis.",
+    "features": {
+      "safe": "Sicheres Reisen",
+      "247": "24/7 Service",
+      "luxury": "Luxusfahrzeuge",
+      "expert": "Expertenteam"
+    },
+    "valuesTag": "Unsere Werte",
+    "valuesTitle": "Was uns wichtig ist",
+    "mission": "Unsere Mission",
+    "missionDesc": "Die Reiseerlebnisse unvergesslich zu machen, indem wir unseren Kunden erstklassige, sichere und komfortable Transferdienste anbieten.",
+    "vision": "Unsere Vision",
+    "visionDesc": "Die zuverlässigste, innovativste und bevorzugte Premium-Transfer-Marke in der Türkei und der Region zu sein.",
+    "values": "Unsere Werte",
+    "valuesDesc": "Wir handeln nach den Prinzipien der Zuverlässigkeit, Kundenorientierung, Professionalität und kontinuierlichen Verbesserung.",
+    "ctaTitle": "Jetzt buchen",
+    "ctaDesc": "Kontaktieren Sie uns sofort für ein Premium-Transfer-Erlebnis. Wir bieten Ihnen maßgeschneiderte Lösungen.",
+    "ctaBook": "Jetzt buchen",
+    "ctaContact": "Kontaktiere uns"
+  },
+  "Contact": {
+    "title": "Kontakt",
+    "home": "Startseite",
+    "subtitle": "Nehmen Sie Kontakt mit uns auf",
+    "desc": "Sie befinden sich auf dem kürzesten Weg, um eine schnelle Route zu erstellen. Machen Sie sich bereit, die Routen zu genießen, die wir gemeinsam erstellen werden. Darüber hinaus können Sie uns mit all Ihren Meinungen und Vorschlägen über die unten stehenden Informationen und das Formular kontaktieren, damit wir Ihnen einen qualitativ hochwertigeren Service bieten können.",
+    "success": "Ihre Nachricht wurde erfolgreich gesendet. Wir werden uns so schnell wie möglich bei Ihnen melden.",
+    "form": {
+      "firstName": "VORNAME",
+      "lastName": "NACHNAME",
+      "phone": "TELEFONNUMMER",
+      "email": "E-MAIL-ADRESSE",
+      "message": "IHRE NACHRICHT",
+      "sending": "Senden...",
+      "submit": "Nachricht senden"
+    },
+    "info": {
+      "phone": "Telefon",
+      "email": "E-Mail",
+      "address": "Adresse",
+      "addressText": "Maslak, Sisli / Istanbul"
+    },
+    "mapTitle": "Besuchen Sie uns"
+  },
+  "FAQ": {
+    "title": "Häufig Gestellte Fragen",
+    "subtitle": "Dinge, die Sie über unsere Transferdienste wissen möchten",
+    "stats": {
+      "qna": "F & A",
+      "support": "Unterstützung",
+      "satisfaction": "Zufriedenheit"
+    },
+    "notFound": "Haben Sie die Antwort auf Ihre Frage nicht gefunden?",
+    "contactUs": "Unser Kundenservice hilft Ihnen gerne weiter.",
+    "whatsapp": "Kontakt über WhatsApp",
+    "contactForm": "Kontaktformular",
+    "questions": {
+      "0": {
+        "q": "Wie kann ich meine Reservierung stornieren?",
+        "a": "Um Ihre Reservierung zu stornieren, können Sie sich auf unserer Website anmelden, die entsprechende Reservierung im Bereich 'Meine Reservierungen' auswählen und stornieren. Sie können auch über WhatsApp unter +90 532 417 89 63 oder per E-Mail an info@rideportx.com stornieren."
+      },
+      "1": {
+        "q": "Wie reserviere ich einen Flughafentransfer?",
+        "a": "Sie können Ihre Flughafentransfer-Reservierung ganz einfach auf unserer Website vornehmen. Nachdem Sie im Reservierungsformular auf der Hauptseite eingegeben haben, wohin Sie möchten, sowie Datum und Uhrzeit, können Sie die passenden Fahrzeugoptionen sehen und Ihre Reservierung abschließen. Alternativ können Sie auch über unsere WhatsApp-Leitung reservieren."
+      },
+      "2": {
+        "q": "Welche Informationen sollte ich bei einer Transferreservierung angeben?",
+        "a": "Wir benötigen folgende Informationen für die Transferreservierung: Abfahrts- und Ankunftsort, Transferdatum und -uhrzeit, Anzahl der Passagiere, Ihre Fluginformationen (für Flughafentransfer), Ihre Kontaktinformationen (Telefon und E-Mail). Wenn Sie besondere Wünsche haben (Babysitz, Anzahl der Gepäckstücke usw.), können Sie diese ebenfalls angeben."
+      },
+      "3": {
+        "q": "Wird mein Transfer storniert, wenn mein Flug Verspätung hat?",
+        "a": "Nein, Ihr Transfer wird nicht storniert, wenn Ihr Flug Verspätung hat. Unser Fahrer verfolgt Ihren Flug sofort mit dem Flugverfolgungssystem und wartet entsprechend Ihrer neuen Landezeit am Flughafen auf Sie. Bei einer Verspätung wird keine zusätzliche Gebühr erhoben."
+      },
+      "4": {
+        "q": "Wie lange wartet das Transferfahrzeug auf mich?",
+        "a": "Bei Flughafentransfers bieten wir 60 Minuten kostenlose Wartezeit ab der Landung Ihres Fluges an. In dieser Zeit können Sie bequem Ihr Gepäck abholen und zum Treffpunkt kommen. Bei Stadttransfers gibt es eine kostenlose Wartezeit von 15 Minuten zur vereinbarten Zeit."
+      },
+      "5": {
+        "q": "Wie finde ich den Fahrer am Treffpunkt am Flughafen?",
+        "a": "Am Flughafen Istanbul wartet unser Fahrer mit einem Schild mit Ihrem Namen am Begrüßungspunkt in der Ankunftsebene auf Sie. Am Flughafen Sabiha Gökçen wartet der Fahrer ebenfalls am Begrüßungspunkt am Ausgang der Ankunftsebene mit einem Schild. Die SMS, die Ihnen nach der Reservierung gesendet wird, enthält auch die Telefonnummer Ihres Fahrers."
+      },
+      "6": {
+        "q": "Wie finde ich das Flughafentransferfahrzeug am Flughafen?",
+        "a": "Wenn Sie am Flughafen ankommen, begeben Sie sich nach dem Verlassen der Gepäckausgabe zum Treffpunkt (Meeting Point). Unser Fahrer wird dort mit einem Schild mit Ihrem Namen auf Sie warten. Darüber hinaus sind die Kontaktinformationen Ihres Fahrers in Ihrer Reservierungsbestätigung enthalten, sodass Sie sich bei Bedarf direkt an ihn wenden können."
+      },
+      "7": {
+        "q": "Wie treffe ich das Fahrzeug an meiner Adresse außerhalb des Flughafens oder bei einer anderen Reservierung?",
+        "a": "Bei Stadttransfers steht unser Fahrer zur angegebenen Zeit vor Ihrer Adresse. Die SMS, die Ihnen vor der Reservierung zugesandt wird, enthält das Kennzeichen und die Telefoninformationen Ihres Fahrers. Ihr Fahrer wird sich auch mit Ihnen in Verbindung setzen und seinen Standort melden. Bei Hoteltransfers wartet unser Fahrer in der Hotellobby auf Sie."
+      },
+      "8": {
+        "q": "Gibt es Kindersitze in den Transferfahrzeugen?",
+        "a": "Ja, auf Anfrage stellen wir Ihnen kostenlos Baby- und Kindersitze zur Verfügung. Bei der Reservierung können Sie einen Sitzplatz anfordern, indem Sie im Bereich 'Besondere Wünsche' das Alter und Gewicht Ihres Kindes angeben. Wir verwenden saubere und gut gepflegte Sitze, die den Sicherheitsstandards entsprechen."
+      },
+      "9": {
+        "q": "Kann ich mit Kreditkarte bezahlen?",
+        "a": "Ja, Sie können sichere Zahlungen mit allen Kreditkarten und Debitkarten vornehmen. Es steht auch eine Barzahlungsoption zur Verfügung. Ihre Online-Zahlungen sind durch das 3D Secure-System geschützt. Wir haben auch Rechnungs- und Überweisungsoptionen für unsere Firmenkunden."
+      },
+      "10": {
+        "q": "Woher weiß ich, dass meine Reservierung bestätigt wurde?",
+        "a": "Nach Abschluss Ihrer Reservierung erhalten Sie eine Bestätigungsnachricht per E-Mail und SMS. Diese Nachricht enthält Ihre Reservierungsdetails, Fahrzeuginformationen, Kontaktinformationen des Fahrers und Ihre Reservierungsnummer. Sie können den Status Ihrer Reservierung auch auf der Seite 'Meine Reservierungen' überprüfen."
+      },
+      "11": {
+        "q": "Wie ist der Prozess bei Adresstransfers?",
+        "a": "Bei Adresstransfers steht unser Fahrer zur vereinbarten Zeit genau vor Ihrer Adresse. Der Name, die Telefonnummer und das Kfz-Kennzeichen Ihres Fahrers werden Ihnen vor der Transferzeit per SMS zugesandt. Ihr Fahrer kontaktiert Sie auch, um Sie über seinen Standort zu informieren. An Orten wie Hotels und Einkaufszentren warten sie am Haupteingang."
+      }
+    }
+  },
+  "Tours": {
+    "title": "Touren",
+    "home": "Startseite",
+    "heroTitle": "Wie wäre es mit einem einzigartigen Tour-Erlebnis?",
+    "heroDesc": "Machen Sie sich bereit, unvergessliche Erinnerungen mit unseren sorgfältig ausgewählten, faszinierenden Routen und Touren zu sammeln, die mit makellosen, personalisierten Details ausgestattet sind.",
+    "categories": "Kategorien",
+    "all": "Alle",
+    "vip": "VIP",
+    "daily": "Täglich",
+    "culture": "Kultur",
+    "sea": "Meer",
+    "notSpecified": "Nicht spezifiziert",
+    "everyday": "Jeden Tag",
+    "details": "Tourdetails",
+    "loadMore": "Weitere Touren anzeigen"
+  },
+  "Partnership": {
+    "title": "Unternehmenspartnerschaft",
+    "heroTitle": "Werden Sie unser Partner,<br></br><span>Lassen Sie uns zusammen wachsen</span>",
+    "heroDesc": "Arbeiten Sie mit unserer führenden Position im Transferbereich. Steigern Sie Ihr Einkommen mit unserer starken Infrastruktur, unserem umfangreichen Kundennetzwerk und unserem professionellen Team.",
+    "applyNow": "Jetzt Bewerben",
+    "callUs": "Rufen Sie uns an",
+    "whyTitle": "Warum RidePortX?",
+    "whyDesc": "Einzigartige Vorteile und Möglichkeiten, die wir unseren Geschäftspartnern bieten",
+    "benefits": {
+      "0": {
+        "title": "Umsatzsteigerung",
+        "desc": "Steigern Sie Ihr Einkommen, indem Sie einen regelmäßigen Arbeitsablauf mit unseren Firmenkunden sicherstellen."
+      },
+      "1": {
+        "title": "Breites Kundennetzwerk",
+        "desc": "Lernen Sie unsere Tausenden aktiven Nutzer und Firmenkunden kennen."
+      },
+      "2": {
+        "title": "Sichere Zahlung",
+        "desc": "Alle Ihre Zahlungen werden sicher und pünktlich auf Ihr Konto überwiesen."
+      },
+      "3": {
+        "title": "Flexibles Arbeiten",
+        "desc": "Erstellen Sie Ihren eigenen Zeitplan, arbeiten Sie, wann immer Sie wollen."
+      },
+      "4": {
+        "title": "Professioneller Support",
+        "desc": "Unser technisches und operatives Support-Team steht Ihnen rund um die Uhr zur Seite."
+      },
+      "5": {
+        "title": "Unternehmensimage",
+        "desc": "Stärken Sie Ihr Unternehmensimage, indem Sie mit unserer renommierten Marke zusammenarbeiten."
+      }
+    },
+    "featuresTitle": "Alle Ihre Bedürfnisse<br></br>Auf Einer Plattform",
+    "featuresDesc": "Verwalten Sie Ihr Geschäft ganz einfach dank unserer fortschrittlichen Technologieinfrastruktur. Von Reservierungen bis zu Zahlungen, von Berichten bis zu Kundenbeziehungen ist alles griffbereit.",
+    "features": {
+      "0": "Sofortige Reservierungsbenachrichtigungen",
+      "1": "Detaillierte Berichts- und Analysetools",
+      "2": "Kundenbewertungssystem",
+      "3": "Automatische Routenoptimierung",
+      "4": "Digitale Rechnungs- und Zahlungsverfolgung",
+      "5": "Spezielle Rabatte und Kampagnen"
+    },
+    "formTitle": "Bewerbungsformular",
+    "formDesc": "Füllen Sie das Formular aus und wir werden uns so schnell wie möglich bei Ihnen melden",
+    "form": {
+      "companyName": "Firmenname *",
+      "companyPlaceholder": "Geben Sie Ihren Firmennamen ein",
+      "contactPerson": "Kontaktperson *",
+      "personPlaceholder": "Ihr Vor- und Nachname",
+      "phone": "Telefon *",
+      "email": "E-Mail *",
+      "message": "Ihre Nachricht",
+      "messagePlaceholder": "Erzählen Sie uns von sich und Ihrem Unternehmen...",
+      "submit": "Bewerbung Senden",
+      "sending": "Senden...",
+      "successTitle": "Bewerbung Erhalten!",
+      "successDesc": "Unser Team wird sich so schnell wie möglich bei Ihnen melden. Vielen Dank.",
+      "note": "Ihre Bewerbung wird spätestens innerhalb von 24 Stunden bewertet."
+    },
+    "contactTitle": "Kontaktieren Sie uns jetzt",
+    "contactDesc": "Wir sind bei Fragen rund um die Uhr für Sie da"
+  },
+  "Carrier": {
+    "title": "Trägerpartnerschaft",
+    "heroTitle": "Fangen Sie an, Jobs zu <span>akzeptieren.</span>",
+    "heroDesc": "Registrieren Sie Ihr Fahrzeug oder Unternehmen und verdienen Sie Geld, indem Sie verfügbare Fahrten im System akzeptieren. <strong>Keine Provisionen, keine Systemgebühren, keine Abzüge.</strong>",
+    "applyNow": "Jetzt Bewerben",
+    "whyTitle": "Warum mit RidePortX arbeiten?",
+    "whyDesc": "Vorteile, die wir unseren Trägerpartnern bieten",
+    "advantages": {
+      "0": {
+        "title": "Nettopreis, null Abzug",
+        "desc": "Der Preis, den Sie im System sehen, ist Ihr direkter Verdienst. Es gibt keine Provisionen oder Systemgebühren. Ihre Zahlung erfolgt innerhalb von 2 Werktagen."
+      },
+      "1": {
+        "title": "Transparente Buchhaltung",
+        "desc": "Ein Panel, auf dem Sie die Beträge der angenommenen Jobs, Inkassos, Firmenzahlungen und Ihr aktuelles Guthaben sofort verfolgen können."
+      },
+      "2": {
+        "title": "So viel Arbeit, wie Sie wollen",
+        "desc": "Sie können alle beim Betreten des Systems angezeigten Transfers auswählen, annehmen oder ablehnen. Völlig flexible Arbeitsmöglichkeit."
+      }
+    },
+    "howTitle": "Wie funktioniert es?",
+    "howDesc": "Werden Sie in 4 Schritten unser Trägerpartner",
+    "steps": {
+      "0": {
+        "step": "01",
+        "title": "Formular Ausfüllen",
+        "desc": "Geben Sie Ihre Informationen und Fahrzeugdetails ein"
+      },
+      "1": {
+        "step": "02",
+        "title": "Genehmigung Erhalten",
+        "desc": "Lassen Sie unser Team Ihre Bewerbung prüfen"
+      },
+      "2": {
+        "step": "03",
+        "title": "Jobs Auswählen",
+        "desc": "Akzeptieren Sie geeignete Transfers vom Panel"
+      },
+      "3": {
+        "step": "04",
+        "title": "Verdienen",
+        "desc": "Schließen Sie den Transfer ab, erhalten Sie Ihre Zahlung"
+      }
+    },
+    "stats": {
+      "0": {
+        "label": "Aktive Träger",
+        "value": "500+"
+      },
+      "1": {
+        "label": "Abgeschlossene Transfers",
+        "value": "50K+"
+      },
+      "2": {
+        "label": "Durchschnittliche Bewertung",
+        "value": "4.8/5"
+      },
+      "3": {
+        "label": "Zahlungszeit",
+        "value": "2 Tage"
+      }
+    },
+    "formTitle": "Bewerbungsformular",
+    "formDesc": "Sobald Sie das Formular ausgefüllt haben, wird sich unsere zuständige Abteilung so schnell wie möglich bei Ihnen melden.",
+    "form": {
+      "fullName": "Vollständiger Name *",
+      "namePlaceholder": "Ihr Name und Nachname",
+      "phone": "Telefon *",
+      "email": "E-Mail *",
+      "city": "Stadt *",
+      "citySelect": "Stadt auswählen",
+      "cities": {
+        "istanbul": "Istanbul",
+        "ankara": "Ankara",
+        "izmir": "Izmir",
+        "antalya": "Antalya",
+        "mugla": "Mugla",
+        "bursa": "Bursa",
+        "diger": "Andere"
+      },
+      "vehicleType": "Fahrzeugtyp *",
+      "vehicleSelect": "Fahrzeugtyp auswählen",
+      "vehicleCount": "Anzahl der Fahrzeuge",
+      "experience": "Erfahrung",
+      "expSelect": "Haben Sie Transfererfahrung?",
+      "expNone": "Nein, ich fange gerade erst an",
+      "exp1": "1-3 Jahre",
+      "exp3": "3-5 Jahre",
+      "exp5": "5+ Jahre",
+      "message": "Zusätzlicher Hinweis",
+      "messagePlaceholder": "Informationen, die Sie hinzufügen möchten...",
+      "terms": "Durch Ausfüllen dieses Formulars akzeptieren Sie die {termsLink} von RidePortX und bestätigen, dass Sie die {privacyLink} gelesen haben.",
+      "termsLabel": "Nutzungsbedingungen",
+      "privacyLabel": "Datenschutzrichtlinie",
+      "submit": "Bewerbung Senden",
+      "sending": "Senden...",
+      "successTitle": "Bewerbung Erhalten!",
+      "successDesc": "Unser Team wird sich so schnell wie möglich bei Ihnen melden. Vielen Dank."
+    }
+  },
+  "Legal": {
+    "gizlilik": {
+      "title": "Datenschutzerklärung",
+      "content": "<p>Dieses Rechtsdokument wurde zu Informationszwecken ins Deutsche übersetzt. Für vollständige Details verweisen wir auf das türkische Original oder kontaktieren Sie unser Support-Team unter info@rideportx.com.</p><p>Wir verpflichten uns, Ihre Privatsphäre zu schützen und ein sicheres Transfererlebnis zu gewährleisten. Alle Ihre Daten werden gemäß den DSGVO- und KVKK-Vorschriften sicher verarbeitet.</p>"
+    },
+    "kullanim": {
+      "title": "Nutzungsbedingungen",
+      "content": "<p>Dieses Rechtsdokument wurde zu Informationszwecken ins Deutsche übersetzt. Für vollständige Details verweisen wir auf das türkische Original oder kontaktieren Sie unser Support-Team unter info@rideportx.com.</p><p>Wir verpflichten uns, Ihre Privatsphäre zu schützen und ein sicheres Transfererlebnis zu gewährleisten. Alle Ihre Daten werden gemäß den DSGVO- und KVKK-Vorschriften sicher verarbeitet.</p>"
+    },
+    "veri-koruma": {
+      "title": "Datenschutz und DSGVO",
+      "content": "<p>Dieses Rechtsdokument wurde zu Informationszwecken ins Deutsche übersetzt. Für vollständige Details verweisen wir auf das türkische Original oder kontaktieren Sie unser Support-Team unter info@rideportx.com.</p><p>Wir verpflichten uns, Ihre Privatsphäre zu schützen und ein sicheres Transfererlebnis zu gewährleisten. Alle Ihre Daten werden gemäß den DSGVO- und KVKK-Vorschriften sicher verarbeitet.</p>"
+    },
+    "satin-alma": {
+      "title": "Fernabsatzvertrag",
+      "content": "<p>Dieses Rechtsdokument wurde zu Informationszwecken ins Deutsche übersetzt. Für vollständige Details verweisen wir auf das türkische Original oder kontaktieren Sie unser Support-Team unter info@rideportx.com.</p><p>Wir verpflichten uns, Ihre Privatsphäre zu schützen und ein sicheres Transfererlebnis zu gewährleisten. Alle Ihre Daten werden gemäß den DSGVO- und KVKK-Vorschriften sicher verarbeitet.</p>"
+    },
+    "yolcu-tasima": {
+      "title": "Personenbeförderungsvertrag",
+      "content": "<p>Dieses Rechtsdokument wurde zu Informationszwecken ins Deutsche übersetzt. Für vollständige Details verweisen wir auf das türkische Original oder kontaktieren Sie unser Support-Team unter info@rideportx.com.</p><p>Wir verpflichten uns, Ihre Privatsphäre zu schützen und ein sicheres Transfererlebnis zu gewährleisten. Alle Ihre Daten werden gemäß den DSGVO- und KVKK-Vorschriften sicher verarbeitet.</p>"
+    }
+  },
+  "BookingFlow": {
+    "step1": "Fahrzeug & Leistungen",
+    "step2": "Passagier & Zahlung",
+    "step3": "Reservierung",
+    "loadingPrices": "Preise werden berechnet...",
+    "error": "Fehler",
+    "errorPricing": "Beim Laden der Preise ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut.",
+    "retry": "Erneut versuchen",
+    "noVehicles": "Keine Fahrzeuge gefunden. Bitte ändern Sie Ihre Suchkriterien.",
+    "fixedPrice": "Festpreis",
+    "flightTracking": "Flugverfolgung",
+    "airportPickup": "Flughafenabholung",
+    "freeCancellation": "Kostenlose Stornierung",
+    "selectCurrency": "Bitte wählen Sie die Währung, mit der Sie bezahlen möchten",
+    "totalVehiclePrice": "Gesamtfahrzeugpreis.",
+    "bookNow": "Jetzt buchen",
+    "edit": "Bearbeiten",
+    "cancel": "Abbrechen",
+    "from": "VON",
+    "fromPlaceholder": "Von?",
+    "to": "NACH",
+    "toPlaceholder": "Nach?",
+    "dateTime": "DATUM & UHRZEIT",
+    "select": "Auswählen",
+    "passengerCountTitle": "PASSAGIERE",
+    "roundTripTitle": "HIN- UND RÜCKFAHRT",
+    "yes": "JA",
+    "no": "NEIN",
+    "updating": "Wird aktualisiert...",
+    "discount": "% Rabatt",
+    "contactInfo": "Kontaktinformationen",
+    "fullName": "Vollständiger Name",
+    "email": "E-Mail-Adresse",
+    "phone": "Telefonnummer",
+    "flightNo": "Flugnummer (Optional)",
+    "note": "Hinweis (Optional)",
+    "extraServices": "Zusätzliche Leistungen",
+    "paymentMethod": "Zahlungsmethode",
+    "creditCardPayment": "Sichere Zahlung per Kreditkarte",
+    "cashPayment": "Barzahlung im Fahrzeug",
+    "pay": "Zahlung abschließen",
+    "processing": "Wird bearbeitet...",
+    "fillRequiredFields": "Bitte füllen Sie die Pflichtfelder aus.",
+    "vehicleTypeLabel": "Fahrzeugtyp",
+    "distanceLabel": "Entfernung",
+    "durationLabel": "Dauer",
+    "passengerCountLabel": "Passagiere",
+    "dateLabel": "Datum",
+    "amountLabel": "Betrag",
+    "babySeat": "Babysitz",
+    "childSeat": "Kindersitz",
+    "extraBaggage": "Zusätzliches Gepäck",
+    "greetingHostess": "Begrüßungshostess",
+    "reservationConfirmed": "Reservierung bestätigt!",
+    "confirmationEmailSent": "Ihre Reservierungsdetails wurden an Ihre E-Mail-Adresse gesendet.",
+    "reservationNo": "Reservierungsnummer",
+    "dateAndTime": "Datum / Uhrzeit",
+    "fromDetails": "Von",
+    "toDetails": "Nach",
+    "vehicleDetails": "Fahrzeug",
+    "paymentDetails": "Zahlungsmethode",
+    "totalAmount": "Gesamtbetrag",
+    "returnHome": "Zurück zur Startseite",
+    "viewReservations": "Meine Reservierungen anzeigen"
+  },
+  "ErrorReport": {
+    "button": "Fehler Melden",
+    "title": "Fehlermeldung",
+    "desc": "Bitte teilen Sie uns Probleme oder Fehler mit, auf die Sie gestoßen sind.",
+    "name": "Vollständiger Name",
+    "email": "E-Mail",
+    "message": "Fehlerdetails",
+    "submit": "Senden",
+    "sending": "Senden...",
+    "success": "Ihre Fehlermeldung wurde erfolgreich empfangen. Vielen Dank."
   }
 }

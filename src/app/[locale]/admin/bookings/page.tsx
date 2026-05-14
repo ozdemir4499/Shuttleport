@@ -368,7 +368,7 @@ Misafir Bilgisi:
           </head>
           <body>
             <div class="header">
-              <div class="logo">SHUTTLEPORT</div>
+              <div class="logo">RIDEPORTX</div>
               <h2>TRANSFER VOUCHER</h2>
               <p>Ref: #${booking.id}</p>
             </div>
@@ -401,7 +401,7 @@ Misafir Bilgisi:
             <div style="margin-top: 20px; text-align: right;">
               <h3>Toplam Tutar: ${booking.total_price} ${booking.currency === 'USD' ? '$' : booking.currency === 'EUR' ? '€' : booking.currency === 'GBP' ? '£' : '₺'}</h3>
             </div>
-            <div class="footer">Bu belge Shuttleport sistemi tarafından üretilmiştir.</div>
+            <div class="footer">Bu belge RidePortX sistemi tarafından üretilmiştir.</div>
             <script>window.print();</script>
           </body>
         </html>

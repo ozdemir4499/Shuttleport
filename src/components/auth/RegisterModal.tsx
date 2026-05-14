@@ -85,7 +85,7 @@ export default function RegisterModal({ isOpen, onClose, onSwitchToLogin }: Regi
                 <div className="flex items-start justify-between p-6 border-b border-gray-100">
                     <div className="flex items-center gap-4">
                         <div className="w-12 h-12 bg-amber-50/50 rounded-xl flex items-center justify-center border border-amber-100">
-                            <img src="/logo_icon.png" className="w-8 h-8 object-contain" alt="Asitane" />
+                            <img src="/logo_icon.png" className="w-8 h-8 object-contain" alt="RidePortX" />
                         </div>
                         <div>
                             <h2 className="text-lg font-black text-gray-900 tracking-wide">ÜYE OL</h2>

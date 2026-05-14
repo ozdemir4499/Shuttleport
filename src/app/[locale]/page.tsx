@@ -13,6 +13,8 @@ import { tours } from '@/data/tours';
 import RegisterModal from '@/components/auth/RegisterModal';
 import LoginModal from '@/components/auth/LoginModal';
 import Header from '@/components/layout/Header';
+import { useTranslations } from 'next-intl';
+import Image from 'next/image';
 
 interface Location {
     lat: number;
@@ -21,25 +23,26 @@ interface Location {
     name?: string;
 }
 
-const bannerTexts = [
-    {
-        subtitle: "İADE GARANTİSİ.",
-        title: <>6 saatten önceki rezervasyon <br /> iptallerinde <span className="font-bold md:font-black text-gray-900 md:text-black">%100 iade garantisi.</span></>
-    },
-    {
-        subtitle: "7/24 HAVALİMANI TRANSFERİ.",
-        title: <>İstanbul havalimanlarından otelinize <br /> <span className="font-bold md:font-black text-gray-900 md:text-black">VIP ayrıcalığıyla ulaşın.</span></>
-    },
-    {
-        subtitle: "ÖZEL İSTANBUL TURLARI.",
-        title: <>Şehrin tarihi güzelliklerini <br /> <span className="font-bold md:font-black text-gray-900 md:text-black">lüks araçlarımızla keşfedin.</span></>
-    }
-];
 
-const extendedSlides = [bannerTexts[bannerTexts.length - 1], ...bannerTexts, bannerTexts[0]];
 
 export default function Home() {
     const router = useRouter();
+    const t = useTranslations('Home');
+
+    const bannerTexts = [
+        {
+            subtitle: t('banners.0.subtitle'),
+            title: <>{t.rich('banners.0.title1', { br: () => <br /> })}<br /> <span className="font-black text-[#0a192f]">{t('banners.0.titleHighlight')}</span></>
+        },
+        {
+            subtitle: t('banners.1.subtitle'),
+            title: <>{t.rich('banners.1.title1', { br: () => <br /> })}<br /> <span className="font-black text-[#0a192f]">{t('banners.1.titleHighlight')}</span></>
+        },
+        {
+            subtitle: t('banners.2.subtitle'),
+            title: <>{t.rich('banners.2.title1', { br: () => <br /> })}<br /> <span className="font-black text-[#0a192f]">{t('banners.2.titleHighlight')}</span></>
+        }
+    ];
     const [isSearching, setIsSearching] = useState(false);
     const [isRegisterOpen, setIsRegisterOpen] = useState(false);
     const [isLoginOpen, setIsLoginOpen] = useState(false);
@@ -49,7 +52,7 @@ export default function Home() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [startDate, setStartDate] = useState<Date | null>(new Date());
     const [returnDate, setReturnDate] = useState<Date | null>(null);
-    const [slides, setSlides] = useState(bannerTexts);
+    const [slides, setSlides] = useState(bannerTexts); // updated below
     const [sliderState, setSliderState] = useState({ offset: 0, isAnimating: false });
     const [datePickerType, setDatePickerType] = useState<'departure' | 'return'>('departure');
 
@@ -82,13 +85,16 @@ export default function Home() {
     const [activeReviewIndex, setActiveReviewIndex] = useState(0);
     const [reviewFade, setReviewFade] = useState(true);
 
+    // Tours state
+    const [dynamicTours, setDynamicTours] = useState<any[]>(tours); // fallback to static
+
     const reviews = [
-        <>"Kullanıcılar genellikle <b className="text-gray-700">şoförlerin profesyonelliğini</b>, <b className="text-gray-700">araçların VIP lüksünü</b> ve <b className="text-gray-700">zamanlamadaki kusursuzluğu</b> öne çıkarıyor."</>,
-        <>"Misafirlerimiz özellikle <b className="text-gray-700">şoförlerin yabancı dil bilgisinden</b> ve <b className="text-gray-700">yolculuk esnasındaki güvenli sürüşten</b> çok memnun kaldıklarını belirtiyor."</>,
-        <>"Yapılan yorumlarda <b className="text-gray-700">araç içi ikramlar</b>, <b className="text-gray-700">temizlik</b> ve <b className="text-gray-700">konforlu koltukların</b> seyahat kalitesini artırdığı vurgulanıyor."</>,
-        <>"Ailece yapılan transferlerde <b className="text-gray-700">çocuk koltuğu desteği</b> ve <b className="text-gray-700">bagaj yardımı</b> misafirlerimiz tarafından en çok takdir edilen detaylar arasında."</>,
-        <>"Ziyaretçilerimiz <b className="text-gray-700">7/24 kesintisiz iletişimin</b> ve <b className="text-gray-700">uçak rötar takibinin</b> kendilerine büyük bir güven verdiğini ifade ediyor."</>,
-        <>"İş seyahatlerinde tercih eden misafirlerimiz <b className="text-gray-700">zaman tasarrufu</b> ve <b className="text-gray-700">araç içi mobil çalışma imkanından</b> övgüyle bahsediyor."</>
+        <span dangerouslySetInnerHTML={{ __html: t.raw('reviews.0').replace(/className/g, 'class') }} />,
+        <span dangerouslySetInnerHTML={{ __html: t.raw('reviews.1').replace(/className/g, 'class') }} />,
+        <span dangerouslySetInnerHTML={{ __html: t.raw('reviews.2').replace(/className/g, 'class') }} />,
+        <span dangerouslySetInnerHTML={{ __html: t.raw('reviews.3').replace(/className/g, 'class') }} />,
+        <span dangerouslySetInnerHTML={{ __html: t.raw('reviews.4').replace(/className/g, 'class') }} />,
+        <span dangerouslySetInnerHTML={{ __html: t.raw('reviews.5').replace(/className/g, 'class') }} />
     ];
 
     useEffect(() => {
@@ -173,6 +179,31 @@ export default function Home() {
         };
 
         fetchExchangeRates();
+    }, []);
+
+    // Fetch dynamic tours
+    useEffect(() => {
+        const fetchTours = async () => {
+            try {
+                const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/tours`);
+                const data = await response.json();
+                if (data && data.length > 0) {
+                    const mappedTours = data.map((t: any) => ({
+                        id: t.id,
+                        slug: t.slug,
+                        title: t.title_tr,
+                        shortTitle: t.title_tr,
+                        image: t.image_url ? `${process.env.NEXT_PUBLIC_API_URL}/static/${t.image_url}` : 'https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?q=80&w=800',
+                        badge: t.badge_tr,
+                        prices: { adult: { try: t.price } }
+                    }));
+                    setDynamicTours(mappedTours);
+                }
+            } catch (error) {
+                console.error('Failed to fetch tours:', error);
+            }
+        };
+        fetchTours();
     }, []);
 
     // Ref for Tours Slider
@@ -299,18 +330,21 @@ export default function Home() {
             <Header />
 
             {/* HERO SECTION */}
-            <section className="relative pt-[72px] sm:pt-[88px] md:pt-[104px] pb-8 sm:pb-12 bg-gray-50">
+            <section className="relative pt-20 sm:pt-24 md:pt-28 pb-8 sm:pb-12 bg-gray-50">
 
                 {/* Hero Content */}
                 <div className="relative z-10 container-custom px-4 w-full">
 
                     {/* Hero Banner Image (Matches Booking Widget Width) */}
-                    <div className="max-w-[1440px] mx-auto h-[160px] sm:h-[240px] md:h-[380px] mb-2 md:mb-4 rounded-xl sm:rounded-2xl overflow-hidden shadow-2xl relative group">
-                        <img
+                    <div className="max-w-[1440px] mx-auto h-[180px] sm:h-[240px] md:h-[380px] mb-1 rounded-xl sm:rounded-2xl overflow-hidden shadow-2xl relative group">
+                        <Image
                             src="/coastal_vip_van_banner_v11.png"
                             alt="VIP Transfer & Tours"
-                            className="w-full h-full object-cover object-[right_25%] transition-transform duration-1000 group-hover:scale-105 pointer-events-none select-none"
+                            fill
+                            priority
+                            className="object-cover object-[right_25%] transition-transform duration-1000 group-hover:scale-105 pointer-events-none select-none"
                             draggable="false"
+                            sizes="(max-width: 768px) 100vw, 1440px"
                         />
                         {/* Gradient to ensure text readability on the left without covering the car on the right */}
                         <div className="absolute inset-0 bg-gradient-to-r from-white/95 from-10% via-white/80 md:via-white/60 via-45% md:via-35% to-white/10 md:to-transparent to-75% md:to-55% pointer-events-none"></div>
@@ -342,10 +376,10 @@ export default function Home() {
                                 >
                                     {slides.map((text, idx) => (
                                         <div key={idx} className="w-full flex-shrink-0 flex flex-col justify-start md:justify-center pr-[40px]">
-                                            <span className="text-[#0a192f] font-bold tracking-wider text-[10px] sm:text-xs md:text-sm mb-1 sm:mb-1.5 md:mb-2 drop-shadow-sm md:drop-shadow-none">
+                                            <span className="text-[#B58A32] font-black tracking-[0.2em] text-[9px] sm:text-[11px] md:text-[13px] mb-1.5 sm:mb-2 md:mb-3 uppercase drop-shadow-sm md:drop-shadow-none">
                                                 {text.subtitle}
                                             </span>
-                                            <h2 className="text-[14px] sm:text-base leading-[1.3] md:text-3xl lg:text-4xl text-gray-800 md:text-gray-700 font-semibold md:font-medium tracking-tight md:leading-tight">
+                                            <h2 className="text-[15px] sm:text-[18px] leading-[1.3] md:text-3xl lg:text-[42px] text-gray-600 md:text-gray-700 font-medium tracking-tight md:leading-[1.15]">
                                                 {text.title}
                                             </h2>
                                         </div>
@@ -410,25 +444,25 @@ export default function Home() {
                                 {/* Havalimanı Transfer */}
                                 <div className="flex items-center space-x-2">
                                     <Plane className="w-4 h-4 text-blue-500" />
-                                    <span className="text-xs font-bold text-gray-400 uppercase tracking-wide">Havalimanı Transfer</span>
+                                    <span className="text-xs font-bold text-gray-400 uppercase tracking-wide">{t('booking.tabs.airport')}</span>
                                 </div>
 
                                 {/* Hotel Transfer */}
                                 <div className="flex items-center space-x-2">
                                     <Building2 className="w-4 h-4 text-indigo-500" />
-                                    <span className="text-xs font-bold text-gray-400 uppercase tracking-wide">Hotel Transfer</span>
+                                    <span className="text-xs font-bold text-gray-400 uppercase tracking-wide">{t('booking.tabs.hotel')}</span>
                                 </div>
 
                                 {/* Şehir Turu */}
                                 <div className="flex items-center space-x-2">
                                     <Compass className="w-4 h-4 text-emerald-500" />
-                                    <span className="text-xs font-bold text-gray-400 uppercase tracking-wide">Şehir Turu</span>
+                                    <span className="text-xs font-bold text-gray-400 uppercase tracking-wide">{t('booking.tabs.tour')}</span>
                                 </div>
 
                                 {/* Makam Aracı */}
                                 <div className="flex items-center space-x-2">
                                     <Crown className="w-4 h-4 text-amber-500" />
-                                    <span className="text-xs font-bold text-gray-400 uppercase tracking-wide">Makam Aracı</span>
+                                    <span className="text-xs font-bold text-gray-400 uppercase tracking-wide">{t('booking.tabs.vip')}</span>
                                 </div>
                             </div>
                         </div>
@@ -450,8 +484,8 @@ export default function Home() {
                                         <div className={`${activeLocationInput === 'destination' ? 'hidden md:block' : 'block'}`}>
                                             <LocationAutocomplete
                                                 type="origin"
-                                                label="NEREDEN"
-                                                placeholder="Adres, Havalimanı, Otel, Hastane..."
+                                                label={t('booking.form.from')}
+                                                placeholder={t('booking.form.fromPlaceholder')}
                                                 value={originLocation}
                                                 onChange={setOriginLocation}
                                                 isActive={activeLocationInput === 'origin'}
@@ -478,8 +512,8 @@ export default function Home() {
                                         <div className={`${activeLocationInput === 'origin' ? 'hidden md:block' : 'block'}`}>
                                             <LocationAutocomplete
                                                 type="destination"
-                                                label="NEREYE"
-                                                placeholder="Adres, Havalimanı, Otel, Hastane..."
+                                                label={t('booking.form.to')}
+                                                placeholder={t('booking.form.fromPlaceholder')}
                                                 value={destinationLocation}
                                                 onChange={setDestinationLocation}
                                                 isActive={activeLocationInput === 'destination'}
@@ -511,11 +545,11 @@ export default function Home() {
                                                     </div>
                                                 </div>
                                                 <div className="w-full h-full pl-[70px] pr-4 flex flex-col justify-center">
-                                                    <label className="text-[10px] font-bold text-gray-800 uppercase">TARİH & SAAT</label>
+                                                    <label className="text-[10px] font-bold text-gray-800 uppercase">{t('booking.form.date')}</label>
                                                     <span className={`text-sm font-bold ${startDate ? 'text-gray-900' : 'text-gray-400'}`} suppressHydrationWarning>
                                                         {startDate
-                                                            ? `${startDate.getDate().toString().padStart(2, '0')} ${['OCAK', 'ŞUBAT', 'MART', 'NİSAN', 'MAYIS', 'HAZİRAN', 'TEMMUZ', 'AĞUSTOS', 'EYLÜL', 'EKİM', 'KASIM', 'ARALIK'][startDate.getMonth()]}, ${['PAZ', 'PZT', 'SAL', 'ÇAR', 'PER', 'CUM', 'CMT'][startDate.getDay()]}`
-                                                            : 'Tarih Seçiniz'}
+                                                            ? `${startDate.getDate().toString().padStart(2, '0')} ${['OCA', 'ŞUB', 'MAR', 'NİS', 'MAY', 'HAZ', 'TEM', 'AĞU', 'EYL', 'EKİ', 'KAS', 'ARA'][startDate.getMonth()]}`
+                                                            : t('booking.form.selectDate')}
                                                     </span>
                                                     {startDate && (
                                                         <span className="text-[10px] text-[#0a192f] font-bold" suppressHydrationWarning>
@@ -547,11 +581,11 @@ export default function Home() {
                                                     }}
                                                     className="w-full bg-white rounded-xl shadow-md border border-gray-100 px-1 py-2 hover:border-[#0a192f] hover:shadow-lg transition-all group text-center flex flex-col items-center justify-center h-full"
                                                 >
-                                                    <label className="text-[11px] font-bold text-gray-800 uppercase mb-1">GİDİŞ</label>
+                                                    <label className="text-[11px] font-bold text-gray-800 uppercase mb-1">{t('booking.form.departure')}</label>
                                                     <span className={`text-[13px] whitespace-nowrap font-bold ${startDate ? 'text-gray-900' : 'text-gray-400'}`} suppressHydrationWarning>
                                                         {startDate
                                                             ? `${startDate.getDate().toString().padStart(2, '0')} ${['OCA', 'ŞUB', 'MAR', 'NİS', 'MAY', 'HAZ', 'TEM', 'AĞU', 'EYL', 'EKİ', 'KAS', 'ARA'][startDate.getMonth()]}`
-                                                            : 'Tarih Seçiniz'}
+                                                            : t('booking.form.selectDate')}
                                                     </span>
                                                     {startDate && (
                                                         <span className="text-[11px] text-gray-400" suppressHydrationWarning>
@@ -581,11 +615,11 @@ export default function Home() {
                                                     }}
                                                     className="w-full bg-white rounded-xl shadow-md border border-gray-100 px-1 py-2 hover:border-[#0a192f] hover:shadow-lg transition-all group text-center flex flex-col items-center justify-center h-full"
                                                 >
-                                                    <label className="text-[11px] font-bold text-gray-800 uppercase mb-1">DÖNÜŞ</label>
+                                                    <label className="text-[11px] font-bold text-gray-800 uppercase mb-1">{t('booking.form.return')}</label>
                                                     <span className={`text-[13px] whitespace-nowrap font-bold ${returnDate ? 'text-gray-900' : 'text-gray-400'}`}>
                                                         {returnDate
                                                             ? `${returnDate.getDate().toString().padStart(2, '0')} ${['OCA', 'ŞUB', 'MAR', 'NİS', 'MAY', 'HAZ', 'TEM', 'AĞU', 'EYL', 'EKİ', 'KAS', 'ARA'][returnDate.getMonth()]}`
-                                                            : 'Tarih Seçiniz'}
+                                                            : t('booking.form.selectDate')}
                                                     </span>
                                                     {returnDate && (
                                                         <span className="text-[11px] text-gray-400">
@@ -617,7 +651,7 @@ export default function Home() {
                                             onClick={() => setIsRoundTrip(!isRoundTrip)}
                                             className="col-span-1 md:col-span-4 bg-white rounded-xl shadow-md border border-gray-100 h-[80px] md:h-full flex flex-col items-center justify-center p-2 hover:border-orange-500 transition-colors"
                                         >
-                                            <span className="text-[11px] font-bold text-gray-800 mb-1">GİDİŞ-DÖNÜŞ</span>
+                                            <span className="text-[11px] font-bold text-gray-800 mb-1">{t('booking.form.roundTrip')}</span>
                                             <div className="relative inline-flex items-center cursor-pointer scale-100 mt-1">
                                                 <input
                                                     type="checkbox"
@@ -627,6 +661,7 @@ export default function Home() {
                                                 />
                                                 <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-orange-600"></div>
                                             </div>
+                                            <span className="text-[10px] font-bold text-green-600 mt-1">{t('booking.form.discount')}</span>
                                         </button>
 
                                         {/* Kişi Counter */}
@@ -635,10 +670,10 @@ export default function Home() {
                                                 onClick={() => setShowPassengerSelector(!showPassengerSelector)}
                                                 className="w-full h-full flex flex-col items-center justify-center p-2 hover:border-blue-500 transition-colors rounded-xl"
                                             >
-                                                <span className="text-[11px] font-bold text-gray-800 mb-1">KİŞİ SAYISI</span>
+                                                <span className="text-[11px] font-bold text-gray-800 mb-1">{t('booking.form.passengers')}</span>
                                                 <div className="flex items-center space-x-2">
                                                     <span className="text-lg font-bold text-gray-900">
-                                                        {passengerCount} Kişi
+                                                        {passengerCount} {t('booking.form.person')}
                                                     </span>
                                                     <ChevronDown className={`w-4 h-4 text-gray-500 transition-transform ${showPassengerSelector ? 'rotate-180' : ''}`} />
                                                 </div>
@@ -664,7 +699,7 @@ export default function Home() {
                                                 ) : (
                                                     <svg className="w-6 h-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
                                                 )}
-                                                <span className="text-xs font-bold">{isSearching ? 'Aranıyor...' : 'Ara'}</span>
+                                                <span className="text-xs font-bold">{isSearching ? t('booking.form.searching') : t('booking.form.search')}</span>
                                             </button>
                                         </div>
                                     </div>
@@ -685,15 +720,15 @@ export default function Home() {
                                 <div className="flex items-center space-x-2 mb-3">
                                     <span className="h-px w-8 bg-[#0a192f]"></span>
                                     <span className="text-[#0a192f] font-bold text-sm tracking-widest uppercase">
-                                        EŞSİZ DENEYİMLER
+                                        {t('tours.subtitle')}
                                     </span>
                                 </div>
                                 <h2 className="text-3xl md:text-5xl font-extrabold text-gray-900 mb-4 tracking-tight">
-                                    Özel <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#0a192f] to-[#B58A32]">İstanbul</span> Turları
+                                    {t('tours.title1')}<span className="text-transparent bg-clip-text bg-gradient-to-r from-[#0a192f] to-[#B58A32]">{t('tours.titleHighlight')}</span>{t('tours.title2')}
                                 </h2>
                                 <div className="flex flex-col md:flex-row md:items-center gap-4">
                                     <p className="text-gray-500 text-lg leading-relaxed">
-                                        Şehrin tarihi güzelliklerini ve gizli kalmış hazinelerini VIP ayrıcalığı ve lüks araçlarımızla keşfetmeye hazır olun.
+                                        {t('tours.desc')}
                                     </p>
                                     
                                     {/* Navigation Buttons */}
@@ -721,8 +756,8 @@ export default function Home() {
                                 </div>
                                 <div className="pt-1 w-full">
                                     <div className="flex items-center space-x-3 mb-3">
-                                        <h3 className="text-xl font-extrabold text-gray-900 tracking-tight">Öne Çıkan Yorumlar</h3>
-                                        <span className="px-3 py-1 rounded-full bg-amber-50 text-[#0a192f] text-xs font-bold tracking-widest uppercase">Özet</span>
+                                        <h3 className="text-xl font-extrabold text-gray-900 tracking-tight">{t('reviews.title')}</h3>
+                                        <span className="px-3 py-1 rounded-full bg-amber-50 text-[#0a192f] text-xs font-bold tracking-widest uppercase">{t('reviews.summary')}</span>
                                     </div>
                                     <div className={`transition-opacity duration-300 min-h-[72px] flex items-start ${reviewFade ? 'opacity-100' : 'opacity-0'}`}>
                                         <p className="text-base text-gray-500 leading-relaxed">
@@ -735,7 +770,7 @@ export default function Home() {
                                                 <Star key={i} className="w-5 h-5 text-amber-400" fill="currentColor" strokeWidth={1} />
                                             ))}
                                         </div>
-                                        <span className="text-sm text-gray-400 font-semibold tracking-wide">Google & Tripadvisor</span>
+                                        <span className="text-sm text-gray-400 font-semibold tracking-wide">{t('reviews.platform')}</span>
                                     </div>
                                 </div>
                             </div>
@@ -747,15 +782,15 @@ export default function Home() {
                                 ref={scrollContainerRef}
                                 className="flex space-x-6 overflow-x-auto pb-8 scrollbar-hide [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none']"
                             >
-                                {tours.map((tour) => (
+                                {dynamicTours.map((tour) => (
                                     <Link
                                         key={tour.id}
-                                        href={`/turlar/${tour.slug}`}
+                                        href={`/turlar/${tour.id}`}
                                         className="w-[300px] md:w-[350px] bg-white rounded-2xl shadow-[0_4px_20px_rgb(0,0,0,0.03)] hover:shadow-[0_12px_30px_rgb(0,0,0,0.08)] hover:-translate-y-1.5 transition-all duration-300 group cursor-pointer flex-shrink-0 flex flex-col h-full border border-gray-100 hover:border-gray-200"
                                     >
                                         <div className="h-[200px] overflow-hidden rounded-t-2xl relative">
                                             <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-transparent z-10 pointer-events-none"></div>
-                                            <img src={tour.image} alt={tour.shortTitle} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out" />
+                                            <Image src={tour.image} alt={tour.shortTitle} fill sizes="(max-width: 768px) 100vw, 350px" className="object-cover group-hover:scale-110 transition-transform duration-700 ease-out" />
                                             {tour.badge && (
                                                 <div className="absolute top-4 right-4 z-20 bg-white/95 backdrop-blur-md px-3 py-1.5 rounded-full text-xs font-extrabold text-gray-900 shadow-sm">
                                                     {tour.badge}
@@ -910,7 +945,7 @@ export default function Home() {
                                 Her Yolculukta <span className="text-[#0a192f]">Ayrıcalığı</span> Hissedin.
                             </h2>
                             <p className="text-gray-600 leading-relaxed text-lg">
-                                Asitane Travel ayrıcalığıyla lüksü ve konforu bir arada yaşayın. Profesyonel ekibimiz, VIP tasarımlı özel araç filomuz ve 7/24 kesintisiz hizmet anlayışımızla; havalimanı transferlerinden özel şehir turlarına kadar tüm seyahat ihtiyaçlarınızda güvenli, prestijli ve unutulmaz bir yolculuk deneyimi sunuyoruz.
+                                RidePortX ayrıcalığıyla lüksü ve konforu bir arada yaşayın. Profesyonel ekibimiz, VIP tasarımlı özel araç filomuz ve 7/24 kesintisiz hizmet anlayışımızla; havalimanı transferlerinden özel şehir turlarına kadar tüm seyahat ihtiyaçlarınızda güvenli, prestijli ve unutulmaz bir yolculuk deneyimi sunuyoruz.
                             </p>
                         </div>
 
@@ -943,132 +978,164 @@ export default function Home() {
                                 className="flex space-x-4 overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none']"
                             >
                                 {/* Original Photos */}
-                                <div className="flex-shrink-0 w-64 h-48 rounded-2xl overflow-hidden shadow-lg">
-                                    <img
-                                        src="https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?q=80&w=800"
-                                        alt="Customer moment 1"
-                                        className="w-full h-full object-cover"
+                                <div className="flex-shrink-0 w-64 h-64 rounded-2xl overflow-hidden shadow-lg relative">
+                                    <Image
+                                        src="/rideportx_team.jpg"
+                                        alt="RidePortX VIP Transfer"
+                                        fill
+                                        sizes="256px"
+                                        className="object-cover object-[50%_35%]"
                                     />
                                 </div>
 
-                                <div className="flex-shrink-0 w-64 h-48 rounded-2xl overflow-hidden shadow-lg">
-                                    <img
-                                        src="https://images.unsplash.com/photo-1464219789935-c2d9d9aba644?q=80&w=800"
-                                        alt="Customer moment 2"
-                                        className="w-full h-full object-cover"
+                                <div className="flex-shrink-0 w-64 h-64 rounded-2xl overflow-hidden shadow-lg relative">
+                                    <Image
+                                        src="/rideportx_team2.png"
+                                        alt="RidePortX VIP Transfer 2"
+                                        fill
+                                        sizes="256px"
+                                        className="object-cover object-[50%_35%]"
                                     />
                                 </div>
 
-                                <div className="flex-shrink-0 w-64 h-48 rounded-2xl overflow-hidden shadow-lg">
-                                    <img
-                                        src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=800"
-                                        alt="Customer moment 3"
-                                        className="w-full h-full object-cover"
+                                <div className="flex-shrink-0 w-64 h-64 rounded-2xl overflow-hidden shadow-lg relative">
+                                    <Image
+                                        src="/rideportx_team3.png"
+                                        alt="RidePortX VIP Transfer 3"
+                                        fill
+                                        sizes="256px"
+                                        className="object-cover object-[50%_35%]"
                                     />
                                 </div>
 
-                                <div className="flex-shrink-0 w-64 h-48 rounded-2xl overflow-hidden shadow-lg">
-                                    <img
-                                        src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?q=80&w=800"
-                                        alt="Customer moment 4"
-                                        className="w-full h-full object-cover"
+                                <div className="flex-shrink-0 w-64 h-64 rounded-2xl overflow-hidden shadow-lg relative">
+                                    <Image
+                                        src="/rideportx_team4.png"
+                                        alt="RidePortX VIP Transfer 4"
+                                        fill
+                                        sizes="256px"
+                                        className="object-cover object-[50%_35%]"
                                     />
                                 </div>
 
-                                <div className="flex-shrink-0 w-64 h-48 rounded-2xl overflow-hidden shadow-lg">
-                                    <img
-                                        src="https://images.unsplash.com/photo-1527631746610-bca00a040d60?q=80&w=800"
-                                        alt="Customer moment 5"
-                                        className="w-full h-full object-cover"
+                                <div className="flex-shrink-0 w-64 h-64 rounded-2xl overflow-hidden shadow-lg relative">
+                                    <Image
+                                        src="/rideportx_team5.png"
+                                        alt="RidePortX VIP Transfer 5"
+                                        fill
+                                        sizes="256px"
+                                        className="object-cover object-[50%_35%]"
                                     />
                                 </div>
 
-                                <div className="flex-shrink-0 w-64 h-48 rounded-2xl overflow-hidden shadow-lg">
-                                    <img
-                                        src="https://images.unsplash.com/photo-1502920917128-1aa500764cbd?q=80&w=800"
-                                        alt="Customer moment 6"
-                                        className="w-full h-full object-cover"
+                                <div className="flex-shrink-0 w-64 h-64 rounded-2xl overflow-hidden shadow-lg relative">
+                                    <Image
+                                        src="/rideportx_team6.png"
+                                        alt="RidePortX VIP Transfer 6"
+                                        fill
+                                        sizes="256px"
+                                        className="object-cover object-[50%_35%]"
                                     />
                                 </div>
 
-                                <div className="flex-shrink-0 w-64 h-48 rounded-2xl overflow-hidden shadow-lg">
-                                    <img
-                                        src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?q=80&w=800"
-                                        alt="Customer moment 7"
-                                        className="w-full h-full object-cover"
+                                <div className="flex-shrink-0 w-64 h-64 rounded-2xl overflow-hidden shadow-lg relative">
+                                    <Image
+                                        src="/rideportx_team7.png"
+                                        alt="RidePortX VIP Transfer 7"
+                                        fill
+                                        sizes="256px"
+                                        className="object-cover object-[50%_35%]"
                                     />
                                 </div>
 
-                                <div className="flex-shrink-0 w-64 h-48 rounded-2xl overflow-hidden shadow-lg">
-                                    <img
-                                        src="https://images.unsplash.com/photo-1530789253388-582c481c54b0?q=80&w=800"
-                                        alt="Customer moment 8"
-                                        className="w-full h-full object-cover"
+                                <div className="flex-shrink-0 w-64 h-64 rounded-2xl overflow-hidden shadow-lg relative">
+                                    <Image
+                                        src="/rideportx_team8.png"
+                                        alt="RidePortX VIP Transfer 8"
+                                        fill
+                                        sizes="256px"
+                                        className="object-cover object-[50%_35%]"
                                     />
                                 </div>
 
                                 {/* Duplicated Photos for Infinite Loop */}
-                                <div className="flex-shrink-0 w-64 h-48 rounded-2xl overflow-hidden shadow-lg">
-                                    <img
-                                        src="https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?q=80&w=800"
-                                        alt="Customer moment 1"
-                                        className="w-full h-full object-cover"
+                                <div className="flex-shrink-0 w-64 h-64 rounded-2xl overflow-hidden shadow-lg relative">
+                                    <Image
+                                        src="/rideportx_team.jpg"
+                                        alt="RidePortX VIP Transfer"
+                                        fill
+                                        sizes="256px"
+                                        className="object-cover object-[50%_35%]"
                                     />
                                 </div>
 
-                                <div className="flex-shrink-0 w-64 h-48 rounded-2xl overflow-hidden shadow-lg">
-                                    <img
-                                        src="https://images.unsplash.com/photo-1464219789935-c2d9d9aba644?q=80&w=800"
-                                        alt="Customer moment 2"
-                                        className="w-full h-full object-cover"
+                                <div className="flex-shrink-0 w-64 h-64 rounded-2xl overflow-hidden shadow-lg relative">
+                                    <Image
+                                        src="/rideportx_team2.png"
+                                        alt="RidePortX VIP Transfer 2"
+                                        fill
+                                        sizes="256px"
+                                        className="object-cover object-[50%_35%]"
                                     />
                                 </div>
 
-                                <div className="flex-shrink-0 w-64 h-48 rounded-2xl overflow-hidden shadow-lg">
-                                    <img
-                                        src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=800"
-                                        alt="Customer moment 3"
-                                        className="w-full h-full object-cover"
+                                <div className="flex-shrink-0 w-64 h-64 rounded-2xl overflow-hidden shadow-lg relative">
+                                    <Image
+                                        src="/rideportx_team3.png"
+                                        alt="RidePortX VIP Transfer 3"
+                                        fill
+                                        sizes="256px"
+                                        className="object-cover object-[50%_35%]"
                                     />
                                 </div>
 
-                                <div className="flex-shrink-0 w-64 h-48 rounded-2xl overflow-hidden shadow-lg">
-                                    <img
-                                        src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?q=80&w=800"
-                                        alt="Customer moment 4"
-                                        className="w-full h-full object-cover"
+                                <div className="flex-shrink-0 w-64 h-64 rounded-2xl overflow-hidden shadow-lg relative">
+                                    <Image
+                                        src="/rideportx_team4.png"
+                                        alt="RidePortX VIP Transfer 4"
+                                        fill
+                                        sizes="256px"
+                                        className="object-cover object-[50%_35%]"
                                     />
                                 </div>
 
-                                <div className="flex-shrink-0 w-64 h-48 rounded-2xl overflow-hidden shadow-lg">
-                                    <img
-                                        src="https://images.unsplash.com/photo-1527631746610-bca00a040d60?q=80&w=800"
-                                        alt="Customer moment 5"
-                                        className="w-full h-full object-cover"
+                                <div className="flex-shrink-0 w-64 h-64 rounded-2xl overflow-hidden shadow-lg relative">
+                                    <Image
+                                        src="/rideportx_team5.png"
+                                        alt="RidePortX VIP Transfer 5"
+                                        fill
+                                        sizes="256px"
+                                        className="object-cover object-[50%_35%]"
                                     />
                                 </div>
 
-                                <div className="flex-shrink-0 w-64 h-48 rounded-2xl overflow-hidden shadow-lg">
-                                    <img
-                                        src="https://images.unsplash.com/photo-1502920917128-1aa500764cbd?q=80&w=800"
-                                        alt="Customer moment 6"
-                                        className="w-full h-full object-cover"
+                                <div className="flex-shrink-0 w-64 h-64 rounded-2xl overflow-hidden shadow-lg relative">
+                                    <Image
+                                        src="/rideportx_team6.png"
+                                        alt="RidePortX VIP Transfer 6"
+                                        fill
+                                        sizes="256px"
+                                        className="object-cover object-[50%_35%]"
                                     />
                                 </div>
 
-                                <div className="flex-shrink-0 w-64 h-48 rounded-2xl overflow-hidden shadow-lg">
-                                    <img
-                                        src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?q=80&w=800"
-                                        alt="Customer moment 7"
-                                        className="w-full h-full object-cover"
+                                <div className="flex-shrink-0 w-64 h-64 rounded-2xl overflow-hidden shadow-lg relative">
+                                    <Image
+                                        src="/rideportx_team7.png"
+                                        alt="RidePortX VIP Transfer 7"
+                                        fill
+                                        sizes="256px"
+                                        className="object-cover object-[50%_35%]"
                                     />
                                 </div>
 
-                                <div className="flex-shrink-0 w-64 h-48 rounded-2xl overflow-hidden shadow-lg">
-                                    <img
-                                        src="https://images.unsplash.com/photo-1530789253388-582c481c54b0?q=80&w=800"
-                                        alt="Customer moment 8"
-                                        className="w-full h-full object-cover"
+                                <div className="flex-shrink-0 w-64 h-64 rounded-2xl overflow-hidden shadow-lg relative">
+                                    <Image
+                                        src="/rideportx_team8.png"
+                                        alt="RidePortX VIP Transfer 8"
+                                        fill
+                                        sizes="256px"
+                                        className="object-cover object-[50%_35%]"
                                     />
                                 </div>
                             </div>

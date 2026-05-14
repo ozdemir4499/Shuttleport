@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { useTranslations } from 'next-intl';
 import { useSearchParams } from 'next/navigation';
 import { MapPin, Calendar, Users, Clock, Instagram, Globe, MessageCircle, User, ChevronDown, Menu, X, Check, Printer, Phone } from 'lucide-react';
 import Header from '@/components/layout/Header';
@@ -38,6 +39,7 @@ interface ReservationData {
 }
 
 export default function ConfirmationContent() {
+    const t = useTranslations('BookingFlow');
     const searchParams = useSearchParams();
     const reservationId = searchParams.get('id') || '1452134';
 
@@ -107,7 +109,7 @@ export default function ConfirmationContent() {
                                     <Check className="w-5 h-5" />
                                 </div>
                                 <span className="text-sm font-semibold text-gray-900 hidden sm:inline">
-                                    Araç & Hizmetler
+                                    {t('step1')}
                                 </span>
                             </div>
                         </div>
@@ -122,7 +124,7 @@ export default function ConfirmationContent() {
                                     <Check className="w-5 h-5" />
                                 </div>
                                 <span className="text-sm font-semibold text-gray-900 hidden sm:inline">
-                                    Yolcu & Ödeme
+                                    {t('step2')}
                                 </span>
                             </div>
                         </div>
@@ -137,7 +139,7 @@ export default function ConfirmationContent() {
                                     3
                                 </div>
                                 <span className="text-sm font-semibold text-gray-900 hidden sm:inline">
-                                    Rezervasyon
+                                    {t('step3')}
                                 </span>
                             </div>
                         </div>
@@ -158,7 +160,7 @@ export default function ConfirmationContent() {
                                 </svg>
                             </div>
                             <div>
-                                <div className="text-xs text-blue-600 font-medium">Rezervasyon No:</div>
+                                <div className="text-xs text-blue-600 font-medium">{t('reservationNo')}:</div>
                                 <div className="text-lg font-bold text-blue-900">{reservation.id}</div>
                             </div>
                         </div>
@@ -169,7 +171,7 @@ export default function ConfirmationContent() {
                                 <Check className="w-5 h-5" />
                             </div>
                             <div className="flex-1">
-                                <div className="text-sm font-bold text-green-900">Tebrikler! Rezervasyonunuz Başarılı Alındı.</div>
+                                <div className="text-sm font-bold text-green-900">{t('reservationConfirmed')}</div>
                             </div>
                         </div>
                     </div>
@@ -196,24 +198,24 @@ export default function ConfirmationContent() {
                     <div className="bg-white rounded-xl shadow-md p-6">
                         <div className="flex items-center gap-2 mb-6">
                             <User className="w-5 h-5 text-red-600" />
-                            <h2 className="text-lg font-bold text-gray-900">Rezervasyon Sahibi Yolcu Detayları</h2>
+                            <h2 className="text-lg font-bold text-gray-900">{t('contactInfo')}</h2>
                         </div>
 
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                             <div>
-                                <div className="text-xs text-gray-500 uppercase mb-1">AD SOYAD</div>
+                                <div className="text-xs text-gray-500 uppercase mb-1">{t('fullName')}</div>
                                 <div className="text-sm font-semibold text-gray-900">{reservation.passengerName || reservation.customer_name}</div>
                             </div>
                             <div>
-                                <div className="text-xs text-gray-500 uppercase mb-1">E-POSTA ADRESİNİZ</div>
+                                <div className="text-xs text-gray-500 uppercase mb-1">{t('email')}</div>
                                 <div className="text-sm font-semibold text-gray-900">{reservation.email || reservation.customer_email}</div>
                             </div>
                             <div>
-                                <div className="text-xs text-gray-500 uppercase mb-1">TELEFON NUMARASI</div>
+                                <div className="text-xs text-gray-500 uppercase mb-1">{t('phone')}</div>
                                 <div className="text-sm font-semibold text-gray-900">{reservation.phone || reservation.customer_phone}</div>
                             </div>
                             <div>
-                                <div className="text-xs text-gray-500 uppercase mb-1">UÇUŞ NUMARASI</div>
+                                <div className="text-xs text-gray-500 uppercase mb-1">{t('flightNo')}</div>
                                 <div className="text-sm font-semibold text-gray-900">{reservation.flightNumber || reservation.flight_number || '-'}</div>
                             </div>
                         </div>
@@ -225,47 +227,47 @@ export default function ConfirmationContent() {
                             <svg className="w-5 h-5 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                             </svg>
-                            <h2 className="text-lg font-bold text-gray-900">Rezervasyon</h2>
+                            <h2 className="text-lg font-bold text-gray-900">{t('step3')}</h2>
                         </div>
 
                         <div className="space-y-4">
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div>
-                                    <div className="text-xs text-gray-500 uppercase mb-1">NEREDEN</div>
+                                    <div className="text-xs text-gray-500 uppercase mb-1">{t('fromDetails')}</div>
                                     <div className="text-sm font-medium text-gray-900">{reservation.from || reservation.origin}</div>
                                 </div>
                                 <div>
-                                    <div className="text-xs text-gray-500 uppercase mb-1">NEREYE</div>
+                                    <div className="text-xs text-gray-500 uppercase mb-1">{t('toDetails')}</div>
                                     <div className="text-sm font-medium text-gray-900">{reservation.to || reservation.destination}</div>
                                 </div>
                             </div>
 
                             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-4 border-t border-gray-200">
                                 <div>
-                                    <div className="text-xs text-gray-500 uppercase mb-1">TRANSFER TARİHİ VE SAATİ</div>
+                                    <div className="text-xs text-gray-500 uppercase mb-1">{t('dateAndTime')}</div>
                                     <div className="text-sm font-semibold text-gray-900">{reservation.date}</div>
                                 </div>
                                 <div>
-                                    <div className="text-xs text-gray-500 uppercase mb-1">ARAÇ</div>
+                                    <div className="text-xs text-gray-500 uppercase mb-1">{t('vehicleDetails')}</div>
                                     <div className="text-sm font-semibold text-gray-900">{reservation.vehicle || reservation.vehicle_type}</div>
                                 </div>
                                 <div>
-                                    <div className="text-xs text-gray-500 uppercase mb-1">MESAFE</div>
+                                    <div className="text-xs text-gray-500 uppercase mb-1">{t('distanceLabel')}</div>
                                     <div className="text-sm font-semibold text-gray-900">{reservation.distance}</div>
                                 </div>
                                 <div>
-                                    <div className="text-xs text-gray-500 uppercase mb-1">SÜRE</div>
+                                    <div className="text-xs text-gray-500 uppercase mb-1">{t('durationLabel')}</div>
                                     <div className="text-sm font-semibold text-gray-900">{reservation.duration}</div>
                                 </div>
                             </div>
 
                             <div className="grid grid-cols-2 gap-4 pt-4 border-t border-gray-200">
                                 <div>
-                                    <div className="text-xs text-gray-500 uppercase mb-1">GİDİŞ - DÖNÜŞ</div>
+                                    <div className="text-xs text-gray-500 uppercase mb-1">{t('roundTripTitle')}</div>
                                     <div className="text-sm font-semibold text-gray-900">{reservation.tripType}</div>
                                 </div>
                                 <div>
-                                    <div className="text-xs text-gray-500 uppercase mb-1">KİŞİ SAYISI</div>
+                                    <div className="text-xs text-gray-500 uppercase mb-1">{t('passengerCountLabel')}</div>
                                     <div className="text-sm font-semibold text-gray-900">{reservation.passengers}</div>
                                 </div>
                             </div>
@@ -278,19 +280,19 @@ export default function ConfirmationContent() {
                             <svg className="w-5 h-5 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
                             </svg>
-                            <h2 className="text-lg font-bold text-gray-900">Ödeme Detayları</h2>
+                            <h2 className="text-lg font-bold text-gray-900">{t('paymentDetails')}</h2>
                         </div>
 
                         <div className="space-y-3">
                             <div className="flex items-center justify-between text-sm">
-                                <span className="text-gray-600">YOLCULUK ÜCRETİ</span>
+                                <span className="text-gray-600">{t('amountLabel')}</span>
                                 <span className="font-semibold text-gray-900">{reservation.basePrice || reservation.total_price} {reservation.currency || '₺'}</span>
                             </div>
 
                             <div className="space-y-2">
                                 {reservation.additionalServices && reservation.additionalServices.length > 0 && (
                                     <>
-                                        <div className="text-xs text-gray-500 uppercase font-medium">EK HİZMETLER</div>
+                                        <div className="text-xs text-gray-500 uppercase font-medium">{t('extraServices')}</div>
                                         {(reservation.additionalServices || []).map((service, index: number) => (
                                             <div key={index} className="flex items-start gap-2 text-sm">
                                                 <Check className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
@@ -306,16 +308,16 @@ export default function ConfirmationContent() {
 
                             <div className="pt-4 border-t-2 border-gray-200">
                                 <div className="flex items-center justify-between mb-4">
-                                    <span className="text-lg font-bold text-gray-900">TUTAR</span>
+                                    <span className="text-lg font-bold text-gray-900">{t('totalAmount')}</span>
                                     <span className="text-2xl font-bold text-gray-900">{reservation.total || reservation.total_price} {reservation.currency || '₺'}</span>
                                 </div>
                                 <button className="w-full bg-red-500 hover:bg-red-600 text-white px-8 py-4 rounded-lg font-bold text-lg transition-colors shadow-md hover:shadow-lg">
-                                    Ödeme Yap
+                                    {t('pay')}
                                 </button>
                             </div>
 
                             <div className="pt-4 border-t border-gray-200">
-                                <div className="text-xs text-gray-500 uppercase mb-1">ÖDEME</div>
+                                <div className="text-xs text-gray-500 uppercase mb-1">{t('paymentMethod')}</div>
                                 <div className="text-sm font-semibold text-gray-900">{reservation.paymentMethod}</div>
                             </div>
                         </div>

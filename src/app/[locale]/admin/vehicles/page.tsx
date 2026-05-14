@@ -152,7 +152,8 @@ export default function VehiclesPage() {
       if (res.ok) {
         fetchVehicles();
       } else {
-        alert("Araç silinirken bir hata oluştu.");
+        const errorData = await res.json().catch(() => ({}));
+        alert(errorData.detail || "Araç silinirken bir hata oluştu.");
       }
     } catch (error) {
       console.error("Error deleting vehicle:", error);

@@ -1,7 +1,7 @@
 {
   "Index": {
-    "title": "Asitane Travel | İstanbul Havalimanı Transfer",
-    "description": "Asitane Travel ile Havalimanı ve Şehir İçi Transfer Hizmetleri",
+    "title": "RidePortX | İstanbul Havalimanı Transfer",
+    "description": "RidePortX ile Havalimanı ve Şehir İçi Transfer Hizmetleri",
     "bookNow": "Rezervasyon Yap",
     "from": "Nereden",
     "to": "Nereye"
@@ -10,6 +10,7 @@
     "nav": {
       "tours": "Turlar",
       "about": "Hakkımızda",
+      "blog": "Blog",
       "partner": "İş Ortağı Ol",
       "carrier": "Taşıyıcı Olun",
       "contact": "İletişim",
@@ -19,5 +20,500 @@
       "register": "Üye Ol",
       "login": "Giriş"
     }
+  },
+  "Home": {
+    "banners": {
+      "0": {
+        "subtitle": "İADE GARANTİSİ.",
+        "title1": "6 saatten önceki rezervasyon <br></br> iptallerinde",
+        "titleHighlight": "%100 iade garantisi."
+      },
+      "1": {
+        "subtitle": "7/24 HAVALİMANI TRANSFERİ.",
+        "title1": "İstanbul havalimanlarından otelinize",
+        "titleHighlight": "VIP ayrıcalığıyla ulaşın."
+      },
+      "2": {
+        "subtitle": "ÖZEL İSTANBUL TURLARI.",
+        "title1": "Şehrin tarihi güzelliklerini",
+        "titleHighlight": "lüks araçlarımızla keşfedin."
+      }
+    },
+    "booking": {
+      "tabs": {
+        "airport": "Havalimanı Transfer",
+        "hotel": "Hotel Transfer",
+        "tour": "Şehir Turu",
+        "vip": "Makam Aracı"
+      },
+      "form": {
+        "from": "NEREDEN",
+        "fromPlaceholder": "Adres, Havalimanı, Otel, Hastane...",
+        "to": "NEREYE",
+        "toPlaceholder": "Adres, Havalimanı, Otel, Hastane...",
+        "date": "TARİH & SAAT",
+        "departure": "GİDİŞ",
+        "return": "DÖNÜŞ",
+        "roundTrip": "GİDİŞ-DÖNÜŞ",
+        "discount": "%10 İndirim",
+        "passengers": "KİŞİ SAYISI",
+        "search": "Ara",
+        "searching": "Aranıyor...",
+        "selectDate": "Tarih Seçiniz",
+        "person": "Kişi"
+      }
+    },
+    "reviews": {
+      "title": "Öne Çıkan Yorumlar",
+      "summary": "Özet",
+      "platform": "Google & Tripadvisor",
+      "0": "Kullanıcılar genellikle <b>şoförlerin profesyonelliğini</b>, <b>araçların VIP lüksünü</b> ve <b>zamanlamadaki kusursuzluğu</b> öne çıkarıyor.",
+      "1": "Misafirlerimiz özellikle <b>şoförlerin yabancı dil bilgisinden</b> ve <b>yolculuk esnasındaki güvenli sürüşten</b> çok memnun kaldıklarını belirtiyor.",
+      "2": "Yapılan yorumlarda <b>araç içi ikramlar</b>, <b>temizlik</b> ve <b>konforlu koltukların</b> seyahat kalitesini artırdığı vurgulanıyor.",
+      "3": "Ailece yapılan transferlerde <b>çocuk koltuğu desteği</b> ve <b>bagaj yardımı</b> misafirlerimiz tarafından en çok takdir edilen detaylar arasında.",
+      "4": "Ziyaretçilerimiz <b>7/24 kesintisiz iletişimin</b> ve <b>uçak rötar takibinin</b> kendilerine büyük bir güven verdiğini ifade ediyor.",
+      "5": "İş seyahatlerinde tercih eden misafirlerimiz <b>zaman tasarrufu</b> ve <b>araç içi mobil çalışma imkanından</b> övgüyle bahsediyor."
+    },
+    "tours": {
+      "subtitle": "EŞSİZ DENEYİMLER",
+      "title1": "Özel ",
+      "titleHighlight": "İstanbul",
+      "title2": " Turları",
+      "desc": "Şehrin tarihi güzelliklerini ve gizli kalmış hazinelerini VIP ayrıcalığı ve lüks araçlarımızla keşfetmeye hazır olun."
+    }
+  },
+  "Footer": {
+    "contactTitle": "İletişim",
+    "whatsappPhone": "Whatsapp & Telefon",
+    "email": "E-Posta",
+    "corporate": "Kurumsal",
+    "discover": "Keşfet",
+    "copyright": "Tüm hakları saklıdır",
+    "docs": {
+      "privacy": "Gizlilik ve Güvenlik",
+      "passenger": "Yolcu Taşıma Sözleşmesi",
+      "purchase": "Satın Alma Sözleşmesi",
+      "terms": "Kullanım Koşulları",
+      "data": "Veri Koruma"
+    },
+    "links": {
+      "tours": "Turlar",
+      "about": "Hakkımızda",
+      "services": "Hizmetlerimiz",
+      "employer": "İşveren Olun",
+      "carrier": "Taşıyıcı Olun",
+      "points": "Buluşma Noktaları",
+      "vehicles": "Araçlarımız",
+      "contact": "İletişim",
+      "faq": "S.S.S"
+    }
+  },
+  "Common": {
+    "cookieTitle": "Çerez Tercihleri",
+    "cookieDesc": "KVKK ve GDPR kapsamında deneyiminizi iyileştirmek için çerezler kullanıyoruz.",
+    "privacy": "Gizlilik Politikası",
+    "terms": "Kullanım Koşulları",
+    "reject": "Reddet",
+    "accept": "Kabul Et"
+  },
+  "About": {
+    "title": "Hakkımızda",
+    "home": "Anasayfa",
+    "heroTitle": "Premium Transfer<br></br><span>Deneyimi</span>",
+    "heroDesc": "2015 yılından bu yana binlerce müşterimize güvenli, konforlu ve lüks transfer hizmetleri sunuyoruz. Profesyonel ekibimiz ve modern araç filomuzla her yolculuğunuzu özel kılıyoruz.",
+    "stats": {
+      "years": "Yıllık Deneyim",
+      "customers": "Mutlu Müşteri",
+      "drivers": "Profesyonel Şoför",
+      "vehicles": "Modern Araç"
+    },
+    "ratingTitle": "Müşteri Memnuniyeti",
+    "whoWeAre": "Biz Kimiz?",
+    "whoTitle": "Türkiye'nin Lider VIP Transfer Şirketi",
+    "whoDesc1": "RidePortX olarak, 2015 yılından bu yana havalimanı transferi, şehir içi VIP ulaşım ve kurumsal transfer hizmetlerinde sektörün öncü markası olarak hizmet vermekteyiz.",
+    "whoDesc2": "Müşteri memnuniyetini her şeyin üstünde tutan anlayışımız, profesyonel ve deneyimli şoför kadromuz, son model araç filomuz ile her yolculuğunuzu konforlu ve güvenli bir deneyime dönüştürüyoruz.",
+    "features": {
+      "safe": "Güvenli Seyahat",
+      "247": "7/24 Hizmet",
+      "luxury": "Lüks Araçlar",
+      "expert": "Uzman Ekip"
+    },
+    "valuesTag": "Değerlerimiz",
+    "valuesTitle": "Bizim İçin Önemli Olan",
+    "mission": "Misyonumuz",
+    "missionDesc": "Müşterilerimize en yüksek kalitede, güvenli ve konforlu transfer hizmetleri sunarak seyahat deneyimlerini unutulmaz kılmak.",
+    "vision": "Vizyonumuz",
+    "visionDesc": "Türkiye'nin ve bölgenin en güvenilir, yenilikçi ve tercih edilen premium transfer markası olmak.",
+    "values": "Değerlerimiz",
+    "valuesDesc": "Güvenilirlik, müşteri odaklılık, profesyonellik ve sürekli gelişim ilkeleriyle hareket ediyoruz.",
+    "ctaTitle": "Hemen Rezervasyon Yapın",
+    "ctaDesc": "Premium transfer deneyimi için hemen bizimle iletişime geçin. Size özel çözümler sunalım.",
+    "ctaBook": "Rezervasyon Yap",
+    "ctaContact": "Bize Ulaşın"
+  },
+  "Contact": {
+    "title": "İletişim",
+    "home": "Anasayfa",
+    "subtitle": "Bizimle İletişime Geçin",
+    "desc": "Hızlı bir rota oluşturmanızın en kısa yolundasınız birlikte oluşturacağımız rotaların tadını çıkarmaya hazırlanın. Ayrıca size daha kaliteli hizmet verebilmemiz için tüm görüş ve önerilerinizi aşağıdaki bilgiler ve form ile bizimle iletişime geçebilirsiniz.",
+    "success": "Mesajınız başarıyla gönderildi. En kısa sürede size dönüş yapacağız.",
+    "form": {
+      "firstName": "ADINIZ",
+      "lastName": "SOYADINIZ",
+      "phone": "TELEFON NUMARASI",
+      "email": "E-POSTA ADRESİNİZ",
+      "message": "MESAJINIZ",
+      "sending": "Gönderiliyor...",
+      "submit": "Mesaj Gönder"
+    },
+    "info": {
+      "phone": "Telefon",
+      "email": "E-Posta",
+      "address": "Adres",
+      "addressText": "Maslak, Şişli / İstanbul"
+    },
+    "mapTitle": "Bizi Ziyaret Edin"
+  },
+  "FAQ": {
+    "title": "Sıkça Sorulan Sorular",
+    "subtitle": "Transfer hizmetlerimiz hakkında merak ettikleriniz",
+    "stats": {
+      "qna": "Soru & Cevap",
+      "support": "Destek",
+      "satisfaction": "Memnuniyet"
+    },
+    "notFound": "Sorunuza cevap bulamadınız mı?",
+    "contactUs": "Müşteri hizmetlerimiz size yardımcı olmaktan mutluluk duyar.",
+    "whatsapp": "WhatsApp ile İletişime Geç",
+    "contactForm": "İletişim Formu",
+    "questions": {
+      "0": {
+        "q": "Rezervasyonumu nasıl iptal edebilirim?",
+        "a": "Rezervasyonunuzu iptal etmek için web sitemizden giriş yaparak 'Rezervasyonlarım' bölümünden ilgili rezervasyonu seçip iptal edebilirsiniz. Ayrıca WhatsApp üzerinden +90 532 417 89 63 numaramızdan veya info@rideportx.com e-posta adresimizden de iptal işlemlerinizi gerçekleştirebilirsiniz."
+      },
+      "1": {
+        "q": "Havalimanı transfer rezervasyonu nasıl yapılır?",
+        "a": "Havalimanı transfer rezervasyonunuzu web sitemizden kolayca yapabilirsiniz. Ana sayfada yer alan rezervasyon formunda nereden ve nereye gideceğinizi, tarih ve saat bilgilerinizi girdikten sonra size uygun araç seçeneklerini görebilir ve rezervasyonunuzu tamamlayabilirsiniz. Alternatif olarak WhatsApp hattımızdan da rezervasyon yapabilirsiniz."
+      },
+      "2": {
+        "q": "Transfer rezervasyonu yaparken hangi bilgileri paylaşmalıyım?",
+        "a": "Transfer rezervasyonu için şu bilgilere ihtiyacımız var: Kalkış ve varış noktaları, transfer tarihi ve saati, yolcu sayısı, uçuş bilgileriniz (havalimanı transferi için), iletişim bilgileriniz (telefon ve e-posta). Özel talepleriniz varsa (bebek koltuğu, bagaj sayısı vb.) bunları da belirtebilirsiniz."
+      },
+      "3": {
+        "q": "Uçağım rötar yaparsa transferim iptal olur mu?",
+        "a": "Hayır, uçağınız rötar yaparsa transferiniz iptal olmaz. Sürücümüz uçuş takip sistemi ile uçuşunuzu anlık olarak takip eder ve yeni iniş saatinize göre havalimanında sizi bekler. Rötar durumunda ek ücret talep edilmez."
+      },
+      "4": {
+        "q": "Transfer aracı beni ne kadar süre bekler?",
+        "a": "Havalimanı transferlerinde, uçağınızın inişinden itibaren 60 dakika ücretsiz bekleme süresi sunuyoruz. Bu süre içinde bagajınızı alıp buluşma noktasına rahatlıkla gelebilirsiniz. Şehir içi transferlerde ise belirlenen saatte 15 dakika ücretsiz bekleme süresi mevcuttur."
+      },
+      "5": {
+        "q": "Havalimanı buluşma noktasında şoförü nasıl bulacağım?",
+        "a": "İstanbul Havalimanı'nda sürücümüz, gelen yolcu katında bulunan karşılama noktasında sizin adınızı yazan tabelayla sizi bekleyecektir. Sabiha Gökçen Havalimanı'nda ise yine gelen yolcu katı çıkışında karşılama noktasında tabelayla bekleyecektir. Rezervasyon sonrası size gönderilen SMS'te sürücünüzün telefon numarası da yer alacaktır."
+      },
+      "6": {
+        "q": "Havalimanı transfer aracını havalimanında nasıl bulacağım?",
+        "a": "Havalimanına vardığınızda, bagaj teslim alanından çıktıktan sonra karşılama (meeting point) bölümüne gidin. Sürücümüz sizin adınızı yazan bir tabelayla orada olacaktır. Ayrıca rezervasyon onayınızda sürücünüzün iletişim bilgileri de yer alacaktır, gerektiğinde direkt iletişime geçebilirsiniz."
+      },
+      "7": {
+        "q": "Havalimanı dışında adresimden veya farklı bir rezervasyonda araç ile nasıl buluşurum?",
+        "a": "Şehir içi transferlerde sürücümüz belirlenen saatte adresinizin önünde olacaktır. Rezervasyon öncesinde size gönderilen SMS'te sürücünüzün plaka ve telefon bilgileri yer alır. Sürücünüz de size ulaşarak konumunu bildirecektir. Otel transferlerinde ise sürücümüz otel lobisinde sizi bekleyecektir."
+      },
+      "8": {
+        "q": "Transfer araçlarında çocuklar için çocuk koltuğu var mı?",
+        "a": "Evet, talep etmeniz halinde ücretsiz olarak bebek ve çocuk koltuğu sağlıyoruz. Rezervasyon yaparken 'Özel Talepler' bölümünden çocuğunuzun yaşını ve kilosunu belirterek koltuğu talep edebilirsiniz. Güvenlik standartlarına uygun, temiz ve bakımlı koltuklar kullanıyoruz."
+      },
+      "9": {
+        "q": "Kredi kartı ile ödeme yapabilir miyim?",
+        "a": "Evet, tüm kredi kartları ve banka kartları ile güvenli ödeme yapabilirsiniz. Ayrıca nakit ödeme seçeneği de mevcuttur. Online ödemeleriniz 3D Secure güvenlik sistemi ile korunmaktadır. Kurumsal müşterilerimiz için fatura ve havale seçenekleri de bulunmaktadır."
+      },
+      "10": {
+        "q": "Rezervasyonumun onaylandığını nasıl anlarım?",
+        "a": "Rezervasyonunuz tamamlandıktan sonra size e-posta ve SMS ile onay mesajı gönderilir. Bu mesajda rezervasyon detaylarınız, araç bilgileri, sürücü iletişim bilgileri ve rezervasyon numaranız yer alır. Ayrıca 'Rezervasyonlarım' sayfasından da rezervasyonunuzun durumunu kontrol edebilirsiniz."
+      },
+      "11": {
+        "q": "Adres transferlerinde süreç nasıldır?",
+        "a": "Adres transferlerinde sürücümüz belirlenen saatte tam adresinizin önünde olacaktır. Transfer saatinden önce size SMS ile sürücünüzün adı, telefonu ve araç plakası bilgisi gönderilir. Sürücünüz de size ulaşarak konumunu bildirir. Otel, AVM gibi noktalarda ise ana giriş kapısında bekleyecektir."
+      }
+    }
+  },
+  "Tours": {
+    "title": "Tur Gezisi",
+    "home": "Anasayfa",
+    "heroTitle": "Eşsiz Bir Tur Deneyimine Ne Dersiniz?",
+    "heroDesc": "Özenle seçilmiş büyüleyici rotalar ve kişiye özel kusursuz detaylarla donatılmış turlarımızda, ömür boyu unutamayacağınız anılar biriktirmeye hazır olun.",
+    "categories": "Kategoriler",
+    "all": "Tümü",
+    "vip": "VIP",
+    "daily": "Günübirlik",
+    "culture": "Kültür",
+    "sea": "Deniz",
+    "notSpecified": "Belirtilmedi",
+    "everyday": "Her Gün",
+    "details": "Tur Detayları",
+    "loadMore": "Daha Fazla Tur Göster"
+  },
+  "Partnership": {
+    "title": "Kurumsal Ortaklık Programı",
+    "heroTitle": "İş Ortağımız Olun,<br></br><span>Birlikte Büyüyelim</span>",
+    "heroDesc": "Transfer sektöründe lider konumumuzla birlikte çalışın. Güçlü altyapımız, geniş müşteri ağımız ve profesyonel ekibimizle kazancınızı artırın.",
+    "applyNow": "Hemen Başvur",
+    "callUs": "Bizi Arayın",
+    "whyTitle": "Neden RidePortX?",
+    "whyDesc": "İş ortaklarımıza sunduğumuz benzersiz avantajlar ve fırsatlar",
+    "benefits": {
+      "0": {
+        "title": "Gelir Artışı",
+        "desc": "Kurumsal müşterilerimizle düzenli iş akışı sağlayarak gelirinizi artırın."
+      },
+      "1": {
+        "title": "Geniş Müşteri Ağı",
+        "desc": "Binlerce aktif kullanıcımız ve kurumsal müşterilerimizle tanışın."
+      },
+      "2": {
+        "title": "Güvenli Ödeme",
+        "desc": "Tüm ödemeleriniz zamanında ve güvenli şekilde hesabınıza aktarılır."
+      },
+      "3": {
+        "title": "Esnek Çalışma",
+        "desc": "Kendi programınızı oluşturun, istediğiniz zaman çalışın."
+      },
+      "4": {
+        "title": "Profesyonel Destek",
+        "desc": "7/24 teknik ve operasyonel destek ekibimiz yanınızda."
+      },
+      "5": {
+        "title": "Kurumsal İmaj",
+        "desc": "Prestijli markamızla birlikte çalışarak kurumsal imajınızı güçlendirin."
+      }
+    },
+    "featuresTitle": "Tüm İhtiyaçlarınız<br></br>Tek Platformda",
+    "featuresDesc": "Gelişmiş teknoloji altyapımız sayesinde işlerinizi kolayca yönetin. Rezervasyonlardan ödemelere, raporlamadan müşteri ilişkilerine kadar her şey parmaklarınızın ucunda.",
+    "features": {
+      "0": "Anlık rezervasyon bildirimleri",
+      "1": "Detaylı raporlama ve analiz araçları",
+      "2": "Müşteri değerlendirme sistemi",
+      "3": "Otomatik rota optimizasyonu",
+      "4": "Dijital fatura ve ödeme takibi",
+      "5": "Özel indirim ve kampanya fırsatları"
+    },
+    "formTitle": "Başvuru Formu",
+    "formDesc": "Formu doldurun, en kısa sürede sizinle iletişime geçelim",
+    "form": {
+      "companyName": "Şirket Adı *",
+      "companyPlaceholder": "Şirket adınızı girin",
+      "contactPerson": "Yetkili Kişi *",
+      "personPlaceholder": "Adınız ve soyadınız",
+      "phone": "Telefon *",
+      "email": "E-posta *",
+      "message": "Mesajınız",
+      "messagePlaceholder": "Bize kendinizden ve işletmenizden bahsedin...",
+      "submit": "Başvuruyu Gönder",
+      "sending": "Gönderiliyor...",
+      "successTitle": "Başvurunuz Alındı!",
+      "successDesc": "En kısa sürede ekibimiz sizinle iletişime geçecektir. Teşekkür ederiz.",
+      "note": "Başvurunuz en geç 24 saat içinde değerlendirilecektir."
+    },
+    "contactTitle": "Hemen İletişime Geçin",
+    "contactDesc": "Sorularınız için 7/24 yanınızdayız"
+  },
+  "Carrier": {
+    "title": "Taşıyıcı İş Ortaklığı",
+    "heroTitle": "İş kabul etmeye <span>başlayın.</span>",
+    "heroDesc": "Aracınızı veya şirketinizi kaydettirin ve sonrasında sistemde olan yolculukları kabul ederek para kazanmaya başlayın. <strong>Komisyon yok, sistem ödemesi yok, kesinti yok.</strong>",
+    "applyNow": "Hemen Başvur",
+    "whyTitle": "Neden RidePortX ile Çalışmalısınız?",
+    "whyDesc": "Taşıyıcı iş ortaklarımıza sunduğumuz avantajlar",
+    "advantages": {
+      "0": {
+        "title": "Net Fiyat, Sıfır Kesinti",
+        "desc": "Sistemde gördüğünüz fiyat, doğrudan kazancınızdır. Komisyon veya sistem ücreti yoktur. 2 iş günü içinde ödemeniz yapılır."
+      },
+      "1": {
+        "title": "Şeffaf Muhasebe",
+        "desc": "Aldığınız işlerin tutarlarını, tahsilatları, firma ödemelerini ve cari bakiyenizi anlık olarak takip edebileceğiniz panel."
+      },
+      "2": {
+        "title": "İstediğiniz Kadar İş",
+        "desc": "Sisteme girdiğinizde görünen tüm transferleri seçebilir, kabul edebilir veya reddedebilirsiniz. Tamamen esnek çalışma imkanı."
+      }
+    },
+    "howTitle": "Nasıl Çalışır?",
+    "howDesc": "4 adımda taşıyıcı iş ortağımız olun",
+    "steps": {
+      "0": {
+        "step": "01",
+        "title": "Formu Doldurun",
+        "desc": "Bilgilerinizi ve araç detaylarınızı girin"
+      },
+      "1": {
+        "step": "02",
+        "title": "Onay Alın",
+        "desc": "Ekibimiz başvurunuzu inceleyip onaylasın"
+      },
+      "2": {
+        "step": "03",
+        "title": "İş Seçin",
+        "desc": "Panelden uygun transferleri kabul edin"
+      },
+      "3": {
+        "step": "04",
+        "title": "Kazanın",
+        "desc": "Transferi tamamlayın, ödemenizi alın"
+      }
+    },
+    "stats": {
+      "0": {
+        "label": "Aktif Taşıyıcı",
+        "value": "500+"
+      },
+      "1": {
+        "label": "Tamamlanan Transfer",
+        "value": "50K+"
+      },
+      "2": {
+        "label": "Ortalama Puan",
+        "value": "4.8/5"
+      },
+      "3": {
+        "label": "Ödeme Süresi",
+        "value": "2 Gün"
+      }
+    },
+    "formTitle": "Başvuru Formu",
+    "formDesc": "Formu doldurduğunuzda ilgili birimimiz en kısa sürede size geri dönüş sağlayacaktır.",
+    "form": {
+      "fullName": "Ad Soyad *",
+      "namePlaceholder": "Adınız Soyadınız",
+      "phone": "Telefon *",
+      "email": "E-Posta *",
+      "city": "Şehir *",
+      "citySelect": "Şehir Seçin",
+      "cities": {
+        "istanbul": "İstanbul",
+        "ankara": "Ankara",
+        "izmir": "İzmir",
+        "antalya": "Antalya",
+        "mugla": "Muğla",
+        "bursa": "Bursa",
+        "diger": "Diğer"
+      },
+      "vehicleType": "Araç Tipi *",
+      "vehicleSelect": "Araç Tipi Seçin",
+      "vehicleCount": "Araç Sayısı",
+      "experience": "Deneyim",
+      "expSelect": "Transfer deneyiminiz var mı?",
+      "expNone": "Hayır, yeni başlıyorum",
+      "exp1": "1-3 yıl",
+      "exp3": "3-5 yıl",
+      "exp5": "5+ yıl",
+      "message": "Ek Not",
+      "messagePlaceholder": "Eklemek istediğiniz bilgiler...",
+      "terms": "Bu formu doldurarak, RidePortX {termsLink}'nı kabul eder ve {privacyLink}'nı okuduğunuzu onaylarsınız.",
+      "termsLabel": "Kullanım Koşulları",
+      "privacyLabel": "Gizlilik Politikası",
+      "submit": "Başvuruyu Gönder",
+      "sending": "Gönderiliyor...",
+      "successTitle": "Başvurunuz Alındı!",
+      "successDesc": "En kısa sürede ekibimiz sizinle iletişime geçecektir. Teşekkür ederiz."
+    }
+  },
+  "Legal": {
+    "gizlilik": {
+      "title": "Gizlilik Politikası ve KVKK Aydınlatma Metni",
+      "content": "<p>Son güncellenme tarihi: 29 Nisan 2026</p>\n                    <h2>1. Veri Sorumlusu</h2>\n                    <p>Kişisel verileriniz, veri sorumlusu sıfatıyla RidePortX tarafından KVKK (6698 sayılı kanun) ve GDPR uyumlu olarak işlenmektedir.</p>\n                    <h2>2. Hangi Verileri Topluyoruz?</h2>\n                    <p>Transfer süreçlerini yönetebilmek için: Ad, Soyad, Telefon, E-posta, Uçuş numarası ve Konum bilgilerinizi topluyoruz.</p>\n                    <h2>3. Veri Silme Talebi</h2>\n                    <p>Sistemimizde kayıtlı olan tüm verilerinizin &quot;Unutulma Hakkı&quot; kapsamında silinmesini talep etmek için <strong>info@rideportx.com</strong> adresine e-posta gönderebilirsiniz. Talebiniz 48 saat içinde işleme alınacaktır.</p>"
+    },
+    "kullanim": {
+      "title": "Kullanım Koşulları ve Mesafeli Satış Sözleşmesi",
+      "content": "<p>Son güncellenme tarihi: 29 Nisan 2026</p>\n                    <h2>1. Taraflar ve Kapsam</h2>\n                    <p>Bu sözleşme, RidePortX üzerinden VIP transfer ve araç kiralama hizmeti alan yolcular için geçerlidir.</p>\n                    <h2>2. İptal ve İade Koşulları</h2>\n                    <p>Transfer saatinden 12 saat öncesine kadar yapılan iptallerde %100 kesintisiz iade garantisi sunulmaktadır. 12 saatten daha az kalan iptallerde iade yapılamaz.</p>\n                    <h2>3. Bagaj ve Yolcu Sayısı</h2>\n                    <p>Seçilen aracın maksimum yolcu ve bagaj kapasitesine uyulması zorunludur. Aksi durumlarda şoför ek ücret talep etme veya sürüşü reddetme hakkına sahiptir.</p>"
+    },
+    "veri-koruma": {
+      "title": "Veri Koruma ve KVKK Politikası",
+      "content": "<p>Son güncellenme tarihi: 13 Mayıs 2026</p>\n\n                    <h2>1. Veri Sorumlusu</h2>\n                    <p><strong>RidePortX</strong>, 6698 sayılı Kişisel Verilerin Korunması Kanunu (&quot;KVKK&quot;) kapsamında veri sorumlusu sıfatıyla kişisel verilerinizi işlemektedir.</p>\n\n                    <h2>2. İşlenen Kişisel Veriler</h2>\n                    <table>\n                        <thead>\n                            <tr>\n                                <th>Veri Kategorisi</th>\n                                <th>Örnekler</th>\n                            </tr>\n                        </thead>\n                        <tbody>\n                            <tr>\n                                <td>Kimlik Bilgileri</td>\n                                <td>Ad, Soyad</td>\n                            </tr>\n                            <tr>\n                                <td>İletişim Bilgileri</td>\n                                <td>Telefon, E-posta</td>\n                            </tr>\n                            <tr>\n                                <td>Lokasyon Bilgileri</td>\n                                <td>Alış/bırakış adresleri</td>\n                            </tr>\n                            <tr>\n                                <td>Uçuş Bilgileri</td>\n                                <td>Uçuş numarası, havalimanı</td>\n                            </tr>\n                            <tr>\n                                <td>Finansal Bilgiler</td>\n                                <td>Ödeme yöntemi tercihi (kart bilgileri saklanmaz)</td>\n                            </tr>\n                            <tr>\n                                <td>Çerez Verileri</td>\n                                <td>Oturum, tercihler, analitik (onaya tabi)</td>\n                            </tr>\n                        </tbody>\n                    </table>\n\n                    <h2>3. Verilerin İşlenme Amaçları</h2>\n                    <ul>\n                        <li>Transfer hizmetinin sağlanması ve rezervasyon yönetimi</li>\n                        <li>Sürücü ataması ve rota planlaması</li>\n                        <li>Fatura ve ödeme işlemleri</li>\n                        <li>Müşteri destek hizmetleri</li>\n                        <li>Yasal yükümlülüklerin yerine getirilmesi</li>\n                        <li>Hizmet kalitesinin iyileştirilmesi (anonim analitik)</li>\n                    </ul>\n\n                    <h2>4. Verilerin Aktarılması</h2>\n                    <p>Kişisel verileriniz, yalnızca hizmetin ifası için gerekli olduğu durumlarda şu taraflarla paylaşılabilir:</p>\n                    <ul>\n                        <li><strong>Sürücüler:</strong> Ad, telefon ve transfer detayları</li>\n                        <li><strong>Ödeme altyapısı:</strong> Ödeme işlemi için banka/ödeme kuruluşu</li>\n                        <li><strong>Yasal zorunluluk:</strong> Yetkili kamu kurum ve kuruluşları</li>\n                    </ul>\n                    <p>Verileriniz yurt dışına aktarılmaz. Analitik hizmetler (Google Analytics) için Google Consent Mode v2 kullanılmakta olup, çerez onayınız alınmadan veri toplanmaz.</p>\n\n                    <h2>5. Veri Saklama Süreleri</h2>\n                    <ul>\n                        <li>Rezervasyon verileri: Hizmet tarihinden itibaren <strong>5 yıl</strong> (yasal yükümlülük)</li>\n                        <li>İletişim verileri: Hesap aktif olduğu sürece</li>\n                        <li>Çerez verileri: Maksimum <strong>13 ay</strong></li>\n                    </ul>\n\n                    <h2>6. Veri Sahibinin Hakları (KVKK Madde 11)</h2>\n                    <p>Kişisel veri sahibi olarak aşağıdaki haklara sahipsiniz:</p>\n                    <ul>\n                        <li>Kişisel verilerinizin işlenip işlenmediğini öğrenme</li>\n                        <li>İşlenmişse buna ilişkin bilgi talep etme</li>\n                        <li>İşlenme amacını ve amaca uygun kullanılıp kullanılmadığını öğrenme</li>\n                        <li>Yurt içinde/dışında aktarıldığı üçüncü kişileri bilme</li>\n                        <li>Eksik veya yanlış işlenmişse düzeltilmesini isteme</li>\n                        <li>KVKK Madde 7 kapsamında silinmesini veya yok edilmesini isteme</li>\n                        <li>İşlenen verilerin münhasıran otomatik sistemler vasıtasıyla analiz edilmesi suretiyle aleyhinize bir sonucun ortaya çıkmasına itiraz etme</li>\n                        <li>Kanuna aykırı işlenmesi sebebiyle zarara uğramanız hâlinde zararın giderilmesini talep etme</li>\n                    </ul>\n\n                    <h2>7. Başvuru Yöntemi</h2>\n                    <p>Yukarıdaki haklarınızı kullanmak için <strong>info@rideportx.com</strong> adresine kimliğinizi doğrulayan bilgilerle birlikte başvurabilirsiniz. Başvurularınız <strong>30 gün</strong> içinde ücretsiz olarak sonuçlandırılır.</p>\n\n                    <h2>8. Çerez Politikası</h2>\n                    <p>Sitemizde Google Consent Mode v2 entegrasyonu kullanılmaktadır. Zorunlu çerezler dışındaki tüm çerezler (analitik, pazarlama) ancak açık onayınızla aktif hale gelir. Çerez tercihlerinizi istediğiniz zaman değiştirebilirsiniz.</p>\n\n                    <h2>9. Güncelleme</h2>\n                    <p>Bu politika, yasal değişiklikler veya hizmet güncellemeleri doğrultusunda revize edilebilir. Güncel versiyona her zaman bu sayfadan erişebilirsiniz.</p>"
+    },
+    "satin-alma": {
+      "title": "Satın Alma Sözleşmesi",
+      "content": "<p>Son güncellenme tarihi: 13 Mayıs 2026</p>\n\n                    <h2>1. Taraflar</h2>\n                    <p><strong>SATICI:</strong> RidePortX — info@rideportx.com</p>\n                    <p><strong>ALICI:</strong> Platform üzerinden hizmet satın alan gerçek veya tüzel kişi.</p>\n\n                    <h2>2. Sözleşmenin Konusu</h2>\n                    <p>İşbu sözleşme, 6502 sayılı Tüketicinin Korunması Hakkında Kanun ve Mesafeli Sözleşmeler Yönetmeliği hükümleri gereğince tarafların hak ve yükümlülüklerini düzenler. Alıcı, RidePortX platformu üzerinden satın aldığı transfer, tur ve ek hizmetlerin temel nitelikleri, satış fiyatı ve ödeme koşulları hakkında bilgilendirildiğini kabul eder.</p>\n\n                    <h2>3. Hizmet Bilgileri</h2>\n                    <p>Satın alınan hizmetin türü, tarihi, güzergahı, araç tipi ve fiyatı rezervasyon onay ekranında ve e-posta ile Alıcı&apos;ya bildirilir. Hizmet bedeli, seçilen ödeme yöntemine göre (kredi kartı veya nakit) tahsil edilir.</p>\n\n                    <h2>4. Fiyat ve Ödeme</h2>\n                    <ul>\n                        <li>Tüm fiyatlar KDV dahil olarak gösterilir.</li>\n                        <li>Kredi kartı ile ödeme seçeneğinde %4 kart işlem ücreti uygulanabilir.</li>\n                        <li>Ödeme, rezervasyon anında veya araç içinde nakit olarak yapılabilir.</li>\n                        <li>Döviz bazlı fiyatlandırmalarda, işlem anındaki kur geçerlidir.</li>\n                    </ul>\n\n                    <h2>5. Cayma Hakkı</h2>\n                    <p>Mesafeli Sözleşmeler Yönetmeliği&apos;nin 15. maddesi (g) bendi uyarınca, belirli bir tarihte yapılması gereken hizmetlerde cayma hakkı kullanılamaz. Ancak RidePortX, müşteri memnuniyeti kapsamında transfer saatinden <strong>12 saat</strong> öncesine kadar yapılan iptallerde tam iade sağlar.</p>\n\n                    <h2>6. Teslimat (Hizmetin İfası)</h2>\n                    <p>Hizmet, rezervasyonda belirtilen tarih ve saatte, belirtilen adres veya buluşma noktasında ifa edilir. Havalimanı transferlerinde sürücü, gelen yolcu katında isim tabelası ile karşılama yapar.</p>\n\n                    <h2>7. Garanti ve İade</h2>\n                    <ul>\n                        <li>Hizmetin hiç verilememesi durumunda tam iade yapılır.</li>\n                        <li>Hizmetin eksik veya hatalı verilmesi durumunda kısmi iade veya telafi hizmeti sunulur.</li>\n                        <li>İade talepleri <strong>info@rideportx.com</strong> adresine yapılmalıdır.</li>\n                        <li>İade işlemleri, talebin onaylanmasından itibaren <strong>10 iş günü</strong> içinde gerçekleştirilir.</li>\n                    </ul>\n\n                    <h2>8. Uyuşmazlık</h2>\n                    <p>İşbu sözleşmeden doğan uyuşmazlıklarda Tüketici Hakem Heyetleri ve Tüketici Mahkemeleri yetkilidir. Yıllık parasal sınırlar için T.C. Ticaret Bakanlığı&apos;nın güncel tebliğleri esas alınır.</p>\n\n                    <h2>9. Yürürlük</h2>\n                    <p>Alıcı, rezervasyonu tamamladığında işbu sözleşmeyi okuduğunu ve kabul ettiğini beyan eder. Sözleşme, ödemenin yapılması ile yürürlüğe girer.</p>"
+    },
+    "yolcu-tasima": {
+      "title": "Yolcu Taşıma Sözleşmesi",
+      "content": "<p>Son güncellenme tarihi: 13 Mayıs 2026</p>\n\n                    <h2>1. Taraflar</h2>\n                    <p>Bu sözleşme, <strong>RidePortX</strong> (bundan sonra &quot;Taşıyıcı&quot; olarak anılacaktır) ile platform üzerinden transfer hizmeti satın alan yolcu (bundan sonra &quot;Yolcu&quot; olarak anılacaktır) arasında akdedilmiştir.</p>\n\n                    <h2>2. Sözleşmenin Konusu</h2>\n                    <p>İşbu sözleşme, Yolcu&apos;nun RidePortX platformu üzerinden rezervasyon yaptığı havalimanı transferi, şehir içi/şehirler arası VIP transfer ve saatlik araç kiralama hizmetlerinin koşullarını düzenler.</p>\n\n                    <h2>3. Taşıyıcının Yükümlülükleri</h2>\n                    <ul>\n                        <li>Yolcuyu belirlenen noktadan alarak varış noktasına güvenli şekilde ulaştırmak</li>\n                        <li>Aracın temiz, bakımlı ve sigortalı olmasını sağlamak</li>\n                        <li>Profesyonel ve ehliyet sahibi sürücü tahsis etmek</li>\n                        <li>Belirtilen araç tipini veya eşdeğerini sağlamak</li>\n                        <li>Uçuş takibi yaparak gecikmeli uçuşlarda bekleme süresi tanımak</li>\n                    </ul>\n\n                    <h2>4. Yolcunun Yükümlülükleri</h2>\n                    <ul>\n                        <li>Doğru iletişim bilgileri ve uçuş numarası vermek</li>\n                        <li>Belirlenen buluşma noktasında zamanında hazır olmak</li>\n                        <li>Araç kapasitesine uygun bagaj ve yolcu sayısına uymak</li>\n                        <li>Araç içerisinde sigara içmemek ve araca zarar vermemek</li>\n                        <li>Yasadışı madde bulundurmamak</li>\n                    </ul>\n\n                    <h2>5. Bekleme Süreleri</h2>\n                    <p>Havalimanı karşılamalarında, uçak inişinden itibaren <strong>60 dakika</strong> ücretsiz bekleme süresi tanınır. Otel/adres alımlarında ise <strong>15 dakika</strong> ücretsiz bekleme süresi geçerlidir. Bu sürelerin aşılması halinde dakika başına ek ücret yansıtılabilir.</p>\n\n                    <h2>6. İptal ve Değişiklik</h2>\n                    <p>Transfer saatinden <strong>12 saat</strong> öncesine kadar yapılan iptallerde tam iade yapılır. 12 saatten az kalan iptallerde iade yapılamaz. Tarih/saat değişikliği talepleri en az 6 saat öncesinden bildirilmelidir.</p>\n\n                    <h2>7. Sorumluluk Sınırları</h2>\n                    <p>Taşıyıcı, mücbir sebepler (doğal afet, savaş, terör, pandemi, devlet müdahalesi) nedeniyle hizmetin verilememesinden sorumlu değildir. Trafik koşullarından kaynaklanan gecikmeler için en iyi çabayı gösterir ancak kesin varış süresi taahhüt etmez.</p>\n\n                    <h2>8. Kişisel Veri Koruması</h2>\n                    <p>Yolcunun kişisel verileri, 6698 sayılı KVKK kapsamında korunur. Detaylar için <strong>Gizlilik Politikası</strong> ve <strong>Veri Koruma</strong> sayfalarımızı inceleyiniz.</p>\n\n                    <h2>9. Uyuşmazlık Çözümü</h2>\n                    <p>İşbu sözleşmeden doğan uyuşmazlıklarda İstanbul Mahkemeleri ve İcra Daireleri yetkilidir.</p>\n\n                    <h2>10. İletişim</h2>\n                    <p>Sözleşmeye ilişkin sorularınız için <strong>info@rideportx.com</strong> adresinden bize ulaşabilirsiniz.</p>"
+    }
+  },
+  "BookingFlow": {
+    "step1": "Araç & Hizmetler",
+    "step2": "Yolcu & Ödeme",
+    "step3": "Rezervasyon",
+    "loadingPrices": "Fiyatlar hesaplanıyor...",
+    "error": "Hata",
+    "errorPricing": "Fiyatlar yüklenirken bir hata oluştu. Lütfen tekrar deneyin.",
+    "retry": "Tekrar Dene",
+    "noVehicles": "Araç bulunamadı. Lütfen arama kriterlerinizi değiştirin.",
+    "fixedPrice": "Sabit Fiyat",
+    "flightTracking": "Uçuş Takibi",
+    "airportPickup": "Havalimanı Karşılama",
+    "freeCancellation": "Ücretsiz İptal",
+    "selectCurrency": "Lütfen ödeme yapmak istediğiniz para birimi seçiniz",
+    "totalVehiclePrice": "Toplam araç fiyatıdır.",
+    "bookNow": "Rezervasyon Yap",
+    "edit": "Düzenle",
+    "cancel": "İptal",
+    "from": "NEREDEN",
+    "fromPlaceholder": "Nereden?",
+    "to": "NEREYE",
+    "toPlaceholder": "Nereye?",
+    "dateTime": "TARİH & SAAT",
+    "select": "Seçiniz",
+    "passengerCountTitle": "KİŞİ SAYISI",
+    "roundTripTitle": "GİDİŞ - DÖNÜŞ",
+    "yes": "EVET",
+    "no": "HAYIR",
+    "updating": "Güncelleniyor...",
+    "discount": "% İndirim",
+    "contactInfo": "İletişim Bilgileri",
+    "fullName": "Adınız Soyadınız",
+    "email": "E-Posta Adresi",
+    "phone": "Telefon Numarası",
+    "flightNo": "Uçuş Numarası (Opsiyonel)",
+    "note": "Not (Opsiyonel)",
+    "extraServices": "Ekstra Hizmetler",
+    "paymentMethod": "Ödeme Yöntemi",
+    "creditCardPayment": "Kredi Kartı ile Güvenli Ödeme",
+    "cashPayment": "Araçta Nakit Ödeme",
+    "pay": "Ödemeyi Tamamla",
+    "processing": "İşleniyor...",
+    "fillRequiredFields": "Lütfen gerekli alanları doldurunuz.",
+    "vehicleTypeLabel": "Araç Tipi",
+    "distanceLabel": "Mesafe",
+    "durationLabel": "Süre",
+    "passengerCountLabel": "Yolcu Sayısı",
+    "dateLabel": "Tarih",
+    "amountLabel": "Tutar",
+    "babySeat": "Bebek Koltuğu",
+    "childSeat": "Çocuk Koltuğu",
+    "extraBaggage": "Ekstra Bagaj",
+    "greetingHostess": "Karşılama Hostesi",
+    "reservationConfirmed": "Rezervasyon Onaylandı!",
+    "confirmationEmailSent": "Rezervasyon detaylarınız e-posta adresinize gönderilmiştir.",
+    "reservationNo": "Rezervasyon No",
+    "dateAndTime": "Tarih / Saat",
+    "fromDetails": "Nereden",
+    "toDetails": "Nereye",
+    "vehicleDetails": "Araç",
+    "paymentDetails": "Ödeme Yöntemi",
+    "totalAmount": "Toplam Tutar",
+    "returnHome": "Ana Sayfaya Dön",
+    "viewReservations": "Rezervasyonlarımı Görüntüle"
+  },
+  "ErrorReport": {
+    "button": "Hata Bildir",
+    "title": "Hata Bildirimi",
+    "desc": "Karşılaştığınız bir sorunu veya hatayı bize iletebilirsiniz.",
+    "name": "Ad Soyad",
+    "email": "E-posta",
+    "message": "Hata Detayı",
+    "submit": "Gönder",
+    "sending": "Gönderiliyor...",
+    "success": "Hata bildiriminiz başarıyla alındı. Teşekkür ederiz."
   }
 }

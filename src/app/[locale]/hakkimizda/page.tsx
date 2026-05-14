@@ -3,8 +3,10 @@
 import Link from 'next/link';
 import { ChevronRight, Shield, Clock, Car, Users, Award, Target, Heart } from 'lucide-react';
 import Header from '@/components/layout/Header';
+import { useTranslations } from 'next-intl';
 
 export default function HakkimizdaPage() {
+    const t = useTranslations('About');
     return (
         <main className="min-h-screen bg-gray-50 pt-16 sm:pt-20 md:pt-24">
             {/* Ortak Header */}
@@ -14,11 +16,11 @@ export default function HakkimizdaPage() {
             <div className="bg-white border-b border-gray-100">
                 <div className="container-custom px-4 py-4">
                     <div className="flex items-center justify-between">
-                        <h1 className="text-2xl font-bold text-gray-900">Hakkımızda</h1>
+                        <h1 className="text-2xl font-bold text-gray-900">{t('title')}</h1>
                         <nav className="flex items-center text-sm text-gray-500">
-                            <Link href="/" className="hover:text-[#0a192f] transition-colors">Anasayfa</Link>
+                            <Link href="/" className="hover:text-[#0a192f] transition-colors">{t('home')}</Link>
                             <ChevronRight className="w-4 h-4 mx-2" />
-                            <span className="text-[#0a192f] font-medium">Hakkımızda</span>
+                            <span className="text-[#0a192f] font-medium">{t('title')}</span>
                         </nav>
                     </div>
                 </div>
@@ -36,12 +38,10 @@ export default function HakkimizdaPage() {
                 <div className="container-custom px-4 relative z-10">
                     <div className="max-w-3xl mx-auto text-center text-white">
                         <h2 className="text-4xl md:text-6xl font-black mb-6 leading-tight">
-                            Premium Transfer<br />
-                            <span className="text-[#0a192f]">Deneyimi</span>
+                            {t.rich('heroTitle', { br: () => <br />, span: (chunks) => <span className="text-[#0a192f]">{chunks}</span> })}
                         </h2>
                         <p className="text-lg md:text-xl text-gray-300 leading-relaxed">
-                            2015 yılından bu yana binlerce müşterimize güvenli, konforlu ve lüks transfer hizmetleri sunuyoruz.
-                            Profesyonel ekibimiz ve modern araç filomuzla her yolculuğunuzu özel kılıyoruz.
+                            {t('heroDesc')}
                         </p>
                     </div>
                 </div>
@@ -54,19 +54,19 @@ export default function HakkimizdaPage() {
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
                             <div className="text-center">
                                 <div className="text-4xl md:text-5xl font-black text-[#0a192f] mb-2">9+</div>
-                                <div className="text-gray-600 font-medium">Yıllık Deneyim</div>
+                                <div className="text-gray-600 font-medium">{t('stats.years')}</div>
                             </div>
                             <div className="text-center">
                                 <div className="text-4xl md:text-5xl font-black text-[#0a192f] mb-2">50K+</div>
-                                <div className="text-gray-600 font-medium">Mutlu Müşteri</div>
+                                <div className="text-gray-600 font-medium">{t('stats.customers')}</div>
                             </div>
                             <div className="text-center">
                                 <div className="text-4xl md:text-5xl font-black text-[#0a192f] mb-2">120+</div>
-                                <div className="text-gray-600 font-medium">Profesyonel Şoför</div>
+                                <div className="text-gray-600 font-medium">{t('stats.drivers')}</div>
                             </div>
                             <div className="text-center">
                                 <div className="text-4xl md:text-5xl font-black text-[#0a192f] mb-2">85+</div>
-                                <div className="text-gray-600 font-medium">Modern Araç</div>
+                                <div className="text-gray-600 font-medium">{t('stats.vehicles')}</div>
                             </div>
                         </div>
                     </div>
@@ -82,7 +82,7 @@ export default function HakkimizdaPage() {
                             <div className="rounded-2xl overflow-hidden shadow-2xl">
                                 <img
                                     src="https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?q=80&w=1000"
-                                    alt="Asitane Travel Araç"
+                                    alt="RidePortX Araç"
                                     className="w-full h-[400px] md:h-[500px] object-cover"
                                 />
                             </div>
@@ -94,7 +94,7 @@ export default function HakkimizdaPage() {
                                     </div>
                                     <div>
                                         <div className="text-2xl font-black text-gray-900">4.9/5</div>
-                                        <div className="text-gray-600">Müşteri Memnuniyeti</div>
+                                        <div className="text-gray-600">{t('ratingTitle')}</div>
                                     </div>
                                 </div>
                             </div>
@@ -106,16 +106,13 @@ export default function HakkimizdaPage() {
                                 Biz Kimiz?
                             </div>
                             <h3 className="text-3xl md:text-4xl font-bold text-gray-900 leading-tight">
-                                Türkiye'nin Lider VIP Transfer Şirketi
+                                {t('whoTitle')}
                             </h3>
                             <p className="text-gray-600 leading-relaxed">
-                                Asitane Travel olarak, 2015 yılından bu yana havalimanı transferi, şehir içi VIP ulaşım
-                                ve kurumsal transfer hizmetlerinde sektörün öncü markası olarak hizmet vermekteyiz.
+                                {t('whoDesc1')}
                             </p>
                             <p className="text-gray-600 leading-relaxed">
-                                Müşteri memnuniyetini her şeyin üstünde tutan anlayışımız, profesyonel ve deneyimli
-                                şoför kadromuz, son model araç filomuz ile her yolculuğunuzu konforlu ve güvenli
-                                bir deneyime dönüştürüyoruz.
+                                {t('whoDesc2')}
                             </p>
 
                             {/* Features */}
@@ -124,25 +121,25 @@ export default function HakkimizdaPage() {
                                     <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
                                         <Shield className="w-5 h-5 text-green-600" />
                                     </div>
-                                    <span className="font-medium text-gray-900">Güvenli Seyahat</span>
+                                    <span className="font-medium text-gray-900">{t('features.safe')}</span>
                                 </div>
                                 <div className="flex items-center space-x-3">
                                     <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
                                         <Clock className="w-5 h-5 text-blue-600" />
                                     </div>
-                                    <span className="font-medium text-gray-900">7/24 Hizmet</span>
+                                    <span className="font-medium text-gray-900">{t('features.247')}</span>
                                 </div>
                                 <div className="flex items-center space-x-3">
                                     <div className="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center">
                                         <Car className="w-5 h-5 text-purple-600" />
                                     </div>
-                                    <span className="font-medium text-gray-900">Lüks Araçlar</span>
+                                    <span className="font-medium text-gray-900">{t('features.luxury')}</span>
                                 </div>
                                 <div className="flex items-center space-x-3">
                                     <div className="w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center">
                                         <Users className="w-5 h-5 text-orange-600" />
                                     </div>
-                                    <span className="font-medium text-gray-900">Uzman Ekip</span>
+                                    <span className="font-medium text-gray-900">{t('features.expert')}</span>
                                 </div>
                             </div>
                         </div>
@@ -158,7 +155,7 @@ export default function HakkimizdaPage() {
                             Değerlerimiz
                         </div>
                         <h3 className="text-3xl md:text-4xl font-bold text-gray-900">
-                            Bizim İçin Önemli Olan
+                            {t('valuesTitle')}
                         </h3>
                     </div>
 
@@ -168,10 +165,9 @@ export default function HakkimizdaPage() {
                             <div className="w-20 h-20 bg-gradient-to-br from-[#0a192f] to-[#B58A32] rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
                                 <Target className="w-10 h-10 text-white" />
                             </div>
-                            <h4 className="text-xl font-bold text-gray-900 mb-3">Misyonumuz</h4>
+                            <h4 className="text-xl font-bold text-gray-900 mb-3">{t('mission')}</h4>
                             <p className="text-gray-600 leading-relaxed">
-                                Müşterilerimize en yüksek kalitede, güvenli ve konforlu transfer hizmetleri sunarak
-                                seyahat deneyimlerini unutulmaz kılmak.
+                                {t('missionDesc')}
                             </p>
                         </div>
 
@@ -180,10 +176,9 @@ export default function HakkimizdaPage() {
                             <div className="w-20 h-20 bg-gradient-to-br from-[#0a192f] to-[#B58A32] rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
                                 <Award className="w-10 h-10 text-white" />
                             </div>
-                            <h4 className="text-xl font-bold text-gray-900 mb-3">Vizyonumuz</h4>
+                            <h4 className="text-xl font-bold text-gray-900 mb-3">{t('vision')}</h4>
                             <p className="text-gray-600 leading-relaxed">
-                                Türkiye'nin ve bölgenin en güvenilir, yenilikçi ve tercih edilen premium transfer
-                                markası olmak.
+                                {t('visionDesc')}
                             </p>
                         </div>
 
@@ -192,10 +187,9 @@ export default function HakkimizdaPage() {
                             <div className="w-20 h-20 bg-gradient-to-br from-[#0a192f] to-[#B58A32] rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
                                 <Heart className="w-10 h-10 text-white" />
                             </div>
-                            <h4 className="text-xl font-bold text-gray-900 mb-3">Değerlerimiz</h4>
+                            <h4 className="text-xl font-bold text-gray-900 mb-3">{t('valuesTag')}</h4>
                             <p className="text-gray-600 leading-relaxed">
-                                Güvenilirlik, müşteri odaklılık, profesyonellik ve sürekli gelişim ilkeleriyle
-                                hareket ediyoruz.
+                                {t('valuesDesc')}
                             </p>
                         </div>
                     </div>
@@ -207,11 +201,10 @@ export default function HakkimizdaPage() {
                 <div className="container-custom px-4">
                     <div className="max-w-3xl mx-auto text-center text-white">
                         <h3 className="text-3xl md:text-4xl font-bold mb-6">
-                            Hemen Rezervasyon Yapın
+                            {t('ctaTitle')}
                         </h3>
                         <p className="text-lg text-gray-300 mb-8">
-                            Premium transfer deneyimi için hemen bizimle iletişime geçin.
-                            Size özel çözümler sunalım.
+                            {t('ctaDesc')}
                         </p>
                         <div className="flex flex-col sm:flex-row gap-4 justify-center">
                             <Link

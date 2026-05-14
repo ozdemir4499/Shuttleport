@@ -1,7 +1,7 @@
 {
   "Index": {
-    "title": "Asitane Travel | Istanbul Airport Transfer",
-    "description": "Airport and City Transfer Services with Asitane Travel",
+    "title": "RidePortX | Istanbul Airport Transfer",
+    "description": "Airport and City Transfer Services with RidePortX",
     "bookNow": "Book Now",
     "from": "From",
     "to": "To"
@@ -10,6 +10,7 @@
     "nav": {
       "tours": "Tours",
       "about": "About Us",
+      "blog": "Blog",
       "partner": "Become a Partner",
       "carrier": "Become a Carrier",
       "contact": "Contact",
@@ -19,5 +20,500 @@
       "register": "Sign Up",
       "login": "Login"
     }
+  },
+  "Home": {
+    "banners": {
+      "0": {
+        "subtitle": "REFUND GUARANTEE.",
+        "title1": "100% refund guarantee for <br></br> cancellations made",
+        "titleHighlight": "6 hours prior."
+      },
+      "1": {
+        "subtitle": "24/7 AIRPORT TRANSFER.",
+        "title1": "Reach your hotel from Istanbul airports",
+        "titleHighlight": "with VIP privileges."
+      },
+      "2": {
+        "subtitle": "PRIVATE ISTANBUL TOURS.",
+        "title1": "Discover the city's historical beauties",
+        "titleHighlight": "with our luxury vehicles."
+      }
+    },
+    "booking": {
+      "tabs": {
+        "airport": "Airport Transfer",
+        "hotel": "Hotel Transfer",
+        "tour": "City Tour",
+        "vip": "VIP Vehicle"
+      },
+      "form": {
+        "from": "FROM",
+        "fromPlaceholder": "Address, Airport, Hotel, Hospital...",
+        "to": "TO",
+        "toPlaceholder": "Address, Airport, Hotel, Hospital...",
+        "date": "DATE & TIME",
+        "departure": "DEPARTURE",
+        "return": "RETURN",
+        "roundTrip": "ROUND-TRIP",
+        "discount": "10% Discount",
+        "passengers": "PASSENGERS",
+        "search": "Search",
+        "searching": "Searching...",
+        "selectDate": "Select Date",
+        "person": "Person"
+      }
+    },
+    "reviews": {
+      "title": "Highlighted Reviews",
+      "summary": "Summary",
+      "platform": "Google & Tripadvisor",
+      "0": "Users generally highlight the <b>professionalism of the drivers</b>, <b>VIP luxury of the vehicles</b> and <b>flawless timing</b>.",
+      "1": "Our guests especially mention they are very pleased with the <b>drivers' foreign language skills</b> and <b>safe driving during the journey</b>.",
+      "2": "In the reviews, it is emphasized that <b>in-car refreshments</b>, <b>cleanliness</b> and <b>comfortable seats</b> increase the travel quality.",
+      "3": "In family transfers, <b>child seat support</b> and <b>luggage assistance</b> are among the most appreciated details by our guests.",
+      "4": "Our visitors state that <b>24/7 uninterrupted communication</b> and <b>flight delay tracking</b> give them great confidence.",
+      "5": "Guests traveling for business highly praise the <b>time savings</b> and <b>in-car mobile working opportunities</b>."
+    },
+    "tours": {
+      "subtitle": "UNIQUE EXPERIENCES",
+      "title1": "Private ",
+      "titleHighlight": "Istanbul",
+      "title2": " Tours",
+      "desc": "Get ready to discover the historical beauties and hidden treasures of the city with VIP privileges and our luxury vehicles."
+    }
+  },
+  "Footer": {
+    "contactTitle": "Contact",
+    "whatsappPhone": "Whatsapp & Phone",
+    "email": "Email",
+    "corporate": "Corporate",
+    "discover": "Discover",
+    "copyright": "All rights reserved",
+    "docs": {
+      "privacy": "Privacy & Security",
+      "passenger": "Passenger Transport Contract",
+      "purchase": "Purchase Agreement",
+      "terms": "Terms of Use",
+      "data": "Data Protection"
+    },
+    "links": {
+      "tours": "Tours",
+      "about": "About Us",
+      "services": "Our Services",
+      "employer": "Become an Employer",
+      "carrier": "Become a Carrier",
+      "points": "Meeting Points",
+      "vehicles": "Our Vehicles",
+      "contact": "Contact",
+      "faq": "FAQ"
+    }
+  },
+  "Common": {
+    "cookieTitle": "Cookie Preferences",
+    "cookieDesc": "We use cookies to improve your experience within the scope of KVKK and GDPR.",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Use",
+    "reject": "Reject",
+    "accept": "Accept"
+  },
+  "About": {
+    "title": "About Us",
+    "home": "Home",
+    "heroTitle": "Premium Transfer<br></br><span>Experience</span>",
+    "heroDesc": "Since 2015, we have been providing safe, comfortable and luxury transfer services to thousands of customers. We make every journey special with our professional team and modern vehicle fleet.",
+    "stats": {
+      "years": "Years of Experience",
+      "customers": "Happy Customers",
+      "drivers": "Professional Drivers",
+      "vehicles": "Modern Vehicles"
+    },
+    "ratingTitle": "Customer Satisfaction",
+    "whoWeAre": "Who Are We?",
+    "whoTitle": "Turkey's Leading VIP Transfer Company",
+    "whoDesc1": "As RidePortX, we have been serving as the leading brand in airport transfer, urban VIP transportation and corporate transfer services since 2015.",
+    "whoDesc2": "With our understanding that puts customer satisfaction above all else, our professional and experienced driver staff, and our state-of-the-art vehicle fleet, we turn every journey into a comfortable and safe experience.",
+    "features": {
+      "safe": "Safe Travel",
+      "247": "24/7 Service",
+      "luxury": "Luxury Vehicles",
+      "expert": "Expert Team"
+    },
+    "valuesTag": "Our Values",
+    "valuesTitle": "What Matters to Us",
+    "mission": "Our Mission",
+    "missionDesc": "To make travel experiences unforgettable by providing the highest quality, safe and comfortable transfer services to our customers.",
+    "vision": "Our Vision",
+    "visionDesc": "To be the most reliable, innovative and preferred premium transfer brand in Turkey and the region.",
+    "values": "Our Values",
+    "valuesDesc": "We act with the principles of reliability, customer focus, professionalism and continuous improvement.",
+    "ctaTitle": "Book Now",
+    "ctaDesc": "Contact us immediately for a premium transfer experience. Let us offer you tailored solutions.",
+    "ctaBook": "Book Now",
+    "ctaContact": "Contact Us"
+  },
+  "Contact": {
+    "title": "Contact",
+    "home": "Home",
+    "subtitle": "Get in Touch with Us",
+    "desc": "You are on the shortest path to creating a fast route, get ready to enjoy the routes we will create together. In addition, you can contact us with all your opinions and suggestions using the information and form below so that we can provide you with a higher quality service.",
+    "success": "Your message has been sent successfully. We will get back to you as soon as possible.",
+    "form": {
+      "firstName": "FIRST NAME",
+      "lastName": "LAST NAME",
+      "phone": "PHONE NUMBER",
+      "email": "EMAIL ADDRESS",
+      "message": "YOUR MESSAGE",
+      "sending": "Sending...",
+      "submit": "Send Message"
+    },
+    "info": {
+      "phone": "Phone",
+      "email": "Email",
+      "address": "Address",
+      "addressText": "Maslak, Sisli / Istanbul"
+    },
+    "mapTitle": "Visit Us"
+  },
+  "FAQ": {
+    "title": "Frequently Asked Questions",
+    "subtitle": "Things you wonder about our transfer services",
+    "stats": {
+      "qna": "Q&A",
+      "support": "Support",
+      "satisfaction": "Satisfaction"
+    },
+    "notFound": "Couldn't find the answer to your question?",
+    "contactUs": "Our customer service will be happy to help you.",
+    "whatsapp": "Contact via WhatsApp",
+    "contactForm": "Contact Form",
+    "questions": {
+      "0": {
+        "q": "How can I cancel my reservation?",
+        "a": "To cancel your reservation, you can log in to our website and select the relevant reservation from the 'My Reservations' section and cancel it. You can also cancel via WhatsApp at +90 532 417 89 63 or by emailing info@rideportx.com."
+      },
+      "1": {
+        "q": "How to make an airport transfer reservation?",
+        "a": "You can easily make your airport transfer reservation on our website. After entering where you want to go, date and time information on the reservation form on the main page, you can see the suitable vehicle options and complete your reservation. Alternatively, you can make a reservation via our WhatsApp line."
+      },
+      "2": {
+        "q": "What information should I share when making a transfer reservation?",
+        "a": "We need the following information for the transfer reservation: Departure and arrival points, transfer date and time, number of passengers, your flight information (for airport transfer), your contact information (phone and email). If you have special requests (baby seat, number of luggage, etc.), you can also specify them."
+      },
+      "3": {
+        "q": "Will my transfer be canceled if my flight is delayed?",
+        "a": "No, your transfer will not be canceled if your flight is delayed. Our driver tracks your flight instantly with the flight tracking system and waits for you at the airport according to your new landing time. No extra fee is charged in case of a delay."
+      },
+      "4": {
+        "q": "How long will the transfer vehicle wait for me?",
+        "a": "For airport transfers, we offer 60 minutes of free waiting time from the landing of your flight. During this time, you can easily pick up your luggage and come to the meeting point. For city transfers, there is a 15-minute free waiting time at the designated time."
+      },
+      "5": {
+        "q": "How will I find the driver at the airport meeting point?",
+        "a": "At Istanbul Airport, our driver will be waiting for you with a sign bearing your name at the greeting point on the arrivals floor. At Sabiha Gokcen Airport, the driver will also wait at the greeting point at the exit of the arrivals floor with a sign. The SMS sent to you after the reservation will also include your driver's phone number."
+      },
+      "6": {
+        "q": "How do I find the airport transfer vehicle at the airport?",
+        "a": "When you arrive at the airport, go to the meeting point section after exiting the baggage claim area. Our driver will be there with a sign with your name on it. In addition, your driver's contact information will be included in your reservation confirmation, so you can contact them directly if necessary."
+      },
+      "7": {
+        "q": "How do I meet the vehicle at my address outside the airport or on a different reservation?",
+        "a": "For city transfers, our driver will be in front of your address at the specified time. The SMS sent to you before the reservation contains the license plate and phone information of your driver. Your driver will also contact you and report their location. For hotel transfers, our driver will be waiting for you in the hotel lobby."
+      },
+      "8": {
+        "q": "Are there child seats available in the transfer vehicles?",
+        "a": "Yes, we provide baby and child seats free of charge upon your request. While making a reservation, you can request a seat by specifying your child's age and weight in the 'Special Requests' section. We use clean and well-maintained seats that comply with safety standards."
+      },
+      "9": {
+        "q": "Can I pay by credit card?",
+        "a": "Yes, you can make secure payments with all credit cards and debit cards. A cash payment option is also available. Your online payments are protected by the 3D Secure system. We also have invoice and wire transfer options for our corporate customers."
+      },
+      "10": {
+        "q": "How do I know my reservation is confirmed?",
+        "a": "After your reservation is completed, a confirmation message will be sent to you via e-mail and SMS. This message contains your reservation details, vehicle information, driver contact information, and your reservation number. You can also check the status of your reservation from the 'My Reservations' page."
+      },
+      "11": {
+        "q": "What is the process for address transfers?",
+        "a": "In address transfers, our driver will be in front of your exact address at the designated time. Your driver's name, phone, and vehicle license plate information will be sent to you via SMS before the transfer time. Your driver also contacts you to notify you of their location. At points such as hotels and malls, they will wait at the main entrance door."
+      }
+    }
+  },
+  "Tours": {
+    "title": "Tour Trips",
+    "home": "Home",
+    "heroTitle": "How About a Unique Tour Experience?",
+    "heroDesc": "Get ready to collect unforgettable memories with our carefully selected fascinating routes and tours equipped with flawless personalized details.",
+    "categories": "Categories",
+    "all": "All",
+    "vip": "VIP",
+    "daily": "Daily",
+    "culture": "Culture",
+    "sea": "Sea",
+    "notSpecified": "Not Specified",
+    "everyday": "Every Day",
+    "details": "Tour Details",
+    "loadMore": "Show More Tours"
+  },
+  "Partnership": {
+    "title": "Corporate Partnership Program",
+    "heroTitle": "Become Our Partner,<br></br><span>Let's Grow Together</span>",
+    "heroDesc": "Work with our leading position in the transfer sector. Increase your earnings with our strong infrastructure, extensive customer network, and professional team.",
+    "applyNow": "Apply Now",
+    "callUs": "Call Us",
+    "whyTitle": "Why RidePortX?",
+    "whyDesc": "Unique advantages and opportunities we offer to our business partners",
+    "benefits": {
+      "0": {
+        "title": "Increased Revenue",
+        "desc": "Increase your income by ensuring a regular workflow with our corporate customers."
+      },
+      "1": {
+        "title": "Wide Customer Network",
+        "desc": "Meet our thousands of active users and corporate clients."
+      },
+      "2": {
+        "title": "Secure Payment",
+        "desc": "All your payments are transferred to your account safely and on time."
+      },
+      "3": {
+        "title": "Flexible Working",
+        "desc": "Create your own schedule, work whenever you want."
+      },
+      "4": {
+        "title": "Professional Support",
+        "desc": "Our 24/7 technical and operational support team is by your side."
+      },
+      "5": {
+        "title": "Corporate Image",
+        "desc": "Strengthen your corporate image by working with our prestigious brand."
+      }
+    },
+    "featuresTitle": "All Your Needs<br></br>On One Platform",
+    "featuresDesc": "Easily manage your business thanks to our advanced technology infrastructure. From reservations to payments, reporting to customer relations, everything is at your fingertips.",
+    "features": {
+      "0": "Instant reservation notifications",
+      "1": "Detailed reporting and analysis tools",
+      "2": "Customer evaluation system",
+      "3": "Automatic route optimization",
+      "4": "Digital invoice and payment tracking",
+      "5": "Special discount and campaign opportunities"
+    },
+    "formTitle": "Application Form",
+    "formDesc": "Fill out the form, and we will contact you as soon as possible",
+    "form": {
+      "companyName": "Company Name *",
+      "companyPlaceholder": "Enter your company name",
+      "contactPerson": "Contact Person *",
+      "personPlaceholder": "Your name and surname",
+      "phone": "Phone *",
+      "email": "Email *",
+      "message": "Your Message",
+      "messagePlaceholder": "Tell us about yourself and your business...",
+      "submit": "Submit Application",
+      "sending": "Sending...",
+      "successTitle": "Application Received!",
+      "successDesc": "Our team will contact you as soon as possible. Thank you.",
+      "note": "Your application will be evaluated within 24 hours at the latest."
+    },
+    "contactTitle": "Contact Us Now",
+    "contactDesc": "We are by your side 24/7 for your questions"
+  },
+  "Carrier": {
+    "title": "Carrier Partnership",
+    "heroTitle": "Start accepting <span>jobs.</span>",
+    "heroDesc": "Register your vehicle or company and start earning money by accepting available trips in the system. <strong>No commissions, no system fees, no deductions.</strong>",
+    "applyNow": "Apply Now",
+    "whyTitle": "Why Work With RidePortX?",
+    "whyDesc": "Advantages we offer to our carrier partners",
+    "advantages": {
+      "0": {
+        "title": "Net Price, Zero Deduction",
+        "desc": "The price you see in the system is your direct earning. There are no commissions or system fees. Your payment is made within 2 business days."
+      },
+      "1": {
+        "title": "Transparent Accounting",
+        "desc": "A panel where you can instantly track the amounts of the jobs you take, collections, company payments, and your current balance."
+      },
+      "2": {
+        "title": "As Much Work As You Want",
+        "desc": "You can select, accept, or reject all transfers that appear when you enter the system. Completely flexible working opportunity."
+      }
+    },
+    "howTitle": "How It Works?",
+    "howDesc": "Become our carrier partner in 4 steps",
+    "steps": {
+      "0": {
+        "step": "01",
+        "title": "Fill the Form",
+        "desc": "Enter your information and vehicle details"
+      },
+      "1": {
+        "step": "02",
+        "title": "Get Approved",
+        "desc": "Let our team review and approve your application"
+      },
+      "2": {
+        "step": "03",
+        "title": "Select Jobs",
+        "desc": "Accept suitable transfers from the panel"
+      },
+      "3": {
+        "step": "04",
+        "title": "Earn",
+        "desc": "Complete the transfer, get your payment"
+      }
+    },
+    "stats": {
+      "0": {
+        "label": "Active Carriers",
+        "value": "500+"
+      },
+      "1": {
+        "label": "Completed Transfers",
+        "value": "50K+"
+      },
+      "2": {
+        "label": "Average Rating",
+        "value": "4.8/5"
+      },
+      "3": {
+        "label": "Payment Time",
+        "value": "2 Days"
+      }
+    },
+    "formTitle": "Application Form",
+    "formDesc": "Once you fill out the form, our relevant department will get back to you as soon as possible.",
+    "form": {
+      "fullName": "Full Name *",
+      "namePlaceholder": "Your Name and Surname",
+      "phone": "Phone *",
+      "email": "Email *",
+      "city": "City *",
+      "citySelect": "Select City",
+      "cities": {
+        "istanbul": "Istanbul",
+        "ankara": "Ankara",
+        "izmir": "Izmir",
+        "antalya": "Antalya",
+        "mugla": "Mugla",
+        "bursa": "Bursa",
+        "diger": "Other"
+      },
+      "vehicleType": "Vehicle Type *",
+      "vehicleSelect": "Select Vehicle Type",
+      "vehicleCount": "Number of Vehicles",
+      "experience": "Experience",
+      "expSelect": "Do you have transfer experience?",
+      "expNone": "No, I'm just starting",
+      "exp1": "1-3 years",
+      "exp3": "3-5 years",
+      "exp5": "5+ years",
+      "message": "Additional Note",
+      "messagePlaceholder": "Information you want to add...",
+      "terms": "By filling out this form, you accept RidePortX's {termsLink} and confirm that you have read the {privacyLink}.",
+      "termsLabel": "Terms of Use",
+      "privacyLabel": "Privacy Policy",
+      "submit": "Submit Application",
+      "sending": "Sending...",
+      "successTitle": "Application Received!",
+      "successDesc": "Our team will contact you as soon as possible. Thank you."
+    }
+  },
+  "Legal": {
+    "gizlilik": {
+      "title": "Privacy Policy",
+      "content": "<p>This legal document has been translated into English for informational purposes. For full details, please refer to the Turkish original or contact our support team at info@rideportx.com.</p><p>We are committed to protecting your privacy and ensuring a safe transfer experience. All your data is processed securely in accordance with GDPR and KVKK regulations.</p>"
+    },
+    "kullanim": {
+      "title": "Terms of Use",
+      "content": "<p>This legal document has been translated into English for informational purposes. For full details, please refer to the Turkish original or contact our support team at info@rideportx.com.</p><p>We are committed to protecting your privacy and ensuring a safe transfer experience. All your data is processed securely in accordance with GDPR and KVKK regulations.</p>"
+    },
+    "veri-koruma": {
+      "title": "Data Protection and GDPR",
+      "content": "<p>This legal document has been translated into English for informational purposes. For full details, please refer to the Turkish original or contact our support team at info@rideportx.com.</p><p>We are committed to protecting your privacy and ensuring a safe transfer experience. All your data is processed securely in accordance with GDPR and KVKK regulations.</p>"
+    },
+    "satin-alma": {
+      "title": "Distance Selling Agreement",
+      "content": "<p>This legal document has been translated into English for informational purposes. For full details, please refer to the Turkish original or contact our support team at info@rideportx.com.</p><p>We are committed to protecting your privacy and ensuring a safe transfer experience. All your data is processed securely in accordance with GDPR and KVKK regulations.</p>"
+    },
+    "yolcu-tasima": {
+      "title": "Passenger Transport Agreement",
+      "content": "<p>This legal document has been translated into English for informational purposes. For full details, please refer to the Turkish original or contact our support team at info@rideportx.com.</p><p>We are committed to protecting your privacy and ensuring a safe transfer experience. All your data is processed securely in accordance with GDPR and KVKK regulations.</p>"
+    }
+  },
+  "BookingFlow": {
+    "step1": "Vehicle & Services",
+    "step2": "Passenger & Payment",
+    "step3": "Reservation",
+    "loadingPrices": "Calculating prices...",
+    "error": "Error",
+    "errorPricing": "An error occurred while loading prices. Please try again.",
+    "retry": "Try Again",
+    "noVehicles": "No vehicles found. Please change your search criteria.",
+    "fixedPrice": "Fixed Price",
+    "flightTracking": "Flight Tracking",
+    "airportPickup": "Airport Pickup",
+    "freeCancellation": "Free Cancellation",
+    "selectCurrency": "Please select the currency you want to pay with",
+    "totalVehiclePrice": "Total vehicle price.",
+    "bookNow": "Book Now",
+    "edit": "Edit",
+    "cancel": "Cancel",
+    "from": "FROM",
+    "fromPlaceholder": "From?",
+    "to": "TO",
+    "toPlaceholder": "To?",
+    "dateTime": "DATE & TIME",
+    "select": "Select",
+    "passengerCountTitle": "PASSENGERS",
+    "roundTripTitle": "ROUND TRIP",
+    "yes": "YES",
+    "no": "NO",
+    "updating": "Updating...",
+    "discount": "% Discount",
+    "contactInfo": "Contact Information",
+    "fullName": "Full Name",
+    "email": "Email Address",
+    "phone": "Phone Number",
+    "flightNo": "Flight Number (Optional)",
+    "note": "Note (Optional)",
+    "extraServices": "Extra Services",
+    "paymentMethod": "Payment Method",
+    "creditCardPayment": "Secure Payment by Credit Card",
+    "cashPayment": "Cash Payment in Vehicle",
+    "pay": "Complete Payment",
+    "processing": "Processing...",
+    "fillRequiredFields": "Please fill in the required fields.",
+    "vehicleTypeLabel": "Vehicle Type",
+    "distanceLabel": "Distance",
+    "durationLabel": "Duration",
+    "passengerCountLabel": "Passengers",
+    "dateLabel": "Date",
+    "amountLabel": "Amount",
+    "babySeat": "Baby Seat",
+    "childSeat": "Child Seat",
+    "extraBaggage": "Extra Baggage",
+    "greetingHostess": "Greeting Hostess",
+    "reservationConfirmed": "Reservation Confirmed!",
+    "confirmationEmailSent": "Your reservation details have been sent to your email address.",
+    "reservationNo": "Reservation No",
+    "dateAndTime": "Date / Time",
+    "fromDetails": "From",
+    "toDetails": "To",
+    "vehicleDetails": "Vehicle",
+    "paymentDetails": "Payment Method",
+    "totalAmount": "Total Amount",
+    "returnHome": "Return to Home",
+    "viewReservations": "View My Reservations"
+  },
+  "ErrorReport": {
+    "button": "Report Error",
+    "title": "Error Report",
+    "desc": "Please let us know about any issues or errors you have encountered.",
+    "name": "Full Name",
+    "email": "Email",
+    "message": "Error Details",
+    "submit": "Submit",
+    "sending": "Sending...",
+    "success": "Your error report has been received successfully. Thank you."
   }
 }

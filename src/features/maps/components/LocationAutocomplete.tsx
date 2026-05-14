@@ -101,7 +101,7 @@ export function LocationAutocomplete({
     const handleSearch = useCallback(async (query: string) => {
         setSearchQuery(query);
 
-        if (query.length < 2) {
+        if (query.length < 1) {
             setSearchResults([]);
             return;
         }
