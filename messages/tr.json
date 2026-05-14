@@ -5,5 +5,19 @@
     "bookNow": "Rezervasyon Yap",
     "from": "Nereden",
     "to": "Nereye"
+  },
+  "Header": {
+    "nav": {
+      "tours": "Turlar",
+      "about": "Hakkımızda",
+      "partner": "İş Ortağı Ol",
+      "carrier": "Taşıyıcı Olun",
+      "contact": "İletişim",
+      "faq": "S.S.S"
+    },
+    "auth": {
+      "register": "Üye Ol",
+      "login": "Giriş"
+    }
   }
 }

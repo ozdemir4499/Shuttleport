@@ -5,5 +5,19 @@
     "bookNow": "Jetzt Buchen",
     "from": "Von",
     "to": "Nach"
+  },
+  "Header": {
+    "nav": {
+      "tours": "Touren",
+      "about": "Über Uns",
+      "partner": "Partner Werden",
+      "carrier": "Träger Werden",
+      "contact": "Kontakt",
+      "faq": "Häufige Fragen"
+    },
+    "auth": {
+      "register": "Registrieren",
+      "login": "Anmelden"
+    }
   }
 }

@@ -23,29 +23,34 @@ export default function Header() {
     const [isLoginOpen, setIsLoginOpen] = useState(false);
     const pathname = usePathname();
     const locale = useLocale();
-    const t = useTranslations('Index'); // Fallback if we need to translate nav
+    const t = useTranslations('Header');
 
-    const toggleLanguage = () => {
-        const nextLocale = locale === 'tr' ? 'en' : 'tr';
-        // Setting cookie and redirecting to the root of the new locale or reloading
+    const changeLanguage = (nextLocale: string) => {
         document.cookie = `NEXT_LOCALE=${nextLocale}; path=/; max-age=31536000`;
-        // Quick path replace logic
-        let newPath = pathname;
-        if (pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`) {
-            newPath = pathname.replace(`/${locale}`, `/${nextLocale}`);
-        } else {
-            newPath = `/${nextLocale}${pathname === '/' ? '' : pathname}`;
+        const locales = ['/tr', '/en', '/de', '/ru'];
+        let pathWithoutLocale = pathname;
+        
+        for (const loc of locales) {
+            if (pathname.startsWith(loc + '/') || pathname === loc) {
+                pathWithoutLocale = pathname.replace(loc, '') || '/';
+                break;
+            }
         }
-        window.location.href = newPath;
+        
+        let finalPath = pathWithoutLocale;
+        if (nextLocale !== 'tr') {
+            finalPath = `/${nextLocale}${pathWithoutLocale === '/' ? '' : pathWithoutLocale}`;
+        }
+        window.location.href = finalPath;
     };
 
     const navLinks = [
-        { name: 'Turlar', href: '/turlar' },
-        { name: 'Hakkımızda', href: '/hakkimizda' },
-        { name: 'İş Ortağı Ol', href: '/is-ortagi-ol' },
-        { name: 'Taşıyıcı Olun', href: '#' },
-        { name: 'İletişim', href: '/iletisim' },
-        { name: 'S.S.S', href: '/sss' },
+        { name: t('nav.tours'), href: '/turlar' },
+        { name: t('nav.about'), href: '/hakkimizda' },
+        { name: t('nav.partner'), href: '/is-ortagi-ol' },
+        { name: t('nav.carrier'), href: '#' },
+        { name: t('nav.contact'), href: '/iletisim' },
+        { name: t('nav.faq'), href: '/sss' },
     ];
 
     const isActive = (href: string) => {
@@ -132,8 +137,8 @@ export default function Header() {
 
                     {/* Language */}
                     <div className="relative flex items-center space-x-2 cursor-pointer group">
-                        <div onClick={toggleLanguage} className="flex items-center space-x-2 py-2">
-                            <img src={`https://flagcdn.com/w40/${locale === 'tr' ? 'tr' : 'gb'}.png`} alt={locale.toUpperCase()} className="w-6 h-6 rounded-full object-cover shadow-sm border border-gray-100" />
+                        <div className="flex items-center space-x-2 py-2">
+                            <img src={`https://flagcdn.com/w40/${locale === 'en' ? 'gb' : locale}.png`} alt={locale.toUpperCase()} className="w-6 h-6 rounded-full object-cover shadow-sm border border-gray-100" />
                             <span className="text-[15px] font-bold text-gray-900">{locale.toUpperCase()}</span>
                             <ChevronDown className="w-4 h-4 text-gray-500 transition-transform group-hover:rotate-180" />
                         </div>
@@ -142,20 +147,14 @@ export default function Header() {
                         <div className="absolute top-full right-0 mt-1 w-20 bg-white rounded-xl shadow-lg border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 overflow-hidden">
                             <div className="py-2 flex flex-col">
                                 {[
-                                    { code: 'EN', flag: 'gb' },
-                                    { code: 'DE', flag: 'de' },
-                                    { code: 'ES', flag: 'es' },
-                                    { code: 'FR', flag: 'fr' },
-                                    { code: 'İT', flag: 'it' },
-                                    { code: 'PT', flag: 'pt' },
-                                    { code: 'RU', flag: 'ru' },
-                                    { code: 'HU', flag: 'hu' },
-                                    { code: 'NL', flag: 'nl' },
-                                    { code: 'AR', flag: 'sa' }
+                                    { code: 'tr', label: 'TR', flag: 'tr' },
+                                    { code: 'en', label: 'EN', flag: 'gb' },
+                                    { code: 'de', label: 'DE', flag: 'de' },
+                                    { code: 'ru', label: 'RU', flag: 'ru' }
                                 ].map((lang) => (
-                                    <div key={lang.code} className="flex items-center space-x-2 px-3 py-2 hover:bg-gray-50 transition-colors">
-                                        <img src={`https://flagcdn.com/w40/${lang.flag}.png`} alt={lang.code} className="w-5 h-5 rounded-full object-cover shadow-sm border border-gray-100" />
-                                        <span className="text-[14px] font-semibold text-gray-700">{lang.code}</span>
+                                    <div key={lang.code} onClick={() => changeLanguage(lang.code)} className="flex items-center space-x-2 px-3 py-2 hover:bg-gray-50 transition-colors cursor-pointer">
+                                        <img src={`https://flagcdn.com/w40/${lang.flag}.png`} alt={lang.label} className="w-5 h-5 rounded-full object-cover shadow-sm border border-gray-100" />
+                                        <span className="text-[14px] font-semibold text-gray-700">{lang.label}</span>
                                     </div>
                                 ))}
                             </div>
@@ -164,10 +163,10 @@ export default function Header() {
 
                     {/* Auth */}
                     <div className="flex items-center space-x-4 ml-2">
-                        <button onClick={() => setIsRegisterOpen(true)} className="text-[15px] font-bold text-gray-900 hover:text-[#0a192f]">Üye Ol</button>
+                        <button onClick={() => setIsRegisterOpen(true)} className="text-[15px] font-bold text-gray-900 hover:text-[#0a192f]">{t('auth.register')}</button>
                         <button onClick={() => setIsLoginOpen(true)} className="flex items-center space-x-2 border border-black rounded-lg px-5 py-2.5 hover:bg-black hover:text-white transition-all group">
                             <User className="w-5 h-5 group-hover:text-white" />
-                            <span className="text-[15px] font-bold">Giriş</span>
+                            <span className="text-[15px] font-bold">{t('auth.login')}</span>
                         </button>
                     </div>
                 </div>
@@ -177,7 +176,7 @@ export default function Header() {
                     {/* Mobile Language Selector */}
                     <div className="relative group" tabIndex={0}>
                         <div className="flex items-center space-x-1.5 cursor-pointer hover:opacity-80 transition-opacity">
-                            <img src={`https://flagcdn.com/w40/${locale === 'tr' ? 'tr' : 'gb'}.png`} alt={locale.toUpperCase()} className="w-[22px] h-[22px] rounded-full object-cover object-center shadow-sm ring-1 ring-gray-100" />
+                            <img src={`https://flagcdn.com/w40/${locale === 'en' ? 'gb' : locale}.png`} alt={locale.toUpperCase()} className="w-[22px] h-[22px] rounded-full object-cover object-center shadow-sm ring-1 ring-gray-100" />
                             <span className="text-[14px] font-bold text-gray-900">{locale.toUpperCase()}</span>
                         </div>
 
@@ -185,20 +184,14 @@ export default function Header() {
                         <div className="absolute top-full right-0 mt-3 w-24 bg-white rounded-xl shadow-xl border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform origin-top-right scale-95 group-hover:scale-100 z-[60]">
                             <div className="py-2 max-h-60 overflow-y-auto custom-scrollbar">
                                 {[
-                                    { code: 'EN', flag: 'gb' },
-                                    { code: 'DE', flag: 'de' },
-                                    { code: 'ES', flag: 'es' },
-                                    { code: 'FR', flag: 'fr' },
-                                    { code: 'İT', flag: 'it' },
-                                    { code: 'PT', flag: 'pt' },
-                                    { code: 'RU', flag: 'ru' },
-                                    { code: 'HU', flag: 'hu' },
-                                    { code: 'NL', flag: 'nl' },
-                                    { code: 'AR', flag: 'sa' }
+                                    { code: 'tr', label: 'TR', flag: 'tr' },
+                                    { code: 'en', label: 'EN', flag: 'gb' },
+                                    { code: 'de', label: 'DE', flag: 'de' },
+                                    { code: 'ru', label: 'RU', flag: 'ru' }
                                 ].map((lang) => (
-                                    <div key={lang.code} className="flex items-center space-x-3 px-4 py-2 hover:bg-gray-50 transition-colors cursor-pointer">
-                                        <img src={`https://flagcdn.com/w40/${lang.flag}.png`} alt={lang.code} className="w-5 h-5 rounded-full object-cover shadow-sm border border-gray-100" />
-                                        <span className="text-[14px] font-semibold text-gray-700">{lang.code}</span>
+                                    <div key={lang.code} onClick={() => changeLanguage(lang.code)} className="flex items-center space-x-3 px-4 py-2 hover:bg-gray-50 transition-colors cursor-pointer">
+                                        <img src={`https://flagcdn.com/w40/${lang.flag}.png`} alt={lang.label} className="w-5 h-5 rounded-full object-cover shadow-sm border border-gray-100" />
+                                        <span className="text-[14px] font-semibold text-gray-700">{lang.label}</span>
                                     </div>
                                 ))}
                             </div>
@@ -259,14 +252,14 @@ export default function Header() {
                                 onClick={() => { setMobileMenuOpen(false); setIsRegisterOpen(true); }} 
                                 className="flex-1 text-center py-3 border border-[#0a192f] text-[#0a192f] rounded-lg font-medium tracking-wide hover:border-[#B58A32] hover:text-[#B58A32] transition-colors"
                             >
-                                Üye Ol
+                                {t('auth.register')}
                             </button>
                             <button 
                                 onClick={() => { setMobileMenuOpen(false); setIsLoginOpen(true); }} 
                                 className="flex-1 flex justify-center items-center py-3 bg-[#0a192f] text-white rounded-lg font-medium tracking-wide hover:bg-[#112a52] transition-colors space-x-2"
                             >
                                 <User className="w-4 h-4" />
-                                <span>Giriş</span>
+                                <span>{t('auth.login')}</span>
                             </button>
                         </div>
                     </div>
