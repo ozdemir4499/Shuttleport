@@ -93,7 +93,7 @@ export default function SpeedTab({ showToast }: SpeedTabProps) {
   useEffect(() => {
     fetch(`${SEO_API}/speed-schedule`)
       .then(r => r.json())
-      .then(data => setSpeedSchedule(data))
+      .then(data => setSpeedSchedule(prev => ({ ...prev, ...data })))
       .catch(() => {});
 
     // Son toplu test raporunu cek

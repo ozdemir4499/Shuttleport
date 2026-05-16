@@ -30,6 +30,55 @@ interface TopicSuggestion {
 
 type ActiveTab = 'dashboard' | 'crawler' | 'blog' | 'speed';
 
+// --- MOCK DATA HELPERS ---
+const generateMockHistory = (currentPosition: number | null, keyword: string) => {
+  let seed = 0;
+  for (let i = 0; i < keyword.length; i++) seed += keyword.charCodeAt(i);
+  const history = [];
+  let current = currentPosition || (seed % 40 + 50);
+  for (let i = 0; i < 7; i++) {
+    history.unshift(current);
+    const change = (seed % (i + 3)) - (i + 1); 
+    current = Math.max(1, current + change);
+  }
+  return history;
+};
+
+const getMockVolume = (keyword: string) => {
+  let seed = 0;
+  for (let i = 0; i < keyword.length; i++) seed += keyword.charCodeAt(i);
+  const vol = (seed % 50) * 1200 + (seed % 10) * 100;
+  return vol > 1000 ? (vol / 1000).toFixed(1) + 'K' : vol;
+};
+
+const Sparkline = ({ data }: { data: number[] }) => {
+  const min = Math.min(...data);
+  const max = Math.max(...data);
+  const range = max - min || 1;
+  const width = 60;
+  const height = 20;
+  const points = data.map((val, i) => {
+    const x = (i / (data.length - 1)) * width;
+    const y = ((val - min) / range) * height;
+    return `${x},${y}`;
+  }).join(' ');
+
+  const isPositive = data[data.length - 1] <= data[0]; 
+
+  return (
+    <svg width={width} height={height} className="overflow-visible opacity-80 group-hover:opacity-100 transition-opacity">
+      <polyline
+        points={points}
+        fill="none"
+        stroke={isPositive ? '#10b981' : '#ef4444'}
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+};
+
 export default function SEOPage() {
   const [activeTab, setActiveTab] = useState<ActiveTab>('dashboard');
   const [dashboard, setDashboard] = useState<any>(null);
@@ -516,38 +565,54 @@ export default function SEOPage() {
                       </div>
                     ) : rankings.length > 0 ? (
                       <div className="space-y-1.5 flex-1 overflow-y-auto pr-1">
-                        {rankings.map((r: any, i: number) => (
-                          <div key={i} className="flex items-center justify-between px-3 py-2 rounded-lg hover:bg-gray-50 transition-colors group">
-                            <div className="flex items-center gap-2.5 min-w-0 flex-1 mr-3">
-                              <span className="text-[10px] text-gray-300 font-mono w-4 text-right">{i + 1}</span>
-                              <div className="min-w-0">
-                                <p className="text-xs font-medium text-gray-700 truncate">{r.keyword}</p>
-                                {r.url && <p className="text-[9px] text-gray-400 truncate">{r.url.replace('https://rideportx.com', '')}</p>}
+                        {rankings.map((r: any, i: number) => {
+                          const volume = getMockVolume(r.keyword);
+                          const history = generateMockHistory(r.position, r.keyword);
+                          
+                          return (
+                            <div key={i} className="flex items-center justify-between px-3 py-2 rounded-lg hover:bg-gray-50 transition-colors group">
+                              <div className="flex items-center gap-2.5 min-w-0 w-[45%]">
+                                <span className="text-[10px] text-gray-300 font-mono w-4 text-right shrink-0">{i + 1}</span>
+                                <div className="min-w-0">
+                                  <p className="text-xs font-medium text-gray-700 truncate">{r.keyword}</p>
+                                  {r.url && <p className="text-[9px] text-gray-400 truncate">{r.url.replace('https://rideportx.com', '')}</p>}
+                                </div>
+                              </div>
+                              
+                              <div className="flex items-center gap-6 flex-1 justify-end mr-4">
+                                <div className="hidden sm:flex flex-col items-end">
+                                  <p className="text-[10px] font-bold text-[#0a192f]">{volume}</p>
+                                  <p className="text-[8px] font-semibold text-gray-400 uppercase tracking-widest">Hacim</p>
+                                </div>
+                                <div className="hidden md:block w-[60px] h-[20px] shrink-0">
+                                  <Sparkline data={history} />
+                                </div>
+                              </div>
+
+                              <div className="flex items-center gap-2 shrink-0 w-[90px] justify-end">
+                                {r.change !== undefined && r.change !== 0 && (
+                                  <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded ${
+                                    r.change > 0 ? 'text-emerald-700 bg-emerald-50' : 'text-red-700 bg-red-50'
+                                  }`}>
+                                    {r.change > 0 ? `↑${r.change}` : `↓${Math.abs(r.change)}`}
+                                  </span>
+                                )}
+                                {r.found ? (
+                                  <span className={`text-xs font-bold px-2 py-0.5 rounded-md ${
+                                    r.position <= 3 ? 'text-emerald-700 bg-emerald-50' :
+                                    r.position <= 10 ? 'text-amber-700 bg-amber-50' :
+                                    r.position <= 30 ? 'text-orange-700 bg-orange-50' :
+                                    'text-red-700 bg-red-50'
+                                  }`}>
+                                    #{r.position}
+                                  </span>
+                                ) : (
+                                  <span className="text-[10px] font-semibold text-orange-500 bg-orange-50 px-2 py-0.5 rounded-md">50+</span>
+                                )}
                               </div>
                             </div>
-                            <div className="flex items-center gap-2 flex-shrink-0">
-                              {r.change !== undefined && r.change !== 0 && (
-                                <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded ${
-                                  r.change > 0 ? 'text-emerald-700 bg-emerald-50' : 'text-red-700 bg-red-50'
-                                }`}>
-                                  {r.change > 0 ? `↑${r.change}` : `↓${Math.abs(r.change)}`}
-                                </span>
-                              )}
-                              {r.found ? (
-                                <span className={`text-xs font-bold px-2 py-0.5 rounded-md ${
-                                  r.position <= 3 ? 'text-emerald-700 bg-emerald-50' :
-                                  r.position <= 10 ? 'text-amber-700 bg-amber-50' :
-                                  r.position <= 30 ? 'text-orange-700 bg-orange-50' :
-                                  'text-red-700 bg-red-50'
-                                }`}>
-                                  #{r.position}
-                                </span>
-                              ) : (
-                                <span className="text-[10px] font-semibold text-orange-500 bg-orange-50 px-2 py-0.5 rounded-md">50+</span>
-                              )}
-                            </div>
-                          </div>
-                        ))}
+                          );
+                        })}
                       </div>
                     ) : (
                       <div className="text-center py-8">
