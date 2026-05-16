@@ -26,6 +26,7 @@ export async function generateMetadata(
   return {
     title: t('title'),
     description: t('description'),
+    keywords: t('keywords').split(', '),
     metadataBase: new URL(siteUrl),
     openGraph: {
       title: t('title'),
