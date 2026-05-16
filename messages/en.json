@@ -503,7 +503,31 @@
     "paymentDetails": "Payment Method",
     "totalAmount": "Total Amount",
     "returnHome": "Return to Home",
-    "viewReservations": "View My Reservations"
+    "viewReservations": "View My Reservations",
+    "passenger1Info": "1. Passenger Info (Booking Owner)",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "notesPlaceholder": "Any other details you would like to mention?",
+    "addressPlaceholder": "Detailed address info...",
+    "corporateInvoice": "Corporate Invoice",
+    "campaignNotify": "Notify me about campaigns/promo codes",
+    "otherPassengers": "Other Passenger Details",
+    "passengerInfoPlaceholder": "PASSENGER FULL NAME",
+    "flightDetails": "Flight Details",
+    "flightDetailsDesc": "The booking date is for display purposes only. Please enter your flight details to complete the reservation.",
+    "searchDepartureAirport": "Search Departure Airport",
+    "flightNumberPlaceholder": "Flight number...",
+    "searchArrivalAirport": "Arrival Airport",
+    "airportSearchPlaceholder": "Search airport...",
+    "leaveToUs": "Leave your flight to us?",
+    "enterManually": "Enter manually here",
+    "creditCardDesc": "Pay the total securely with your credit card.",
+    "cardFee": "Card Fee",
+    "cashDesc": "Pay the entire amount on the day of travel.",
+    "grandTotal": "Grand Total",
+    "errorCreatingBooking": "An error occurred while creating the booking. Please try again.",
+    "errorNetwork": "Could not connect to the server. Please check your internet connection.",
+    "paymentDetailsTab": "Payment Details"
   },
   "ErrorReport": {
     "button": "Report Error",
@@ -515,5 +539,14 @@
     "submit": "Submit",
     "sending": "Sending...",
     "success": "Your error report has been received successfully. Thank you."
+  },
+  "Fleet": {
+    "sedanOption": "Sedan (1-3 Passengers)",
+    "vipSedanOption": "VIP Sedan",
+    "minivanOption": "Minivan (4-6 Passengers)",
+    "vipMinivanOption": "VIP Minivan",
+    "sprinterOption": "Sprinter (7-14 Passengers)",
+    "midibusOption": "Midibus (15-25 Passengers)",
+    "busOption": "Bus (26+ Passengers)"
   }
 }

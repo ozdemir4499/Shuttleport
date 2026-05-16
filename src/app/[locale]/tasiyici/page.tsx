@@ -255,13 +255,13 @@ export default function TasiyiciPage() {
                                             className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-[#B58A32] focus:ring-2 focus:ring-[#B58A32]/20 outline-none transition-all text-gray-900 bg-white"
                                         >
                                             <option value="">{t('form.vehicleSelect')}</option>
-                                            <option value="sedan">Sedan (1-3 Yolcu)</option>
-                                            <option value="vip-sedan">VIP Sedan</option>
-                                            <option value="minivan">Minivan (4-6 Yolcu)</option>
-                                            <option value="vip-minivan">VIP Minivan</option>
-                                            <option value="sprinter">Sprinter (7-14 Yolcu)</option>
-                                            <option value="midibus">Midibüs (15-25 Yolcu)</option>
-                                            <option value="otobus">Otobüs (26+ Yolcu)</option>
+                                            <option value="sedan">{tf('sedanOption')}</option>
+                                            <option value="vip-sedan">{tf('vipSedanOption')}</option>
+                                            <option value="minivan">{tf('minivanOption')}</option>
+                                            <option value="vip-minivan">{tf('vipMinivanOption')}</option>
+                                            <option value="sprinter">{tf('sprinterOption')}</option>
+                                            <option value="midibus">{tf('midibusOption')}</option>
+                                            <option value="otobus">{tf('busOption')}</option>
                                         </select>
                                     </div>
 

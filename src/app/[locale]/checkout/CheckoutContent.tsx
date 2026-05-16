@@ -194,7 +194,7 @@ export default function CheckoutContent() {
                 const reservationData = {
                     ...bookingPayload,
                     id: data.id,
-                    paymentMethod: paymentMethod === 'credit-card' ? 'Kredi Kartı ile Ödeme' : 'Seyahat Günü Nakit',
+                    paymentMethod: paymentMethod === 'credit-card' ? '{t('creditCardPayment')}' : 'Seyahat Günü Nakit',
                     date: reservation.date,
                     distance: reservation.distance,
                     duration: reservation.duration
@@ -209,11 +209,11 @@ export default function CheckoutContent() {
                     router.push(`/confirmation?id=${data.id}`);
                 }
             } else {
-                setErrorMsg('Rezervasyon oluşturulurken bir hata oluştu. Lütfen tekrar deneyin.');
+                setErrorMsg('t('errorCreatingBooking')');
             }
         } catch (error) {
             console.error('Submit error:', error);
-            setErrorMsg('Sunucuya bağlanılamadı. Lütfen internet bağlantınızı kontrol edin.');
+            setErrorMsg('t('errorNetwork')');
         } finally {
             setIsSubmitting(false);
         }
@@ -282,13 +282,13 @@ export default function CheckoutContent() {
                         <div className="bg-white rounded-xl shadow-md p-6">
                             <div className="flex items-center gap-2 mb-6">
                                 <User className="w-5 h-5 text-red-600" />
-                                <h2 className="text-lg font-bold text-gray-900">1. Yolcu Bilgileri (Rezervasyon Sahibi)</h2>
+                                <h2 className="text-lg font-bold text-gray-900">{t('passenger1Info')}</h2>
                             </div>
 
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div>
                                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                                        Adınız <span className="text-red-600">*</span>
+                                        {t('firstName')} <span className="text-red-600">*</span>
                                     </label>
                                     <input
                                         type="text"
@@ -296,13 +296,13 @@ export default function CheckoutContent() {
                                         value={formData.firstName}
                                         onChange={handleInputChange}
                                         className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
-                                        placeholder="Adınız"
+                                        placeholder={t('firstName')}
                                         required
                                     />
                                 </div>
                                 <div>
                                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                                        Soyadınız <span className="text-red-600">*</span>
+                                        {t('lastName')} <span className="text-red-600">*</span>
                                     </label>
                                     <input
                                         type="text"
@@ -310,13 +310,13 @@ export default function CheckoutContent() {
                                         value={formData.lastName}
                                         onChange={handleInputChange}
                                         className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
-                                        placeholder="Soyadınız"
+                                        placeholder={t('lastName')}
                                         required
                                     />
                                 </div>
                                 <div>
                                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                                        Telefon Numarası <span className="text-red-600">*</span>
+                                        {t('phone')} <span className="text-red-600">*</span>
                                     </label>
                                     <input
                                         type="tel"
@@ -324,13 +324,13 @@ export default function CheckoutContent() {
                                         value={formData.phone}
                                         onChange={handleInputChange}
                                         className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
-                                        placeholder="Telefon Numarası"
+                                        placeholder={t('phone')}
                                         required
                                     />
                                 </div>
                                 <div>
                                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                                        E-posta Adresiniz <span className="text-red-600">*</span>
+                                        {t('email')} <span className="text-red-600">*</span>
                                     </label>
                                     <input
                                         type="email"
@@ -338,7 +338,7 @@ export default function CheckoutContent() {
                                         value={formData.email}
                                         onChange={handleInputChange}
                                         className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
-                                        placeholder="E-posta Adresiniz"
+                                        placeholder={t('email')}
                                         required
                                     />
                                 </div>
@@ -346,7 +346,7 @@ export default function CheckoutContent() {
 
                             <div className="mt-4">
                                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                                    Ayrıca belirtmek istediğiniz bir detay var mı?
+                                    {t('notesPlaceholder')}
                                 </label>
                                 <textarea
                                     rows={4}
@@ -354,18 +354,18 @@ export default function CheckoutContent() {
                                     value={formData.notes}
                                     onChange={handleInputChange}
                                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent resize-none"
-                                    placeholder="Detaylı adres bilgisi..."
+                                    placeholder={t('addressPlaceholder')}
                                 />
                             </div>
 
                             <div className="mt-4 space-y-2">
                                 <label className="flex items-center gap-2 cursor-pointer">
                                     <input type="checkbox" className="w-4 h-4 text-green-500 border-gray-300 rounded focus:ring-green-500" />
-                                    <span className="text-sm text-gray-700">Kurumsal Fatura</span>
+                                    <span className="text-sm text-gray-700">{t('corporateInvoice')}</span>
                                 </label>
                                 <label className="flex items-center gap-2 cursor-pointer">
                                     <input type="checkbox" className="w-4 h-4 text-green-500 border-gray-300 rounded focus:ring-green-500" />
-                                    <span className="text-sm text-gray-700">Kampanya/promosyon kodlarından haberdar et</span>
+                                    <span className="text-sm text-gray-700">{t('campaignNotify')}</span>
                                 </label>
                             </div>
                         </div>
@@ -375,7 +375,7 @@ export default function CheckoutContent() {
                             <div className="bg-white rounded-xl shadow-md p-6 mb-6">
                                 <div className="flex items-center gap-2 mb-6">
                                     <User className="w-5 h-5 text-gray-600" />
-                                    <h2 className="text-lg font-bold text-gray-900">Diğer Yolcu Bilgileri</h2>
+                                    <h2 className="text-lg font-bold text-gray-900">{t('otherPassengers')}</h2>
                                 </div>
                                 <div className="space-y-4">
                                     {passengerNames.map((passenger, index) => (
@@ -385,7 +385,7 @@ export default function CheckoutContent() {
                                                 value={passenger.fullName}
                                                 onChange={(e) => handlePassengerChange(index, e.target.value)}
                                                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent uppercase placeholder:normal-case"
-                                                placeholder={`${index + 2}. YOLCU BİLGİSİ AD SOYAD`}
+                                                placeholder={`${index + 2}. ${t('passengerInfoPlaceholder')}`}
                                                 required
                                             />
                                         </div>
@@ -400,11 +400,11 @@ export default function CheckoutContent() {
                                 <svg className="w-5 h-5 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
                                 </svg>
-                                <h2 className="text-lg font-bold text-gray-900">Uçuş Detayları</h2>
+                                <h2 className="text-lg font-bold text-gray-900">{t('flightDetails')}</h2>
                             </div>
 
                             <p className="text-sm text-gray-600 mb-4">
-                                Rezervasyon tarihi sadece göz önü amaçlıdır. Lütfen uçuş bilgilerinizi girerek rezervasyonunuzu tamamlayınız.
+                                {t('flightDetailsDesc')}
                             </p>
 
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -413,7 +413,7 @@ export default function CheckoutContent() {
                                         <svg className="w-4 h-4 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
                                         </svg>
-                                        Kalkış Havalimanı Arayın
+                                        {t('searchDepartureAirport')}
                                     </label>
                                     <input
                                         type="text"
@@ -421,7 +421,7 @@ export default function CheckoutContent() {
                                         value={formData.flightNumber}
                                         onChange={handleInputChange}
                                         className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
-                                        placeholder="Uçuş numarası..."
+                                        placeholder={t('flightNumberPlaceholder')}
                                     />
                                 </div>
                                 <div>
@@ -430,12 +430,12 @@ export default function CheckoutContent() {
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                                         </svg>
-                                        Varış Havalimanı
+                                        {t('searchArrivalAirport')}
                                     </label>
                                     <input
                                         type="text"
                                         className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
-                                        placeholder="Havalimanı ara..."
+                                        placeholder={t('airportSearchPlaceholder')}
                                     />
                                 </div>
                             </div>
@@ -443,7 +443,7 @@ export default function CheckoutContent() {
                             <div className="mt-4">
                                 <label className="flex items-center gap-2 cursor-pointer">
                                     <input type="checkbox" className="w-4 h-4 text-green-500 border-gray-300 rounded focus:ring-green-500" />
-                                    <span className="text-sm text-gray-700">Uygunuzu bize bırakır mısınız? <Link href="#" className="text-blue-600 hover:underline">Buradan manuel giriniz</Link></span>
+                                    <span className="text-sm text-gray-700">{t('leaveToUs')} <Link href="#" className="text-blue-600 hover:underline">{t('enterManually')}</Link></span>
                                 </label>
                             </div>
                         </div>
@@ -455,7 +455,7 @@ export default function CheckoutContent() {
                                     <svg className="w-5 h-5 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                                     </svg>
-                                    <h2 className="text-lg font-bold text-gray-900">Ek Hizmetler</h2>
+                                    <h2 className="text-lg font-bold text-gray-900">{t('extraServices')}</h2>
                                 </div>
                                 <div className="w-12 h-6 bg-green-500 rounded-full relative cursor-pointer">
                                     <div className="absolute right-1 top-1 w-4 h-4 bg-white rounded-full"></div>
@@ -562,7 +562,7 @@ export default function CheckoutContent() {
                                 <svg className="w-5 h-5 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
                                 </svg>
-                                <h2 className="text-lg font-bold text-gray-900">Ödeme Bilgileri</h2>
+                                <h2 className="text-lg font-bold text-gray-900">{t('paymentDetailsTab')}</h2>
                             </div>
 
                             <div className="space-y-4">
@@ -586,13 +586,13 @@ export default function CheckoutContent() {
                                         <div className="flex-1">
                                             <div className="flex items-start justify-between mb-1">
                                                 <div>
-                                                    <div className="font-bold text-gray-900 mb-1">Kredi Kartı ile Ödeme</div>
-                                                    <div className="text-sm text-gray-500">Tamamını kredi kartı ile güvenli olarak ödeyin.</div>
+                                                    <div className="font-bold text-gray-900 mb-1">{t('creditCardPayment')}</div>
+                                                    <div className="text-sm text-gray-500">{t('creditCardDesc')}</div>
                                                 </div>
                                                 <div className="text-right ml-4">
                                                     <div className="text-2xl font-bold text-gray-900">{Math.round(calculateTotal() * 1.04)}{currencySymbols[vehicle.currency as keyof typeof currencySymbols] || '₺'}</div>
                                                     <div className="text-xs text-red-600 mt-1">
-                                                        ({calculateTotal()}{currencySymbols[vehicle.currency as keyof typeof currencySymbols] || '₺'} + %4 Kart Ücreti {Math.round(calculateTotal() * 0.04)}{currencySymbols[vehicle.currency as keyof typeof currencySymbols] || '₺'})
+                                                        ({calculateTotal()}{currencySymbols[vehicle.currency as keyof typeof currencySymbols] || '₺'} + %4 {t('cardFee')} {Math.round(calculateTotal() * 0.04)}{currencySymbols[vehicle.currency as keyof typeof currencySymbols] || '₺'})
                                                     </div>
                                                 </div>
                                             </div>
@@ -621,7 +621,7 @@ export default function CheckoutContent() {
                                             <div className="flex items-start justify-between mb-1">
                                                 <div>
                                                     <div className="font-bold text-gray-900 mb-1">{t('cashPayment')}</div>
-                                                    <div className="text-sm text-gray-500">Ödemenizin tamamını yolculuk günü ödeyin.</div>
+                                                    <div className="text-sm text-gray-500">{t('cashDesc')}</div>
                                                 </div>
                                                 <div className="text-right ml-4">
                                                     <div className="text-2xl font-bold text-gray-900">{calculateTotal()}{currencySymbols[vehicle.currency as keyof typeof currencySymbols] || '₺'}</div>
@@ -642,7 +642,7 @@ export default function CheckoutContent() {
                                 disabled={isSubmitting}
                                 className={`w-full mt-6 text-white px-8 py-4 rounded-lg font-bold text-lg transition-colors shadow-md hover:shadow-lg ${isSubmitting ? 'bg-gray-400 cursor-not-allowed' : 'bg-green-500 hover:bg-green-600'}`}
                             >
-                                {isSubmitting ? t('processing') : 'Ödemeyi Tamamla'}
+                                {isSubmitting ? t('processing') : '{t('pay')}'}
                             </button>
                         </div>
                     </div>
@@ -655,11 +655,11 @@ export default function CheckoutContent() {
                             {/* Route Info */}
                             <div className="space-y-4 mb-6">
                                 <div>
-                                    <div className="text-xs text-gray-500 uppercase mb-1">NEREDEN</div>
+                                    <div className="text-xs text-gray-500 uppercase mb-1">{t('from')}</div>
                                     <div className="text-sm text-gray-900 font-medium">{reservation.from}</div>
                                 </div>
                                 <div>
-                                    <div className="text-xs text-gray-500 uppercase mb-1">NEREYE</div>
+                                    <div className="text-xs text-gray-500 uppercase mb-1">{t('to')}</div>
                                     <div className="text-sm text-gray-900 font-medium">{reservation.to}</div>
                                 </div>
                             </div>
@@ -669,7 +669,7 @@ export default function CheckoutContent() {
                                 <div className="flex items-center justify-between">
                                     <div className="flex items-center gap-2 text-gray-500">
                                         <Calendar className="w-4 h-4" />
-                                        <span className="text-xs">Başlangıç Tarihi</span>
+                                        <span className="text-xs">{t('dateLabel')}</span>
                                     </div>
                                     <span className="text-sm font-semibold text-gray-900">{reservation.date}</span>
                                 </div>
@@ -678,21 +678,21 @@ export default function CheckoutContent() {
                                         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
                                         </svg>
-                                        <span className="text-xs">Mesafe</span>
+                                        <span className="text-xs">{t('distanceLabel')}</span>
                                     </div>
                                     <span className="text-sm font-semibold text-gray-900">{reservation.distance}</span>
                                 </div>
                                 <div className="flex items-center justify-between">
                                     <div className="flex items-center gap-2 text-gray-500">
                                         <Clock className="w-4 h-4" />
-                                        <span className="text-xs">Süre</span>
+                                        <span className="text-xs">{t('durationLabel')}</span>
                                     </div>
                                     <span className="text-sm font-semibold text-gray-900">{reservation.duration}</span>
                                 </div>
                                 <div className="flex items-center justify-between">
                                     <div className="flex items-center gap-2 text-gray-500">
                                         <Users className="w-4 h-4" />
-                                        <span className="text-xs">Kişi Sayısı</span>
+                                        <span className="text-xs">{t('passengerCountLabel')}</span>
                                     </div>
                                     <span className="text-sm font-semibold text-gray-900">{reservation.passengers}</span>
                                 </div>
@@ -701,7 +701,7 @@ export default function CheckoutContent() {
                                         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
                                         </svg>
-                                        <span className="text-xs">Gidiş - Dönüş</span>
+                                        <span className="text-xs">{t('roundTripTitle')}</span>
                                     </div>
                                     <span className="text-sm font-semibold text-gray-900">{reservation.tripType}</span>
                                 </div>
@@ -710,7 +710,7 @@ export default function CheckoutContent() {
                                         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2" />
                                         </svg>
-                                        <span className="text-xs">Araç</span>
+                                        <span className="text-xs">{t('vehicleDetails')}</span>
                                     </div>
                                     <span className="text-sm font-semibold text-gray-900">{vehicle.name}</span>
                                 </div>
@@ -718,7 +718,7 @@ export default function CheckoutContent() {
 
                             {/* Payment Details */}
                             <div className="mt-6 pt-6 border-t border-gray-200">
-                                <h4 className="text-sm font-bold text-gray-900 mb-4">Ödeme Detayları</h4>
+                                <h4 className="text-sm font-bold text-gray-900 mb-4">{t('paymentDetailsTab')}</h4>
                                 <div className="space-y-3">
                                     <div className="flex items-center justify-between text-sm">
                                         <span className="text-gray-600">{vehicle.name}</span>
@@ -734,7 +734,7 @@ export default function CheckoutContent() {
                                     ))}
                                     <div className="pt-3 border-t border-gray-200">
                                         <div className="flex items-center justify-between">
-                                            <span className="text-base font-bold text-gray-900">Genel Toplam</span>
+                                            <span className="text-base font-bold text-gray-900">{t('grandTotal')}</span>
                                             <span className="text-xl font-bold text-gray-900">{calculateTotal()}{currencySymbols[vehicle.currency as keyof typeof currencySymbols] || '₺'}</span>
                                         </div>
                                     </div>

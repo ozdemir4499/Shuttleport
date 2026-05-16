@@ -503,7 +503,31 @@
     "paymentDetails": "Способ оплаты",
     "totalAmount": "Итоговая сумма",
     "returnHome": "Вернуться на главную",
-    "viewReservations": "Просмотр моих бронирований"
+    "viewReservations": "Просмотр моих бронирований",
+    "passenger1Info": "1. Информация о пассажире (Владелец)",
+    "firstName": "Имя",
+    "lastName": "Фамилия",
+    "notesPlaceholder": "Есть ли дополнительные детали?",
+    "addressPlaceholder": "Подробная информация об адресе...",
+    "corporateInvoice": "Корпоративный счет",
+    "campaignNotify": "Уведомлять меня об акциях/промокодах",
+    "otherPassengers": "Данные других пассажиров",
+    "passengerInfoPlaceholder": "ПОЛНОЕ ИМЯ ПАССАЖИРА",
+    "flightDetails": "Детали рейса",
+    "flightDetailsDesc": "Дата бронирования указана только для ознакомления. Пожалуйста, введите данные рейса, чтобы завершить.",
+    "searchDepartureAirport": "Поиск аэропорта вылета",
+    "flightNumberPlaceholder": "Номер рейса...",
+    "searchArrivalAirport": "Аэропорт прибытия",
+    "airportSearchPlaceholder": "Поиск аэропорта...",
+    "leaveToUs": "Оставить рейс нам?",
+    "enterManually": "Ввести вручную",
+    "creditCardDesc": "Безопасно оплатите всю сумму кредитной картой.",
+    "cardFee": "Комиссия карты",
+    "cashDesc": "Оплатите всю сумму в день поездки.",
+    "grandTotal": "Общий итог",
+    "errorCreatingBooking": "Произошла ошибка при создании бронирования. Пожалуйста, попробуйте снова.",
+    "errorNetwork": "Не удалось подключиться к серверу. Пожалуйста, проверьте подключение к интернету.",
+    "paymentDetailsTab": "Детали оплаты"
   },
   "ErrorReport": {
     "button": "Сообщить об ошибке",
@@ -515,5 +539,14 @@
     "submit": "Отправить",
     "sending": "Отправка...",
     "success": "Ваше сообщение об ошибке успешно получено. Спасибо."
+  },
+  "Fleet": {
+    "sedanOption": "Седан (1-3 Пассажира)",
+    "vipSedanOption": "VIP Седан",
+    "minivanOption": "Минивэн (4-6 Пассажиров)",
+    "vipMinivanOption": "VIP Минивэн",
+    "sprinterOption": "Спринтер (7-14 Пассажиров)",
+    "midibusOption": "Микроавтобус (15-25 Пассажиров)",
+    "busOption": "Автобус (26+ Пассажиров)"
   }
 }

@@ -503,7 +503,31 @@
     "paymentDetails": "Ödeme Yöntemi",
     "totalAmount": "Toplam Tutar",
     "returnHome": "Ana Sayfaya Dön",
-    "viewReservations": "Rezervasyonlarımı Görüntüle"
+    "viewReservations": "Rezervasyonlarımı Görüntüle",
+    "passenger1Info": "1. Yolcu Bilgileri (Rezervasyon Sahibi)",
+    "firstName": "Adınız",
+    "lastName": "Soyadınız",
+    "notesPlaceholder": "Ayrıca belirtmek istediğiniz bir detay var mı?",
+    "addressPlaceholder": "Detaylı adres bilgisi...",
+    "corporateInvoice": "Kurumsal Fatura",
+    "campaignNotify": "Kampanya/promosyon kodlarından haberdar et",
+    "otherPassengers": "Diğer Yolcu Bilgileri",
+    "passengerInfoPlaceholder": "YOLCU BİLGİSİ AD SOYAD",
+    "flightDetails": "Uçuş Detayları",
+    "flightDetailsDesc": "Rezervasyon tarihi sadece göz önü amaçlıdır. Lütfen uçuş bilgilerinizi girerek rezervasyonunuzu tamamlayınız.",
+    "searchDepartureAirport": "Kalkış Havalimanı Arayın",
+    "flightNumberPlaceholder": "Uçuş numarası...",
+    "searchArrivalAirport": "Varış Havalimanı",
+    "airportSearchPlaceholder": "Havalimanı ara...",
+    "leaveToUs": "Uçuşunuzu bize bırakır mısınız?",
+    "enterManually": "Buradan manuel giriniz",
+    "creditCardDesc": "Tamamını kredi kartı ile güvenli olarak ödeyin.",
+    "cardFee": "Kart Ücreti",
+    "cashDesc": "Ödemenizin tamamını yolculuk günü ödeyin.",
+    "grandTotal": "Genel Toplam",
+    "errorCreatingBooking": "Rezervasyon oluşturulurken bir hata oluştu. Lütfen tekrar deneyin.",
+    "errorNetwork": "Sunucuya bağlanılamadı. Lütfen internet bağlantınızı kontrol edin.",
+    "paymentDetailsTab": "Ödeme Detayları"
   },
   "ErrorReport": {
     "button": "Hata Bildir",
@@ -515,5 +539,14 @@
     "submit": "Gönder",
     "sending": "Gönderiliyor...",
     "success": "Hata bildiriminiz başarıyla alındı. Teşekkür ederiz."
+  },
+  "Fleet": {
+    "sedanOption": "Sedan (1-3 Yolcu)",
+    "vipSedanOption": "VIP Sedan",
+    "minivanOption": "Minivan (4-6 Yolcu)",
+    "vipMinivanOption": "VIP Minivan",
+    "sprinterOption": "Sprinter (7-14 Yolcu)",
+    "midibusOption": "Midibüs (15-25 Yolcu)",
+    "busOption": "Otobüs (26+ Yolcu)"
   }
 }
