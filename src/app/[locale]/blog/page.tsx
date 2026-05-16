@@ -6,11 +6,10 @@ import Header from '@/components/layout/Header';
 import { Metadata } from 'next';
 
 export async function generateMetadata({ params: { locale } }: { params: { locale: string } }): Promise<Metadata> {
+  const t = await getTranslations({ locale, namespace: 'Blog' });
   return {
-    title: `Blog | ${process.env.NEXT_PUBLIC_SITE_NAME || 'RidePortX'}`,
-    description: locale === 'en' 
-      ? 'Latest travel tips, Istanbul tours and transfer guides.' 
-      : 'En guncel seyahat, turizm ve transfer rehberi yazilarimiz.',
+    title: t('title'),
+    description: t('description'),
   };
 }
 

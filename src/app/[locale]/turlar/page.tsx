@@ -4,10 +4,10 @@ import { getTranslations } from 'next-intl/server';
 import TurlarClient from './TurlarClient';
 
 export async function generateMetadata({ params: { locale } }: { params: { locale: string } }): Promise<Metadata> {
-  const t = await getTranslations({ locale, namespace: 'Navigation' });
+  const t = await getTranslations({ locale, namespace: 'Turlar' });
   return {
-    title: `Turlar | ${process.env.NEXT_PUBLIC_SITE_NAME || 'RidePortX'}`,
-    description: 'İstanbul ve çevresindeki en iyi turlar, VIP ve günübirlik gezi seçenekleri.',
+    title: t('title'),
+    description: t('description'),
   };
 }
 
