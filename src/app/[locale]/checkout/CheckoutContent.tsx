@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { MapPin, Calendar, Users, Clock, Instagram, Globe, MessageCircle, User, ChevronDown, Menu, X, Check } from 'lucide-react';
 import Header from '@/components/layout/Header';
@@ -10,6 +10,7 @@ import Header from '@/components/layout/Header';
 
 export default function CheckoutContent() {
     const t = useTranslations('BookingFlow');
+    const locale = useLocale();
     const searchParams = useSearchParams();
     const router = useRouter();
     const vehicleId = searchParams.get('vehicleId');
@@ -63,9 +64,9 @@ export default function CheckoutContent() {
                     const data = await res.json();
                     const mapped = data.map((s: any) => ({
                         id: `service_${s.id}`,
-                        name: s.name_tr,
+                        name: s[`name_${locale}`] || s.name_en || s.name_tr,
                         price: s.price,
-                        description: s.description_tr || ''
+                        description: s[`description_${locale}`] || s.description_en || s.description_tr || ''
                     }));
                     setServices(mapped);
                     // Set default selections
@@ -78,14 +79,14 @@ export default function CheckoutContent() {
             } catch {
                 // Fallback to hardcoded if API fails
                 const fallback = [
-                    { id: 'welcomeSign', name: 'Karşılama Tabelası', price: 120, description: '' },
-                    { id: 'jetValet', name: 'Jet Valet Karşılama Hizmeti', price: 1000, description: '' },
-                    { id: 'childSeat', name: 'Çocuk Koltuğu (0-3 yaş)', price: 800, description: '' },
-                    { id: 'flowers', name: 'Çiçek Buketi', price: 3000, description: '' },
-                    { id: 'diapers', name: '15 Adet Üst Bebek Bezi', price: 6000, description: '' },
-                    { id: 'parkingFee', name: 'Sabiha Gökçen Vip Otopark Ücreti', price: 80, description: '' },
-                    { id: 'bridgeFee', name: '15 Temmuz veya F.S.M. Köprü Geçiş Ücreti', price: 80, description: '' },
-                    { id: 'tunnel', name: 'Araçta Tünel', price: 335, description: '' }
+                    { id: 'welcomeSign', name: t('extraWelcomeSign'), price: 120, description: '' },
+                    { id: 'jetValet', name: t('extraJetValet'), price: 1000, description: '' },
+                    { id: 'childSeat', name: t('extraChildSeat'), price: 800, description: '' },
+                    { id: 'flowers', name: t('extraFlowers'), price: 3000, description: '' },
+                    { id: 'diapers', name: t('extraDiapers'), price: 6000, description: '' },
+                    { id: 'parkingFee', name: t('extraParkingFee'), price: 80, description: '' },
+                    { id: 'bridgeFee', name: t('extraBridgeFee'), price: 80, description: '' },
+                    { id: 'tunnel', name: t('extraTunnel'), price: 335, description: '' }
                 ];
                 setServices(fallback);
                 setAdditionalServices({
@@ -95,7 +96,7 @@ export default function CheckoutContent() {
             }
         };
         fetchServices();
-    }, []);
+    }, [locale, t]);
 
     const reservation = {
         from: (pendingBooking?.from as string) || 'Seçilmedi',

@@ -527,7 +527,15 @@
     "grandTotal": "Grand Total",
     "errorCreatingBooking": "An error occurred while creating the booking. Please try again.",
     "errorNetwork": "Could not connect to the server. Please check your internet connection.",
-    "paymentDetailsTab": "Payment Details"
+    "paymentDetailsTab": "Payment Details",
+    "extraWelcomeSign": "Welcome Sign",
+    "extraJetValet": "Jet Valet Meet & Greet",
+    "extraChildSeat": "Child Seat (0-3 years)",
+    "extraFlowers": "Flower Bouquet",
+    "extraDiapers": "15 Pack Premium Diapers",
+    "extraParkingFee": "VIP Parking Fee",
+    "extraBridgeFee": "Bridge Toll Fee",
+    "extraTunnel": "Tunnel Toll Fee"
   },
   "ErrorReport": {
     "button": "Report Error",

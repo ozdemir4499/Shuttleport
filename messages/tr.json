@@ -527,7 +527,15 @@
     "grandTotal": "Genel Toplam",
     "errorCreatingBooking": "Rezervasyon oluşturulurken bir hata oluştu. Lütfen tekrar deneyin.",
     "errorNetwork": "Sunucuya bağlanılamadı. Lütfen internet bağlantınızı kontrol edin.",
-    "paymentDetailsTab": "Ödeme Detayları"
+    "paymentDetailsTab": "Ödeme Detayları",
+    "extraWelcomeSign": "Karşılama Tabelası",
+    "extraJetValet": "Jet Valet Karşılama Hizmeti",
+    "extraChildSeat": "Çocuk Koltuğu (0-3 yaş)",
+    "extraFlowers": "Çiçek Buketi",
+    "extraDiapers": "15 Adet Üst Bebek Bezi",
+    "extraParkingFee": "Vip Otopark Ücreti",
+    "extraBridgeFee": "Köprü Geçiş Ücreti",
+    "extraTunnel": "Araçta Tünel"
   },
   "ErrorReport": {
     "button": "Hata Bildir",

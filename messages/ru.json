@@ -527,7 +527,15 @@
     "grandTotal": "Общий итог",
     "errorCreatingBooking": "Произошла ошибка при создании бронирования. Пожалуйста, попробуйте снова.",
     "errorNetwork": "Не удалось подключиться к серверу. Пожалуйста, проверьте подключение к интернету.",
-    "paymentDetailsTab": "Детали оплаты"
+    "paymentDetailsTab": "Детали оплаты",
+    "extraWelcomeSign": "Приветственная табличка",
+    "extraJetValet": "Услуга встречи Jet Valet",
+    "extraChildSeat": "Детское кресло (0-3 года)",
+    "extraFlowers": "Букет цветов",
+    "extraDiapers": "Упаковка подгузников (15 шт.)",
+    "extraParkingFee": "VIP-парковка",
+    "extraBridgeFee": "Плата за мост",
+    "extraTunnel": "Плата за туннель"
   },
   "ErrorReport": {
     "button": "Сообщить об ошибке",

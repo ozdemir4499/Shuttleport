@@ -527,7 +527,15 @@
     "grandTotal": "Gesamtsumme",
     "errorCreatingBooking": "Fehler bei der Buchungserstellung. Bitte versuchen Sie es erneut.",
     "errorNetwork": "Keine Verbindung zum Server. Bitte überprüfen Sie Ihre Internetverbindung.",
-    "paymentDetailsTab": "Zahlungsdetails"
+    "paymentDetailsTab": "Zahlungsdetails",
+    "extraWelcomeSign": "Willkommensschild",
+    "extraJetValet": "Jet Valet Empfangsservice",
+    "extraChildSeat": "Kindersitz (0-3 Jahre)",
+    "extraFlowers": "Blumenstrauß",
+    "extraDiapers": "15er Pack Premium-Windeln",
+    "extraParkingFee": "VIP-Parkgebühr",
+    "extraBridgeFee": "Brückenmaut",
+    "extraTunnel": "Tunnelmaut"
   },
   "ErrorReport": {
     "button": "Fehler Melden",
