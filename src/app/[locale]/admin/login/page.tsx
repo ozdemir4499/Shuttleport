@@ -48,7 +48,7 @@ export default function AdminLoginPage() {
           <div className="flex justify-center mb-6">
             <div className="w-24 h-24 flex items-center justify-center">
                 <img 
-                    src="/logo_icon.png" 
+                    src="/logo_transparent.png" 
                     alt="Lion Icon" 
                     className="w-full h-full object-contain scale-[1.2]"
                 />

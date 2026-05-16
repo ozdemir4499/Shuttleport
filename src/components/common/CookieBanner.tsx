@@ -1,6 +1,7 @@
 'use client';
 import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
+import { useTranslations } from 'next-intl';
 
 // Google Consent Mode v2 güncelle
 function updateGoogleConsent(granted: boolean) {
@@ -16,6 +17,7 @@ function updateGoogleConsent(granted: boolean) {
 }
 
 export default function CookieBanner() {
+    const t = useTranslations('Common');
     const [isVisible, setIsVisible] = useState(false);
 
     useEffect(() => {
@@ -52,12 +54,12 @@ export default function CookieBanner() {
                                 <svg className="w-5 h-5 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                                 </svg>
-                                <h3 className="text-white font-bold text-sm md:text-base">Çerez Tercihleri</h3>
+                                <h3 className="text-white font-bold text-sm md:text-base">{t('cookieTitle')}</h3>
                             </div>
                             <p className="text-gray-300 text-xs md:text-sm leading-relaxed">
-                                KVKK ve GDPR kapsamında deneyiminizi iyileştirmek için çerezler kullanıyoruz.{' '}
-                                <Link href="/tr/gizlilik" className="text-amber-400 hover:underline font-medium">Gizlilik Politikası</Link> ve{' '}
-                                <Link href="/tr/kullanim" className="text-amber-400 hover:underline font-medium">Kullanım Koşulları</Link>
+                                {t('cookieDesc')}{' '}
+                                <Link href="/gizlilik" className="text-amber-400 hover:underline font-medium">{t('privacy')}</Link> ve{' '}
+                                <Link href="/kullanim" className="text-amber-400 hover:underline font-medium">{t('terms')}</Link>
                             </p>
                         </div>
                         <div className="flex items-center gap-2 w-full md:w-auto">

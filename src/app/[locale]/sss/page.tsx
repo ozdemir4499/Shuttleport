@@ -3,65 +3,22 @@
 import { useState } from 'react';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 import Header from '@/components/layout/Header';
+import { useTranslations } from 'next-intl';
 
 interface FAQItem {
     question: string;
     answer: string;
 }
 
-const faqData: FAQItem[] = [
-    {
-        question: "Rezervasyonumu nasıl iptal edebilirim?",
-        answer: "Rezervasyonunuzu iptal etmek için web sitemizden giriş yaparak 'Rezervasyonlarım' bölümünden ilgili rezervasyonu seçip iptal edebilirsiniz. Ayrıca WhatsApp üzerinden +90 532 417 89 63 numaramızdan veya info@rideportx.com e-posta adresimizden de iptal işlemlerinizi gerçekleştirebilirsiniz."
-    },
-    {
-        question: "Havalimanı transfer rezervasyonu nasıl yapılır?",
-        answer: "Havalimanı transfer rezervasyonunuzu web sitemizden kolayca yapabilirsiniz. Ana sayfada yer alan rezervasyon formunda nereden ve nereye gideceğinizi, tarih ve saat bilgilerinizi girdikten sonra size uygun araç seçeneklerini görebilir ve rezervasyonunuzu tamamlayabilirsiniz. Alternatif olarak WhatsApp hattımızdan da rezervasyon yapabilirsiniz."
-    },
-    {
-        question: "Transfer rezervasyonu yaparken hangi bilgileri paylaşmalıyım?",
-        answer: "Transfer rezervasyonu için şu bilgilere ihtiyacımız var: Kalkış ve varış noktaları, transfer tarihi ve saati, yolcu sayısı, uçuş bilgileriniz (havalimanı transferi için), iletişim bilgileriniz (telefon ve e-posta). Özel talepleriniz varsa (bebek koltuğu, bagaj sayısı vb.) bunları da belirtebilirsiniz."
-    },
-    {
-        question: "Uçağım rötar yaparsa transferim iptal olur mu?",
-        answer: "Hayır, uçağınız rötar yaparsa transferiniz iptal olmaz. Sürücümüz uçuş takip sistemi ile uçuşunuzu anlık olarak takip eder ve yeni iniş saatinize göre havalimanında sizi bekler. Rötar durumunda ek ücret talep edilmez."
-    },
-    {
-        question: "Transfer aracı beni ne kadar süre bekler?",
-        answer: "Havalimanı transferlerinde, uçağınızın inişinden itibaren 60 dakika ücretsiz bekleme süresi sunuyoruz. Bu süre içinde bagajınızı alıp buluşma noktasına rahatlıkla gelebilirsiniz. Şehir içi transferlerde ise belirlenen saatte 15 dakika ücretsiz bekleme süresi mevcuttur."
-    },
-    {
-        question: "Havalimanı buluşma noktasında şoförü nasıl bulacağım?",
-        answer: "İstanbul Havalimanı'nda sürücümüz, gelen yolcu katında bulunan karşılama noktasında sizin adınızı yazan tabelayla sizi bekleyecektir. Sabiha Gökçen Havalimanı'nda ise yine gelen yolcu katı çıkışında karşılama noktasında tabelayla bekleyecektir. Rezervasyon sonrası size gönderilen SMS'te sürücünüzün telefon numarası da yer alacaktır."
-    },
-    {
-        question: "Havalimanı transfer aracını havalimanında nasıl bulacağım?",
-        answer: "Havalimanına vardığınızda, bagaj teslim alanından çıktıktan sonra karşılama (meeting point) bölümüne gidin. Sürücümüz sizin adınızı yazan bir tabelayla orada olacaktır. Ayrıca rezervasyon onayınızda sürücünüzün iletişim bilgileri de yer alacaktır, gerektiğinde direkt iletişime geçebilirsiniz."
-    },
-    {
-        question: "Havalimanı dışında adresimden veya farklı bir rezervasyonda araç ile nasıl buluşurum?",
-        answer: "Şehir içi transferlerde sürücümüz belirlenen saatte adresinizin önünde olacaktır. Rezervasyon öncesinde size gönderilen SMS'te sürücünüzün plaka ve telefon bilgileri yer alır. Sürücünüz de size ulaşarak konumunu bildirecektir. Otel transferlerinde ise sürücümüz otel lobisinde sizi bekleyecektir."
-    },
-    {
-        question: "Transfer araçlarında çocuklar için çocuk koltuğu var mı?",
-        answer: "Evet, talep etmeniz halinde ücretsiz olarak bebek ve çocuk koltuğu sağlıyoruz. Rezervasyon yaparken 'Özel Talepler' bölümünden çocuğunuzun yaşını ve kilosunu belirterek koltuğu talep edebilirsiniz. Güvenlik standartlarına uygun, temiz ve bakımlı koltuklar kullanıyoruz."
-    },
-    {
-        question: "Kredi kartı ile ödeme yapabilir miyim?",
-        answer: "Evet, tüm kredi kartları ve banka kartları ile güvenli ödeme yapabilirsiniz. Ayrıca nakit ödeme seçeneği de mevcuttur. Online ödemeleriniz 3D Secure güvenlik sistemi ile korunmaktadır. Kurumsal müşterilerimiz için fatura ve havale seçenekleri de bulunmaktadır."
-    },
-    {
-        question: "Rezervasyonumun onaylandığını nasıl anlarım?",
-        answer: "Rezervasyonunuz tamamlandıktan sonra size e-posta ve SMS ile onay mesajı gönderilir. Bu mesajda rezervasyon detaylarınız, araç bilgileri, sürücü iletişim bilgileri ve rezervasyon numaranız yer alır. Ayrıca 'Rezervasyonlarım' sayfasından da rezervasyonunuzun durumunu kontrol edebilirsiniz."
-    },
-    {
-        question: "Havalimanı dışında adresimden veya farklı bir rezervasyonda araç ile nasıl buluşurum?",
-        answer: "Adres transferlerinde sürücümüz belirlenen saatte tam adresinizin önünde olacaktır. Transfer saatinden önce size SMS ile sürücünüzün adı, telefonu ve araç plakası bilgisi gönderilir. Sürücünüz de size ulaşarak konumunu bildirir. Otel, AVM gibi noktalarda ise ana giriş kapısında bekleyecektir."
-    }
-];
+
 
 export default function SSSPage() {
+    const t = useTranslations('FAQ');
     const [openIndex, setOpenIndex] = useState<number | null>(0);
+    const faqData = Array.from({ length: 12 }).map((_, i) => ({
+        question: t(`questions.${i}.q`),
+        answer: t(`questions.${i}.a`)
+    }));
 
     const toggleAccordion = (index: number) => {
         setOpenIndex(openIndex === index ? null : index);
@@ -125,22 +82,22 @@ export default function SSSPage() {
                             Sıkça Sorulan Sorular
                         </h1>
                         <p className="text-lg md:text-xl text-white/90 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
-                            Transfer hizmetlerimiz hakkında merak ettikleriniz
+                            {t('subtitle')}
                         </p>
 
                         {/* Stats */}
                         <div className="flex flex-wrap justify-center gap-8 mt-10 animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
                             <div className="text-center">
                                 <div className="text-3xl md:text-4xl font-black mb-1">12+</div>
-                                <div className="text-sm text-white/80">Soru & Cevap</div>
+                                <div className="text-sm text-white/80">{t('stats.qna')}</div>
                             </div>
                             <div className="text-center">
                                 <div className="text-3xl md:text-4xl font-black mb-1">24/7</div>
-                                <div className="text-sm text-white/80">Destek</div>
+                                <div className="text-sm text-white/80">{t('stats.support')}</div>
                             </div>
                             <div className="text-center">
                                 <div className="text-3xl md:text-4xl font-black mb-1">100%</div>
-                                <div className="text-sm text-white/80">Memnuniyet</div>
+                                <div className="text-sm text-white/80">{t('stats.satisfaction')}</div>
                             </div>
                         </div>
                     </div>
@@ -227,10 +184,10 @@ export default function SSSPage() {
                         {/* Contact CTA */}
                         <div className="mt-12 bg-gradient-to-r from-gray-50 to-gray-100 rounded-2xl p-8 text-center border border-gray-200">
                             <h3 className="text-2xl font-bold text-gray-900 mb-3">
-                                Sorunuza cevap bulamadınız mı?
+                                {t('notFound')}
                             </h3>
                             <p className="text-gray-600 mb-6">
-                                Müşteri hizmetlerimiz size yardımcı olmaktan mutluluk duyar.
+                                {t('contactUs')}
                             </p>
                             <div className="flex flex-col sm:flex-row gap-4 justify-center">
                                 <a

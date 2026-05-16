@@ -2,9 +2,12 @@
 
 import React, { useState } from 'react';
 import Header from '@/components/layout/Header';
+import { useTranslations } from 'next-intl';
+import Link from 'next/link';
 import { Truck, DollarSign, BarChart3, CheckCircle2, Send, Phone, Mail, ArrowRight, Shield, Clock, Users } from 'lucide-react';
 
 export default function TasiyiciPage() {
+    const t = useTranslations('Carrier');
     const [formData, setFormData] = useState({
         fullName: '',
         phone: '',
@@ -47,16 +50,16 @@ export default function TasiyiciPage() {
                     <div className="max-w-3xl">
                         <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-full px-4 py-2 mb-6 border border-white/10">
                             <Truck className="w-4 h-4 text-[#B58A32]" />
-                            <span className="text-sm text-white/80">Taşıyıcı İş Ortaklığı</span>
+                            <span className="text-sm text-white/80">{t('title')}</span>
                         </div>
                         <h1 className="text-3xl md:text-5xl font-black text-white mb-6 leading-tight">
-                            İş kabul etmeye <span className="text-[#B58A32]">başlayın.</span>
+                            {t.rich('heroTitle', { span: (chunks) => <span className="text-[#B58A32]">{chunks}</span> })}
                         </h1>
                         <p className="text-lg md:text-xl text-gray-300 leading-relaxed mb-8">
-                            Aracınızı veya şirketinizi kaydettirin ve sonrasında sistemde olan yolculukları kabul ederek para kazanmaya başlayın. <strong className="text-white">Komisyon yok, sistem ödemesi yok, kesinti yok.</strong>
+                            {t.rich('heroDesc', { strong: (chunks) => <strong className="text-white">{chunks}</strong> })}
                         </p>
                         <a href="#basvuru-formu" className="inline-flex items-center gap-2 bg-[#B58A32] hover:bg-[#a07a2a] text-white font-bold px-8 py-4 rounded-xl transition-all shadow-lg shadow-[#B58A32]/20 hover:shadow-[#B58A32]/40">
-                            Hemen Başvur
+                            {t('applyNow')}
                             <ArrowRight className="w-5 h-5" />
                         </a>
                     </div>
@@ -67,28 +70,28 @@ export default function TasiyiciPage() {
             <section className="py-16 md:py-24 bg-gray-50">
                 <div className="container-custom px-4">
                     <div className="text-center mb-14">
-                        <h2 className="text-2xl md:text-3xl font-black text-[#0a192f] mb-4">Neden RidePortX ile Çalışmalısınız?</h2>
-                        <p className="text-gray-500 max-w-xl mx-auto">Taşıyıcı iş ortaklarımıza sunduğumuz avantajlar</p>
+                        <h2 className="text-2xl md:text-3xl font-black text-[#0a192f] mb-4">{t('whyTitle')}</h2>
+                        <p className="text-gray-500 max-w-xl mx-auto">{t('whyDesc')}</p>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                         {[
                             {
                                 icon: <DollarSign className="w-7 h-7" />,
-                                title: 'Net Fiyat, Sıfır Kesinti',
-                                description: 'Sistemde gördüğünüz fiyat, doğrudan kazancınızdır. Komisyon veya sistem ücreti yoktur. 2 iş günü içinde ödemeniz yapılır.',
+                                title: t('advantages.0.title'),
+                                description: t('advantages.0.desc'),
                                 color: '#B58A32',
                             },
                             {
                                 icon: <BarChart3 className="w-7 h-7" />,
-                                title: 'Şeffaf Muhasebe',
-                                description: 'Aldığınız işlerin tutarlarını, tahsilatları, firma ödemelerini ve cari bakiyenizi anlık olarak takip edebileceğiniz panel.',
+                                title: t('advantages.1.title'),
+                                description: t('advantages.1.desc'),
                                 color: '#228BE6',
                             },
                             {
                                 icon: <Truck className="w-7 h-7" />,
-                                title: 'İstediğiniz Kadar İş',
-                                description: 'Sisteme girdiğinizde görünen tüm transferleri seçebilir, kabul edebilir veya reddedebilirsiniz. Tamamen esnek çalışma imkanı.',
+                                title: t('advantages.2.title'),
+                                description: t('advantages.2.desc'),
                                 color: '#40C057',
                             },
                         ].map((item, index) => (
@@ -111,16 +114,16 @@ export default function TasiyiciPage() {
             <section className="py-16 md:py-24 bg-white">
                 <div className="container-custom px-4">
                     <div className="text-center mb-14">
-                        <h2 className="text-2xl md:text-3xl font-black text-[#0a192f] mb-4">Nasıl Çalışır?</h2>
-                        <p className="text-gray-500 max-w-xl mx-auto">4 adımda taşıyıcı iş ortağımız olun</p>
+                        <h2 className="text-2xl md:text-3xl font-black text-[#0a192f] mb-4">{t('howTitle')}</h2>
+                        <p className="text-gray-500 max-w-xl mx-auto">{t('howDesc')}</p>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
                         {[
-                            { step: '01', title: 'Formu Doldurun', desc: 'Bilgilerinizi ve araç detaylarınızı girin', icon: <Send className="w-5 h-5" /> },
-                            { step: '02', title: 'Onay Alın', desc: 'Ekibimiz başvurunuzu inceleyip onaylasın', icon: <CheckCircle2 className="w-5 h-5" /> },
-                            { step: '03', title: 'İş Seçin', desc: 'Panelden uygun transferleri kabul edin', icon: <Users className="w-5 h-5" /> },
-                            { step: '04', title: 'Kazanın', desc: 'Transferi tamamlayın, ödemenizi alın', icon: <DollarSign className="w-5 h-5" /> },
+                            { step: t('steps.0.step'), title: t('steps.0.title'), desc: t('steps.0.desc'), icon: <Send className="w-5 h-5" /> },
+                            { step: t('steps.1.step'), title: t('steps.1.title'), desc: t('steps.1.desc'), icon: <CheckCircle2 className="w-5 h-5" /> },
+                            { step: t('steps.2.step'), title: t('steps.2.title'), desc: t('steps.2.desc'), icon: <Users className="w-5 h-5" /> },
+                            { step: t('steps.3.step'), title: t('steps.3.title'), desc: t('steps.3.desc'), icon: <DollarSign className="w-5 h-5" /> },
                         ].map((item, index) => (
                             <div key={index} className="relative">
                                 <div className="bg-gray-50 rounded-2xl p-6 text-center hover:bg-[#0a192f] hover:text-white transition-all duration-300 group h-full">
@@ -142,10 +145,10 @@ export default function TasiyiciPage() {
                 <div className="container-custom px-4">
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
                         {[
-                            { value: '500+', label: 'Aktif Taşıyıcı' },
-                            { value: '50K+', label: 'Tamamlanan Transfer' },
-                            { value: '4.8/5', label: 'Ortalama Puan' },
-                            { value: '2 Gün', label: 'Ödeme Süresi' },
+                            { value: t('stats.0.value'), label: t('stats.0.label') },
+                            { value: t('stats.1.value'), label: t('stats.1.label') },
+                            { value: t('stats.2.value'), label: t('stats.2.label') },
+                            { value: t('stats.3.value'), label: t('stats.3.label') },
                         ].map((stat, index) => (
                             <div key={index}>
                                 <div className="text-2xl md:text-3xl font-black text-[#B58A32]">{stat.value}</div>
@@ -161,8 +164,8 @@ export default function TasiyiciPage() {
                 <div className="container-custom px-4">
                     <div className="max-w-3xl mx-auto">
                         <div className="text-center mb-10">
-                            <h2 className="text-2xl md:text-3xl font-black text-[#0a192f] mb-4">Başvuru Formu</h2>
-                            <p className="text-gray-500">Formu doldurduğunuzda ilgili birimimiz en kısa sürede size geri dönüş sağlayacaktır.</p>
+                            <h2 className="text-2xl md:text-3xl font-black text-[#0a192f] mb-4">{t('formTitle')}</h2>
+                            <p className="text-gray-500">{t('formDesc')}</p>
                         </div>
 
                         {isSubmitted ? (
@@ -170,9 +173,9 @@ export default function TasiyiciPage() {
                                 <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
                                     <CheckCircle2 className="w-10 h-10 text-green-600" />
                                 </div>
-                                <h3 className="text-2xl font-bold text-[#0a192f] mb-3">Başvurunuz Alındı!</h3>
+                                <h3 className="text-2xl font-bold text-[#0a192f] mb-3">{t('form.successTitle')}</h3>
                                 <p className="text-gray-500 max-w-md mx-auto">
-                                    En kısa sürede ekibimiz sizinle iletişime geçecektir. Teşekkür ederiz.
+                                    {t('form.successDesc')}
                                 </p>
                             </div>
                         ) : (
@@ -180,7 +183,7 @@ export default function TasiyiciPage() {
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     {/* Ad Soyad */}
                                     <div>
-                                        <label className="block text-sm font-semibold text-gray-700 mb-2">Ad Soyad *</label>
+                                        <label className="block text-sm font-semibold text-gray-700 mb-2">{t('form.fullName')}</label>
                                         <input
                                             type="text"
                                             name="fullName"
@@ -188,13 +191,13 @@ export default function TasiyiciPage() {
                                             onChange={handleChange}
                                             required
                                             className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-[#B58A32] focus:ring-2 focus:ring-[#B58A32]/20 outline-none transition-all text-gray-900"
-                                            placeholder="Adınız Soyadınız"
+                                            placeholder={t('form.namePlaceholder')}
                                         />
                                     </div>
 
                                     {/* Telefon */}
                                     <div>
-                                        <label className="block text-sm font-semibold text-gray-700 mb-2">Telefon *</label>
+                                        <label className="block text-sm font-semibold text-gray-700 mb-2">{t('form.phone')}</label>
                                         <input
                                             type="tel"
                                             name="phone"
@@ -208,7 +211,7 @@ export default function TasiyiciPage() {
 
                                     {/* Email */}
                                     <div>
-                                        <label className="block text-sm font-semibold text-gray-700 mb-2">E-Posta *</label>
+                                        <label className="block text-sm font-semibold text-gray-700 mb-2">{t('form.email')}</label>
                                         <input
                                             type="email"
                                             name="email"
@@ -222,7 +225,7 @@ export default function TasiyiciPage() {
 
                                     {/* Şehir */}
                                     <div>
-                                        <label className="block text-sm font-semibold text-gray-700 mb-2">Şehir *</label>
+                                        <label className="block text-sm font-semibold text-gray-700 mb-2">{t('form.city')}</label>
                                         <select
                                             name="city"
                                             value={formData.city}
@@ -230,20 +233,20 @@ export default function TasiyiciPage() {
                                             required
                                             className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-[#B58A32] focus:ring-2 focus:ring-[#B58A32]/20 outline-none transition-all text-gray-900 bg-white"
                                         >
-                                            <option value="">Şehir Seçin</option>
-                                            <option value="istanbul">İstanbul</option>
-                                            <option value="ankara">Ankara</option>
-                                            <option value="izmir">İzmir</option>
-                                            <option value="antalya">Antalya</option>
-                                            <option value="mugla">Muğla</option>
-                                            <option value="bursa">Bursa</option>
-                                            <option value="diger">Diğer</option>
+                                            <option value="">{t('form.citySelect')}</option>
+                                            <option value="istanbul">{t('form.cities.istanbul')}</option>
+                                            <option value="ankara">{t('form.cities.ankara')}</option>
+                                            <option value="izmir">{t('form.cities.izmir')}</option>
+                                            <option value="antalya">{t('form.cities.antalya')}</option>
+                                            <option value="mugla">{t('form.cities.mugla')}</option>
+                                            <option value="bursa">{t('form.cities.bursa')}</option>
+                                            <option value="diger">{t('form.cities.diger')}</option>
                                         </select>
                                     </div>
 
                                     {/* Araç Tipi */}
                                     <div>
-                                        <label className="block text-sm font-semibold text-gray-700 mb-2">Araç Tipi *</label>
+                                        <label className="block text-sm font-semibold text-gray-700 mb-2">{t('form.vehicleType')}</label>
                                         <select
                                             name="vehicleType"
                                             value={formData.vehicleType}
@@ -251,7 +254,7 @@ export default function TasiyiciPage() {
                                             required
                                             className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-[#B58A32] focus:ring-2 focus:ring-[#B58A32]/20 outline-none transition-all text-gray-900 bg-white"
                                         >
-                                            <option value="">Araç Tipi Seçin</option>
+                                            <option value="">{t('form.vehicleSelect')}</option>
                                             <option value="sedan">Sedan (1-3 Yolcu)</option>
                                             <option value="vip-sedan">VIP Sedan</option>
                                             <option value="minivan">Minivan (4-6 Yolcu)</option>
@@ -264,7 +267,7 @@ export default function TasiyiciPage() {
 
                                     {/* Araç Sayısı */}
                                     <div>
-                                        <label className="block text-sm font-semibold text-gray-700 mb-2">Araç Sayısı</label>
+                                        <label className="block text-sm font-semibold text-gray-700 mb-2">{t('form.vehicleCount')}</label>
                                         <input
                                             type="number"
                                             name="vehicleCount"
@@ -279,39 +282,37 @@ export default function TasiyiciPage() {
 
                                 {/* Deneyim */}
                                 <div className="mt-6">
-                                    <label className="block text-sm font-semibold text-gray-700 mb-2">Deneyim</label>
+                                    <label className="block text-sm font-semibold text-gray-700 mb-2">{t('form.experience')}</label>
                                     <select
                                         name="experience"
                                         value={formData.experience}
                                         onChange={handleChange}
                                         className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-[#B58A32] focus:ring-2 focus:ring-[#B58A32]/20 outline-none transition-all text-gray-900 bg-white"
                                     >
-                                        <option value="">Transfer deneyiminiz var mı?</option>
-                                        <option value="yok">Hayır, yeni başlıyorum</option>
-                                        <option value="1-3">1-3 yıl</option>
-                                        <option value="3-5">3-5 yıl</option>
-                                        <option value="5+">5+ yıl</option>
+                                        <option value="">{t('form.expSelect')}</option>
+                                        <option value="yok">{t('form.expNone')}</option>
+                                        <option value="1-3">{t('form.exp1')}</option>
+                                        <option value="3-5">{t('form.exp3')}</option>
+                                        <option value="5+">{t('form.exp5')}</option>
                                     </select>
                                 </div>
 
                                 {/* Mesaj */}
                                 <div className="mt-6">
-                                    <label className="block text-sm font-semibold text-gray-700 mb-2">Ek Not</label>
+                                    <label className="block text-sm font-semibold text-gray-700 mb-2">{t('form.message')}</label>
                                     <textarea
                                         name="message"
                                         value={formData.message}
                                         onChange={handleChange}
                                         rows={4}
                                         className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-[#B58A32] focus:ring-2 focus:ring-[#B58A32]/20 outline-none transition-all text-gray-900 resize-none"
-                                        placeholder="Eklemek istediğiniz bilgiler..."
+                                        placeholder={t('form.messagePlaceholder')}
                                     ></textarea>
                                 </div>
 
                                 {/* Onay Metni */}
                                 <p className="text-xs text-gray-400 mt-6 leading-relaxed">
-                                    Bu formu doldurarak, RidePortX{' '}
-                                    <a href="/kullanim" className="text-[#B58A32] hover:underline">Kullanım Koşulları</a>&apos;nı kabul eder ve{' '}
-                                    <a href="/gizlilik" className="text-[#B58A32] hover:underline">Gizlilik Politikası</a>&apos;nı okuduğunuzu onaylarsınız.
+                                    {t.rich('form.terms', { termsLink: (chunks) => <Link href="/kullanim" className="text-[#B58A32] hover:underline">{t('form.termsLabel')}</Link>, privacyLink: (chunks) => <Link href="/gizlilik" className="text-[#B58A32] hover:underline">{t('form.privacyLabel')}</Link> })}
                                 </p>
 
                                 {/* Submit */}
@@ -323,12 +324,12 @@ export default function TasiyiciPage() {
                                     {isSubmitting ? (
                                         <>
                                             <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
-                                            Gönderiliyor...
+                                            {t('form.sending')}
                                         </>
                                     ) : (
                                         <>
                                             <Send className="w-5 h-5" />
-                                            Başvuruyu Gönder
+                                            {t('form.submit')}
                                         </>
                                     )}
                                 </button>

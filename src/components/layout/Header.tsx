@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
+import Image from 'next/image';
 import RegisterModal from '@/components/auth/RegisterModal';
 import LoginModal from '@/components/auth/LoginModal';
 import {
@@ -23,29 +24,34 @@ export default function Header() {
     const [isLoginOpen, setIsLoginOpen] = useState(false);
     const pathname = usePathname();
     const locale = useLocale();
-    const t = useTranslations('Index'); // Fallback if we need to translate nav
+    const t = useTranslations('Header');
 
-    const toggleLanguage = () => {
-        const nextLocale = locale === 'tr' ? 'en' : 'tr';
-        // Setting cookie and redirecting to the root of the new locale or reloading
+    const changeLanguage = (nextLocale: string) => {
         document.cookie = `NEXT_LOCALE=${nextLocale}; path=/; max-age=31536000`;
-        // Quick path replace logic
-        let newPath = pathname;
-        if (pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`) {
-            newPath = pathname.replace(`/${locale}`, `/${nextLocale}`);
-        } else {
-            newPath = `/${nextLocale}${pathname === '/' ? '' : pathname}`;
+        const locales = ['/tr', '/en', '/de', '/ru'];
+        let pathWithoutLocale = pathname;
+        
+        for (const loc of locales) {
+            if (pathname.startsWith(loc + '/') || pathname === loc) {
+                pathWithoutLocale = pathname.replace(loc, '') || '/';
+                break;
+            }
         }
-        window.location.href = newPath;
+        
+        let finalPath = pathWithoutLocale;
+        if (nextLocale !== 'tr') {
+            finalPath = `/${nextLocale}${pathWithoutLocale === '/' ? '' : pathWithoutLocale}`;
+        }
+        window.location.href = finalPath;
     };
 
     const navLinks = [
-        { name: 'Turlar', href: '/turlar' },
-        { name: 'Hakkımızda', href: '/hakkimizda' },
-        { name: 'İş Ortağı Ol', href: '/is-ortagi-ol' },
-        { name: 'Taşıyıcı Olun', href: '/tasiyici' },
-        { name: 'İletişim', href: '/iletisim' },
-        { name: 'S.S.S', href: '/sss' },
+        { name: t('nav.tours'), href: '/turlar' },
+        { name: t('nav.about'), href: '/hakkimizda' },
+        { name: t('nav.blog'), href: '/blog' },
+        { name: t('nav.carrier'), href: '/tasiyici' },
+        { name: t('nav.contact'), href: '/iletisim' },
+        { name: t('nav.faq'), href: '/sss' },
     ];
 
     const isActive = (href: string) => {
@@ -58,9 +64,12 @@ export default function Header() {
             <div className="container-custom flex items-center justify-between w-full px-3 sm:px-4 xl:px-8">
                 {/* LOGO */}
                 <Link href="/" className="flex items-center transition-opacity hover:opacity-90">
-                    <img 
+                    <Image 
                         src="/rideportx_logo.png" 
                         alt="RidePortX" 
+                        width={200}
+                        height={75}
+                        priority
                         className="h-10 sm:h-12 md:h-[65px] 2xl:h-[75px] w-auto object-contain"
                     />
                 </Link>
@@ -103,8 +112,8 @@ export default function Header() {
 
                     {/* Language */}
                     <div className="relative flex items-center space-x-1.5 2xl:space-x-2 cursor-pointer group">
-                        <div onClick={toggleLanguage} className="flex items-center space-x-1.5 2xl:space-x-2 py-2">
-                            <img src={`https://flagcdn.com/w40/${locale === 'tr' ? 'tr' : 'gb'}.png`} alt={locale.toUpperCase()} className="w-5 h-5 2xl:w-6 2xl:h-6 rounded-full object-cover shadow-sm border border-gray-100" />
+                        <div className="flex items-center space-x-1.5 2xl:space-x-2 py-2">
+                            <Image src={`https://flagcdn.com/w40/${locale === 'en' ? 'gb' : locale}.png`} alt={locale.toUpperCase()} width={24} height={24} className="w-5 h-5 2xl:w-6 2xl:h-6 rounded-full object-cover shadow-sm border border-gray-100" />
                             <span className="text-[13px] 2xl:text-[15px] font-bold text-gray-900">{locale.toUpperCase()}</span>
                             <ChevronDown className="w-3.5 h-3.5 2xl:w-4 2xl:h-4 text-gray-500 transition-transform group-hover:rotate-180" />
                         </div>
@@ -113,20 +122,14 @@ export default function Header() {
                         <div className="absolute top-full right-0 mt-1 w-20 bg-white rounded-xl shadow-lg border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 overflow-hidden">
                             <div className="py-2 flex flex-col">
                                 {[
-                                    { code: 'EN', flag: 'gb' },
-                                    { code: 'DE', flag: 'de' },
-                                    { code: 'ES', flag: 'es' },
-                                    { code: 'FR', flag: 'fr' },
-                                    { code: 'İT', flag: 'it' },
-                                    { code: 'PT', flag: 'pt' },
-                                    { code: 'RU', flag: 'ru' },
-                                    { code: 'HU', flag: 'hu' },
-                                    { code: 'NL', flag: 'nl' },
-                                    { code: 'AR', flag: 'sa' }
+                                    { code: 'tr', label: 'TR', flag: 'tr' },
+                                    { code: 'en', label: 'EN', flag: 'gb' },
+                                    { code: 'de', label: 'DE', flag: 'de' },
+                                    { code: 'ru', label: 'RU', flag: 'ru' }
                                 ].map((lang) => (
-                                    <div key={lang.code} className="flex items-center space-x-2 px-3 py-2 hover:bg-gray-50 transition-colors">
-                                        <img src={`https://flagcdn.com/w40/${lang.flag}.png`} alt={lang.code} className="w-5 h-5 rounded-full object-cover shadow-sm border border-gray-100" />
-                                        <span className="text-[14px] font-semibold text-gray-700">{lang.code}</span>
+                                    <div key={lang.code} onClick={() => changeLanguage(lang.code)} className="flex items-center space-x-2 px-3 py-2 hover:bg-gray-50 transition-colors cursor-pointer">
+                                        <Image src={`https://flagcdn.com/w40/${lang.flag}.png`} alt={lang.label} width={20} height={20} className="w-5 h-5 rounded-full object-cover shadow-sm border border-gray-100" />
+                                        <span className="text-[14px] font-semibold text-gray-700">{lang.label}</span>
                                     </div>
                                 ))}
                             </div>
@@ -135,10 +138,9 @@ export default function Header() {
 
                     {/* Auth */}
                     <div className="flex items-center space-x-2 2xl:space-x-4 ml-1 2xl:ml-2">
-                        <button onClick={() => setIsRegisterOpen(true)} className="text-[13px] 2xl:text-[15px] font-bold text-gray-900 hover:text-[#0a192f] whitespace-nowrap">Üye Ol</button>
                         <button onClick={() => setIsLoginOpen(true)} className="flex items-center space-x-1.5 2xl:space-x-2 border border-black rounded-lg px-3 py-1.5 2xl:px-5 2xl:py-2.5 hover:bg-black hover:text-white transition-all group whitespace-nowrap">
                             <User className="w-4 h-4 2xl:w-5 2xl:h-5 group-hover:text-white" />
-                            <span className="text-[13px] 2xl:text-[15px] font-bold">Giriş</span>
+                            <span className="text-[13px] 2xl:text-[15px] font-bold">{t('auth.login')}</span>
                         </button>
                     </div>
                 </div>
@@ -148,7 +150,7 @@ export default function Header() {
                     {/* Mobile Language Selector */}
                     <div className="relative group" tabIndex={0}>
                         <div className="flex items-center space-x-1.5 cursor-pointer hover:opacity-80 transition-opacity">
-                            <img src={`https://flagcdn.com/w40/${locale === 'tr' ? 'tr' : 'gb'}.png`} alt={locale.toUpperCase()} className="w-[22px] h-[22px] rounded-full object-cover object-center shadow-sm ring-1 ring-gray-100" />
+                            <Image src={`https://flagcdn.com/w40/${locale === 'en' ? 'gb' : locale}.png`} alt={locale.toUpperCase()} width={22} height={22} className="w-[22px] h-[22px] rounded-full object-cover object-center shadow-sm ring-1 ring-gray-100" />
                             <span className="text-[14px] font-bold text-gray-900">{locale.toUpperCase()}</span>
                         </div>
 
@@ -156,20 +158,14 @@ export default function Header() {
                         <div className="absolute top-full right-0 mt-3 w-24 bg-white rounded-xl shadow-xl border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform origin-top-right scale-95 group-hover:scale-100 z-[60]">
                             <div className="py-2 max-h-60 overflow-y-auto custom-scrollbar">
                                 {[
-                                    { code: 'EN', flag: 'gb' },
-                                    { code: 'DE', flag: 'de' },
-                                    { code: 'ES', flag: 'es' },
-                                    { code: 'FR', flag: 'fr' },
-                                    { code: 'İT', flag: 'it' },
-                                    { code: 'PT', flag: 'pt' },
-                                    { code: 'RU', flag: 'ru' },
-                                    { code: 'HU', flag: 'hu' },
-                                    { code: 'NL', flag: 'nl' },
-                                    { code: 'AR', flag: 'sa' }
+                                    { code: 'tr', label: 'TR', flag: 'tr' },
+                                    { code: 'en', label: 'EN', flag: 'gb' },
+                                    { code: 'de', label: 'DE', flag: 'de' },
+                                    { code: 'ru', label: 'RU', flag: 'ru' }
                                 ].map((lang) => (
-                                    <div key={lang.code} className="flex items-center space-x-3 px-4 py-2 hover:bg-gray-50 transition-colors cursor-pointer">
-                                        <img src={`https://flagcdn.com/w40/${lang.flag}.png`} alt={lang.code} className="w-5 h-5 rounded-full object-cover shadow-sm border border-gray-100" />
-                                        <span className="text-[14px] font-semibold text-gray-700">{lang.code}</span>
+                                    <div key={lang.code} onClick={() => changeLanguage(lang.code)} className="flex items-center space-x-3 px-4 py-2 hover:bg-gray-50 transition-colors cursor-pointer">
+                                        <Image src={`https://flagcdn.com/w40/${lang.flag}.png`} alt={lang.label} width={20} height={20} className="w-5 h-5 rounded-full object-cover shadow-sm border border-gray-100" />
+                                        <span className="text-[14px] font-semibold text-gray-700">{lang.label}</span>
                                     </div>
                                 ))}
                             </div>
@@ -227,17 +223,11 @@ export default function Header() {
 
                         <div className="flex space-x-3 pt-4">
                             <button 
-                                onClick={() => { setMobileMenuOpen(false); setIsRegisterOpen(true); }} 
-                                className="flex-1 text-center py-3 border border-[#0a192f] text-[#0a192f] rounded-lg font-medium tracking-wide hover:border-[#B58A32] hover:text-[#B58A32] transition-colors"
-                            >
-                                Üye Ol
-                            </button>
-                            <button 
                                 onClick={() => { setMobileMenuOpen(false); setIsLoginOpen(true); }} 
-                                className="flex-1 flex justify-center items-center py-3 bg-[#0a192f] text-white rounded-lg font-medium tracking-wide hover:bg-[#112a52] transition-colors space-x-2"
+                                className="w-full flex justify-center items-center py-3 bg-[#0a192f] text-white rounded-lg font-medium tracking-wide hover:bg-[#112a52] transition-colors space-x-2"
                             >
                                 <User className="w-4 h-4" />
-                                <span>Giriş</span>
+                                <span>{t('auth.login')}</span>
                             </button>
                         </div>
                     </div>

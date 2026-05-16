@@ -10,8 +10,10 @@ import {
     ChevronRight
 } from 'lucide-react';
 import Header from '@/components/layout/Header';
+import { useTranslations } from 'next-intl';
 
 export default function IletisimPage() {
+    const t = useTranslations('Contact');
     const [formData, setFormData] = useState({
         firstName: '',
         lastName: '',
@@ -57,11 +59,11 @@ export default function IletisimPage() {
             <div className="bg-white border-b border-gray-100">
                 <div className="container-custom px-4 py-4">
                     <div className="flex items-center justify-between">
-                        <h1 className="text-2xl font-bold text-gray-900">İletişim</h1>
+                        <h1 className="text-2xl font-bold text-gray-900">{t('title')}</h1>
                         <nav className="flex items-center text-sm text-gray-500">
-                            <Link href="/" className="hover:text-[#0a192f] transition-colors">Anasayfa</Link>
+                            <Link href="/" className="hover:text-[#0a192f] transition-colors">{t('home')}</Link>
                             <ChevronRight className="w-4 h-4 mx-2" />
-                            <span className="text-[#0a192f] font-medium">İletişim</span>
+                            <span className="text-[#0a192f] font-medium">{t('title')}</span>
                         </nav>
                     </div>
                 </div>
@@ -75,12 +77,10 @@ export default function IletisimPage() {
                         {/* LEFT SIDE - CONTACT FORM */}
                         <div>
                             <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
-                                Bizimle İletişime Geçin
+                                {t('subtitle')}
                             </h2>
                             <p className="text-gray-600 mb-8 leading-relaxed">
-                                Hızlı bir rota oluşturmanızın en kısa yolundasınız birlikte oluşturacağımız rotaların
-                                tadını çıkarmaya hazırlanın. Ayrıca size daha kaliteli hizmet verebilmemiz için tüm
-                                görüş ve önerilerinizi aşağıdaki bilgiler ve form ile bizimle iletişime geçebilirsiniz.
+                                {t('desc')}
                             </p>
 
                             {/* Success Message */}
@@ -89,7 +89,7 @@ export default function IletisimPage() {
                                     <svg className="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                                     </svg>
-                                    <span>Mesajınız başarıyla gönderildi. En kısa sürede size dönüş yapacağız.</span>
+                                    <span>{t('success')}</span>
                                 </div>
                             )}
 
@@ -108,7 +108,7 @@ export default function IletisimPage() {
                                             placeholder=" "
                                         />
                                         <label className="absolute left-5 top-4 text-gray-400 text-sm transition-all pointer-events-none peer-placeholder-shown:top-4 peer-placeholder-shown:text-base peer-focus:top-1 peer-focus:text-xs peer-focus:text-[#0a192f] peer-[:not(:placeholder-shown)]:top-1 peer-[:not(:placeholder-shown)]:text-xs">
-                                            ADINIZ <span className="text-[#0a192f]">*</span>
+                                            {t('form.firstName')} <span className="text-[#0a192f]">*</span>
                                         </label>
                                     </div>
 
@@ -124,7 +124,7 @@ export default function IletisimPage() {
                                             placeholder=" "
                                         />
                                         <label className="absolute left-5 top-4 text-gray-400 text-sm transition-all pointer-events-none peer-placeholder-shown:top-4 peer-placeholder-shown:text-base peer-focus:top-1 peer-focus:text-xs peer-focus:text-[#0a192f] peer-[:not(:placeholder-shown)]:top-1 peer-[:not(:placeholder-shown)]:text-xs">
-                                            SOYADINIZ <span className="text-[#0a192f]">*</span>
+                                            SOY{t('form.firstName')} <span className="text-[#0a192f]">*</span>
                                         </label>
                                     </div>
                                 </div>
@@ -142,7 +142,7 @@ export default function IletisimPage() {
                                             placeholder=" "
                                         />
                                         <label className="absolute left-5 top-4 text-gray-400 text-sm transition-all pointer-events-none peer-placeholder-shown:top-4 peer-placeholder-shown:text-base peer-focus:top-1 peer-focus:text-xs peer-focus:text-[#0a192f] peer-[:not(:placeholder-shown)]:top-1 peer-[:not(:placeholder-shown)]:text-xs">
-                                            TELEFON NUMARASI <span className="text-[#0a192f]">*</span>
+                                            {t('form.phone')} <span className="text-[#0a192f]">*</span>
                                         </label>
                                     </div>
 
@@ -158,7 +158,7 @@ export default function IletisimPage() {
                                             placeholder=" "
                                         />
                                         <label className="absolute left-5 top-4 text-gray-400 text-sm transition-all pointer-events-none peer-placeholder-shown:top-4 peer-placeholder-shown:text-base peer-focus:top-1 peer-focus:text-xs peer-focus:text-[#0a192f] peer-[:not(:placeholder-shown)]:top-1 peer-[:not(:placeholder-shown)]:text-xs">
-                                            E-POSTA ADRESİNİZ <span className="text-[#0a192f]">*</span>
+                                            {t('form.email')} <span className="text-[#0a192f]">*</span>
                                         </label>
                                     </div>
                                 </div>
@@ -175,7 +175,7 @@ export default function IletisimPage() {
                                         placeholder=" "
                                     />
                                     <label className="absolute left-5 top-4 text-gray-400 text-sm transition-all pointer-events-none peer-placeholder-shown:top-4 peer-placeholder-shown:text-base peer-focus:top-1 peer-focus:text-xs peer-focus:text-[#0a192f] peer-[:not(:placeholder-shown)]:top-1 peer-[:not(:placeholder-shown)]:text-xs">
-                                        MESAJINIZ <span className="text-[#0a192f]">*</span>
+                                        {t('form.message')} <span className="text-[#0a192f]">*</span>
                                     </label>
                                 </div>
 
@@ -188,12 +188,12 @@ export default function IletisimPage() {
                                     {isSubmitting ? (
                                         <>
                                             <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                                            <span>Gönderiliyor...</span>
+                                            <span>{t('form.sending')}</span>
                                         </>
                                     ) : (
                                         <>
                                             <Send className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                                            <span>Mesaj Gönder</span>
+                                            <span>{t('form.submit')}</span>
                                         </>
                                     )}
                                 </button>
@@ -267,7 +267,7 @@ export default function IletisimPage() {
                                     <div className="w-14 h-14 bg-gradient-to-br from-[#0a192f] to-[#B58A32] rounded-full flex items-center justify-center mx-auto mb-4">
                                         <Phone className="w-6 h-6 text-white" />
                                     </div>
-                                    <h4 className="font-bold text-gray-900 mb-1">Telefon</h4>
+                                    <h4 className="font-bold text-gray-900 mb-1">{t('info.phone')}</h4>
                                     <p className="text-sm text-gray-600">+90 (532) 417 89 63</p>
                                 </div>
 
@@ -275,7 +275,7 @@ export default function IletisimPage() {
                                     <div className="w-14 h-14 bg-gradient-to-br from-[#0a192f] to-[#B58A32] rounded-full flex items-center justify-center mx-auto mb-4">
                                         <Mail className="w-6 h-6 text-white" />
                                     </div>
-                                    <h4 className="font-bold text-gray-900 mb-1">E-Posta</h4>
+                                    <h4 className="font-bold text-gray-900 mb-1">{t('info.email')}</h4>
                                     <p className="text-sm text-gray-600 break-all">info@rideportx.com</p>
                                 </div>
 
@@ -283,8 +283,8 @@ export default function IletisimPage() {
                                     <div className="w-14 h-14 bg-gradient-to-br from-[#0a192f] to-[#B58A32] rounded-full flex items-center justify-center mx-auto mb-4">
                                         <MapPin className="w-6 h-6 text-white" />
                                     </div>
-                                    <h4 className="font-bold text-gray-900 mb-1">Adres</h4>
-                                    <p className="text-sm text-gray-600">Maslak, Şişli / İstanbul</p>
+                                    <h4 className="font-bold text-gray-900 mb-1">{t('info.address')}</h4>
+                                    <p className="text-sm text-gray-600">{t('info.addressText')}</p>
                                 </div>
                             </div>
                         </div>
@@ -295,7 +295,7 @@ export default function IletisimPage() {
             {/* MAP SECTION */}
             <section className="py-12 bg-white">
                 <div className="container-custom px-4">
-                    <h3 className="text-2xl font-bold text-gray-900 mb-6 text-center">Bizi Ziyaret Edin</h3>
+                    <h3 className="text-2xl font-bold text-gray-900 mb-6 text-center">{t('mapTitle')}</h3>
                     <div className="rounded-2xl overflow-hidden shadow-lg h-[400px]">
                         <iframe
                             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3007.123456789!2d29.0213!3d41.1089!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sMaslak!5e0!3m2!1str!2str!4v1234567890"

@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
+import { useTranslations } from 'next-intl';
 import { MapPin, Calendar, Users, Clock, Navigation, Instagram, Globe, MessageCircle, User, ChevronDown, Menu, X, ArrowLeftRight, Search, Edit2, RotateCcw } from 'lucide-react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { LocationAutocomplete } from '@/features/maps';
@@ -71,6 +72,7 @@ function VehicleImageSlider({ images, name }: { images: string[], name: string }
 }
 
 export default function VehiclesPage() {
+    const t = useTranslations('BookingFlow');
     const router = useRouter();
     const searchParams = useSearchParams();
     const [selectedCurrencies, setSelectedCurrencies] = useState<Record<number, string>>({});
@@ -253,7 +255,7 @@ export default function VehiclesPage() {
 
             } catch (error) {
                 console.error('Failed to fetch pricing:', error);
-                setPricingError('Fiyatlar yüklenirken bir hata oluştu. Lütfen tekrar deneyin.');
+                setPricingError(t('errorPricing'));
             } finally {
                 setIsLoadingPricing(false);
             }
@@ -378,7 +380,7 @@ export default function VehiclesPage() {
                                     1
                                 </div>
                                 <span className="text-sm font-semibold text-gray-900 hidden sm:inline">
-                                    Araç & Hizmetler
+                                    {t('step1')}
                                 </span>
                             </div>
                         </div>
@@ -393,7 +395,7 @@ export default function VehiclesPage() {
                                     2
                                 </div>
                                 <span className="text-sm font-semibold text-gray-500 hidden sm:inline">
-                                    Yolcu & Ödeme
+                                    {t('step2')}
                                 </span>
                             </div>
                         </div>
@@ -425,20 +427,20 @@ export default function VehiclesPage() {
                         {isLoadingPricing && (
                             <div className="bg-white rounded-2xl shadow-md p-12 text-center">
                                 <div className="w-16 h-16 border-4 border-[#0a192f] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-                                <p className="text-gray-600 font-semibold">Fiyatlar hesaplanıyor...</p>
+                                <p className="text-gray-600 font-semibold">{t('loadingPrices')}</p>
                             </div>
                         )}
 
                         {/* Error State */}
                         {pricingError && !isLoadingPricing && (
                             <div className="bg-red-50 border border-red-200 rounded-2xl p-6 text-center">
-                                <div className="text-red-600 text-lg font-semibold mb-2">Hata</div>
+                                <div className="text-red-600 text-lg font-semibold mb-2">{t('error')}</div>
                                 <p className="text-red-700">{pricingError}</p>
                                 <button
                                     onClick={() => window.location.reload()}
                                     className="mt-4 bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded-lg font-semibold transition-colors"
                                 >
-                                    Tekrar Dene
+                                    {t('retry')}
                                 </button>
                             </div>
                         )}
@@ -446,7 +448,7 @@ export default function VehiclesPage() {
                         {/* Vehicle List */}
                         {!isLoadingPricing && !pricingError && vehicles.length === 0 && (
                             <div className="bg-white rounded-2xl shadow-md p-12 text-center">
-                                <p className="text-gray-600 font-semibold">Araç bulunamadı. Lütfen arama kriterlerinizi değiştirin.</p>
+                                <p className="text-gray-600 font-semibold">{t('noVehicles')}</p>
                             </div>
                         )}
 
@@ -466,7 +468,7 @@ export default function VehiclesPage() {
                                             <div className="flex items-center gap-2 sm:gap-3 text-xs sm:text-sm text-red-600 font-semibold flex-shrink-0">
                                                 <span className="flex items-center gap-1 whitespace-nowrap">
                                                     <Users className="w-3 h-3 sm:w-4 sm:h-4" />
-                                                    {vehicle.capacity} Kişi
+                                                    {vehicle.capacity} {t('passengerCountLabel')}
                                                 </span>
                                                 <span className="flex items-center gap-1 whitespace-nowrap">
                                                     <svg className="w-3 h-3 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -487,31 +489,31 @@ export default function VehiclesPage() {
                                                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                                                 </svg>
-                                                <span className="text-[11px] sm:text-xs">Sabit Fiyat</span>
+                                                <span className="text-[11px] sm:text-xs">{t('fixedPrice')}</span>
                                             </div>
                                             <div className="flex items-center gap-1">
                                                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
                                                 </svg>
-                                                <span className="text-[11px] sm:text-xs">Uçuş Takibi</span>
+                                                <span className="text-[11px] sm:text-xs">{t('flightTracking')}</span>
                                             </div>
                                             <div className="flex items-center gap-1">
                                                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                                                 </svg>
-                                                <span className="text-[11px] sm:text-xs">Havalimanı Karşılama</span>
+                                                <span className="text-[11px] sm:text-xs">{t('airportPickup')}</span>
                                             </div>
                                             <div className="flex items-center gap-1">
                                                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
                                                 </svg>
-                                                <span className="text-[11px] sm:text-xs">Ücretsiz İptal</span>
+                                                <span className="text-[11px] sm:text-xs">{t('freeCancellation')}</span>
                                             </div>
                                         </div>
 
                                         {/* Currency selection text */}
                                         <p className="text-xs text-gray-500 mb-3 hidden sm:block">
-                                            Lütfen ödeme yapmak istediğiniz para birimi seçiniz
+                                            {t('selectCurrency')}
                                         </p>
 
                                         {/* Pricing and Action - Side by side */}
@@ -540,7 +542,7 @@ export default function VehiclesPage() {
                                                                         <svg className="w-2.5 h-2.5" fill="currentColor" viewBox="0 0 20 20">
                                                                             <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                                                                         </svg>
-                                                                        {discountPercentage}% İndirim
+                                                                        {discountPercentage}{t('discount')}
                                                                     </div>
                                                                 )}
                                                                 <div className="flex flex-col items-center">
@@ -625,7 +627,7 @@ export default function VehiclesPage() {
 
                                             {/* Right side - Warning and button */}
                                             <div className="flex flex-col items-center sm:items-end gap-1 flex-shrink-0 sm:ml-auto w-full sm:w-auto mt-2 sm:mt-0">
-                                                <span className="text-[10px] text-red-600 font-semibold text-center sm:text-right hidden sm:block">Toplam araç fiyatıdır.</span>
+                                                <span className="text-[10px] text-red-600 font-semibold text-center sm:text-right hidden sm:block">{t('totalVehiclePrice')}</span>
                                                 <button
                                                     onClick={() => {
                                                         const selectedCurrency = selectedCurrencies[vehicle.id] || 'TRY';
@@ -649,9 +651,9 @@ export default function VehiclesPage() {
                                                     }}
                                                     className="w-full sm:w-auto bg-green-500 hover:bg-green-600 text-white px-6 py-2.5 sm:py-3 rounded-lg font-bold text-sm transition-colors shadow-md hover:shadow-lg whitespace-nowrap text-center flex items-center justify-center h-[42px]"
                                                 >
-                                                    Rezervasyon Yap
+                                                    {t('bookNow')}
                                                 </button>
-                                                <span className="text-[10px] text-red-600 font-semibold text-center sm:text-right sm:hidden mt-1">Toplam araç fiyatıdır.</span>
+                                                <span className="text-[10px] text-red-600 font-semibold text-center sm:text-right sm:hidden mt-1">{t('totalVehiclePrice')}</span>
                                             </div>
                                         </div>
                                     </div>
@@ -664,14 +666,14 @@ export default function VehiclesPage() {
                     <div className="lg:col-span-1">
                         <div className="bg-white rounded-xl shadow-md p-6 sticky top-8">
                             <div className="flex items-center justify-between mb-6">
-                                <h3 className="text-lg font-bold text-gray-900">Rezervasyon</h3>
+                                <h3 className="text-lg font-bold text-gray-900">{t('step3')}</h3>
                                 {!isEditing ? (
                                     <button
                                         onClick={() => setIsEditing(true)}
                                         className="flex items-center gap-1 text-sm text-red-600 hover:text-red-700 font-semibold transition-colors group"
                                     >
                                         <Edit2 className="w-4 h-4 group-hover:scale-110 transition-transform" />
-                                        Düzenle
+                                        {t('edit')}
                                     </button>
                                 ) : (
                                     <button
@@ -679,7 +681,7 @@ export default function VehiclesPage() {
                                         className="flex items-center gap-1 text-sm text-red-600 hover:text-red-700 font-semibold transition-colors group"
                                     >
                                         <X className="w-4 h-4 group-hover:scale-110 transition-transform" />
-                                        İptal
+                                        {t('cancel')}
                                     </button>
                                 )}
                             </div>
@@ -692,8 +694,8 @@ export default function VehiclesPage() {
                                         <div className="relative z-[30]">
                                             <LocationAutocomplete
                                                 type="origin"
-                                                label="NEREDEN"
-                                                placeholder="Nereden?"
+                                                label={t("from")}
+                                                placeholder={t("fromPlaceholder")}
                                                 value={originLocation}
                                                 onChange={setOriginLocation}
                                                 isActive={activeLocationInput === 'origin'}
@@ -706,8 +708,8 @@ export default function VehiclesPage() {
                                         <div className="relative z-[20]">
                                             <LocationAutocomplete
                                                 type="destination"
-                                                label="NEREYE"
-                                                placeholder="Nereye?"
+                                                label={t("to")}
+                                                placeholder={t("toPlaceholder")}
                                                 value={destinationLocation}
                                                 onChange={setDestinationLocation}
                                                 isActive={activeLocationInput === 'destination'}
@@ -726,9 +728,9 @@ export default function VehiclesPage() {
                                         >
                                             <Calendar className="w-5 h-5 text-gray-500" />
                                             <div>
-                                                <div className="text-[10px] text-gray-500 font-bold uppercase">TARİH & SAAT</div>
+                                                <div className="text-[10px] text-gray-500 font-bold uppercase">{t('dateTime')}</div>
                                                 <div className="text-sm font-bold text-gray-900">
-                                                    {startDate ? new Intl.DateTimeFormat('tr-TR', { day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit' }).format(startDate) : 'Seçiniz'}
+                                                    {startDate ? new Intl.DateTimeFormat('tr-TR', { day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit' }).format(startDate) : t('select')}
                                                 </div>
                                             </div>
                                         </button>
@@ -741,16 +743,16 @@ export default function VehiclesPage() {
                                         />
                                     </div>
 
-                                    {/* Kişi Sayısı & Gidiş Dönüş */}
+                                    {/*  Kişi Sayısı & Gidiş Dönüş */}
                                     <div className="grid grid-cols-2 gap-3">
                                         <div className="relative z-[10]">
                                             <button
                                                 onClick={() => setShowPassengerSelector(!showPassengerSelector)}
                                                 className="w-full bg-white rounded-xl p-3 border border-gray-200 text-left hover:border-red-500 transition-colors shadow-sm"
                                             >
-                                                <div className="text-[10px] text-gray-500 font-bold uppercase mb-1">KİŞİ SAYISI</div>
+                                                <div className="text-[10px] text-gray-500 font-bold uppercase mb-1">{t('passengerCountTitle')}</div>
                                                 <div className="flex items-center justify-between">
-                                                    <span className="text-sm font-bold text-gray-900">{passengerCount} Kişi</span>
+                                                    <span className="text-sm font-bold text-gray-900">{passengerCount}</span>
                                                     <ChevronDown className="w-4 h-4 text-gray-500" />
                                                 </div>
                                             </button>
@@ -766,7 +768,7 @@ export default function VehiclesPage() {
                                             onClick={() => setIsRoundTrip(!isRoundTrip)}
                                             className={`w-full rounded-xl p-2 border transition-all flex flex-col items-center justify-center shadow-sm ${isRoundTrip ? 'bg-red-50 border-red-200' : 'bg-white border-gray-200 hover:border-gray-300'}`}
                                         >
-                                            <div className="text-[10px] font-bold text-gray-500 uppercase mb-1">GİDİŞ - DÖNÜŞ</div>
+                                            <div className="text-[10px] font-bold text-gray-500 uppercase mb-1">{t('roundTripTitle')}</div>
                                             <div className="flex items-center gap-2">
                                                 <span className={`text-xs font-bold ${isRoundTrip ? 'text-red-600' : 'text-gray-400'}`}>{isRoundTrip ? 'EVET' : 'HAYIR'}</span>
                                                 <div className={`w-8 h-4 rounded-full relative transition-colors ${isRoundTrip ? 'bg-red-500' : 'bg-gray-300'}`}>
@@ -787,7 +789,7 @@ export default function VehiclesPage() {
                                         ) : (
                                             <Search className="w-5 h-5 group-hover:scale-110 transition-transform" />
                                         )}
-                                        {isSearching ? 'Güncelleniyor...' : ''}
+                                        {isSearching ? t('updating') : ''}
                                         {/* Icon only on search state is redundant if text is there, removing empty text check */}
                                     </button>
                                 </div>
@@ -797,11 +799,11 @@ export default function VehiclesPage() {
                                     {/* Route Info */}
                                     <div className="space-y-4 mb-6">
                                         <div>
-                                            <div className="text-xs text-gray-500 uppercase mb-1">NEREDEN</div>
+                                            <div className="text-xs text-gray-500 uppercase mb-1">{t('from')}</div>
                                             <div className="text-sm text-gray-900 font-medium">{reservation.from}</div>
                                         </div>
                                         <div>
-                                            <div className="text-xs text-gray-500 uppercase mb-1">NEREYE</div>
+                                            <div className="text-xs text-gray-500 uppercase mb-1">{t('to')}</div>
                                             <div className="text-sm text-gray-900 font-medium">{reservation.to}</div>
                                         </div>
                                     </div>
@@ -811,7 +813,7 @@ export default function VehiclesPage() {
                                         <div className="flex items-center justify-between">
                                             <div className="flex items-center gap-2 text-gray-500">
                                                 <Calendar className="w-4 h-4" />
-                                                <span className="text-xs">Başlangıç Tarihi</span>
+                                                <span className="text-xs">{t('dateLabel')}</span>
                                             </div>
                                             <span className="text-sm font-semibold text-gray-900">{reservation.date}</span>
                                         </div>
@@ -820,28 +822,28 @@ export default function VehiclesPage() {
                                                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
                                                 </svg>
-                                                <span className="text-xs">Mesafe</span>
+                                                <span className="text-xs">{t('distanceLabel')}</span>
                                             </div>
                                             <span className="text-sm font-semibold text-gray-900">{reservation.distance}</span>
                                         </div>
                                         <div className="flex items-center justify-between">
                                             <div className="flex items-center gap-2 text-gray-500">
                                                 <Clock className="w-4 h-4" />
-                                                <span className="text-xs">Süre</span>
+                                                <span className="text-xs">{t('durationLabel')}</span>
                                             </div>
                                             <span className="text-sm font-semibold text-gray-900">{reservation.duration}</span>
                                         </div>
                                         <div className="flex items-center justify-between">
                                             <div className="flex items-center gap-2 text-gray-500">
                                                 <Users className="w-4 h-4" />
-                                                <span className="text-xs">Kişi Sayısı</span>
+                                                <span className="text-xs">{t('passengerCountLabel')}</span>
                                             </div>
                                             <span className="text-sm font-semibold text-gray-900">{reservation.passengers}</span>
                                         </div>
                                         <div className="flex items-center justify-between">
                                             <div className="flex items-center gap-2 text-gray-500">
                                                 <ArrowLeftRight className="w-4 h-4" />
-                                                <span className="text-xs">Gidiş - Dönüş</span>
+                                                <span className="text-xs">{t('roundTripTitle')}</span>
                                             </div>
                                             <span className="text-sm font-semibold text-gray-900">{reservation.tripType}</span>
                                         </div>

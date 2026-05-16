@@ -1,7 +1,9 @@
 import Link from 'next/link';
 import { Phone, Mail, MapPin, ChevronRight, MessageCircle } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 
 export default function Footer() {
+    const t = useTranslations('Footer');
     return (
         <footer className="bg-black text-white pt-10 md:pt-16 pb-8">
             <div className="container-custom px-4">
@@ -17,7 +19,7 @@ export default function Footer() {
                         </div>
                         <div>
                             <div className="font-bold text-lg mb-1">+90 (532) 417 89 63</div>
-                            <div className="text-sm text-gray-400">Whatsapp & Telefon</div>
+                            <div className="text-sm text-gray-400">{t('whatsappPhone')}</div>
                         </div>
                     </div>
 
@@ -33,7 +35,7 @@ export default function Footer() {
                         </div>
                         <div>
                             <div className="font-bold text-lg mb-1">info@rideportx.com</div>
-                            <div className="text-sm text-gray-400">E-Posta</div>
+                            <div className="text-sm text-gray-400">{t('email')}</div>
                         </div>
                     </div>
 
@@ -60,20 +62,20 @@ export default function Footer() {
 
                     {/* Kurumsal Column */}
                     <div className="md:col-span-3">
-                        <h3 className="text-lg font-bold mb-6 text-white">Kurumsal</h3>
+                        <h3 className="text-lg font-bold mb-6 text-white">{t('corporate')}</h3>
                         <ul className="space-y-3">
                             {[
-                                { name: 'Turlar', href: '/turlar' },
-                                { name: 'Hakkımızda', href: '/hakkimizda' },
-                                { name: 'Hizmetlerimiz', href: '#' },
-                                { name: 'İşveren Olun', href: '#' },
-                                { name: 'Taşıyıcı Olun', href: '/tasiyici' },
-                                { name: 'Buluşma Noktaları', href: '#' },
-                                { name: 'Araçlarımız', href: '#' },
-                                { name: 'İletişim', href: '/iletisim' },
-                                { name: 'S.S.S', href: '#' }
-                            ].map((item) => (
-                                <li key={item.name}>
+                                { name: t('links.tours'), href: '/turlar' },
+                                { name: t('links.about'), href: '/hakkimizda' },
+                                { name: t('links.services'), href: '#' },
+                                { name: t('links.employer'), href: '#' },
+                                { name: t('links.carrier'), href: '/tasiyici' },
+                                { name: t('links.points'), href: '#' },
+                                { name: t('links.vehicles'), href: '#' },
+                                { name: t('links.contact'), href: '/iletisim' },
+                                { name: t('links.faq'), href: '#' }
+                            ].map((item, index) => (
+                                <li key={index}>
                                     <Link href={item.href} className="flex items-center text-gray-400 hover:text-white transition-colors text-sm group">
                                         <ChevronRight className="w-4 h-4 mr-2 text-gray-600 group-hover:text-white transition-colors" />
                                         {item.name}
@@ -85,7 +87,7 @@ export default function Footer() {
 
                     {/* Keşfet Columns (Spans wider area) */}
                     <div className="md:col-span-9">
-                        <h3 className="text-lg font-bold mb-6 text-white">Keşfet</h3>
+                        <h3 className="text-lg font-bold mb-6 text-white">{t('discover')}</h3>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-3">
                             {[
                                 'İstanbul Havalimanı Transfer', 'Sabiha Gökçen Havalimanı Transfer', 
@@ -112,15 +114,15 @@ export default function Footer() {
                         &copy; 2024 RidePortX. Tüm hakları saklıdır.
                     </div>
                     <div className="flex flex-wrap justify-center gap-4 md:gap-8">
-                        <Link href="/gizlilik" className="hover:text-white transition-colors">Gizlilik ve Güvenlik</Link>
+                        <Link href="/gizlilik" className="hover:text-white transition-colors">{t('docs.privacy')}</Link>
                         <span className="hidden md:inline text-gray-800">|</span>
-                        <Link href="/yolcu-tasima" className="hover:text-white transition-colors">Yolcu Taşıma Sözleşmesi</Link>
+                        <Link href="/yolcu-tasima" className="hover:text-white transition-colors">{t('docs.passenger')}</Link>
                         <span className="hidden md:inline text-gray-800">|</span>
-                        <Link href="/satin-alma" className="hover:text-white transition-colors">Satın Alma Sözleşmesi</Link>
+                        <Link href="/satin-alma" className="hover:text-white transition-colors">{t('docs.purchase')}</Link>
                         <span className="hidden md:inline text-gray-800">|</span>
-                        <Link href="/kullanim" className="hover:text-white transition-colors">Kullanım Koşulları</Link>
+                        <Link href="/kullanim" className="hover:text-white transition-colors">{t('docs.terms')}</Link>
                         <span className="hidden md:inline text-gray-800">|</span>
-                        <Link href="/veri-koruma" className="hover:text-white transition-colors">Veri Koruma</Link>
+                        <Link href="/veri-koruma" className="hover:text-white transition-colors">{t('docs.data')}</Link>
                     </div>
                 </div>
 

@@ -2,12 +2,14 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { useTranslations } from 'next-intl';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { MapPin, Calendar, Users, Clock, Instagram, Globe, MessageCircle, User, ChevronDown, Menu, X, Check } from 'lucide-react';
 import Header from '@/components/layout/Header';
 
 
 export default function CheckoutContent() {
+    const t = useTranslations('BookingFlow');
     const searchParams = useSearchParams();
     const router = useRouter();
     const vehicleId = searchParams.get('vehicleId');
@@ -233,7 +235,7 @@ export default function CheckoutContent() {
                                     <Check className="w-5 h-5" />
                                 </div>
                                 <span className="text-sm font-semibold text-gray-900 hidden sm:inline">
-                                    Araç & Hizmetler
+                                    {t('step1')}
                                 </span>
                             </div>
                         </div>
@@ -248,7 +250,7 @@ export default function CheckoutContent() {
                                     2
                                 </div>
                                 <span className="text-sm font-semibold text-gray-900 hidden sm:inline">
-                                    Yolcu & Ödeme
+                                    {t('step2')}
                                 </span>
                             </div>
                         </div>
@@ -263,7 +265,7 @@ export default function CheckoutContent() {
                                     3
                                 </div>
                                 <span className="text-sm font-semibold text-gray-500 hidden sm:inline">
-                                    Rezervasyon
+                                    {t('step3')}
                                 </span>
                             </div>
                         </div>
@@ -618,7 +620,7 @@ export default function CheckoutContent() {
                                         <div className="flex-1">
                                             <div className="flex items-start justify-between mb-1">
                                                 <div>
-                                                    <div className="font-bold text-gray-900 mb-1">Araçta Nakit Ödeme</div>
+                                                    <div className="font-bold text-gray-900 mb-1">{t('cashPayment')}</div>
                                                     <div className="text-sm text-gray-500">Ödemenizin tamamını yolculuk günü ödeyin.</div>
                                                 </div>
                                                 <div className="text-right ml-4">
@@ -640,7 +642,7 @@ export default function CheckoutContent() {
                                 disabled={isSubmitting}
                                 className={`w-full mt-6 text-white px-8 py-4 rounded-lg font-bold text-lg transition-colors shadow-md hover:shadow-lg ${isSubmitting ? 'bg-gray-400 cursor-not-allowed' : 'bg-green-500 hover:bg-green-600'}`}
                             >
-                                {isSubmitting ? 'İşleniyor...' : 'Ödemeyi Tamamla'}
+                                {isSubmitting ? t('processing') : 'Ödemeyi Tamamla'}
                             </button>
                         </div>
                     </div>
@@ -648,7 +650,7 @@ export default function CheckoutContent() {
                     {/* Right Side - Reservation Summary (Sticky) */}
                     <div className="lg:col-span-1">
                         <div className="bg-white rounded-xl shadow-md p-6 sticky top-8">
-                            <h3 className="text-lg font-bold text-gray-900 mb-6">Rezervasyon</h3>
+                            <h3 className="text-lg font-bold text-gray-900 mb-6">{t('step3')}</h3>
 
                             {/* Route Info */}
                             <div className="space-y-4 mb-6">

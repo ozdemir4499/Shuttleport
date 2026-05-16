@@ -17,7 +17,7 @@ export default function RegisterPage() {
                         <div className="flex justify-center mb-4">
                             <div className="w-16 h-16 flex items-center justify-center">
                                 <img 
-                                    src="/logo_icon.png" 
+                                    src="/logo_transparent.png" 
                                     alt="Lion Icon" 
                                     className="w-full h-full object-contain scale-110"
                                 />
