@@ -4,7 +4,8 @@ import { NextRequest } from 'next/server';
 const intlMiddleware = createMiddleware({
   locales: ['tr', 'en', 'de', 'ru'],
   defaultLocale: 'tr',
-  localePrefix: 'as-needed'
+  localePrefix: 'as-needed',
+  localeDetection: false // SEO İÇİN KRİTİK: Googlebot'un yanlış dile yönlendirilmesini engeller
 });
 
 export default function middleware(req: NextRequest) {
@@ -12,5 +13,6 @@ export default function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/', '/(tr|en|de|ru)/:path*', '/((?!_next|_vercel|.*\\..*).*)']
+  // api, _next, _vercel ve dosya uzantılarını (.*\\..*) yoksay
+  matcher: ['/', '/(tr|en|de|ru)/:path*', '/((?!api|_next|_vercel|.*\\..*).*)']
 };
