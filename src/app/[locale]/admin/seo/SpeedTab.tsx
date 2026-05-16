@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useRef, useEffect } from 'react';
 
-const SEO_API = "http://localhost:8001/api/seo";
+const SEO_API = "https://rideportx.com/api/seo";
 
 const PAGES = [
   { path: '/', label: 'Ana Sayfa' },

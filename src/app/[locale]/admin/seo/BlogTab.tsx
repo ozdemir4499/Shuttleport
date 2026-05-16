@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from 'react';
 
-const SEO_API = "http://localhost:8001/api/seo";
+const SEO_API = "https://rideportx.com/api/seo";
 
 interface TopicSuggestion {
   title_tr: string;

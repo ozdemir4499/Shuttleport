@@ -13,7 +13,7 @@ interface HistoryEntry {
   brokenData?: BrokenLink[];
 }
 
-const SEO_API = "http://localhost:8001/api/seo";
+const SEO_API = "https://rideportx.com/api/seo";
 
 interface PageReport {
   url: string;
