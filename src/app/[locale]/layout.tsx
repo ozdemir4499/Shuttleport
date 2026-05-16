@@ -38,7 +38,7 @@ export async function generateMetadata(
         {
           url: '/logo.png',
           width: 800,
-          height: 600,
+          height: 800,
           alt: `${siteName} Logo`,
         },
       ],
@@ -87,7 +87,7 @@ export default async function RootLayout({
       "@type": "TravelAgency",
       "name": siteName,
       "image": `${siteUrl}/logo.png`,
-      "description": "RidePortX Havalimanı Transfer Hizmetleri",
+      "description": "RidePortX ile İstanbul'da VIP havalimanı transferi, özel şehir turları ve otel transferi. Profesyonel şoförler, lüks araçlar, sabit fiyat ve 7/24 destek.",
       "address": {
         "@type": "PostalAddress",
         "addressLocality": "Istanbul",
@@ -100,6 +100,10 @@ export default async function RootLayout({
     return (
         <html lang={locale}>
             <head>
+                <link rel="icon" href="/favicon.ico" sizes="any" />
+                <link rel="icon" href="/icon-192x192.png" type="image/png" sizes="192x192" />
+                <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+                <link rel="manifest" href="/manifest.json" />
                 <script
                     id="jsonld-schema"
                     type="application/ld+json"

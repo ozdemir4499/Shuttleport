@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { Clock, Map, Minus, Plus, Calendar, Check, Star, Heart, ChevronLeft, ChevronRight as ChevronRightIcon, ArrowUp } from 'lucide-react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -260,10 +261,14 @@ export default function TourDetailClient({ tour }: { tour: any }) {
 
                     <div className="flex-1 space-y-4">
                         <div className="relative rounded-xl overflow-hidden aspect-[16/9] bg-gray-100">
-                            <img 
+                            <Image 
                                 src={galleryImages[currentImageIndex]} 
                                 alt={tour.title_tr} 
-                                className="w-full h-full object-cover"
+                                fill
+                                className="object-cover"
+                                sizes="(max-width: 1024px) 100vw, 60vw"
+                                priority
+                                quality={75}
                             />
                             
                             {galleryImages.length > 1 && (
@@ -284,9 +289,9 @@ export default function TourDetailClient({ tour }: { tour: any }) {
                                     <button 
                                         key={idx} 
                                         onClick={() => setCurrentImageIndex(idx)}
-                                        className={`rounded-lg overflow-hidden aspect-[4/3] border-2 transition-all ${currentImageIndex === idx ? 'border-gray-800' : 'border-transparent hover:border-gray-300 opacity-80 hover:opacity-100'}`}
+                                        className={`relative rounded-lg overflow-hidden aspect-[4/3] border-2 transition-all ${currentImageIndex === idx ? 'border-gray-800' : 'border-transparent hover:border-gray-300 opacity-80 hover:opacity-100'}`}
                                     >
-                                        <img src={img} alt="" className="w-full h-full object-cover" />
+                                        <Image src={img} alt="" fill className="object-cover" sizes="20vw" loading="lazy" quality={60} />
                                     </button>
                                 ))}
                             </div>
