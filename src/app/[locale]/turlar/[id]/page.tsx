@@ -9,6 +9,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { format } from 'date-fns';
 import { tr } from 'date-fns/locale';
 import React, { forwardRef } from 'react';
+import { tours } from '@/data/tours';
 
 const CustomDateInput = forwardRef<HTMLDivElement, any>(({ value, onClick, selectedDate }, ref) => {
     const formattedDate = selectedDate ? format(selectedDate, 'dd MMMM yyyy', { locale: tr }).toUpperCase() : '';
@@ -92,7 +93,36 @@ export default function TurDetayPage() {
         const fetchTour = async () => {
             try {
                 const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/tours/${id}`);
-                if (!response.ok) throw new Error("Not found");
+                if (!response.ok) {
+                    const staticTour = tours.find(t => t.id.toString() === id);
+                    if (staticTour) {
+                        setTour({
+                            id: staticTour.id,
+                            title_tr: staticTour.title,
+                            description_tr: staticTour.detailedDescription,
+                            price: staticTour.prices.adult.try,
+                            image_url: null,
+                            badge_tr: staticTour.badge,
+                            slug: staticTour.slug,
+                            start_time: staticTour.startTime,
+                            end_time: staticTour.endTime,
+                            overview_tr: staticTour.overview,
+                            overview_en: null,
+                            gallery: staticTour.gallery,
+                            program_tr: staticTour.program.map(p => p.items.join('\n')).join('\n'),
+                            program_en: null,
+                            included_tr: staticTour.included.join('\n'),
+                            included_en: null,
+                            excluded_tr: staticTour.excluded.join('\n'),
+                            excluded_en: null,
+                            notes_tr: staticTour.importantNotes.join('\n'),
+                            notes_en: null
+                        });
+                        setLoading(false);
+                        return;
+                    }
+                    throw new Error("Not found");
+                }
                 const data = await response.json();
                 setTour(data);
             } catch (error) {

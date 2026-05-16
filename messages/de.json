@@ -1,7 +1,7 @@
 {
   "Index": {
     "title": "RidePortX | VIP Flughafentransfer & Istanbul Stadttouren",
-    "description": "Planen Sie Ihren VIP-Flughafentransfer, private Stadttouren und Hoteltransfer in Istanbul mit RidePortX. Professionelle Fahrer, Luxusfahrzeuge, Festpreise und 24/7 Support.",
+    "description": "VIP-Flughafentransfers, Stadttouren und Hoteltransfers in Istanbul mit RidePortX. Professionelle Fahrer, Luxusfahrzeuge und 24/7-Support.",
     "bookNow": "Jetzt Buchen",
     "from": "Von",
     "to": "Nach"
@@ -556,5 +556,13 @@
     "sprinterOption": "Sprinter (7-14 Passagiere)",
     "midibusOption": "Midibus (15-25 Passagiere)",
     "busOption": "Bus (26+ Passagiere)"
+  },
+  "Blog": {
+    "title": "Blog & Reiseführer | RidePortX Transfer",
+    "description": "Entdecken Sie Istanbul Reiseführer, Tipps zum Flughafentransfer, Sehenswürdigkeiten und die neuesten Blogbeiträge über RidePortX-Services und Reiseempfehlungen."
+  },
+  "Turlar": {
+    "title": "Istanbul Stadttouren & Ausflüge | RidePortX",
+    "description": "Unvergessliche Stadttouren in und um Istanbul mit RidePortX. Entdecken Sie den Bosporus, die historische Halbinsel und Kappadokien mit VIP-Fahrzeugen und Guides."
   }
 }

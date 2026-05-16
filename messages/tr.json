@@ -1,7 +1,7 @@
 {
   "Index": {
     "title": "RidePortX | VIP Havalimanı Transfer & İstanbul Şehir Turları",
-    "description": "RidePortX ile İstanbul'da VIP havalimanı transferi, özel şehir turları ve otel transferi planlayın. Profesyonel şoförler, lüks araçlar, sabit fiyat ve 7/24 destek.",
+    "description": "RidePortX ile İstanbul'da VIP havalimanı transferi, özel şehir turları ve otel transferi. Profesyonel şoförler, lüks araçlar ve 7/24 kesintisiz destek.",
     "bookNow": "Rezervasyon Yap",
     "from": "Nereden",
     "to": "Nereye"
@@ -556,5 +556,13 @@
     "sprinterOption": "Sprinter (7-14 Yolcu)",
     "midibusOption": "Midibüs (15-25 Yolcu)",
     "busOption": "Otobüs (26+ Yolcu)"
+  },
+  "Blog": {
+    "title": "Blog ve Seyahat Rehberi | RidePortX",
+    "description": "İstanbul seyahat rehberi, havalimanı transfer ipuçları, gezilecek yerler ve RidePortX hizmetleriyle ilgili en güncel blog yazıları ve seyahat önerilerini keşfedin."
+  },
+  "Turlar": {
+    "title": "İstanbul Şehir Turları & Geziler | RidePortX",
+    "description": "RidePortX ile İstanbul ve çevresinde unutulmaz şehir turları. VIP araçlarımız ve profesyonel rehberlerimizle Boğaz turu, tarihi yarımada, Kapadokya gibi yerleri keşfedin."
   }
 }

@@ -368,6 +368,7 @@ export default function VehiclesPage() {
         <div className="min-h-screen bg-gray-50 pt-16 sm:pt-20 md:pt-24">
             {/* Header */}
             <Header />
+            <h1 className="sr-only">VIP Transfer, Havalimanı Karşılama ve Lüks Araç Kiralama Seçenekleri</h1>
 
             {/* Progress Stepper */}
             <div className="bg-white border-b">

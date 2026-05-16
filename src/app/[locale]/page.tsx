@@ -373,9 +373,15 @@ export default function Home() {
                                             <span className="text-[#B58A32] font-black tracking-[0.2em] text-[9px] sm:text-[11px] md:text-[13px] mb-1.5 sm:mb-2 md:mb-3 uppercase drop-shadow-sm md:drop-shadow-none">
                                                 {text.subtitle}
                                             </span>
-                                            <h2 className="text-[15px] sm:text-[18px] leading-[1.3] md:text-3xl lg:text-[42px] text-gray-600 md:text-gray-700 font-medium tracking-tight md:leading-[1.15]">
-                                                {text.title}
-                                            </h2>
+                                            {idx === 0 ? (
+                                                <h1 className="text-[15px] sm:text-[18px] leading-[1.3] md:text-3xl lg:text-[42px] text-gray-600 md:text-gray-700 font-medium tracking-tight md:leading-[1.15]">
+                                                    {text.title}
+                                                </h1>
+                                            ) : (
+                                                <h2 className="text-[15px] sm:text-[18px] leading-[1.3] md:text-3xl lg:text-[42px] text-gray-600 md:text-gray-700 font-medium tracking-tight md:leading-[1.15]">
+                                                    {text.title}
+                                                </h2>
+                                            )}
                                         </div>
                                     ))}
                                 </div>
